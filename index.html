@@ -173,25 +173,49 @@
 
   .custom-marker:hover { transform: scale(1.5); }
 
-  /* 사이드 패널 */
-  .side-panel {
+  /* ── 오버레이 배경 ── */
+  .popup-overlay {
     position: absolute;
-    top: 0; right: 0;
-    width: 300px;
-    height: 100%;
-    background: var(--warm-white);
-    border-left: 0.5px solid var(--ink-faint);
-    border-radius: 0 16px 16px 0;
-    padding: 1.5rem;
-    transform: translateX(100%);
-    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    overflow-y: auto;
-    z-index: 500;
+    inset: 0;
+    background: rgba(30,26,22,0.35);
+    z-index: 600;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+    border-radius: 16px;
   }
 
-  .side-panel.open { transform: translateX(0); }
+  .popup-overlay.open {
+    opacity: 1;
+    pointer-events: all;
+  }
 
-  .panel-close {
+  /* ── 센터 팝업 ── */
+  .popup-card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.94);
+    width: min(440px, 90%);
+    max-height: 80%;
+    background: var(--warm-white);
+    border-radius: 16px;
+    border: 0.5px solid var(--ink-faint);
+    z-index: 700;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.4,0,0.2,1);
+    overflow-y: auto;
+    padding: 1.5rem;
+  }
+
+  .popup-card.open {
+    opacity: 1;
+    pointer-events: all;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .popup-close {
     position: absolute;
     top: 1rem; right: 1rem;
     width: 28px; height: 28px;
@@ -203,35 +227,37 @@
     color: var(--ink-mid);
     display: flex; align-items: center; justify-content: center;
     transition: all 0.15s;
+    flex-shrink: 0;
   }
 
-  .panel-close:hover { background: var(--ink); color: var(--cream); }
+  .popup-close:hover { background: var(--ink); color: var(--cream); }
 
-  .panel-country {
+  .popup-country {
     font-size: 10px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--caramel);
     margin-bottom: 0.3rem;
-    margin-top: 0.2rem;
   }
 
-  .panel-title {
+  .popup-title {
     font-family: 'Playfair Display', serif;
     font-size: 26px;
     font-weight: 400;
     color: var(--ink);
-    margin-bottom: 0.2rem;
     line-height: 1.2;
+    margin-bottom: 0.2rem;
+    padding-right: 2rem;
   }
 
-  .panel-date {
+  .popup-date {
     font-size: 12px;
     color: var(--ink-mid);
     margin-bottom: 1.2rem;
   }
 
-  .panel-img {
+  /* 인스타 없을 때: 이모지 플레이스홀더 */
+  .popup-emoji {
     width: 100%;
     height: 160px;
     background: var(--caramel-light);
@@ -244,14 +270,33 @@
     border: 0.5px solid var(--ink-faint);
   }
 
-  .panel-tags {
+  /* 인스타 임베드 컨테이너 */
+  .insta-wrap {
+    width: 100%;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  /* 인스타 blockquote 강제 풀너비 */
+  .insta-wrap .instagram-media {
+    width: 100% !important;
+    min-width: unset !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    border-radius: 10px !important;
+    border: 0.5px solid var(--ink-faint) !important;
+    box-shadow: none !important;
+  }
+
+  .popup-tags {
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
     margin-bottom: 1rem;
   }
 
-  .panel-tag {
+  .popup-tag {
     font-size: 11px;
     padding: 3px 10px;
     border-radius: 20px;
@@ -259,7 +304,7 @@
     color: var(--caramel);
   }
 
-  .panel-note {
+  .popup-note {
     font-size: 13px;
     line-height: 1.8;
     color: rgba(30,26,22,0.6);
@@ -324,15 +369,19 @@
   <div class="map-label">— 세계 지도</div>
   <div class="map-wrapper">
     <div id="map"></div>
-    <div class="side-panel" id="sidePanel">
-      <button class="panel-close" onclick="closePanel()">×</button>
-      <div class="panel-country" id="panelCountry"></div>
-      <div class="panel-title" id="panelTitle"></div>
-      <div class="panel-date" id="panelDate"></div>
-      <div class="panel-img" id="panelEmoji"></div>
-      <div class="panel-tags" id="panelTags"></div>
-      <p class="panel-note" id="panelNote"></p>
-      <div id="panelInsta"></div>
+
+    <!-- 어두운 오버레이 -->
+    <div class="popup-overlay" id="popupOverlay" onclick="closePopup()"></div>
+
+    <!-- 센터 팝업 카드 -->
+    <div class="popup-card" id="popupCard">
+      <button class="popup-close" onclick="closePopup()">×</button>
+      <div class="popup-country" id="popupCountry"></div>
+      <div class="popup-title" id="popupTitle"></div>
+      <div class="popup-date" id="popupDate"></div>
+      <div id="popupMedia"></div>
+      <div class="popup-tags" id="popupTags"></div>
+      <p class="popup-note" id="popupNote"></p>
     </div>
   </div>
 </section>
@@ -350,29 +399,29 @@
 // 도시 추가할 때 여기에만 추가하면 돼!
 // ──────────────────────────────────────────
 const cities = [
-  { name: "멕시코시티",     country: "Mexico",      lat: 19.4326,  lng: -99.1332,  date: "2024. 04", emoji: "🌵", tags: ["중미", "도시", "문화"],    note: "색깔과 소음과 음식. 예상보다 훨씬 크고 깊은 도시." },
-  { name: "과나후아토",     country: "Mexico",      lat: 21.0190,  lng: -101.2574, date: "2024. 04", emoji: "🌈", tags: ["중미", "소도시"],           note: "골목마다 색이 다른 도시. 미라 박물관과 돈 키호테." },
-  { name: "오악사카",       country: "Mexico",      lat: 17.0732,  lng: -96.7266,  date: "2024. 04", emoji: "🫶", tags: ["중미", "음식"],             note: "세상에서 제일 좋은 음식들이 여기 있다고 확신한다." },
-  { name: "부에노스아이레스", country: "Argentina", lat: -34.6037, lng: -58.3816,  date: "2024. 02", emoji: "🥩", tags: ["남미", "도시"],             note: "유럽 같기도 하고 아닌 것 같기도 한. 탱고와 스테이크." },
-  { name: "우유니",         country: "Bolivia",     lat: -20.4630, lng: -66.8259,  date: "2024. 01", emoji: "🪞", tags: ["남미", "자연"],             note: "세상이 하늘을 반사하는 곳. 말이 필요 없었다." },
-  { name: "리마",           country: "Peru",        lat: -12.0464, lng: -77.0428,  date: "2023. 12", emoji: "🐟", tags: ["남미", "음식"],             note: "세비체의 도시. 태평양이 보이는 절벽 위 도시." },
-  { name: "쿠스코",         country: "Peru",        lat: -13.5319, lng: -71.9675,  date: "2023. 12", emoji: "🏔", tags: ["남미", "유적"],             note: "고산증과 잉카 유적. 숨이 차는 게 고도 때문인지 풍경 때문인지." },
-  { name: "산티아고",       country: "Chile",       lat: -33.4489, lng: -70.6693,  date: "2023. 11", emoji: "🍷", tags: ["남미"],                     note: "안데스 산맥을 배경으로 한 도시." },
-  { name: "쿠리치바",       country: "Brazil",      lat: -25.4284, lng: -49.2733,  date: "2024. 01", emoji: "🌿", tags: ["남미", "도시"],             note: "브라질에서 제일 살기 좋다는 도시.", instagram: "https://www.instagram.com/p/DXP4jFVFOfg/" },
-  { name: "리스본",         country: "Portugal",    lat: 38.7223,  lng: -9.1393,   date: "2023. 09", emoji: "🌊", tags: ["유럽", "소도시"],           note: "파두와 에그 타르트. 트램과 언덕." },
-  { name: "파리",           country: "France",      lat: 48.8566,  lng: 2.3522,    date: "2023. 06", emoji: "🥐", tags: ["유럽", "도시"],             note: "언제 와도 파리는 파리다." },
-  { name: "바르셀로나",     country: "Spain",       lat: 41.3851,  lng: 2.1734,    date: "2022. 09", emoji: "🌞", tags: ["유럽", "해변"],             note: "가우디와 지중해. 밤이 더 화려한 도시." },
-  { name: "아테네",         country: "Greece",      lat: 37.9838,  lng: 23.7275,   date: "2022. 08", emoji: "🏛", tags: ["유럽", "유적"],             note: "아크로폴리스에서 내려다 본 아테네는 달랐다." },
-  { name: "이스탄불",       country: "Turkey",      lat: 41.0082,  lng: 28.9784,   date: "2022. 05", emoji: "🕌", tags: ["중동", "문화"],             note: "두 대륙에 걸친 도시. 보스포루스 해협의 노을." },
-  { name: "페트라",         country: "Jordan",      lat: 30.3285,  lng: 35.4444,   date: "2022. 04", emoji: "🪨", tags: ["중동", "유적"],             note: "일출에 장밋빛으로 물드는 바위. 실제로 보면 압도된다." },
-  { name: "교토",           country: "Japan",       lat: 35.0116,  lng: 135.7681,  date: "2023. 03", emoji: "⛩", tags: ["아시아", "문화"],           note: "새벽의 후시미 이나리. 인파가 오기 전의 고요함." },
-  { name: "도쿄",           country: "Japan",       lat: 35.6762,  lng: 139.6503,  date: "2023. 03", emoji: "🌸", tags: ["아시아", "도시"],           note: "어디를 가도 완벽하게 정리된 카오스." },
-  { name: "방콕",           country: "Thailand",    lat: 13.7563,  lng: 100.5018,  date: "2022. 03", emoji: "🛺", tags: ["아시아", "음식"],           note: "팟타이와 뚝뚝과 왓포. 더위도 매력이 됐다." },
-  { name: "발리",           country: "Indonesia",   lat: -8.3405,  lng: 115.0920,  date: "2022. 11", emoji: "🌺", tags: ["아시아", "자연"],           note: "우붓의 논밭, 울루와뚜의 절벽. 감각이 과부하됐다." },
-  { name: "하노이",         country: "Vietnam",     lat: 21.0278,  lng: 105.8342,  date: "2021. 10", emoji: "🍜", tags: ["아시아", "도시"],           note: "오토바이 소음과 쌀국수. 호안끼엠 호수의 저녁." },
-  { name: "싱가포르",       country: "Singapore",   lat: 1.3521,   lng: 103.8198,  date: "2021. 09", emoji: "🌃", tags: ["아시아", "도시"],           note: "작지만 모든 것이 있는 도시국가." },
-  { name: "시드니",         country: "Australia",   lat: -33.8688, lng: 151.2093,  date: "2021. 01", emoji: "🦘", tags: ["오세아니아"],               note: "오페라하우스보다 본다이 비치가 더 좋았다." },
-  { name: "퀸스타운",       country: "New Zealand", lat: -45.0312, lng: 168.6626,  date: "2021. 02", emoji: "🏔", tags: ["오세아니아", "자연"],       note: "피오르드랜드. 광활함의 의미를 처음 이해했다." },
+  { name: "멕시코시티",      country: "Mexico",      lat: 19.4326,  lng: -99.1332,  date: "2024. 04", emoji: "🌵", tags: ["중미", "도시", "문화"], note: "색깔과 소음과 음식. 예상보다 훨씬 크고 깊은 도시." },
+  { name: "과나후아토",      country: "Mexico",      lat: 21.0190,  lng: -101.2574, date: "2024. 04", emoji: "🌈", tags: ["중미", "소도시"],        note: "골목마다 색이 다른 도시. 미라 박물관과 돈 키호테." },
+  { name: "오악사카",        country: "Mexico",      lat: 17.0732,  lng: -96.7266,  date: "2024. 04", emoji: "🫶", tags: ["중미", "음식"],          note: "세상에서 제일 좋은 음식들이 여기 있다고 확신한다." },
+  { name: "부에노스아이레스", country: "Argentina",  lat: -34.6037, lng: -58.3816,  date: "2024. 02", emoji: "🥩", tags: ["남미", "도시"],          note: "유럽 같기도 하고 아닌 것 같기도 한. 탱고와 스테이크." },
+  { name: "우유니",          country: "Bolivia",     lat: -20.4630, lng: -66.8259,  date: "2024. 01", emoji: "🪞", tags: ["남미", "자연"],          note: "세상이 하늘을 반사하는 곳. 말이 필요 없었다." },
+  { name: "쿠리치바",        country: "Brazil",      lat: -25.4284, lng: -49.2733,  date: "2024. 01", emoji: "🌿", tags: ["남미", "도시"],          note: "브라질에서 제일 살기 좋다는 도시.", instagram: "https://www.instagram.com/p/DXP4jFVFOfg/" },
+  { name: "리마",            country: "Peru",        lat: -12.0464, lng: -77.0428,  date: "2023. 12", emoji: "🐟", tags: ["남미", "음식"],          note: "세비체의 도시. 태평양이 보이는 절벽 위 도시." },
+  { name: "쿠스코",          country: "Peru",        lat: -13.5319, lng: -71.9675,  date: "2023. 12", emoji: "🏔", tags: ["남미", "유적"],          note: "고산증과 잉카 유적. 숨이 차는 게 고도 때문인지 풍경 때문인지." },
+  { name: "산티아고",        country: "Chile",       lat: -33.4489, lng: -70.6693,  date: "2023. 11", emoji: "🍷", tags: ["남미"],                  note: "안데스 산맥을 배경으로 한 도시." },
+  { name: "리스본",          country: "Portugal",    lat: 38.7223,  lng: -9.1393,   date: "2023. 09", emoji: "🌊", tags: ["유럽", "소도시"],        note: "파두와 에그 타르트. 트램과 언덕." },
+  { name: "파리",            country: "France",      lat: 48.8566,  lng: 2.3522,    date: "2023. 06", emoji: "🥐", tags: ["유럽", "도시"],          note: "언제 와도 파리는 파리다." },
+  { name: "바르셀로나",      country: "Spain",       lat: 41.3851,  lng: 2.1734,    date: "2022. 09", emoji: "🌞", tags: ["유럽", "해변"],          note: "가우디와 지중해. 밤이 더 화려한 도시." },
+  { name: "아테네",          country: "Greece",      lat: 37.9838,  lng: 23.7275,   date: "2022. 08", emoji: "🏛", tags: ["유럽", "유적"],          note: "아크로폴리스에서 내려다 본 아테네는 달랐다." },
+  { name: "이스탄불",        country: "Turkey",      lat: 41.0082,  lng: 28.9784,   date: "2022. 05", emoji: "🕌", tags: ["중동", "문화"],          note: "두 대륙에 걸친 도시. 보스포루스 해협의 노을." },
+  { name: "페트라",          country: "Jordan",      lat: 30.3285,  lng: 35.4444,   date: "2022. 04", emoji: "🪨", tags: ["중동", "유적"],          note: "일출에 장밋빛으로 물드는 바위. 실제로 보면 압도된다." },
+  { name: "교토",            country: "Japan",       lat: 35.0116,  lng: 135.7681,  date: "2023. 03", emoji: "⛩", tags: ["아시아", "문화"],        note: "새벽의 후시미 이나리. 인파가 오기 전의 고요함." },
+  { name: "도쿄",            country: "Japan",       lat: 35.6762,  lng: 139.6503,  date: "2023. 03", emoji: "🌸", tags: ["아시아", "도시"],        note: "어디를 가도 완벽하게 정리된 카오스." },
+  { name: "방콕",            country: "Thailand",    lat: 13.7563,  lng: 100.5018,  date: "2022. 03", emoji: "🛺", tags: ["아시아", "음식"],        note: "팟타이와 뚝뚝과 왓포. 더위도 매력이 됐다." },
+  { name: "발리",            country: "Indonesia",   lat: -8.3405,  lng: 115.0920,  date: "2022. 11", emoji: "🌺", tags: ["아시아", "자연"],        note: "우붓의 논밭, 울루와뚜의 절벽. 감각이 과부하됐다." },
+  { name: "하노이",          country: "Vietnam",     lat: 21.0278,  lng: 105.8342,  date: "2021. 10", emoji: "🍜", tags: ["아시아", "도시"],        note: "오토바이 소음과 쌀국수. 호안끼엠 호수의 저녁." },
+  { name: "싱가포르",        country: "Singapore",   lat: 1.3521,   lng: 103.8198,  date: "2021. 09", emoji: "🌃", tags: ["아시아", "도시"],        note: "작지만 모든 것이 있는 도시국가." },
+  { name: "시드니",          country: "Australia",   lat: -33.8688, lng: 151.2093,  date: "2021. 01", emoji: "🦘", tags: ["오세아니아"],             note: "오페라하우스보다 본다이 비치가 더 좋았다." },
+  { name: "퀸스타운",        country: "New Zealand", lat: -45.0312, lng: 168.6626,  date: "2021. 02", emoji: "🏔", tags: ["오세아니아", "자연"],    note: "피오르드랜드. 광활함의 의미를 처음 이해했다." },
 ];
 
 // 지도 초기화
@@ -389,7 +438,6 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
   maxZoom: 19
 }).addTo(map);
 
-// 커스텀 마커 아이콘
 function createIcon() {
   return L.divIcon({
     className: '',
@@ -399,46 +447,41 @@ function createIcon() {
   });
 }
 
-// 마커 추가
 cities.forEach(city => {
   const marker = L.marker([city.lat, city.lng], { icon: createIcon() });
-  marker.on('click', () => {
-    openPanel(city);
-    map.panTo([city.lat, city.lng], { animate: true, duration: 0.6 });
-  });
+  marker.on('click', () => openPopup(city));
   marker.addTo(map);
 });
 
-// 패널 열기
-function openPanel(city) {
-  document.getElementById('panelCountry').textContent = city.country;
-  document.getElementById('panelTitle').textContent = city.name;
-  document.getElementById('panelDate').textContent = city.date;
-  document.getElementById('panelEmoji').textContent = city.emoji;
-  document.getElementById('panelNote').textContent = city.note;
+// ── 팝업 열기 ──
+function openPopup(city) {
+  document.getElementById('popupCountry').textContent = city.country;
+  document.getElementById('popupTitle').textContent = city.name;
+  document.getElementById('popupDate').textContent = city.date;
+  document.getElementById('popupNote').textContent = city.note;
 
-  const tagsEl = document.getElementById('panelTags');
+  // 태그
+  const tagsEl = document.getElementById('popupTags');
   tagsEl.innerHTML = '';
   city.tags.forEach(tag => {
     const span = document.createElement('span');
-    span.className = 'panel-tag';
+    span.className = 'popup-tag';
     span.textContent = tag;
     tagsEl.appendChild(span);
   });
 
-  // 인스타 임베드
-  const instaEl = document.getElementById('panelInsta');
+  // 미디어: 인스타 있으면 임베드, 없으면 이모지
+  const mediaEl = document.getElementById('popupMedia');
   if (city.instagram) {
-    instaEl.innerHTML = `
-      <div style="margin-top:1rem; border-top: 0.5px solid var(--ink-faint); padding-top: 1rem;">
+    mediaEl.innerHTML = `
+      <div class="insta-wrap">
         <blockquote class="instagram-media"
           data-instgrm-permalink="${city.instagram}"
           data-instgrm-version="14"
-          style="background:#fff; border:0; border-radius:10px; box-shadow:none;
-                 margin:0; padding:0; width:100%; min-width:unset;">
+          data-instgrm-captioned
+          style="width:100%; min-width:unset; margin:0; border:0.5px solid var(--ink-faint); border-radius:10px; box-shadow:none; background:#fff;">
         </blockquote>
       </div>`;
-    // 인스타 임베드 스크립트 새로 실행
     if (window.instgrm) {
       window.instgrm.Embeds.process();
     } else {
@@ -448,14 +491,16 @@ function openPanel(city) {
       document.body.appendChild(s);
     }
   } else {
-    instaEl.innerHTML = '';
+    mediaEl.innerHTML = `<div class="popup-emoji">${city.emoji}</div>`;
   }
 
-  document.getElementById('sidePanel').classList.add('open');
+  document.getElementById('popupOverlay').classList.add('open');
+  document.getElementById('popupCard').classList.add('open');
 }
 
-function closePanel() {
-  document.getElementById('sidePanel').classList.remove('open');
+function closePopup() {
+  document.getElementById('popupOverlay').classList.remove('open');
+  document.getElementById('popupCard').classList.remove('open');
 }
 
 </script>
