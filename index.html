@@ -332,6 +332,7 @@
       <div class="panel-img" id="panelEmoji"></div>
       <div class="panel-tags" id="panelTags"></div>
       <p class="panel-note" id="panelNote"></p>
+      <div id="panelInsta"></div>
     </div>
   </div>
 </section>
@@ -357,6 +358,7 @@ const cities = [
   { name: "리마",           country: "Peru",        lat: -12.0464, lng: -77.0428,  date: "2023. 12", emoji: "🐟", tags: ["남미", "음식"],             note: "세비체의 도시. 태평양이 보이는 절벽 위 도시." },
   { name: "쿠스코",         country: "Peru",        lat: -13.5319, lng: -71.9675,  date: "2023. 12", emoji: "🏔", tags: ["남미", "유적"],             note: "고산증과 잉카 유적. 숨이 차는 게 고도 때문인지 풍경 때문인지." },
   { name: "산티아고",       country: "Chile",       lat: -33.4489, lng: -70.6693,  date: "2023. 11", emoji: "🍷", tags: ["남미"],                     note: "안데스 산맥을 배경으로 한 도시." },
+  { name: "쿠리치바",       country: "Brazil",      lat: -25.4284, lng: -49.2733,  date: "2024. 01", emoji: "🌿", tags: ["남미", "도시"],             note: "브라질에서 제일 살기 좋다는 도시.", instagram: "https://www.instagram.com/p/DXP4jFVFOfg/" },
   { name: "리스본",         country: "Portugal",    lat: 38.7223,  lng: -9.1393,   date: "2023. 09", emoji: "🌊", tags: ["유럽", "소도시"],           note: "파두와 에그 타르트. 트램과 언덕." },
   { name: "파리",           country: "France",      lat: 48.8566,  lng: 2.3522,    date: "2023. 06", emoji: "🥐", tags: ["유럽", "도시"],             note: "언제 와도 파리는 파리다." },
   { name: "바르셀로나",     country: "Spain",       lat: 41.3851,  lng: 2.1734,    date: "2022. 09", emoji: "🌞", tags: ["유럽", "해변"],             note: "가우디와 지중해. 밤이 더 화려한 도시." },
@@ -423,6 +425,31 @@ function openPanel(city) {
     span.textContent = tag;
     tagsEl.appendChild(span);
   });
+
+  // 인스타 임베드
+  const instaEl = document.getElementById('panelInsta');
+  if (city.instagram) {
+    instaEl.innerHTML = `
+      <div style="margin-top:1rem; border-top: 0.5px solid var(--ink-faint); padding-top: 1rem;">
+        <blockquote class="instagram-media"
+          data-instgrm-permalink="${city.instagram}"
+          data-instgrm-version="14"
+          style="background:#fff; border:0; border-radius:10px; box-shadow:none;
+                 margin:0; padding:0; width:100%; min-width:unset;">
+        </blockquote>
+      </div>`;
+    // 인스타 임베드 스크립트 새로 실행
+    if (window.instgrm) {
+      window.instgrm.Embeds.process();
+    } else {
+      const s = document.createElement('script');
+      s.src = 'https://www.instagram.com/embed.js';
+      s.async = true;
+      document.body.appendChild(s);
+    }
+  } else {
+    instaEl.innerHTML = '';
+  }
 
   document.getElementById('sidePanel').classList.add('open');
 }
