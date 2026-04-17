@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>tribi.travel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #f4efe6;
+    --warm-white: #faf8f4;
+    --ink: #1e1a16;
+    --ink-mid: rgba(30,26,22,0.45);
+    --ink-faint: rgba(30,26,22,0.12);
+    --caramel: #b8864e;
+    --caramel-light: #e8d5b8;
+    --sage: #7a8c6e;
+    --dust: #c9bfb0;
+    --visited-fill: #d4b896;
+    --visited-stroke: #a07848;
+    --unvisited-fill: #ddd8cf;
+    --unvisited-stroke: #c0bab2;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    min-height: 100vh;
+    cursor: default;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.1rem 2.5rem;
+    background: rgba(244,239,230,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--ink-faint);
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+  }
+
+  .logo span { color: var(--caramel); font-style: italic; }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-mid);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--ink); }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 7rem 2.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .hero-text {}
+
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--caramel);
+    margin-bottom: 0.8rem;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--ink);
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--caramel);
+  }
+
+  .hero-sub {
+    margin-top: 1rem;
+    font-size: 13px;
+    color: var(--ink-mid);
+    line-height: 1.7;
+    max-width: 280px;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 2rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .stat-item { text-align: right; }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-mid);
+    margin-top: 4px;
+  }
+
+  /* ── MAP SECTION ── */
+  .map-section {
+    padding: 0 2.5rem 3rem;
+    position: relative;
+  }
+
+  .map-label {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-mid);
+    margin-bottom: 1rem;
+  }
+
+  .map-container {
+    position: relative;
+    background: var(--warm-white);
+    border: 0.5px solid var(--ink-faint);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .map-svg {
+    width: 100%;
+    display: block;
+  }
+
+  .region {
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .region.visited { fill: var(--visited-fill); stroke: var(--visited-stroke); stroke-width: 1; }
+  .region.unvisited { fill: var(--unvisited-fill); stroke: var(--unvisited-stroke); stroke-width: 0.5; }
+  .region.visited:hover { fill: var(--caramel); }
+  .region.active { fill: var(--caramel) !important; stroke: var(--visited-stroke); }
+
+  .map-region-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 9px;
+    fill: rgba(30,26,22,0.4);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* ── SIDE PANEL ── */
+  .side-panel {
+    position: absolute;
+    top: 0; right: 0;
+    width: 48%;
+    height: 100%;
+    background: var(--warm-white);
+    border-left: 0.5px solid var(--ink-faint);
+    border-radius: 0 16px 16px 0;
+    padding: 1.5rem;
+    transform: translateX(100%);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-y: auto;
+    z-index: 10;
+  }
+
+  .side-panel.open { transform: translateX(0); }
+
+  .panel-close {
+    position: absolute;
+    top: 1rem; right: 1rem;
+    width: 28px; height: 28px;
+    border: 0.5px solid var(--ink-faint);
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--ink-mid);
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s;
+  }
+
+  .panel-close:hover { background: var(--ink); color: var(--cream); }
+
+  .panel-region {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--caramel);
+    margin-bottom: 0.4rem;
+  }
+
+  .panel-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 0.25rem;
+  }
+
+  .panel-years {
+    font-size: 12px;
+    color: var(--ink-mid);
+    margin-bottom: 1.2rem;
+  }
+
+  .panel-img-placeholder {
+    width: 100%;
+    height: 140px;
+    background: var(--caramel-light);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    margin-bottom: 1rem;
+    border: 0.5px solid var(--ink-faint);
+  }
+
+  .panel-countries {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 1rem;
+  }
+
+  .country-tag {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    border: 0.5px solid var(--caramel);
+    color: var(--caramel);
+    background: transparent;
+  }
+
+  .panel-note {
+    font-size: 13px;
+    line-height: 1.75;
+    color: rgba(30,26,22,0.6);
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
+  }
+
+  .panel-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 1rem;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-mid);
+    text-decoration: none;
+    border-bottom: 0.5px solid var(--ink-faint);
+    padding-bottom: 2px;
+    transition: color 0.2s;
+  }
+
+  .panel-link:hover { color: var(--caramel); border-color: var(--caramel); }
+
+  /* ── ENTRIES ── */
+  .entries-section {
+    padding: 0 2.5rem 4rem;
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-title {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-mid);
+  }
+
+  .filter-row {
+    display: flex;
+    gap: 8px;
+  }
+
+  .filter-btn {
+    font-size: 11px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 0.5px solid var(--ink-faint);
+    background: transparent;
+    color: var(--ink-mid);
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.15s;
+  }
+
+  .filter-btn.active {
+    background: var(--ink);
+    color: var(--cream);
+    border-color: var(--ink);
+  }
+
+  .filter-btn:hover:not(.active) {
+    border-color: var(--ink-mid);
+    color: var(--ink);
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
+
+  .entry-card {
+    background: var(--warm-white);
+    border: 0.5px solid var(--ink-faint);
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .entry-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(30,26,22,0.08);
+  }
+
+  .card-thumb {
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+  }
+
+  .card-thumb.americas { background: #ddc9a8; }
+  .card-thumb.europe   { background: #b8c9d4; }
+  .card-thumb.asia     { background: #c4d4b8; }
+  .card-thumb.oceania  { background: #c8c4d8; }
+
+  .card-body {
+    padding: 10px 14px 12px;
+  }
+
+  .card-place {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+
+  .card-meta {
+    font-size: 11px;
+    color: var(--ink-mid);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 0.5px solid var(--ink-faint);
+    padding: 1.5rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    color: var(--ink-mid);
+  }
+
+  .footer-note {
+    font-size: 11px;
+    color: var(--ink-mid);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero, .map-section, .entries-section {
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .map-section { animation-delay: 0.1s; }
+  .entries-section { animation-delay: 0.2s; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">tribi<span>.travel</span></div>
+  <ul class="nav-links">
+    <li><a href="#map">map</a></li>
+    <li><a href="#entries">journal</a></li>
+    <li><a href="#about">about</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-eyebrow">travel archive</div>
+    <h1 class="hero-title">모든 여정의<br><em>기록</em></h1>
+    <p class="hero-sub">아프리카를 제외한 모든 대륙.<br>계속되는 여행.</p>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-num">30+</div>
+      <div class="stat-label">countries</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">6</div>
+      <div class="stat-label">continents</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">ing</div>
+      <div class="stat-label">status</div>
+    </div>
+  </div>
+</section>
+
+<!-- MAP -->
+<section class="map-section" id="map">
+  <div class="map-label">— 세계 지도</div>
+  <div class="map-container">
+    <svg class="map-svg" viewBox="0 0 900 400" xmlns="http://www.w3.org/2000/svg">
+      <!-- 북미 -->
+      <rect class="region visited" x="55" y="55" width="175" height="115" rx="8"
+        data-name="북미" data-years="2019–2024" data-emoji="🌵"
+        data-countries="미국,캐나다,멕시코"
+        data-note="뉴욕의 겨울, 로스앤젤레스의 햇살, 멕시코시티의 색깔들. 멕시코는 지금도 진행 중."
+        onclick="openPanel(this)"/>
+      <text class="map-region-label" x="142" y="118" text-anchor="middle">N. America</text>
+
+      <!-- 중미 -->
+      <rect class="region visited" x="90" y="175" width="95" height="50" rx="6"
+        data-name="중미" data-years="2024" data-emoji="🌴"
+        data-countries="과테말라,코스타리카,파나마"
+        data-note="정글과 화산, 습한 공기. 중미는 예상보다 훨씬 깊었다."
+        onclick="openPanel(this)"/>
+      <text class="map-region-label" x="137" y="204" text-anchor="middle">C. America</text>
+
+      <!-- 남미 -->
+      <rect class="region visited" x="115" y="232" width="150" height="110" rx="8"
+        data-name="남미" data-years="2023–2024" data-emoji="🦙"
+        data-countries="페루,볼리비아,아르헨티나,칠레,브라질,콜롬비아"
+        data-note="안데스와 파타고니아. 세상에서 가장 고요하고 거대한 풍경들."
+        onclick="openPanel(this)"/>
+      <text class="map-region-label" x="190" y="292" text-anchor="middle">S. America</text>
+
+      <!-- 유럽 -->
+      <rect class="region visited" x="355" y="45" width="145" height="105" rx="8"
+        data-name="유럽" data-years="2018–2023" data-emoji="🏛"
+        data-countries="프랑스,스페인,포르투갈,이탈리아,그리스,체코,헝가리,폴란드,네덜란드,벨기에,독일,오스트리아,스위스,크로아티아,슬로베니아,덴마크,스웨덴,노르웨이,아이슬란드,영국"
+        data-note="파리의 비, 바르셀로나의 밤, 리스본의 석양. 20개국이 넘어도 아직 가고 싶은 곳이 많다."
+        onclick="openPanel(this)"/>
+      <text class="map-region-label" x="427" y="100" text-anchor="middle">Europe</text>
+
+      <!-- 중동/터키 -->
+      <rect class="region visited" x="455" y="158" width="95" height="70" rx="6"
+        data-name="중동" data-years="2022" data-emoji="🕌"
+        data-countries="터키,요르단,이스라엘"
+        data-note="페트라의 일출. 카파도키아의 열기구. 이스탄불의 두 대륙."
+        onclick="openPanel(this)"/>
+      <text class="map-region-label" x="502" y="197" text-anchor="middle">Mid East</text>
+
+      <!-- 아프리카 (미방문) -->
+      <rect class="region unvisited" x="355" y="158" width="100" height="135" rx="8"/>
+      <text class="map-region-label" x="405" y="230" text-anchor="middle">Africa</text>
+      <text class="map-region-label" x="405" y="244" text-anchor="middle">— soon —</text>
+
+      <!-- 동아시아 -->
+      <rect class="region visited" x="580" y="48" width="150" height="100" rx="8"
+        data-name="동아시아" data-years="2017–2023" data-emoji="⛩"
+        data-countries="일본,한국,중국,대만,홍콩"
+        data-note="교토의 새벽, 도쿄의 밤. 대만의 야시장. 익숙하면서도 매번 새로운 곳들."
+        onclick="openPanel(this)"/>
+      <text class="map-region-label" x="655" y="100" text-anchor="middle">East Asia</text>
+
+      <!-- 동남아 -->
+      <rect class="region visited" x="610" y="158" width="150" height="95" rx="8"
+        data-name="동남아" data-years="2019–2022" data-emoji="🌺"
+        data-countries="태국,베트남,인도네시아,싱가포르,말레이시아,필리핀,캄보디아,미얀마"
+        data-note="발리의 습기, 치앙마이의 안개, 하노이의 오토바이. 열대의 빛은 다르다."
+        onclick="openPanel(this)"/>
+      <text class="map-region-label" x="685" y="208" text-anchor="middle">SE Asia</text>
+
+      <!-- 오세아니아 -->
+      <rect class="region visited" x="660" y="265" width="130" height="65" rx="6"
+        data-name="오세아니아" data-years="2021" data-emoji="🦘"
+        data-countries="호주,뉴질랜드"
+        data-note="광활함이라는 단어의 의미를 처음 이해한 곳."
+        onclick="openPanel(this)"/>
+      <text class="map-region-label" x="725" y="300" text-anchor="middle">Oceania</text>
+    </svg>
+
+    <!-- 사이드 패널 -->
+    <div class="side-panel" id="sidePanel">
+      <button class="panel-close" onclick="closePanel()">×</button>
+      <div class="panel-region" id="panelRegion"></div>
+      <div class="panel-title" id="panelTitle"></div>
+      <div class="panel-years" id="panelYears"></div>
+      <div class="panel-img-placeholder" id="panelEmoji"></div>
+      <div class="panel-countries" id="panelCountries"></div>
+      <p class="panel-note" id="panelNote"></p>
+      <a class="panel-link" href="#">→ instagram posts</a>
+    </div>
+  </div>
+</section>
+
+<!-- ENTRIES -->
+<section class="entries-section" id="entries">
+  <div class="section-header">
+    <div class="section-title">— recent entries</div>
+    <div class="filter-row">
+      <button class="filter-btn active" onclick="filterCards('all', this)">전체</button>
+      <button class="filter-btn" onclick="filterCards('asia', this)">아시아</button>
+      <button class="filter-btn" onclick="filterCards('europe', this)">유럽</button>
+      <button class="filter-btn" onclick="filterCards('americas', this)">아메리카</button>
+    </div>
+  </div>
+
+  <div class="cards-grid" id="cardsGrid">
+    <div class="entry-card" data-region="americas">
+      <div class="card-thumb americas">🌵</div>
+      <div class="card-body">
+        <div class="card-place">멕시코시티</div>
+        <div class="card-meta">Mexico · 2024. 04</div>
+      </div>
+    </div>
+    <div class="entry-card" data-region="americas">
+      <div class="card-thumb americas">🌈</div>
+      <div class="card-body">
+        <div class="card-place">과나후아토</div>
+        <div class="card-meta">Mexico · 2024. 04</div>
+      </div>
+    </div>
+    <div class="entry-card" data-region="americas">
+      <div class="card-thumb americas">🦙</div>
+      <div class="card-body">
+        <div class="card-place">부에노스아이레스</div>
+        <div class="card-meta">Argentina · 2024. 02</div>
+      </div>
+    </div>
+    <div class="entry-card" data-region="americas">
+      <div class="card-thumb americas">🏔</div>
+      <div class="card-body">
+        <div class="card-place">우유니</div>
+        <div class="card-meta">Bolivia · 2024. 01</div>
+      </div>
+    </div>
+    <div class="entry-card" data-region="europe">
+      <div class="card-thumb europe">🌊</div>
+      <div class="card-body">
+        <div class="card-place">리스본</div>
+        <div class="card-meta">Portugal · 2023. 09</div>
+      </div>
+    </div>
+    <div class="entry-card" data-region="asia">
+      <div class="card-thumb asia">⛩</div>
+      <div class="card-body">
+        <div class="card-place">교토</div>
+        <div class="card-meta">Japan · 2023. 03</div>
+      </div>
+    </div>
+    <div class="entry-card" data-region="asia">
+      <div class="card-thumb asia">🌺</div>
+      <div class="card-body">
+        <div class="card-place">발리</div>
+        <div class="card-meta">Indonesia · 2022. 11</div>
+      </div>
+    </div>
+    <div class="entry-card" data-region="europe">
+      <div class="card-thumb europe">🏛</div>
+      <div class="card-body">
+        <div class="card-place">아테네</div>
+        <div class="card-meta">Greece · 2022. 08</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="about">
+  <div class="footer-logo">tribi.travel</div>
+  <div class="footer-note">solo traveler · designer · writer · 계속 이동 중</div>
+</footer>
+
+<script>
+  function openPanel(el) {
+    document.querySelectorAll('.region').forEach(r => r.classList.remove('active'));
+    el.classList.add('active');
+
+    document.getElementById('panelRegion').textContent = 'region';
+    document.getElementById('panelTitle').textContent = el.dataset.name;
+    document.getElementById('panelYears').textContent = el.dataset.years;
+    document.getElementById('panelEmoji').textContent = el.dataset.emoji;
+    document.getElementById('panelNote').textContent = el.dataset.note;
+
+    const countries = el.dataset.countries.split(',');
+    const container = document.getElementById('panelCountries');
+    container.innerHTML = '';
+    countries.forEach(c => {
+      const tag = document.createElement('span');
+      tag.className = 'country-tag';
+      tag.textContent = c.trim();
+      container.appendChild(tag);
+    });
+
+    document.getElementById('sidePanel').classList.add('open');
+  }
+
+  function closePanel() {
+    document.getElementById('sidePanel').classList.remove('open');
+    document.querySelectorAll('.region').forEach(r => r.classList.remove('active'));
+  }
+
+  function filterCards(region, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    document.querySelectorAll('.entry-card').forEach(card => {
+      if (region === 'all' || card.dataset.region === region) {
+        card.style.display = 'block';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
