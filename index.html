@@ -4,8 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>tribi.travel</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: 'Tribi';
+    src: url('fonts/Tribi_eng.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+</style>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -23,7 +31,7 @@
   html { scroll-behavior: smooth; }
 
   body {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Pretendard', sans-serif;
     background: var(--cream);
     color: var(--ink);
     min-height: 100vh;
@@ -37,8 +45,8 @@
   }
 
   .hero-eyebrow {
-    font-family: 'Playfair Display', serif;
-    font-size: 15px;
+    font-family: 'Tribi', sans-serif;
+    font-size: 22px;
     letter-spacing: 0.08em;
     color: var(--ink);
   }
@@ -170,7 +178,7 @@
   }
 
   .popup-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Tribi', sans-serif;
     font-size: 26px;
     font-weight: 400;
     color: var(--ink);
@@ -237,8 +245,7 @@
     font-size: 13px;
     line-height: 1.8;
     color: rgba(30,26,22,0.6);
-    font-style: italic;
-    font-family: 'Playfair Display', serif;
+    font-family: 'Pretendard', sans-serif;
   }
 
   footer {
@@ -250,7 +257,7 @@
   }
 
   .footer-logo {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Tribi', sans-serif;
     font-size: 14px;
     color: var(--ink-mid);
   }
