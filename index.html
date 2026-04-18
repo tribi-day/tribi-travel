@@ -9,15 +9,21 @@
 
 @font-face {
   font-family: 'Tribi';
-  src: url('fonts/Tribi_eng.ttf') format('truetype');
+  src: url('./fonts/Tribi_eng.ttf') format('truetype');
+  font-weight: normal;
+  font-display: swap;
 }
 @font-face {
   font-family: 'DOSPilgi';
-  src: url('fonts/DOSPilgi.ttf') format('truetype');
+  src: url('./fonts/DOSPilgi.ttf') format('truetype');
+  font-weight: normal;
+  font-display: swap;
 }
 @font-face {
   font-family: 'Retrograde';
-  src: url('fonts/Retrograde-Regular.otf') format('opentype');
+  src: url('./fonts/Retrograde-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-display: swap;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -39,14 +45,12 @@ html, body {
   font-family: 'DOSPilgi', monospace;
 }
 
-/* ── 전체 레이아웃 ── */
 .layout {
   display: flex;
   flex-direction: column;
   height: 100vh;
 }
 
-/* ── 헤더 ── */
 header {
   display: flex;
   align-items: center;
@@ -63,20 +67,18 @@ header {
 }
 
 .header-title {
-  font-family: 'Tribi', sans-serif;
+  font-family: 'Tribi', 'DOSPilgi', monospace;
   font-size: 18px;
   letter-spacing: 0.04em;
   color: var(--ink);
 }
 
-/* ── 메인 영역 ── */
 .main {
   display: flex;
   flex: 1;
   overflow: hidden;
 }
 
-/* ── 사이드바 ── */
 .sidebar {
   width: var(--sidebar-w);
   flex-shrink: 0;
@@ -84,7 +86,6 @@ header {
   padding: 16px 8px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: repeat(5, auto);
   gap: 4px;
   align-content: start;
 }
@@ -105,32 +106,23 @@ header {
   opacity: 0.5;
 }
 
-.icon-btn:hover {
-  background: rgba(26,26,26,0.06);
-  opacity: 0.8;
-}
+.icon-btn:hover { background: rgba(26,26,26,0.06); opacity: 0.8; }
+.icon-btn.active { filter: none; opacity: 1; background: rgba(26,26,26,0.08); }
 
-.icon-btn.active {
-  filter: none;
-  opacity: 1;
-  background: rgba(26,26,26,0.08);
-}
-
-/* ── 콘텐츠 영역 ── */
 .content {
   flex: 1;
   overflow: hidden;
   position: relative;
 }
 
-/* ── 갤러리 뷰 ── */
+/* ── 갤러리 ── */
 .gallery-view {
   width: 100%;
   height: 100%;
   overflow-y: auto;
-  padding: 12px;
+  padding: 8px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 6px;
   align-content: start;
 }
@@ -143,6 +135,34 @@ header {
   overflow: hidden;
   cursor: pointer;
   background: var(--ink-faint);
+}
+
+/* 덤프 이미지 플레이스홀더 */
+.photo-card .placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #e8e2d6;
+  transition: background 0.2s;
+}
+
+.photo-card:hover .placeholder { background: #ddd6c8; }
+
+.placeholder-city {
+  font-family: 'DOSPilgi', monospace;
+  font-size: 11px;
+  color: var(--ink-mid);
+  text-align: center;
+  padding: 0 8px;
+}
+
+.placeholder-emoji {
+  font-size: 28px;
+  line-height: 1;
 }
 
 .photo-card img {
@@ -181,12 +201,8 @@ header {
 
 .map-view.hidden { display: none; }
 
-#map {
-  width: 100%;
-  height: 100%;
-}
+#map { width: 100%; height: 100%; }
 
-/* Leaflet 커스텀 */
 .leaflet-control-zoom {
   border: 0.5px solid var(--ink-faint) !important;
   border-radius: 6px !important;
@@ -198,7 +214,6 @@ header {
   background: var(--cream) !important;
   color: var(--ink) !important;
   border-bottom: 0.5px solid var(--ink-faint) !important;
-  font-family: 'DOSPilgi', monospace !important;
   width: 28px !important;
   height: 28px !important;
   line-height: 28px !important;
@@ -223,12 +238,12 @@ header {
 
 .custom-marker:hover { transform: scale(1.5); }
 
-/* ── 지도 위 사진 팝업 ── */
+/* ── 지도 팝업 ── */
 .map-popup {
   position: absolute;
   top: 20px;
   right: 20px;
-  width: 380px;
+  width: 360px;
   background: var(--cream);
   z-index: 800;
   opacity: 0;
@@ -244,40 +259,55 @@ header {
 }
 
 .map-popup-location {
-  font-family: 'Retrograde', monospace;
-  font-size: 22px;
+  font-family: 'Retrograde', 'DOSPilgi', monospace;
+  font-size: 20px;
   letter-spacing: 0.06em;
   color: var(--ink);
   padding: 0 0 8px;
   text-transform: uppercase;
 }
 
-.map-popup-img {
+.map-popup-media {
   width: 100%;
   aspect-ratio: 4/3;
+  background: #e0d9cc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DOSPilgi', monospace;
+  font-size: 13px;
+  color: var(--ink-mid);
+}
+
+.map-popup-media img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   display: block;
 }
 
 .map-popup-close {
   position: absolute;
-  top: 0; right: 0;
-  width: 28px; height: 28px;
+  top: 32px;
+  right: 0;
+  width: 28px;
+  height: 28px;
   background: var(--ink);
   color: var(--cream);
   border: none;
   cursor: pointer;
   font-size: 14px;
-  display: flex; align-items: center; justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: 'DOSPilgi', monospace;
-  z-index: 10;
 }
 
-/* 갤러리 사진 팝업 (라이트박스) */
+/* ── 라이트박스 ── */
 .lightbox {
   position: fixed;
   inset: 0;
-  background: rgba(26,26,26,0.85);
+  background: rgba(26,26,26,0.88);
   z-index: 2000;
   display: flex;
   align-items: center;
@@ -287,10 +317,7 @@ header {
   transition: opacity 0.2s;
 }
 
-.lightbox.open {
-  opacity: 1;
-  pointer-events: all;
-}
+.lightbox.open { opacity: 1; pointer-events: all; }
 
 .lightbox img {
   max-width: 90vw;
@@ -298,103 +325,105 @@ header {
   object-fit: contain;
 }
 
+.lightbox-placeholder {
+  width: 60vw;
+  height: 60vh;
+  background: #2a2a2a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DOSPilgi', monospace;
+  color: rgba(255,255,255,0.4);
+  font-size: 14px;
+}
+
 .lightbox-close {
   position: absolute;
-  top: 20px; right: 20px;
+  top: 20px;
+  right: 20px;
   background: transparent;
   border: none;
   color: white;
-  font-size: 28px;
+  font-size: 24px;
   cursor: pointer;
   font-family: 'DOSPilgi', monospace;
+  opacity: 0.7;
 }
+
+.lightbox-close:hover { opacity: 1; }
 
 </style>
 </head>
 <body>
 
 <div class="layout">
-
-  <!-- 헤더 -->
   <header>
     <span class="header-globe">&#x1F30D;</span>
     <span class="header-title">tribi.travel.archive</span>
   </header>
 
   <div class="main">
-
-    <!-- 사이드바 -->
     <aside class="sidebar">
-      <!-- 나 -->
-      <button class="icon-btn" data-tag="나" onclick="handleIcon(this)" title="나">&#x1F478;</button>
-      <!-- 밥 -->
-      <button class="icon-btn" data-tag="밥" onclick="handleIcon(this)" title="밥">&#x1F367;</button>
-      <!-- 강아지 -->
-      <button class="icon-btn" data-tag="강아지" onclick="handleIcon(this)" title="강아지">&#x1F436;</button>
-      <!-- 고양이 -->
-      <button class="icon-btn" data-tag="고양이" onclick="handleIcon(this)" title="고양이">&#x1F431;</button>
-      <!-- 바다 -->
-      <button class="icon-btn" data-tag="바다" onclick="handleIcon(this)" title="바다">&#x1F420;</button>
-      <!-- 밤 -->
-      <button class="icon-btn" data-tag="밤" onclick="handleIcon(this)" title="밤">&#x1F304;</button>
-      <!-- 공원 -->
-      <button class="icon-btn" data-tag="공원" onclick="handleIcon(this)" title="공원">&#x1F334;</button>
-      <!-- 숙소 -->
-      <button class="icon-btn" data-tag="숙소" onclick="handleIcon(this)" title="숙소">&#x1F3DA;</button>
-      <!-- 산 -->
-      <button class="icon-btn" data-tag="산" onclick="handleIcon(this)" title="산">&#x1F30C;</button>
-      <!-- 비행기 -->
-      <button class="icon-btn" data-tag="비행기" onclick="handleIcon(this)" title="비행기">&#x1F6E9;</button>
+      <button class="icon-btn" data-tag="나"    onclick="handleIcon(this)">&#x1F478;</button>
+      <button class="icon-btn" data-tag="밥"    onclick="handleIcon(this)">&#x1F367;</button>
+      <button class="icon-btn" data-tag="강아지" onclick="handleIcon(this)">&#x1F436;</button>
+      <button class="icon-btn" data-tag="고양이" onclick="handleIcon(this)">&#x1F431;</button>
+      <button class="icon-btn" data-tag="바다"  onclick="handleIcon(this)">&#x1F420;</button>
+      <button class="icon-btn" data-tag="밤"    onclick="handleIcon(this)">&#x1F304;</button>
+      <button class="icon-btn" data-tag="공원"  onclick="handleIcon(this)">&#x1F334;</button>
+      <button class="icon-btn" data-tag="숙소"  onclick="handleIcon(this)">&#x1F3DA;</button>
+      <button class="icon-btn" data-tag="산"    onclick="handleIcon(this)">&#x1F30C;</button>
+      <button class="icon-btn" data-tag="비행기" onclick="handleIcon(this)">&#x1F6E9;</button>
     </aside>
 
-    <!-- 콘텐츠 -->
     <div class="content">
-
-      <!-- 갤러리 뷰 -->
       <div class="gallery-view" id="galleryView"></div>
 
-      <!-- 지도 뷰 -->
       <div class="map-view hidden" id="mapView">
         <div id="map"></div>
         <div class="map-popup" id="mapPopup">
           <button class="map-popup-close" onclick="closeMapPopup()">×</button>
           <div class="map-popup-location" id="mapPopupLocation"></div>
-          <img class="map-popup-img" id="mapPopupImg" src="" alt="">
+          <div class="map-popup-media" id="mapPopupMedia">no image</div>
         </div>
       </div>
-
     </div>
   </div>
 </div>
 
-<!-- 라이트박스 -->
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
   <button class="lightbox-close" onclick="closeLightbox()">×</button>
-  <img id="lightboxImg" src="" alt="">
+  <div class="lightbox-placeholder" id="lightboxContent">no image</div>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 
 // ──────────────────────────────────────────
-// 사진 데이터
-// 사진 추가할 때 여기에만 추가하면 돼!
-// tags: ["나","밥","강아지","고양이","바다","밤","공원","숙소","산","비행기"]
+// 사진 데이터 — 나중에 노션 연동으로 교체 예정
+// file: null 이면 플레이스홀더로 표시
 // ──────────────────────────────────────────
 const photos = [
-  {
-    file: "images/curitiba_capybara.jpg",
-    city: "Curitiba",
-    country: "Brazil",
-    lat: -25.4284,
-    lng: -49.2733,
-    tags: ["나", "공원"],
-  },
-  // 여기에 사진 추가!
-  // { file: "images/파일명.jpg", city: "도시명", country: "나라", lat: 위도, lng: 경도, tags: ["태그"] },
+  { file: null, city: "Buenos Aires", country: "Argentina", lat: -34.6037, lng: -58.3816, tags: ["숙소"] },
+  { file: null, city: "Buenos Aires", country: "Argentina", lat: -34.6037, lng: -58.3816, tags: ["숙소"] },
+  { file: null, city: "Buenos Aires", country: "Argentina", lat: -34.6037, lng: -58.3816, tags: ["밥"] },
+  { file: null, city: "Buenos Aires", country: "Argentina", lat: -34.6037, lng: -58.3816, tags: ["밥"] },
+  { file: null, city: "Buenos Aires", country: "Argentina", lat: -34.6037, lng: -58.3816, tags: ["숙소", "나"] },
+  { file: null, city: "Buenos Aires", country: "Argentina", lat: -34.6037, lng: -58.3816, tags: ["비행기"] },
+  { file: null, city: "Buenos Aires", country: "Argentina", lat: -34.6037, lng: -58.3816, tags: ["나", "비행기"] },
+  { file: null, city: "Curitiba",     country: "Brazil",    lat: -25.4284, lng: -49.2733, tags: ["나", "공원"] },
+  { file: null, city: "Uyuni",        country: "Bolivia",   lat: -20.4630, lng: -66.8259, tags: ["나", "산"] },
+  { file: null, city: "Lima",         country: "Peru",      lat: -12.0464, lng: -77.0428, tags: ["밥", "바다"] },
+  { file: null, city: "Santiago",     country: "Chile",     lat: -33.4489, lng: -70.6693, tags: ["나"] },
+  { file: null, city: "Mexico City",  country: "Mexico",    lat: 19.4326,  lng: -99.1332, tags: ["밥", "밤"] },
+  { file: null, city: "Oaxaca",       country: "Mexico",    lat: 17.0732,  lng: -96.7266, tags: ["밥"] },
+  { file: null, city: "Guanajuato",   country: "Mexico",    lat: 21.0190,  lng: -101.2574,tags: ["나"] },
+  { file: null, city: "Lisbon",       country: "Portugal",  lat: 38.7223,  lng: -9.1393,  tags: ["바다", "밤"] },
+  { file: null, city: "Tokyo",        country: "Japan",     lat: 35.6762,  lng: 139.6503, tags: ["밥", "밤"] },
+  { file: null, city: "Kyoto",        country: "Japan",     lat: 35.0116,  lng: 135.7681, tags: ["나", "공원"] },
+  { file: null, city: "Bali",         country: "Indonesia", lat: -8.3405,  lng: 115.0920, tags: ["바다", "공원"] },
 ];
 
-// 태그 → 아이콘 유니코드 매핑
 const tagIcon = {
   "나":    "\u{1F478}",
   "밥":    "\u{1F367}",
@@ -416,15 +445,30 @@ function renderGallery(filterTag = null) {
     : photos;
 
   view.innerHTML = '';
-  filtered.forEach(photo => {
+  filtered.forEach((photo, i) => {
     const card = document.createElement('div');
     card.className = 'photo-card';
-    card.onclick = () => openLightbox(photo.file);
+    card.onclick = () => openLightbox(photo);
 
-    const img = document.createElement('img');
-    img.src = photo.file;
-    img.alt = photo.city;
-    img.loading = 'lazy';
+    if (photo.file) {
+      const img = document.createElement('img');
+      img.src = photo.file;
+      img.alt = photo.city;
+      img.loading = 'lazy';
+      card.appendChild(img);
+    } else {
+      const ph = document.createElement('div');
+      ph.className = 'placeholder';
+      const emoji = document.createElement('div');
+      emoji.className = 'placeholder-emoji';
+      emoji.textContent = tagIcon[photo.tags[0]] || '📷';
+      const city = document.createElement('div');
+      city.className = 'placeholder-city';
+      city.textContent = photo.city;
+      ph.appendChild(emoji);
+      ph.appendChild(city);
+      card.appendChild(ph);
+    }
 
     const tagsEl = document.createElement('div');
     tagsEl.className = 'photo-tags';
@@ -434,45 +478,31 @@ function renderGallery(filterTag = null) {
       span.textContent = tagIcon[tag] || '';
       tagsEl.appendChild(span);
     });
-
-    card.appendChild(img);
     card.appendChild(tagsEl);
     view.appendChild(card);
   });
 }
 
-// ── 지도 초기화 ──
+// ── 지도 ──
 let mapInitialized = false;
 let leafletMap = null;
 let markers = [];
 
 function initMap(filterTag) {
   if (!mapInitialized) {
-    leafletMap = L.map('map', {
-      center: [20, 10],
-      zoom: 2,
-      zoomControl: true,
-      scrollWheelZoom: true,
-    });
-
+    leafletMap = L.map('map', { center: [20, 10], zoom: 2 });
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
       attribution: '© OpenStreetMap © CARTO',
       subdomains: 'abcd',
       maxZoom: 19,
     }).addTo(leafletMap);
-
     mapInitialized = true;
   }
 
-  // 마커 초기화
   markers.forEach(m => m.remove());
   markers = [];
 
-  const filtered = filterTag
-    ? photos.filter(p => p.tags.includes(filterTag))
-    : photos;
-
-  // 도시별로 그룹핑
+  const filtered = filterTag ? photos.filter(p => p.tags.includes(filterTag)) : photos;
   const cityMap = {};
   filtered.forEach(photo => {
     const key = `${photo.city}_${photo.country}`;
@@ -487,7 +517,6 @@ function initMap(filterTag) {
       iconSize: [10, 10],
       iconAnchor: [5, 5],
     });
-
     const marker = L.marker([city.lat, city.lng], { icon });
     marker.on('click', () => openMapPopup(city));
     marker.addTo(leafletMap);
@@ -497,7 +526,7 @@ function initMap(filterTag) {
   setTimeout(() => leafletMap.invalidateSize(), 100);
 }
 
-// ── 아이콘 클릭 핸들러 ──
+// ── 아이콘 클릭 ──
 let activeTag = null;
 let mapMode = false;
 
@@ -505,7 +534,6 @@ function handleIcon(btn) {
   const tag = btn.dataset.tag;
 
   if (activeTag === tag && mapMode) {
-    // 같은 아이콘 다시 클릭 → 갤러리로 돌아가기
     activeTag = null;
     mapMode = false;
     btn.classList.remove('active');
@@ -513,17 +541,14 @@ function handleIcon(btn) {
     return;
   }
 
-  // 모든 아이콘 비활성화
   document.querySelectorAll('.icon-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
 
   if (activeTag === tag && !mapMode) {
-    // 갤러리에서 같은 태그 → 지도로 전환
     mapMode = true;
     activeTag = tag;
     showMap(tag);
   } else {
-    // 새 태그 선택 → 갤러리 필터링
     activeTag = tag;
     mapMode = false;
     showGallery(tag);
@@ -544,9 +569,18 @@ function showMap(tag = null) {
 
 // ── 지도 팝업 ──
 function openMapPopup(city) {
-  const firstPhoto = city.photos[0];
-  document.getElementById('mapPopupLocation').textContent = `${city.country}, ${city.city}`;
-  document.getElementById('mapPopupImg').src = firstPhoto.file;
+  document.getElementById('mapPopupLocation').textContent =
+    `${city.country}, ${city.city}`;
+
+  const mediaEl = document.getElementById('mapPopupMedia');
+  if (city.photos[0].file) {
+    mediaEl.innerHTML = `<img src="${city.photos[0].file}" alt="${city.city}">`;
+  } else {
+    mediaEl.innerHTML = '';
+    mediaEl.style.fontSize = '13px';
+    mediaEl.textContent = city.city;
+  }
+
   document.getElementById('mapPopup').classList.add('open');
   leafletMap.panTo([city.lat, city.lng], { animate: true, duration: 0.5 });
 }
@@ -556,8 +590,14 @@ function closeMapPopup() {
 }
 
 // ── 라이트박스 ──
-function openLightbox(src) {
-  document.getElementById('lightboxImg').src = src;
+function openLightbox(photo) {
+  const content = document.getElementById('lightboxContent');
+  if (photo.file) {
+    content.outerHTML = `<img id="lightboxContent" src="${photo.file}" alt="${photo.city}" style="max-width:90vw;max-height:90vh;object-fit:contain;">`;
+  } else {
+    const el = document.getElementById('lightboxContent');
+    el.textContent = `${photo.city} — ${photo.tags.join(', ')}`;
+  }
   document.getElementById('lightbox').classList.add('open');
 }
 
@@ -565,7 +605,6 @@ function closeLightbox() {
   document.getElementById('lightbox').classList.remove('open');
 }
 
-// ── 초기 렌더링 ──
 renderGallery();
 
 </script>
