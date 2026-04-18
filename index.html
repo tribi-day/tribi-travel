@@ -120,7 +120,7 @@ header {
   overflow-y: auto;
   padding: 8px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-template-columns: repeat(5, 1fr);
   gap: 6px;
   align-content: start;
 }
@@ -129,7 +129,7 @@ header {
 
 .photo-card {
   position: relative;
-  aspect-ratio: 1;
+  aspect-ratio: 4 / 5;
   overflow: hidden;
   cursor: pointer;
   background: var(--ink-faint);
@@ -356,7 +356,7 @@ header {
 <body>
 
 <div class="layout">
-  <header>
+  <header onclick="goHome()" style="cursor: pointer;">
     <span class="header-globe">&#x1F30D;</span>
     <span class="header-title">tribi.travel.archive</span>
   </header>
@@ -528,27 +528,38 @@ function initMap(filterTag) {
 
 // ── 아이콘 클릭 ──
 let activeTag = null;
-let mapMode = false;
+let clickCount = 0;
 
 function handleIcon(btn) {
   const tag = btn.dataset.tag;
 
-  if (activeTag === tag && mapMode) {
-    // 두 번 클릭 → 갤러리로
-    activeTag = null;
-    mapMode = false;
-    btn.classList.remove('active');
-    showGallery();
-    return;
+  if (activeTag !== tag) {
+    // 다른 아이콘 클릭 → 지도로
+    document.querySelectorAll('.icon-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeTag = tag;
+    clickCount = 1;
+    showMap(tag);
+  } else {
+    clickCount++;
+    if (clickCount === 2) {
+      // 같은 아이콘 두 번 → 필터 갤러리
+      showGallery(tag);
+    } else {
+      // 세 번 → 초기화
+      document.querySelectorAll('.icon-btn').forEach(b => b.classList.remove('active'));
+      activeTag = null;
+      clickCount = 0;
+      showGallery();
+    }
   }
+}
 
+function goHome() {
   document.querySelectorAll('.icon-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-
-  // 한 번 클릭 → 바로 지도
-  activeTag = tag;
-  mapMode = true;
-  showMap(tag);
+  activeTag = null;
+  clickCount = 0;
+  showGallery();
 }
 
 function showGallery(tag = null) {
