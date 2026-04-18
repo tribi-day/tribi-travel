@@ -56,7 +56,6 @@ header {
   align-items: center;
   gap: 10px;
   padding: 14px 20px;
-  border-bottom: 0.5px solid var(--ink-faint);
   flex-shrink: 0;
 }
 
@@ -67,11 +66,12 @@ header {
 }
 
 .header-title {
-  font-family: 'Tribi', 'DOSPilgi', monospace;
+  font-family: 'DOSPilgi', monospace;
   font-size: 18px;
   letter-spacing: 0.04em;
   color: var(--ink);
 }
+
 
 .main {
   display: flex;
@@ -82,7 +82,6 @@ header {
 .sidebar {
   width: var(--sidebar-w);
   flex-shrink: 0;
-  border-right: 0.5px solid var(--ink-faint);
   padding: 16px 8px;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -100,14 +99,13 @@ header {
   padding: 6px;
   border-radius: 6px;
   text-align: center;
-  transition: background 0.15s;
-  color: var(--ink);
+  transition: opacity 0.15s, filter 0.15s;
   filter: grayscale(1);
-  opacity: 0.5;
+  opacity: 0.45;
 }
 
-.icon-btn:hover { background: rgba(26,26,26,0.06); opacity: 0.8; }
-.icon-btn.active { filter: none; opacity: 1; background: rgba(26,26,26,0.08); }
+.icon-btn:hover { opacity: 0.7; }
+.icon-btn.active { filter: grayscale(1) sepia(1) saturate(8) hue-rotate(300deg); opacity: 1; }
 
 .content {
   flex: 1;
@@ -534,6 +532,7 @@ function handleIcon(btn) {
   const tag = btn.dataset.tag;
 
   if (activeTag === tag && mapMode) {
+    // 두 번 클릭 → 갤러리로
     activeTag = null;
     mapMode = false;
     btn.classList.remove('active');
@@ -544,15 +543,10 @@ function handleIcon(btn) {
   document.querySelectorAll('.icon-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
 
-  if (activeTag === tag && !mapMode) {
-    mapMode = true;
-    activeTag = tag;
-    showMap(tag);
-  } else {
-    activeTag = tag;
-    mapMode = false;
-    showGallery(tag);
-  }
+  // 한 번 클릭 → 바로 지도
+  activeTag = tag;
+  mapMode = true;
+  showMap(tag);
 }
 
 function showGallery(tag = null) {
