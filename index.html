@@ -271,6 +271,8 @@ header {
   pointer-events: none;
   transform: translateY(8px);
   transition: opacity 0.25s ease, transform 0.25s ease;
+  max-height: calc(100% - 40px);
+  overflow-y: auto;
 }
 
 .map-popup.open {
@@ -308,21 +310,22 @@ header {
   display: block;
 }
 
-.map-popup-close {
-  position: absolute;
-  top: 34px;
-  right: 0;
+.map-popup-close-btn {
+  position: sticky;
+  top: 0;
+  float: right;
   width: 28px;
   height: 28px;
   background: var(--ink);
   color: var(--cream);
-  border: none;
   cursor: pointer;
   font-size: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: 'DOSPilgi', monospace;
+  z-index: 10;
+  margin-left: auto;
 }
 
 /* ── 라이트박스 ── */
@@ -464,9 +467,9 @@ header {
       <div class="map-view hidden" id="mapView">
         <div id="map"></div>
         <div class="map-popup" id="mapPopup">
-          <button class="map-popup-close" onclick="closeMapPopup()">×</button>
+        <div class="map-popup-close-btn" onclick="closeMapPopup()">×</div>
           <div class="map-popup-location" id="mapPopupLocation"></div>
-          <div class="map-popup-media" id="mapPopupMedia">no image</div>
+          <div id="mapPopupMedia"></div>
         </div>
       </div>
     </div>
@@ -500,19 +503,19 @@ header {
 // file: null 이면 플레이스홀더로 표시
 // ──────────────────────────────────────────
 const photos = [
-  { file: "images/korea_sanbon_cat_1.jpg",      city: "Gunpo",       country: "South Korea", lat: 37.3615,  lng: 126.9350,  tags: ["고양이"] },
-  { file: "images/aj_elcalapate_cat.jpg",        city: "El Calafate", country: "Argentina",   lat: -50.3397, lng: -72.2650,  tags: ["고양이"] },
-  { file: "images/aj_elcalapate_dog.jpg",        city: "El Calafate", country: "Argentina",   lat: -50.3397, lng: -72.2650,  tags: ["강아지"] },
-  { file: "images/aj_tigre_cat.jpg",             city: "Tigre",       country: "Argentina",   lat: -34.4261, lng: -58.5796,  tags: ["고양이"] },
-  { file: "images/brazil_curitiba_dog.jpg",      city: "Curitiba",    country: "Brazil",      lat: -25.4284, lng: -49.2733,  tags: ["강아지"] },
-  { file: "images/colombia_medellin_cat.jpg",    city: "Medellín",    country: "Colombia",    lat: 6.2442,   lng: -75.5812,  tags: ["고양이"] },
-  { file: "images/colombia_providencia_dog.jpg", city: "Providencia", country: "Colombia",    lat: 13.3600,  lng: -81.3726,  tags: ["강아지"] },
-  { file: "images/mex_guanajuato_dog.jpg",       city: "Guanajuato",  country: "Mexico",      lat: 21.0190,  lng: -101.2574, tags: ["강아지"] },
-  { file: "images/mex_guanajuato_dog2.jpg",      city: "Guanajuato",  country: "Mexico",      lat: 21.0190,  lng: -101.2574, tags: ["강아지"] },
-  { file: "images/thai_hangdong_cat.jpg",        city: "Hang Dong",   country: "Thailand",    lat: 18.6800,  lng: 98.9200,   tags: ["고양이"] },
-  { file: "images/thai_hangdong_cat2.jpg",       city: "Hang Dong",   country: "Thailand",    lat: 18.6800,  lng: 98.9200,   tags: ["고양이"] },
-  { file: "images/thai_hangdong_cat3.jpg",       city: "Hang Dong",   country: "Thailand",    lat: 18.6800,  lng: 98.9200,   tags: ["고양이"] },
-  { file: "images/thai_hangdong_dog.jpg",        city: "Hang Dong",   country: "Thailand",    lat: 18.6800,  lng: 98.9200,   tags: ["강아지"] },
+  { file: "images/korea_sanbon_cat_1.jpg",       city: "Gunpo",       country: "South Korea", lat: 37.3615,  lng: 126.9350,  tags: ["고양이"] },
+  { file: "images/aj_elcalapate_cat.jpeg",        city: "El Calafate", country: "Argentina",   lat: -50.3397, lng: -72.2650,  tags: ["고양이"] },
+  { file: "images/aj_elcalapate_dog.jpeg",        city: "El Calafate", country: "Argentina",   lat: -50.3397, lng: -72.2650,  tags: ["강아지"] },
+  { file: "images/aj_tigre_cat.jpeg",             city: "Tigre",       country: "Argentina",   lat: -34.4261, lng: -58.5796,  tags: ["고양이"] },
+  { file: "images/brazil_curitiba_dog.jpeg",      city: "Curitiba",    country: "Brazil",      lat: -25.4284, lng: -49.2733,  tags: ["강아지"] },
+  { file: "images/colombia_medellin_cat.jpeg",    city: "Medellín",    country: "Colombia",    lat: 6.2442,   lng: -75.5812,  tags: ["고양이"] },
+  { file: "images/colombia_providencia_dog.jpeg", city: "Providencia", country: "Colombia",    lat: 13.3600,  lng: -81.3726,  tags: ["강아지"] },
+  { file: "images/mex_guanajuato_dog.jpeg",       city: "Guanajuato",  country: "Mexico",      lat: 21.0190,  lng: -101.2574, tags: ["강아지"] },
+  { file: "images/mex_guanajuato_dog2.jpeg",      city: "Guanajuato",  country: "Mexico",      lat: 21.0190,  lng: -101.2574, tags: ["강아지"] },
+  { file: "images/thai_hangdong_cat.jpg",         city: "Hang Dong",   country: "Thailand",    lat: 18.6800,  lng: 98.9200,   tags: ["고양이"] },
+  { file: "images/thai_hangdong_cat2.jpg",        city: "Hang Dong",   country: "Thailand",    lat: 18.6800,  lng: 98.9200,   tags: ["고양이"] },
+  { file: "images/thai_hangdong_cat3.jpg",        city: "Hang Dong",   country: "Thailand",    lat: 18.6800,  lng: 98.9200,   tags: ["고양이"] },
+  { file: "images/thai_hangdong_dog.jpg",         city: "Hang Dong",   country: "Thailand",    lat: 18.6800,  lng: 98.9200,   tags: ["강아지"] },
   { file: null, city: "Buenos Aires", country: "Argentina", lat: -34.6037, lng: -58.3816, tags: ["숙소"] },
   { file: null, city: "Buenos Aires", country: "Argentina", lat: -34.6037, lng: -58.3816, tags: ["숙소"] },
   { file: null, city: "Buenos Aires", country: "Argentina", lat: -34.6037, lng: -58.3816, tags: ["밥"] },
@@ -692,10 +695,23 @@ function openMapPopup(city) {
     `${city.country}, ${city.city}`;
 
   const mediaEl = document.getElementById('mapPopupMedia');
-  if (city.photos[0].file) {
-    mediaEl.innerHTML = `<img src="${city.photos[0].file}" alt="${city.city}">`;
+  mediaEl.innerHTML = '';
+  mediaEl.style = '';
+
+  const cityPhotos = city.photos.filter(p => p.file);
+
+  if (cityPhotos.length > 0) {
+    cityPhotos.forEach(photo => {
+      const wrap = document.createElement('div');
+      wrap.style.cssText = 'width:100%; aspect-ratio:4/5; overflow:hidden; margin-bottom:4px;';
+      const img = document.createElement('img');
+      img.src = photo.file;
+      img.alt = city.city;
+      img.style.cssText = 'width:100%; height:100%; object-fit:cover; display:block;';
+      wrap.appendChild(img);
+      mediaEl.appendChild(wrap);
+    });
   } else {
-    mediaEl.innerHTML = '';
     mediaEl.style.fontSize = '13px';
     mediaEl.textContent = city.city;
   }
