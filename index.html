@@ -639,7 +639,7 @@ function initMap(filterTag) {
     markers.push(marker);
   });
 
-  setTimeout(() => leafletMap.invalidateSize(), 100);
+  setTimeout(() => leafletMap.invalidateSize(), 300);
 }
 
 // ── 아이콘 클릭 ──
@@ -684,8 +684,12 @@ function showGallery(tag = null) {
 
 function showMap(tag = null) {
   document.getElementById('galleryView').classList.add('hidden');
-  document.getElementById('mapView').classList.remove('hidden');
-  initMap(tag);
+  const mapView = document.getElementById('mapView');
+  mapView.classList.remove('hidden');
+  // hidden 풀린 후 다음 프레임에 initMap 실행
+  requestAnimationFrame(() => {
+    initMap(tag);
+  });
 }
 
 // ── 지도 팝업 ──
