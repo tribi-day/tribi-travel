@@ -128,19 +128,14 @@ header {
 
 .gallery-view.hidden { display: none; }
 
-/* ── 갤러리 ── */
-.gallery-view {
+/* ── 지도 뷰 ── */
+.map-view {
   width: 100%;
   height: 100%;
-  overflow-y: auto;
-  padding: 8px;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 6px;
-  align-content: start;
+  position: relative;
 }
 
-.gallery-view.hidden { display: none; }
+.map-view.hidden { display: none; }
 
 .photo-card {
   width: 100%;
@@ -686,10 +681,10 @@ function showMap(tag = null) {
   document.getElementById('galleryView').classList.add('hidden');
   const mapView = document.getElementById('mapView');
   mapView.classList.remove('hidden');
-  // hidden 풀린 후 다음 프레임에 initMap 실행
-  requestAnimationFrame(() => {
+  setTimeout(() => {
     initMap(tag);
-  });
+    if (leafletMap) leafletMap.invalidateSize();
+  }, 200);
 }
 
 // ── 지도 팝업 ──
