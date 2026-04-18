@@ -24,17 +24,14 @@ export default async function handler(req, res) {
 
     const data = await response.json();
 
-    // 디버그: 첫 번째 행의 properties 확인
-    if (data.results.length > 0) {
-      const debugProps = data.results[0].properties;
-      return res.status(200).json({ debug: debugProps });
-    }
-
     const photos = data.results.map(page => {
       const props = page.properties;
+      const titleArr = props.file?.title || [];
+      // href가 있으면 href, 없으면 plain_text 이어붙이기
+      const fileUrl = titleArr[0]?.href || titleArr.map(t => t.plain_text).join('') || null;
 
       return {
-        file: props.Name?.title?.[0]?.plain_text || null,
+        file: props.file?.url || null,
         city: props.city?.rich_text?.[0]?.plain_text || '',
         country: props.country?.rich_text?.[0]?.plain_text || '',
         lat: props.lat?.number || 0,
