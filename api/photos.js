@@ -28,7 +28,7 @@ export default async function handler(req, res) {
       const props = page.properties;
 
       return {
-        file: props.file?.title?.[0]?.plain_text || null,
+        file: props.Name?.title?.[0]?.plain_text || null,
         city: props.city?.rich_text?.[0]?.plain_text || '',
         country: props.country?.rich_text?.[0]?.plain_text || '',
         lat: props.lat?.number || 0,
