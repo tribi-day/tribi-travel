@@ -3,415 +3,570 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>tribi.travel</title>
-<link rel="preconnect" href="https://cdn.jsdelivr.net">
-<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
-<style>
-  @font-face {
-    font-family: 'Tribi';
-    src: url('fonts/Tribi_eng.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-  }
-</style>
+<title>tribi.travel.archive</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  :root {
-    --cream: #f4efe6;
-    --warm-white: #faf8f4;
-    --ink: #1e1a16;
-    --ink-mid: rgba(30,26,22,0.45);
-    --ink-faint: rgba(30,26,22,0.12);
-    --caramel: #b8864e;
-    --caramel-light: #e8d5b8;
-  }
+@font-face {
+  font-family: 'Tribi';
+  src: url('fonts/Tribi_eng.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'DOSPilgi';
+  src: url('fonts/DOSPilgi.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Retrograde';
+  src: url('fonts/Retrograde-Regular.otf') format('opentype');
+}
 
-  html { scroll-behavior: smooth; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  body {
-    font-family: 'Pretendard', sans-serif;
-    background: var(--cream);
-    color: var(--ink);
-    min-height: 100vh;
-  }
+:root {
+  --cream: #f0ebe0;
+  --ink: #1a1a1a;
+  --ink-mid: rgba(26,26,26,0.45);
+  --ink-faint: rgba(26,26,26,0.12);
+  --caramel: #b8864e;
+  --sidebar-w: 110px;
+}
 
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'DOSPilgi', monospace;
+}
 
+/* ── 전체 레이아웃 ── */
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
 
-  .hero {
-    padding: 1.5rem 2.5rem 1rem;
-    animation: fadeUp 0.6s ease both;
-  }
+/* ── 헤더 ── */
+header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px;
+  border-bottom: 0.5px solid var(--ink-faint);
+  flex-shrink: 0;
+}
 
-  .hero-eyebrow {
-    font-family: 'Tribi', sans-serif;
-    font-size: 22px;
-    letter-spacing: 0.08em;
-    color: var(--ink);
-  }
+.header-globe {
+  font-family: 'DOSPilgi', monospace;
+  font-size: 22px;
+  line-height: 1;
+}
 
-  .hero-title em { font-style: italic; color: var(--caramel); }
+.header-title {
+  font-family: 'Tribi', sans-serif;
+  font-size: 18px;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+}
 
-  .map-section {
-    padding: 0 2.5rem 4rem;
-    animation: fadeUp 0.6s ease 0.1s both;
-  }
+/* ── 메인 영역 ── */
+.main {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
 
-  .map-label { display: none; }
+/* ── 사이드바 ── */
+.sidebar {
+  width: var(--sidebar-w);
+  flex-shrink: 0;
+  border-right: 0.5px solid var(--ink-faint);
+  padding: 16px 8px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(5, auto);
+  gap: 4px;
+  align-content: start;
+}
 
-  .map-wrapper {
-    position: relative;
-    border: 0.5px solid var(--ink-faint);
-    border-radius: 16px;
-    overflow: hidden;
-    height: calc(100vh - 80px);
-  }
+.icon-btn {
+  font-family: 'DOSPilgi', monospace;
+  font-size: 26px;
+  line-height: 1;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  text-align: center;
+  transition: background 0.15s;
+  color: var(--ink);
+  filter: grayscale(1);
+  opacity: 0.5;
+}
 
-  #map { width: 100%; height: 100%; background: var(--warm-white); }
+.icon-btn:hover {
+  background: rgba(26,26,26,0.06);
+  opacity: 0.8;
+}
 
-  .leaflet-control-zoom {
-    border: 0.5px solid var(--ink-faint) !important;
-    border-radius: 8px !important;
-    overflow: hidden;
-    box-shadow: none !important;
-  }
+.icon-btn.active {
+  filter: none;
+  opacity: 1;
+  background: rgba(26,26,26,0.08);
+}
 
-  .leaflet-control-zoom a {
-    background: var(--warm-white) !important;
-    color: var(--ink) !important;
-    border-bottom: 0.5px solid var(--ink-faint) !important;
-    font-family: 'DM Sans', sans-serif !important;
-    width: 30px !important;
-    height: 30px !important;
-    line-height: 30px !important;
-  }
+/* ── 콘텐츠 영역 ── */
+.content {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
 
-  .leaflet-control-zoom a:hover { background: var(--cream) !important; }
+/* ── 갤러리 뷰 ── */
+.gallery-view {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 6px;
+  align-content: start;
+}
 
-  .leaflet-control-attribution {
-    font-family: 'DM Sans', sans-serif !important;
-    font-size: 10px !important;
-    background: rgba(244,239,230,0.8) !important;
-    color: var(--ink-mid) !important;
-    box-shadow: none !important;
-  }
+.gallery-view.hidden { display: none; }
 
-  .custom-marker {
-    width: 10px;
-    height: 10px;
-    background: var(--caramel);
-    border: 2px solid white;
-    border-radius: 50%;
-    box-shadow: 0 1px 4px rgba(30,26,22,0.3);
-    cursor: pointer;
-    transition: transform 0.15s;
-  }
+.photo-card {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--ink-faint);
+}
 
-  .custom-marker:hover { transform: scale(1.5); }
+.photo-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.2s;
+}
 
-  /* ── 오버레이 배경 ── */
-  .popup-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(30,26,22,0.35);
-    z-index: 600;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.25s ease;
-    border-radius: 16px;
-  }
+.photo-card:hover img { transform: scale(1.03); }
 
-  .popup-overlay.open {
-    opacity: 1;
-    pointer-events: all;
-  }
+.photo-tags {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  display: flex;
+  gap: 2px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
 
-  /* ── 센터 팝업 ── */
-  .popup-card {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.94);
-    width: min(440px, 90%);
-    max-height: 80%;
-    background: var(--warm-white);
-    border-radius: 16px;
-    border: 0.5px solid var(--ink-faint);
-    z-index: 700;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.4,0,0.2,1);
-    overflow-y: auto;
-    padding: 1.5rem;
-  }
+.photo-tag {
+  font-family: 'DOSPilgi', monospace;
+  font-size: 16px;
+  line-height: 1;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+}
 
-  .popup-card.open {
-    opacity: 1;
-    pointer-events: all;
-    transform: translate(-50%, -50%) scale(1);
-  }
+/* ── 지도 뷰 ── */
+.map-view {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
 
-  .popup-close {
-    position: absolute;
-    top: 1rem; right: 1rem;
-    width: 28px; height: 28px;
-    border: 0.5px solid var(--ink-faint);
-    border-radius: 50%;
-    background: transparent;
-    cursor: pointer;
-    font-size: 14px;
-    color: var(--ink-mid);
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.15s;
-    flex-shrink: 0;
-  }
+.map-view.hidden { display: none; }
 
-  .popup-close:hover { background: var(--ink); color: var(--cream); }
+#map {
+  width: 100%;
+  height: 100%;
+}
 
-  .popup-country {
-    font-size: 10px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--caramel);
-    margin-bottom: 0.3rem;
-  }
+/* Leaflet 커스텀 */
+.leaflet-control-zoom {
+  border: 0.5px solid var(--ink-faint) !important;
+  border-radius: 6px !important;
+  overflow: hidden;
+  box-shadow: none !important;
+}
 
-  .popup-title {
-    font-family: 'Tribi', sans-serif;
-    font-size: 26px;
-    font-weight: 400;
-    color: var(--ink);
-    line-height: 1.2;
-    margin-bottom: 0.2rem;
-    padding-right: 2rem;
-  }
+.leaflet-control-zoom a {
+  background: var(--cream) !important;
+  color: var(--ink) !important;
+  border-bottom: 0.5px solid var(--ink-faint) !important;
+  font-family: 'DOSPilgi', monospace !important;
+  width: 28px !important;
+  height: 28px !important;
+  line-height: 28px !important;
+}
 
-  .popup-date {
-    font-size: 12px;
-    color: var(--ink-mid);
-    margin-bottom: 1.2rem;
-  }
+.leaflet-control-attribution {
+  font-size: 9px !important;
+  background: rgba(240,235,224,0.8) !important;
+  color: var(--ink-mid) !important;
+  box-shadow: none !important;
+}
 
-  /* 인스타 없을 때: 이모지 플레이스홀더 */
-  .popup-emoji {
-    width: 100%;
-    height: 160px;
-    background: var(--caramel-light);
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 42px;
-    margin-bottom: 1rem;
-    border: 0.5px solid var(--ink-faint);
-  }
+.custom-marker {
+  width: 10px;
+  height: 10px;
+  background: var(--caramel);
+  border: 2px solid white;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.15s;
+}
 
-  /* 인스타 임베드 컨테이너 */
-  .insta-wrap {
-    width: 100%;
-    margin-bottom: 1rem;
-    border-radius: 10px;
-    overflow: hidden;
-  }
+.custom-marker:hover { transform: scale(1.5); }
 
-  /* 인스타 blockquote 강제 풀너비 */
-  .insta-wrap .instagram-media {
-    width: 100% !important;
-    min-width: unset !important;
-    max-width: 100% !important;
-    margin: 0 !important;
-    border-radius: 10px !important;
-    border: 0.5px solid var(--ink-faint) !important;
-    box-shadow: none !important;
-  }
+/* ── 지도 위 사진 팝업 ── */
+.map-popup {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 380px;
+  background: var(--cream);
+  z-index: 800;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
 
-  .popup-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 1rem;
-  }
+.map-popup.open {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(0);
+}
 
-  .popup-tag {
-    font-size: 11px;
-    padding: 3px 10px;
-    border-radius: 20px;
-    border: 0.5px solid var(--caramel);
-    color: var(--caramel);
-  }
+.map-popup-location {
+  font-family: 'Retrograde', monospace;
+  font-size: 22px;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+  padding: 0 0 8px;
+  text-transform: uppercase;
+}
 
-  .popup-note {
-    font-size: 13px;
-    line-height: 1.8;
-    color: rgba(30,26,22,0.6);
-    font-family: 'Pretendard', sans-serif;
-  }
+.map-popup-img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  display: block;
+}
 
-  footer {
-    border-top: 0.5px solid var(--ink-faint);
-    padding: 1.5rem 2.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+.map-popup-close {
+  position: absolute;
+  top: 0; right: 0;
+  width: 28px; height: 28px;
+  background: var(--ink);
+  color: var(--cream);
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'DOSPilgi', monospace;
+  z-index: 10;
+}
 
-  .footer-logo {
-    font-family: 'Tribi', sans-serif;
-    font-size: 14px;
-    color: var(--ink-mid);
-  }
+/* 갤러리 사진 팝업 (라이트박스) */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(26,26,26,0.85);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
 
-  .footer-note { font-size: 11px; color: var(--ink-mid); }
+.lightbox.open {
+  opacity: 1;
+  pointer-events: all;
+}
 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
+.lightbox img {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px; right: 20px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+  font-family: 'DOSPilgi', monospace;
+}
+
 </style>
 </head>
 <body>
 
-<section class="hero">
-  <div class="hero-eyebrow">tribi.travel</div>
-</section>
+<div class="layout">
 
-<section class="map-section" id="map-section">
-  <div class="map-wrapper">
-    <div id="map"></div>
+  <!-- 헤더 -->
+  <header>
+    <span class="header-globe">&#x1F30D;</span>
+    <span class="header-title">tribi.travel.archive</span>
+  </header>
 
-    <!-- 어두운 오버레이 -->
-    <div class="popup-overlay" id="popupOverlay" onclick="closePopup()"></div>
+  <div class="main">
 
-    <!-- 센터 팝업 카드 -->
-    <div class="popup-card" id="popupCard">
-      <button class="popup-close" onclick="closePopup()">×</button>
-      <div class="popup-country" id="popupCountry"></div>
-      <div class="popup-title" id="popupTitle"></div>
-      <div class="popup-date" id="popupDate"></div>
-      <div id="popupMedia"></div>
-      <div class="popup-tags" id="popupTags"></div>
-      <p class="popup-note" id="popupNote"></p>
+    <!-- 사이드바 -->
+    <aside class="sidebar">
+      <!-- 나 -->
+      <button class="icon-btn" data-tag="나" onclick="handleIcon(this)" title="나">&#x1F478;</button>
+      <!-- 밥 -->
+      <button class="icon-btn" data-tag="밥" onclick="handleIcon(this)" title="밥">&#x1F367;</button>
+      <!-- 강아지 -->
+      <button class="icon-btn" data-tag="강아지" onclick="handleIcon(this)" title="강아지">&#x1F436;</button>
+      <!-- 고양이 -->
+      <button class="icon-btn" data-tag="고양이" onclick="handleIcon(this)" title="고양이">&#x1F431;</button>
+      <!-- 바다 -->
+      <button class="icon-btn" data-tag="바다" onclick="handleIcon(this)" title="바다">&#x1F420;</button>
+      <!-- 밤 -->
+      <button class="icon-btn" data-tag="밤" onclick="handleIcon(this)" title="밤">&#x1F304;</button>
+      <!-- 공원 -->
+      <button class="icon-btn" data-tag="공원" onclick="handleIcon(this)" title="공원">&#x1F334;</button>
+      <!-- 숙소 -->
+      <button class="icon-btn" data-tag="숙소" onclick="handleIcon(this)" title="숙소">&#x1F3DA;</button>
+      <!-- 산 -->
+      <button class="icon-btn" data-tag="산" onclick="handleIcon(this)" title="산">&#x1F30C;</button>
+      <!-- 비행기 -->
+      <button class="icon-btn" data-tag="비행기" onclick="handleIcon(this)" title="비행기">&#x1F6E9;</button>
+    </aside>
+
+    <!-- 콘텐츠 -->
+    <div class="content">
+
+      <!-- 갤러리 뷰 -->
+      <div class="gallery-view" id="galleryView"></div>
+
+      <!-- 지도 뷰 -->
+      <div class="map-view hidden" id="mapView">
+        <div id="map"></div>
+        <div class="map-popup" id="mapPopup">
+          <button class="map-popup-close" onclick="closeMapPopup()">×</button>
+          <div class="map-popup-location" id="mapPopupLocation"></div>
+          <img class="map-popup-img" id="mapPopupImg" src="" alt="">
+        </div>
+      </div>
+
     </div>
   </div>
-</section>
+</div>
 
-<footer id="about">
-  <div class="footer-logo">tribi.travel</div>
-  <div class="footer-note">solo traveler · designer · writer · 계속 이동 중</div>
-</footer>
+<!-- 라이트박스 -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">×</button>
+  <img id="lightboxImg" src="" alt="">
+</div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 
 // ──────────────────────────────────────────
-// 여행 도시 데이터
-// 도시 추가할 때 여기에만 추가하면 돼!
+// 사진 데이터
+// 사진 추가할 때 여기에만 추가하면 돼!
+// tags: ["나","밥","강아지","고양이","바다","밤","공원","숙소","산","비행기"]
 // ──────────────────────────────────────────
-const cities = [
-  { name: "멕시코시티",      country: "Mexico",      lat: 19.4326,  lng: -99.1332,  date: "2024. 04", emoji: "🌵", tags: ["중미", "도시", "문화"], note: "색깔과 소음과 음식. 예상보다 훨씬 크고 깊은 도시." },
-  { name: "과나후아토",      country: "Mexico",      lat: 21.0190,  lng: -101.2574, date: "2024. 04", emoji: "🌈", tags: ["중미", "소도시"],        note: "골목마다 색이 다른 도시. 미라 박물관과 돈 키호테." },
-  { name: "오악사카",        country: "Mexico",      lat: 17.0732,  lng: -96.7266,  date: "2024. 04", emoji: "🫶", tags: ["중미", "음식"],          note: "세상에서 제일 좋은 음식들이 여기 있다고 확신한다." },
-  { name: "부에노스아이레스", country: "Argentina",  lat: -34.6037, lng: -58.3816,  date: "2024. 02", emoji: "🥩", tags: ["남미", "도시"],          note: "유럽 같기도 하고 아닌 것 같기도 한. 탱고와 스테이크." },
-  { name: "우유니",          country: "Bolivia",     lat: -20.4630, lng: -66.8259,  date: "2024. 01", emoji: "🪞", tags: ["남미", "자연"],          note: "세상이 하늘을 반사하는 곳. 말이 필요 없었다." },
-  { name: "쿠리치바",        country: "Brazil",      lat: -25.4284, lng: -49.2733,  date: "2024. 01", emoji: "🌿", tags: ["남미", "도시"],          note: "브라질에서 제일 살기 좋다는 도시.", instagram: "https://www.instagram.com/p/DXP4jFVFOfg/" },
-  { name: "리마",            country: "Peru",        lat: -12.0464, lng: -77.0428,  date: "2023. 12", emoji: "🐟", tags: ["남미", "음식"],          note: "세비체의 도시. 태평양이 보이는 절벽 위 도시." },
-  { name: "쿠스코",          country: "Peru",        lat: -13.5319, lng: -71.9675,  date: "2023. 12", emoji: "🏔", tags: ["남미", "유적"],          note: "고산증과 잉카 유적. 숨이 차는 게 고도 때문인지 풍경 때문인지." },
-  { name: "산티아고",        country: "Chile",       lat: -33.4489, lng: -70.6693,  date: "2023. 11", emoji: "🍷", tags: ["남미"],                  note: "안데스 산맥을 배경으로 한 도시." },
-  { name: "리스본",          country: "Portugal",    lat: 38.7223,  lng: -9.1393,   date: "2023. 09", emoji: "🌊", tags: ["유럽", "소도시"],        note: "파두와 에그 타르트. 트램과 언덕." },
-  { name: "파리",            country: "France",      lat: 48.8566,  lng: 2.3522,    date: "2023. 06", emoji: "🥐", tags: ["유럽", "도시"],          note: "언제 와도 파리는 파리다." },
-  { name: "바르셀로나",      country: "Spain",       lat: 41.3851,  lng: 2.1734,    date: "2022. 09", emoji: "🌞", tags: ["유럽", "해변"],          note: "가우디와 지중해. 밤이 더 화려한 도시." },
-  { name: "아테네",          country: "Greece",      lat: 37.9838,  lng: 23.7275,   date: "2022. 08", emoji: "🏛", tags: ["유럽", "유적"],          note: "아크로폴리스에서 내려다 본 아테네는 달랐다." },
-  { name: "이스탄불",        country: "Turkey",      lat: 41.0082,  lng: 28.9784,   date: "2022. 05", emoji: "🕌", tags: ["중동", "문화"],          note: "두 대륙에 걸친 도시. 보스포루스 해협의 노을." },
-  { name: "페트라",          country: "Jordan",      lat: 30.3285,  lng: 35.4444,   date: "2022. 04", emoji: "🪨", tags: ["중동", "유적"],          note: "일출에 장밋빛으로 물드는 바위. 실제로 보면 압도된다." },
-  { name: "교토",            country: "Japan",       lat: 35.0116,  lng: 135.7681,  date: "2023. 03", emoji: "⛩", tags: ["아시아", "문화"],        note: "새벽의 후시미 이나리. 인파가 오기 전의 고요함." },
-  { name: "도쿄",            country: "Japan",       lat: 35.6762,  lng: 139.6503,  date: "2023. 03", emoji: "🌸", tags: ["아시아", "도시"],        note: "어디를 가도 완벽하게 정리된 카오스." },
-  { name: "방콕",            country: "Thailand",    lat: 13.7563,  lng: 100.5018,  date: "2022. 03", emoji: "🛺", tags: ["아시아", "음식"],        note: "팟타이와 뚝뚝과 왓포. 더위도 매력이 됐다." },
-  { name: "발리",            country: "Indonesia",   lat: -8.3405,  lng: 115.0920,  date: "2022. 11", emoji: "🌺", tags: ["아시아", "자연"],        note: "우붓의 논밭, 울루와뚜의 절벽. 감각이 과부하됐다." },
-  { name: "하노이",          country: "Vietnam",     lat: 21.0278,  lng: 105.8342,  date: "2021. 10", emoji: "🍜", tags: ["아시아", "도시"],        note: "오토바이 소음과 쌀국수. 호안끼엠 호수의 저녁." },
-  { name: "싱가포르",        country: "Singapore",   lat: 1.3521,   lng: 103.8198,  date: "2021. 09", emoji: "🌃", tags: ["아시아", "도시"],        note: "작지만 모든 것이 있는 도시국가." },
-  { name: "시드니",          country: "Australia",   lat: -33.8688, lng: 151.2093,  date: "2021. 01", emoji: "🦘", tags: ["오세아니아"],             note: "오페라하우스보다 본다이 비치가 더 좋았다." },
-  { name: "퀸스타운",        country: "New Zealand", lat: -45.0312, lng: 168.6626,  date: "2021. 02", emoji: "🏔", tags: ["오세아니아", "자연"],    note: "피오르드랜드. 광활함의 의미를 처음 이해했다." },
+const photos = [
+  {
+    file: "images/curitiba_capybara.jpg",
+    city: "Curitiba",
+    country: "Brazil",
+    lat: -25.4284,
+    lng: -49.2733,
+    tags: ["나", "공원"],
+  },
+  // 여기에 사진 추가!
+  // { file: "images/파일명.jpg", city: "도시명", country: "나라", lat: 위도, lng: 경도, tags: ["태그"] },
 ];
 
-// 지도 초기화
-const map = L.map('map', {
-  center: [25, 15],
-  zoom: 2,
-  zoomControl: true,
-  scrollWheelZoom: true,
-});
+// 태그 → 아이콘 유니코드 매핑
+const tagIcon = {
+  "나":    "\u{1F478}",
+  "밥":    "\u{1F367}",
+  "강아지": "\u{1F436}",
+  "고양이": "\u{1F431}",
+  "바다":  "\u{1F420}",
+  "밤":    "\u{1F304}",
+  "공원":  "\u{1F334}",
+  "숙소":  "\u{1F3DA}",
+  "산":    "\u{1F30C}",
+  "비행기": "\u{1F6E9}",
+};
 
-L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-  attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> © <a href="https://carto.com/attributions">CARTO</a>',
-  subdomains: 'abcd',
-  maxZoom: 19
-}).addTo(map);
+// ── 갤러리 렌더링 ──
+function renderGallery(filterTag = null) {
+  const view = document.getElementById('galleryView');
+  const filtered = filterTag
+    ? photos.filter(p => p.tags.includes(filterTag))
+    : photos;
 
-function createIcon() {
-  return L.divIcon({
-    className: '',
-    html: '<div class="custom-marker"></div>',
-    iconSize: [10, 10],
-    iconAnchor: [5, 5],
+  view.innerHTML = '';
+  filtered.forEach(photo => {
+    const card = document.createElement('div');
+    card.className = 'photo-card';
+    card.onclick = () => openLightbox(photo.file);
+
+    const img = document.createElement('img');
+    img.src = photo.file;
+    img.alt = photo.city;
+    img.loading = 'lazy';
+
+    const tagsEl = document.createElement('div');
+    tagsEl.className = 'photo-tags';
+    photo.tags.forEach(tag => {
+      const span = document.createElement('span');
+      span.className = 'photo-tag';
+      span.textContent = tagIcon[tag] || '';
+      tagsEl.appendChild(span);
+    });
+
+    card.appendChild(img);
+    card.appendChild(tagsEl);
+    view.appendChild(card);
   });
 }
 
-cities.forEach(city => {
-  const marker = L.marker([city.lat, city.lng], { icon: createIcon() });
-  marker.on('click', () => openPopup(city));
-  marker.addTo(map);
-});
+// ── 지도 초기화 ──
+let mapInitialized = false;
+let leafletMap = null;
+let markers = [];
 
-// ── 팝업 열기 ──
-function openPopup(city) {
-  document.getElementById('popupCountry').textContent = city.country;
-  document.getElementById('popupTitle').textContent = city.name;
-  document.getElementById('popupDate').textContent = city.date;
-  document.getElementById('popupNote').textContent = city.note;
+function initMap(filterTag) {
+  if (!mapInitialized) {
+    leafletMap = L.map('map', {
+      center: [20, 10],
+      zoom: 2,
+      zoomControl: true,
+      scrollWheelZoom: true,
+    });
 
-  // 태그
-  const tagsEl = document.getElementById('popupTags');
-  tagsEl.innerHTML = '';
-  city.tags.forEach(tag => {
-    const span = document.createElement('span');
-    span.className = 'popup-tag';
-    span.textContent = tag;
-    tagsEl.appendChild(span);
-  });
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution: '© OpenStreetMap © CARTO',
+      subdomains: 'abcd',
+      maxZoom: 19,
+    }).addTo(leafletMap);
 
-  // 미디어: 인스타 있으면 임베드, 없으면 이모지
-  const mediaEl = document.getElementById('popupMedia');
-  if (city.instagram) {
-    mediaEl.innerHTML = `
-      <div class="insta-wrap">
-        <blockquote class="instagram-media"
-          data-instgrm-permalink="${city.instagram}"
-          data-instgrm-version="14"
-          data-instgrm-captioned
-          style="width:100%; min-width:unset; margin:0; border:0.5px solid var(--ink-faint); border-radius:10px; box-shadow:none; background:#fff;">
-        </blockquote>
-      </div>`;
-    if (window.instgrm) {
-      window.instgrm.Embeds.process();
-    } else {
-      const s = document.createElement('script');
-      s.src = 'https://www.instagram.com/embed.js';
-      s.async = true;
-      document.body.appendChild(s);
-    }
-  } else {
-    mediaEl.innerHTML = `<div class="popup-emoji">${city.emoji}</div>`;
+    mapInitialized = true;
   }
 
-  document.getElementById('popupOverlay').classList.add('open');
-  document.getElementById('popupCard').classList.add('open');
+  // 마커 초기화
+  markers.forEach(m => m.remove());
+  markers = [];
+
+  const filtered = filterTag
+    ? photos.filter(p => p.tags.includes(filterTag))
+    : photos;
+
+  // 도시별로 그룹핑
+  const cityMap = {};
+  filtered.forEach(photo => {
+    const key = `${photo.city}_${photo.country}`;
+    if (!cityMap[key]) cityMap[key] = { ...photo, photos: [] };
+    cityMap[key].photos.push(photo);
+  });
+
+  Object.values(cityMap).forEach(city => {
+    const icon = L.divIcon({
+      className: '',
+      html: '<div class="custom-marker"></div>',
+      iconSize: [10, 10],
+      iconAnchor: [5, 5],
+    });
+
+    const marker = L.marker([city.lat, city.lng], { icon });
+    marker.on('click', () => openMapPopup(city));
+    marker.addTo(leafletMap);
+    markers.push(marker);
+  });
+
+  setTimeout(() => leafletMap.invalidateSize(), 100);
 }
 
-function closePopup() {
-  document.getElementById('popupOverlay').classList.remove('open');
-  document.getElementById('popupCard').classList.remove('open');
+// ── 아이콘 클릭 핸들러 ──
+let activeTag = null;
+let mapMode = false;
+
+function handleIcon(btn) {
+  const tag = btn.dataset.tag;
+
+  if (activeTag === tag && mapMode) {
+    // 같은 아이콘 다시 클릭 → 갤러리로 돌아가기
+    activeTag = null;
+    mapMode = false;
+    btn.classList.remove('active');
+    showGallery();
+    return;
+  }
+
+  // 모든 아이콘 비활성화
+  document.querySelectorAll('.icon-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  if (activeTag === tag && !mapMode) {
+    // 갤러리에서 같은 태그 → 지도로 전환
+    mapMode = true;
+    activeTag = tag;
+    showMap(tag);
+  } else {
+    // 새 태그 선택 → 갤러리 필터링
+    activeTag = tag;
+    mapMode = false;
+    showGallery(tag);
+  }
 }
+
+function showGallery(tag = null) {
+  document.getElementById('galleryView').classList.remove('hidden');
+  document.getElementById('mapView').classList.add('hidden');
+  renderGallery(tag);
+}
+
+function showMap(tag = null) {
+  document.getElementById('galleryView').classList.add('hidden');
+  document.getElementById('mapView').classList.remove('hidden');
+  initMap(tag);
+}
+
+// ── 지도 팝업 ──
+function openMapPopup(city) {
+  const firstPhoto = city.photos[0];
+  document.getElementById('mapPopupLocation').textContent = `${city.country}, ${city.city}`;
+  document.getElementById('mapPopupImg').src = firstPhoto.file;
+  document.getElementById('mapPopup').classList.add('open');
+  leafletMap.panTo([city.lat, city.lng], { animate: true, duration: 0.5 });
+}
+
+function closeMapPopup() {
+  document.getElementById('mapPopup').classList.remove('open');
+}
+
+// ── 라이트박스 ──
+function openLightbox(src) {
+  document.getElementById('lightboxImg').src = src;
+  document.getElementById('lightbox').classList.add('open');
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+}
+
+// ── 초기 렌더링 ──
+renderGallery();
 
 </script>
 </body>
