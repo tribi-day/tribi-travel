@@ -124,7 +124,6 @@ header {
   grid-auto-rows: auto;
   gap: 6px;
   align-content: start;
-  photos.sort(() => Math.random() - 0.5);
 }
 
 .gallery-view.hidden { display: none; }
@@ -168,7 +167,8 @@ header {
 
 .photo-card:hover .photo-card-inner img { transform: scale(1.03); }
 .photo-card:hover .photo-card-inner { background: #ddd6c8; }
-
+.photos.sort(() => Math.random() - 0.5)
+  
 /* 플레이스홀더 */
 .placeholder {
   display: flex;
