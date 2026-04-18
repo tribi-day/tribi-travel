@@ -24,6 +24,12 @@ export default async function handler(req, res) {
 
     const data = await response.json();
 
+    // 디버그: 첫 번째 행의 properties 확인
+    if (data.results.length > 0) {
+      const debugProps = data.results[0].properties;
+      return res.status(200).json({ debug: debugProps });
+    }
+
     const photos = data.results.map(page => {
       const props = page.properties;
 
