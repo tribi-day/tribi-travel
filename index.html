@@ -121,6 +121,7 @@ header {
   padding: 8px;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
+  grid-auto-rows: auto;
   gap: 6px;
   align-content: start;
 }
@@ -129,10 +130,13 @@ header {
 
 .photo-card {
   position: relative;
+  width: 100%;
   aspect-ratio: 4 / 5;
   overflow: hidden;
   cursor: pointer;
   background: var(--ink-faint);
+  display: block;
+  min-height: 0;
 }
 
 /* 덤프 이미지 플레이스홀더 */
