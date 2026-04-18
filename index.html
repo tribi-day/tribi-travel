@@ -374,6 +374,66 @@ header {
 
 .lightbox-close:hover { opacity: 1; }
 
+/* ── 모바일 하단 탭바 (숨김 기본) ── */
+.mobile-tabbar {
+  display: none;
+}
+
+/* ── 모바일 반응형 ── */
+@media (max-width: 768px) {
+
+  /* 사이드바 숨기기 */
+  .sidebar { display: none; }
+
+  /* 하단 탭바 표시 */
+  .mobile-tabbar {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: var(--cream);
+    border-top: 0.5px solid var(--ink-faint);
+    z-index: 900;
+    padding: 6px 4px;
+    padding-bottom: calc(6px + env(safe-area-inset-bottom));
+    gap: 2px;
+  }
+
+  .mobile-tabbar .icon-btn {
+    font-size: 20px;
+    padding: 4px;
+  }
+
+  /* 갤러리 3열, 하단 탭바 높이만큼 패딩 */
+  .gallery-view {
+    grid-template-columns: repeat(3, 1fr);
+    padding-bottom: 100px;
+  }
+
+  /* 지도 하단 탭바 높이만큼 패딩 */
+  .map-view {
+    padding-bottom: 90px;
+  }
+
+  /* 지도 팝업 모바일 */
+  .map-popup {
+    top: auto;
+    bottom: 100px;
+    right: 10px;
+    left: 10px;
+    width: auto;
+  }
+
+  /* 헤더 작게 */
+  header {
+    padding: 10px 16px;
+  }
+
+  .header-globe { font-size: 22px; }
+  .header-title { font-size: 16px; }
+}
+
 </style>
 </head>
 <body>
@@ -411,6 +471,20 @@ header {
       </div>
     </div>
   </div>
+</div>
+
+<!-- 모바일 하단 탭바 -->
+<div class="mobile-tabbar">
+  <button class="icon-btn" data-tag="나"    onclick="handleIcon(this)">&#x1F478;</button>
+  <button class="icon-btn" data-tag="밥"    onclick="handleIcon(this)">&#x1F367;</button>
+  <button class="icon-btn" data-tag="강아지" onclick="handleIcon(this)">&#x1F436;</button>
+  <button class="icon-btn" data-tag="고양이" onclick="handleIcon(this)">&#x1F431;</button>
+  <button class="icon-btn" data-tag="바다"  onclick="handleIcon(this)">&#x1F420;</button>
+  <button class="icon-btn" data-tag="밤"    onclick="handleIcon(this)">&#x1F304;</button>
+  <button class="icon-btn" data-tag="공원"  onclick="handleIcon(this)">&#x1F334;</button>
+  <button class="icon-btn" data-tag="숙소"  onclick="handleIcon(this)">&#x1F3DA;</button>
+  <button class="icon-btn" data-tag="산"    onclick="handleIcon(this)">&#x1F30C;</button>
+  <button class="icon-btn" data-tag="비행기" onclick="handleIcon(this)">&#x1F6E9;</button>
 </div>
 
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
@@ -562,19 +636,17 @@ function handleIcon(btn) {
   const tag = btn.dataset.tag;
 
   if (activeTag !== tag) {
-    // 다른 아이콘 클릭 → 지도로
     document.querySelectorAll('.icon-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
+    // 같은 태그 버튼 모두 active (사이드바+탭바)
+    document.querySelectorAll(`.icon-btn[data-tag="${tag}"]`).forEach(b => b.classList.add('active'));
     activeTag = tag;
     clickCount = 1;
     showMap(tag);
   } else {
     clickCount++;
     if (clickCount === 2) {
-      // 같은 아이콘 두 번 → 필터 갤러리
       showGallery(tag);
     } else {
-      // 세 번 → 초기화
       document.querySelectorAll('.icon-btn').forEach(b => b.classList.remove('active'));
       activeTag = null;
       clickCount = 0;
