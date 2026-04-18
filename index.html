@@ -212,6 +212,17 @@ header {
   line-height: 1;
   filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
 }
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px 8px 6px;
+  background: linear-gradient(transparent, rgba(26,26,26,0.55));
+  font-family: 'DOSPilgi', monospace;
+  font-size: 10px;
+  color: rgba(255,255,255,0.9);
+  letter-spacing: 0.05em;
+}
 
 /* ── 지도 뷰 ── */
 .map-view {
@@ -248,16 +259,17 @@ header {
 }
 
 .custom-marker {
-  width: 10px;
-  height: 10px;
+  width: 16px;
+  height: 16px;
   background: #e03030;
-  border: 2px solid white;
+  border: 2.5px solid white;
   border-radius: 50%;
   cursor: pointer;
   transition: transform 0.15s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.3);
 }
 
-.custom-marker:hover { transform: scale(1.5); }
+.custom-marker:hover { transform: scale(1.4); }
 
 /* ── 지도 팝업 ── */
 .map-popup {
@@ -500,42 +512,19 @@ header {
 <script>
 
 // ──────────────────────────────────────────
-// 사진 데이터 — 나중에 노션 연동으로 교체 예정
-// file: null 이면 플레이스홀더로 표시
+// 노션에서 사진 데이터 불러오기
 // ──────────────────────────────────────────
-const photos = [
-  { file: "images/korea_sanbon_cat_1.jpg",       city: "Gunpo",       country: "South Korea", lat: 37.3615,  lng: 126.9350,  tags: ["고양이"] },
-  { file: "images/aj_elcalapate_cat.jpeg",        city: "El Calafate", country: "Argentina",   lat: -50.3397, lng: -72.2650,  tags: ["고양이"] },
-  { file: "images/aj_elcalapate_dog.jpeg",        city: "El Calafate", country: "Argentina",   lat: -50.3397, lng: -72.2650,  tags: ["강아지"] },
-  { file: "images/aj_tigre_cat.jpeg",             city: "Tigre",       country: "Argentina",   lat: -34.4261, lng: -58.5796,  tags: ["고양이"] },
-  { file: "images/brazil_curitiba_dog.jpeg",      city: "Curitiba",    country: "Brazil",      lat: -25.4284, lng: -49.2733,  tags: ["강아지"] },
-  { file: "images/colombia_medellin_cat.jpeg",    city: "Medellín",    country: "Colombia",    lat: 6.2442,   lng: -75.5812,  tags: ["고양이"] },
-  { file: "images/colombia_providencia_dog.jpeg", city: "Providencia", country: "Colombia",    lat: 13.3600,  lng: -81.3726,  tags: ["강아지"] },
-  { file: "images/mex_guanajuato_dog.jpeg",       city: "Guanajuato",  country: "Mexico",      lat: 21.0190,  lng: -101.2574, tags: ["강아지"] },
-  { file: "images/mex_guanajuato_dog2.jpeg",      city: "Guanajuato",  country: "Mexico",      lat: 21.0190,  lng: -101.2574, tags: ["강아지"] },
-  { file: "images/thai_hangdong_cat.jpg",         city: "Hang Dong",   country: "Thailand",    lat: 18.6800,  lng: 98.9200,   tags: ["고양이"] },
-  { file: "images/thai_hangdong_cat2.jpg",        city: "Hang Dong",   country: "Thailand",    lat: 18.6800,  lng: 98.9200,   tags: ["고양이"] },
-  { file: "images/thai_hangdong_cat3.jpg",        city: "Hang Dong",   country: "Thailand",    lat: 18.6800,  lng: 98.9200,   tags: ["고양이"] },
-  { file: "images/thai_hangdong_dog.jpg",         city: "Hang Dong",   country: "Thailand",    lat: 18.6800,  lng: 98.9200,   tags: ["강아지"] },
-  { file: null, city: "Buenos Aires", country: "Argentina", lat: -34.6037, lng: -58.3816, tags: ["숙소"] },
-  { file: null, city: "Buenos Aires", country: "Argentina", lat: -34.6037, lng: -58.3816, tags: ["숙소"] },
-  { file: null, city: "Buenos Aires", country: "Argentina", lat: -34.6037, lng: -58.3816, tags: ["밥"] },
-  { file: null, city: "Buenos Aires", country: "Argentina", lat: -34.6037, lng: -58.3816, tags: ["밥"] },
-  { file: null, city: "Buenos Aires", country: "Argentina", lat: -34.6037, lng: -58.3816, tags: ["숙소", "나"] },
-  { file: null, city: "Buenos Aires", country: "Argentina", lat: -34.6037, lng: -58.3816, tags: ["비행기"] },
-  { file: null, city: "Buenos Aires", country: "Argentina", lat: -34.6037, lng: -58.3816, tags: ["나", "비행기"] },
-  { file: null, city: "Curitiba",     country: "Brazil",    lat: -25.4284, lng: -49.2733, tags: ["나", "공원"] },
-  { file: null, city: "Uyuni",        country: "Bolivia",   lat: -20.4630, lng: -66.8259, tags: ["나", "산"] },
-  { file: null, city: "Lima",         country: "Peru",      lat: -12.0464, lng: -77.0428, tags: ["밥", "바다"] },
-  { file: null, city: "Santiago",     country: "Chile",     lat: -33.4489, lng: -70.6693, tags: ["나"] },
-  { file: null, city: "Mexico City",  country: "Mexico",    lat: 19.4326,  lng: -99.1332, tags: ["밥", "밤"] },
-  { file: null, city: "Oaxaca",       country: "Mexico",    lat: 17.0732,  lng: -96.7266, tags: ["밥"] },
-  { file: null, city: "Guanajuato",   country: "Mexico",    lat: 21.0190,  lng: -101.2574,tags: ["나"] },
-  { file: null, city: "Lisbon",       country: "Portugal",  lat: 38.7223,  lng: -9.1393,  tags: ["바다", "밤"] },
-  { file: null, city: "Tokyo",        country: "Japan",     lat: 35.6762,  lng: 139.6503, tags: ["밥", "밤"] },
-  { file: null, city: "Kyoto",        country: "Japan",     lat: 35.0116,  lng: 135.7681, tags: ["나", "공원"] },
-  { file: null, city: "Bali",         country: "Indonesia", lat: -8.3405,  lng: 115.0920, tags: ["바다", "공원"] },
-];
+let photos = [];
+
+async function loadPhotos() {
+  try {
+    const res = await fetch('/api/photos');
+    photos = await res.json();
+  } catch (err) {
+    console.error('노션 데이터 로드 실패:', err);
+    photos = [];
+  }
+}
 
 const tagIcon = {
   "나":    "\u{1F478}",
@@ -596,6 +585,15 @@ function renderGallery(filterTag = null) {
     });
 
     inner.appendChild(tagsEl);
+
+    // 위치 표시
+    if (photo.city) {
+      const loc = document.createElement('div');
+      loc.className = 'photo-location';
+      loc.textContent = `${photo.city}, ${photo.country}`;
+      inner.appendChild(loc);
+    }
+
     card.appendChild(inner);
     view.appendChild(card);
   });
@@ -632,8 +630,8 @@ function initMap(filterTag) {
     const icon = L.divIcon({
       className: '',
       html: '<div class="custom-marker"></div>',
-      iconSize: [10, 10],
-      iconAnchor: [5, 5],
+      iconSize: [16, 16],
+      iconAnchor: [8, 8],
     });
     const marker = L.marker([city.lat, city.lng], { icon });
     marker.on('click', () => openMapPopup(city));
@@ -741,7 +739,13 @@ function closeLightbox() {
   document.getElementById('lightbox').classList.remove('open');
 }
 
-renderGallery();
+// ── 초기 실행 ──
+(async () => {
+  const gallery = document.getElementById('galleryView');
+  gallery.innerHTML = '<div style="padding:2rem; font-family:DOSPilgi,monospace; font-size:13px; color:rgba(26,26,26,0.4);">loading...</div>';
+  await loadPhotos();
+  renderGallery();
+})();
 
 </script>
 </body>
