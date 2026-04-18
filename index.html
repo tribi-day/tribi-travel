@@ -650,6 +650,7 @@ function handleIcon(btn) {
     document.querySelectorAll(`.icon-btn[data-tag="${tag}"]`).forEach(b => b.classList.add('active'));
     activeTag = tag;
     clickCount = 1;
+    closeMapPopup();
     showMap(tag);
   } else {
     clickCount++;
