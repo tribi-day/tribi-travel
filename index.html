@@ -540,6 +540,7 @@ function renderGallery(filterTag = null) {
   const filtered = filterTag
     ? photos.filter(p => p.tags.includes(filterTag))
     : photos;
+photos.sort(() => Math.random() - 0.5);
 
   view.innerHTML = '';
   filtered.forEach((photo, i) => {
