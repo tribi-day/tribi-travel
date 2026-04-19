@@ -296,7 +296,7 @@ header {
 
 .map-popup-location {
   font-family: 'DOSGothic', monospace;
-  font-size: 13px;
+  font-size: 18px;
   letter-spacing: 0.04em;
   color: var(--ink);
   padding: 0 0 6px;
@@ -472,7 +472,8 @@ header {
     <span class="header-globe" onclick="goMap()" style="cursor:pointer;">&#x1F30D;</span>
     <span class="header-title" onclick="goHome()" style="cursor:pointer;">tribi.travel.archive</span>
     <a href="https://www.instagram.com/tribi.day/" target="_blank" rel="noopener noreferrer"
-       style="margin-left:auto; font-family:'DOSGothic',monospace; font-size:13px;
+       onclick="event.stopPropagation();"
+       style="margin-left:auto; font-family:'DOSGothic',monospace; font-size:16px;
               color:var(--ink-mid); text-decoration:none; letter-spacing:0.04em;">
       @tribi.day
     </a>
