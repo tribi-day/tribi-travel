@@ -562,6 +562,8 @@ header {
         <button class="icon-btn" data-tag="공원"    onclick="handleIcon(this)">&#x1F334;</button>
         <button class="icon-btn" data-tag="창문"    onclick="handleIcon(this)">&#x1F5BC;</button>
         <button class="icon-btn" data-tag="비행기"  onclick="handleIcon(this)">&#x1F6E9;</button>
+        <button class="icon-btn" data-tag="책"      onclick="handleIcon(this)">&#x1F4D6;</button>
+        <button class="icon-btn" data-tag="예술"    onclick="handleIcon(this)">&#x1F496;</button>
       </div>
       <div class="sidebar-bottom">
         <button class="about-btn" id="aboutBtn" onclick="toggleAbout()">&#x003F;</button>
@@ -605,6 +607,8 @@ header {
   <button class="icon-btn" data-tag="공원"    onclick="handleIcon(this)">&#x1F334;</button>
   <button class="icon-btn" data-tag="창문"    onclick="handleIcon(this)">&#x1F5BC;</button>
   <button class="icon-btn" data-tag="비행기"  onclick="handleIcon(this)">&#x1F6E9;</button>
+  <button class="icon-btn" data-tag="책"      onclick="handleIcon(this)">&#x1F4D6;</button>
+  <button class="icon-btn" data-tag="예술"    onclick="handleIcon(this)">&#x1F496;</button>
 </div>
 
 <div class="lightbox" id="lightbox">
@@ -646,6 +650,8 @@ const tagIcon = {
   "숙소":    "\u{1F6CC}",
   "창문":    "\u{1F5BC}",
   "비행기":  "\u{1F6E9}",
+  "책":      "\u{1F4D6}",
+  "예술":    "\u{1F496}",
 };
 
 // 태그별 핀 색상
@@ -664,6 +670,8 @@ const tagColor = {
   "공원":    "#90EE90",
   "창문":    "#ADD8E6",
   "비행기":  "#C8A8D8",
+  "책":      "#F4D03F",
+  "예술":    "#F1948A",
 };
 
 function getTagColor(tags) {
