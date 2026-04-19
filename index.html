@@ -34,7 +34,7 @@
   --ink-mid: rgba(26,26,26,0.45);
   --ink-faint: rgba(26,26,26,0.12);
   --caramel: #b8864e;
-  --sidebar-w: 110px;
+  --sidebar-w: 120px;
 }
 
 html, body {
@@ -398,7 +398,7 @@ header {
   /* 하단 탭바 표시 */
   .mobile-tabbar {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(7, 1fr);
     grid-template-rows: repeat(2, 1fr);
     position: fixed;
     bottom: 0; left: 0; right: 0;
@@ -457,16 +457,20 @@ header {
 
   <div class="main">
     <aside class="sidebar">
-      <button class="icon-btn" data-tag="나"    onclick="handleIcon(this)">&#x1F478;</button>
-      <button class="icon-btn" data-tag="밥"    onclick="handleIcon(this)">&#x1F367;</button>
-      <button class="icon-btn" data-tag="강아지" onclick="handleIcon(this)">&#x1F436;</button>
-      <button class="icon-btn" data-tag="고양이" onclick="handleIcon(this)">&#x1F431;</button>
-      <button class="icon-btn" data-tag="바다"  onclick="handleIcon(this)">&#x1F420;</button>
-      <button class="icon-btn" data-tag="밤"    onclick="handleIcon(this)">&#x1F304;</button>
-      <button class="icon-btn" data-tag="공원"  onclick="handleIcon(this)">&#x1F334;</button>
-      <button class="icon-btn" data-tag="숙소"  onclick="handleIcon(this)">&#x1F3DA;</button>
-      <button class="icon-btn" data-tag="산"    onclick="handleIcon(this)">&#x1F30C;</button>
-      <button class="icon-btn" data-tag="비행기" onclick="handleIcon(this)">&#x1F6E9;</button>
+      <button class="icon-btn" data-tag="나"      onclick="handleIcon(this)">&#x1F478;</button>
+      <button class="icon-btn" data-tag="밥"      onclick="handleIcon(this)">&#x1F367;</button>
+      <button class="icon-btn" data-tag="강아지"  onclick="handleIcon(this)">&#x1F436;</button>
+      <button class="icon-btn" data-tag="고양이"  onclick="handleIcon(this)">&#x1F431;</button>
+      <button class="icon-btn" data-tag="동물"    onclick="handleIcon(this)">&#x1F996;</button>
+      <button class="icon-btn" data-tag="바다"    onclick="handleIcon(this)">&#x1F420;</button>
+      <button class="icon-btn" data-tag="일출일몰" onclick="handleIcon(this)">&#x1F305;</button>
+      <button class="icon-btn" data-tag="도시"    onclick="handleIcon(this)">&#x1F3D9;</button>
+      <button class="icon-btn" data-tag="자연"    onclick="handleIcon(this)">&#x1F308;</button>
+      <button class="icon-btn" data-tag="공원"    onclick="handleIcon(this)">&#x1F334;</button>
+      <button class="icon-btn" data-tag="산"      onclick="handleIcon(this)">&#x1F3D4;</button>
+      <button class="icon-btn" data-tag="숙소"    onclick="handleIcon(this)">&#x1F6CC;</button>
+      <button class="icon-btn" data-tag="창문"    onclick="handleIcon(this)">&#x1FA9F;</button>
+      <button class="icon-btn" data-tag="비행기"  onclick="handleIcon(this)">&#x1F6E9;</button>
     </aside>
 
     <div class="content">
@@ -486,16 +490,20 @@ header {
 
 <!-- 모바일 하단 탭바 -->
 <div class="mobile-tabbar">
-  <button class="icon-btn" data-tag="나"    onclick="handleIcon(this)">&#x1F478;</button>
-  <button class="icon-btn" data-tag="밥"    onclick="handleIcon(this)">&#x1F367;</button>
-  <button class="icon-btn" data-tag="강아지" onclick="handleIcon(this)">&#x1F436;</button>
-  <button class="icon-btn" data-tag="고양이" onclick="handleIcon(this)">&#x1F431;</button>
-  <button class="icon-btn" data-tag="바다"  onclick="handleIcon(this)">&#x1F420;</button>
-  <button class="icon-btn" data-tag="밤"    onclick="handleIcon(this)">&#x1F304;</button>
-  <button class="icon-btn" data-tag="공원"  onclick="handleIcon(this)">&#x1F334;</button>
-  <button class="icon-btn" data-tag="숙소"  onclick="handleIcon(this)">&#x1F3DA;</button>
-  <button class="icon-btn" data-tag="산"    onclick="handleIcon(this)">&#x1F30C;</button>
-  <button class="icon-btn" data-tag="비행기" onclick="handleIcon(this)">&#x1F6E9;</button>
+  <button class="icon-btn" data-tag="나"      onclick="handleIcon(this)">&#x1F478;</button>
+  <button class="icon-btn" data-tag="밥"      onclick="handleIcon(this)">&#x1F367;</button>
+  <button class="icon-btn" data-tag="강아지"  onclick="handleIcon(this)">&#x1F436;</button>
+  <button class="icon-btn" data-tag="고양이"  onclick="handleIcon(this)">&#x1F431;</button>
+  <button class="icon-btn" data-tag="동물"    onclick="handleIcon(this)">&#x1F996;</button>
+  <button class="icon-btn" data-tag="바다"    onclick="handleIcon(this)">&#x1F420;</button>
+  <button class="icon-btn" data-tag="일출일몰" onclick="handleIcon(this)">&#x1F305;</button>
+  <button class="icon-btn" data-tag="도시"    onclick="handleIcon(this)">&#x1F3D9;</button>
+  <button class="icon-btn" data-tag="자연"    onclick="handleIcon(this)">&#x1F308;</button>
+  <button class="icon-btn" data-tag="공원"    onclick="handleIcon(this)">&#x1F334;</button>
+  <button class="icon-btn" data-tag="산"      onclick="handleIcon(this)">&#x1F3D4;</button>
+  <button class="icon-btn" data-tag="숙소"    onclick="handleIcon(this)">&#x1F6CC;</button>
+  <button class="icon-btn" data-tag="창문"    onclick="handleIcon(this)">&#x1FA9F;</button>
+  <button class="icon-btn" data-tag="비행기"  onclick="handleIcon(this)">&#x1F6E9;</button>
 </div>
 
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
@@ -522,25 +530,76 @@ async function loadPhotos() {
 }
 
 const tagIcon = {
-  "나":    "\u{1F478}",
-  "밥":    "\u{1F367}",
-  "강아지": "\u{1F436}",
-  "고양이": "\u{1F431}",
-  "바다":  "\u{1F420}",
-  "밤":    "\u{1F304}",
-  "공원":  "\u{1F334}",
-  "숙소":  "\u{1F3DA}",
-  "산":    "\u{1F30C}",
-  "비행기": "\u{1F6E9}",
+  "나":      "\u{1F478}",
+  "밥":      "\u{1F367}",
+  "강아지":  "\u{1F436}",
+  "고양이":  "\u{1F431}",
+  "동물":    "\u{1F996}",
+  "바다":    "\u{1F420}",
+  "일출일몰": "\u{1F305}",
+  "도시":    "\u{1F3D9}",
+  "자연":    "\u{1F308}",
+  "공원":    "\u{1F334}",
+  "산":      "\u{1F3D4}",
+  "숙소":    "\u{1F6CC}",
+  "창문":    "\u{1FA9F}",
+  "비행기":  "\u{1F6E9}",
+};
+
+// 나라 → 국기 이모지
+const countryFlag = {
+  "South Korea": "🇰🇷", "Korea": "🇰🇷",
+  "Japan": "🇯🇵",
+  "Thailand": "🇹🇭",
+  "Indonesia": "🇮🇩",
+  "Vietnam": "🇻🇳",
+  "Singapore": "🇸🇬",
+  "Malaysia": "🇲🇾",
+  "Philippines": "🇵🇭",
+  "Cambodia": "🇰🇭",
+  "Myanmar": "🇲🇲",
+  "India": "🇮🇳",
+  "China": "🇨🇳",
+  "Taiwan": "🇹🇼",
+  "Hong Kong": "🇭🇰",
+  "Australia": "🇦🇺",
+  "New Zealand": "🇳🇿",
+  "Argentina": "🇦🇷",
+  "Brazil": "🇧🇷",
+  "Colombia": "🇨🇴",
+  "Peru": "🇵🇪",
+  "Bolivia": "🇧🇴",
+  "Chile": "🇨🇱",
+  "Mexico": "🇲🇽",
+  "Guatemala": "🇬🇹",
+  "Costa Rica": "🇨🇷",
+  "Panama": "🇵🇦",
+  "Portugal": "🇵🇹",
+  "Spain": "🇪🇸",
+  "France": "🇫🇷",
+  "Italy": "🇮🇹",
+  "Greece": "🇬🇷",
+  "Germany": "🇩🇪",
+  "Netherlands": "🇳🇱",
+  "UK": "🇬🇧",
+  "Iceland": "🇮🇸",
+  "Norway": "🇳🇴",
+  "Sweden": "🇸🇪",
+  "Denmark": "🇩🇰",
+  "Turkey": "🇹🇷",
+  "Jordan": "🇯🇴",
+  "Israel": "🇮🇱",
 };
 
 // ── 갤러리 렌더링 ──
 function renderGallery(filterTag = null) {
   const view = document.getElementById('galleryView');
-  const filtered = filterTag
+  let filtered = filterTag
     ? photos.filter(p => p.tags.includes(filterTag))
-    : photos;
-photos.sort(() => Math.random() - 0.5);
+    : [...photos];
+
+  // 랜덤 정렬
+  filtered.sort(() => Math.random() - 0.5);
 
   view.innerHTML = '';
   filtered.forEach((photo, i) => {
@@ -579,14 +638,14 @@ photos.sort(() => Math.random() - 0.5);
       span.textContent = tagIcon[tag] || '';
       tagsEl.appendChild(span);
     });
-
     inner.appendChild(tagsEl);
 
-    // 위치 표시
+    // 위치 + 국기
     if (photo.city) {
       const loc = document.createElement('div');
       loc.className = 'photo-location';
-      loc.textContent = `${photo.city}, ${photo.country}`;
+      const flag = countryFlag[photo.country] || '';
+      loc.textContent = `${flag} ${photo.city}`;
       inner.appendChild(loc);
     }
 
