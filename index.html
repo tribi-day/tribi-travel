@@ -997,7 +997,6 @@ function handleIcon(btn) {
 
   if (activeTag !== tag) {
     document.querySelectorAll('.icon-btn').forEach(b => b.classList.remove('active'));
-    // 같은 태그 버튼 모두 active (사이드바+탭바)
     document.querySelectorAll(`.icon-btn[data-tag="${tag}"]`).forEach(b => b.classList.add('active'));
     activeTag = tag;
     clickCount = 1;
@@ -1005,13 +1004,10 @@ function handleIcon(btn) {
     showMap(tag);
   } else {
     clickCount++;
-    if (clickCount === 2) {
+    if (clickCount % 2 === 0) {
       showGallery(tag);
     } else {
-      document.querySelectorAll('.icon-btn').forEach(b => b.classList.remove('active'));
-      activeTag = null;
-      clickCount = 0;
-      showGallery();
+      showMap(tag);
     }
   }
 }
