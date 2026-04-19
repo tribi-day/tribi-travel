@@ -168,17 +168,18 @@ header {
 /* ── 밥 배너 ── */
 .food-banner {
   position: absolute;
-  top: 20px;
-  left: 15%;
+  top: -0.6em;
+  left: 45%;
   right: 0;
-  z-index: 10;
+  z-index: 100;
   font-family: 'DOSGothic', monospace;
   font-size: clamp(28px, 4vw, 52px);
-  color: var(--ink);
+  color: white;
   line-height: 1.1;
   pointer-events: none;
-  opacity: 0.15;
   letter-spacing: -0.01em;
+  mix-blend-mode: difference;
+  white-space: nowrap;
 }
 
 .food-banner .pilgi {
@@ -741,7 +742,7 @@ function renderGallery(filterTag = null) {
     banner.className = 'food-banner';
     banner.id = 'foodBanner';
     banner.innerHTML = `(almost) <span class="pilgi">every food</span> is VEGAN !`;
-    document.querySelector('.content').appendChild(banner);
+    document.querySelector('.main').appendChild(banner);
   }
   filtered.forEach((photo, i) => {
     const card = document.createElement('div');
