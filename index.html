@@ -342,6 +342,7 @@ header {
   background: rgba(26,26,26,0.88);
   z-index: 2000;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   opacity: 0;
@@ -353,8 +354,19 @@ header {
 
 .lightbox img {
   max-width: 90vw;
-  max-height: 90vh;
+  max-height: 85vh;
   object-fit: contain;
+}
+
+.lightbox-info {
+  margin-top: 12px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  font-family: 'DOSPilgi', monospace;
+  font-size: 12px;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 0.06em;
 }
 
 .lightbox-placeholder {
@@ -506,9 +518,10 @@ header {
   <button class="icon-btn" data-tag="비행기"  onclick="handleIcon(this)">&#x1F6E9;</button>
 </div>
 
-<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+<div class="lightbox" id="lightbox">
   <button class="lightbox-close" onclick="closeLightbox()">×</button>
-  <div class="lightbox-placeholder" id="lightboxContent">no image</div>
+  <div id="lightboxContent" onclick="event.stopPropagation()"></div>
+  <div class="lightbox-info" id="lightboxInfo" onclick="event.stopPropagation()"></div>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -840,18 +853,41 @@ function closeMapPopup() {
 // ── 라이트박스 ──
 function openLightbox(photo) {
   const content = document.getElementById('lightboxContent');
+  const info = document.getElementById('lightboxInfo');
+
   if (photo.file) {
-    content.outerHTML = `<img id="lightboxContent" src="${photo.file}" alt="${photo.city}" style="max-width:90vw;max-height:90vh;object-fit:contain;">`;
+    content.innerHTML = `<img src="${optimizeUrl(photo.file)}" alt="${photo.city}" style="max-width:90vw;max-height:85vh;object-fit:contain;">`;
   } else {
-    const el = document.getElementById('lightboxContent');
-    el.textContent = `${photo.city} — ${photo.tags.join(', ')}`;
+    content.innerHTML = `<div style="width:60vw;height:60vh;background:#2a2a2a;display:flex;align-items:center;justify-content:center;font-family:DOSPilgi,monospace;color:rgba(255,255,255,0.4);font-size:14px;">${photo.city}</div>`;
   }
+
+  // 날짜 포맷
+  let dateText = '';
+  if (photo.date) {
+    const d = photo.date.replace(/-/g, '');
+    if (d.length === 8) {
+      dateText = `${d.slice(0,4)}.${d.slice(4,6)}.${d.slice(6,8)}`;
+    } else {
+      dateText = photo.date;
+    }
+  }
+
+  const flag = countryFlag[photo.country] || '';
+  info.innerHTML = `
+    ${dateText ? `<span>${dateText}</span>` : ''}
+    ${photo.city ? `<span>${flag} ${photo.city}, ${photo.country}</span>` : ''}
+  `;
+
   document.getElementById('lightbox').classList.add('open');
 }
 
 function closeLightbox() {
   document.getElementById('lightbox').classList.remove('open');
 }
+
+document.getElementById('lightbox').addEventListener('click', function(e) {
+  if (e.target === this) closeLightbox();
+});
 
 // ── 초기 실행 ──
 (async () => {
