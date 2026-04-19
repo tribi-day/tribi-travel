@@ -20,6 +20,12 @@
   font-display: swap;
 }
 @font-face {
+  font-family: 'DOSGothic';
+  src: url('./fonts/DOSGothic.ttf') format('truetype');
+  font-weight: normal;
+  font-display: swap;
+}
+@font-face {
   font-family: 'Retrograde';
   src: url('./fonts/Retrograde-Regular.otf') format('opentype');
   font-weight: normal;
@@ -271,8 +277,8 @@ header {
   position: absolute;
   top: 20px;
   right: 20px;
-  width: 340px;
-  background: var(--cream);
+  width: 300px;
+  background: transparent;
   z-index: 800;
   opacity: 0;
   pointer-events: none;
@@ -289,11 +295,11 @@ header {
 }
 
 .map-popup-location {
-  font-family: 'Retrograde', 'DOSPilgi', monospace;
-  font-size: 20px;
-  letter-spacing: 0.06em;
+  font-family: 'DOSGothic', monospace;
+  font-size: 13px;
+  letter-spacing: 0.04em;
   color: var(--ink);
-  padding: 0 0 8px;
+  padding: 0 0 6px;
   text-transform: uppercase;
 }
 
@@ -465,8 +471,8 @@ header {
   <header>
     <span class="header-globe" onclick="goMap()" style="cursor:pointer;">&#x1F30D;</span>
     <span class="header-title" onclick="goHome()" style="cursor:pointer;">tribi.travel.archive</span>
-    <a href="https://www.instagram.com/tribi.day" target="_blank"
-       style="margin-left:auto; font-family:'DOSPilgi',monospace; font-size:13px;
+    <a href="https://www.instagram.com/tribi.day/" target="_blank" rel="noopener noreferrer"
+       style="margin-left:auto; font-family:'DOSGothic',monospace; font-size:13px;
               color:var(--ink-mid); text-decoration:none; letter-spacing:0.04em;">
       @tribi.day
     </a>
@@ -496,7 +502,6 @@ header {
       <div class="map-view hidden" id="mapView">
         <div id="map"></div>
         <div class="map-popup" id="mapPopup">
-        <div class="map-popup-close-btn" onclick="closeMapPopup()">×</div>
           <div class="map-popup-location" id="mapPopupLocation"></div>
           <div id="mapPopupMedia"></div>
         </div>
@@ -720,6 +725,7 @@ function initMap(filterTag) {
       maxZoom: 19,
       noWrap: true,
     }).addTo(leafletMap);
+    leafletMap.on('click', () => closeMapPopup());
     mapInitialized = true;
   }
 
