@@ -112,7 +112,14 @@ header {
 .sidebar-bottom {
   padding-top: 8px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2px;
+}
+
+.sidebar-bottom-row {
+  display: flex;
+  justify-content: space-around;
 }
 
 .about-btn {
@@ -656,9 +663,13 @@ header {
         <button class="icon-btn" data-tag="예술"    onclick="handleIcon(this)">&#x1F496;</button>
       </div>
       <div class="sidebar-bottom">
-        <button class="about-btn" id="gameBtn" onclick="toggleGame()" title="어디일까?">&#x1F3AE;</button>
-        <button class="about-btn" id="flagBtn" onclick="toggleFlag()" title="국기 토글">&#x1F3F4;</button>
-        <button class="about-btn" id="aboutBtn" onclick="toggleAbout()">&#x003F;</button>
+        <div class="sidebar-bottom-row">
+          <button class="about-btn" id="flagBtn" onclick="toggleFlag()" title="국기 토글">&#x1F3F4;</button>
+          <button class="about-btn" id="gameBtn" onclick="toggleGame()" title="어디일까?">&#x1F3AE;</button>
+        </div>
+        <div class="sidebar-bottom-row" style="justify-content:center;">
+          <button class="about-btn" id="aboutBtn" onclick="toggleAbout()">&#x003F;</button>
+        </div>
       </div>
     </aside>
 
