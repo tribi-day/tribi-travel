@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>tribi.travel.archive</title>
+<title>reef.and.roots</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <style>
 
@@ -536,7 +536,7 @@ header {
 <div class="layout">
   <header>
     <span class="header-globe" onclick="goMap()" style="cursor:pointer;">&#x1F30D;</span>
-    <span class="header-title" onclick="goHome()" style="cursor:pointer;">tribi.travel.archive</span>
+    <span class="header-title" onclick="goHome()" style="cursor:pointer;">reef.and.roots</span>
     <a href="https://www.instagram.com/tribi.day/" target="_blank" rel="noopener noreferrer"
        onclick="event.stopPropagation();"
        style="margin-left:auto; font-family:'DOSGothic',monospace; font-size:16px;
@@ -726,7 +726,7 @@ const countryFlag = {
 
 function optimizeUrl(url) {
   if (!url || !url.includes('cloudinary.com')) return url;
-  return url.replace('/upload/', '/upload/q_auto,f_auto,w_800,a_exif/');
+  return url.replace('/upload/', '/upload/q_auto,f_auto,w_800,a_exif,fl_force_strip/');
 }
 
 // ── 갤러리 렌더링 ──
