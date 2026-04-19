@@ -726,7 +726,7 @@ const countryFlag = {
 
 function optimizeUrl(url) {
   if (!url || !url.includes('cloudinary.com')) return url;
-  return url.replace('/upload/', '/upload/q_auto,f_auto,w_800/');
+  return url.replace('/upload/', '/upload/q_auto,f_auto,w_800,a_exif/');
 }
 
 // ── 갤러리 렌더링 ──
