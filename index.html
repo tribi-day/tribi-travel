@@ -772,16 +772,13 @@ function initMap(filterTag) {
     leafletMap = L.map('map', {
       center: [20, 10],
       zoom: 2,
-      maxBounds: [[-90, -180], [90, 180]],
-      maxBoundsViscosity: 1.0,
+      zoomSnap: 0.5,
       worldCopyJump: false,
-      noWrap: true,
     });
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
       attribution: '© OpenStreetMap © CARTO',
       subdomains: 'abcd',
       maxZoom: 19,
-      noWrap: true,
     }).addTo(leafletMap);
     leafletMap.on('click', () => closeMapPopup());
     mapInitialized = true;
@@ -831,7 +828,10 @@ function initMap(filterTag) {
     });
   }
 
-  setTimeout(() => leafletMap.invalidateSize(), 300);
+  setTimeout(() => {
+    leafletMap.invalidateSize();
+    if (!filterTag) leafletMap.fitWorld();
+  }, 300);
 }
 
 // ── 아이콘 클릭 ──
