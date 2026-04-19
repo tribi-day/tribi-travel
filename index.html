@@ -96,7 +96,7 @@ header {
   background: transparent;
   border: none;
   cursor: pointer;
-  padding: 6px;
+  padding: 4px 2px;
   border-radius: 6px;
   text-align: center;
   transition: opacity 0.15s, filter 0.15s;
@@ -207,16 +207,15 @@ header {
   line-height: 1;
   filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
 }
+
+.photo-location {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 20px 8px 6px;
-  background: linear-gradient(transparent, rgba(26,26,26,0.55));
-  font-family: 'DOSPilgi', monospace;
-  font-size: 10px;
-  color: rgba(255,255,255,0.9);
-  letter-spacing: 0.05em;
+  bottom: 6px;
+  left: 6px;
+  font-size: 16px;
+  line-height: 1;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+  z-index: 1;
 }
 
 /* ── 지도 뷰 ── */
@@ -461,14 +460,14 @@ header {
       <button class="icon-btn" data-tag="밥"      onclick="handleIcon(this)">&#x1F367;</button>
       <button class="icon-btn" data-tag="강아지"  onclick="handleIcon(this)">&#x1F436;</button>
       <button class="icon-btn" data-tag="고양이"  onclick="handleIcon(this)">&#x1F431;</button>
-      <button class="icon-btn" data-tag="동물"    onclick="handleIcon(this)">&#x1F996;</button>
       <button class="icon-btn" data-tag="바다"    onclick="handleIcon(this)">&#x1F420;</button>
-      <button class="icon-btn" data-tag="일출일몰" onclick="handleIcon(this)">&#x1F305;</button>
-      <button class="icon-btn" data-tag="도시"    onclick="handleIcon(this)">&#x1F3D9;</button>
-      <button class="icon-btn" data-tag="자연"    onclick="handleIcon(this)">&#x1F308;</button>
-      <button class="icon-btn" data-tag="공원"    onclick="handleIcon(this)">&#x1F334;</button>
       <button class="icon-btn" data-tag="산"      onclick="handleIcon(this)">&#x1F3D4;</button>
+      <button class="icon-btn" data-tag="자연"    onclick="handleIcon(this)">&#x1F308;</button>
+      <button class="icon-btn" data-tag="도시"    onclick="handleIcon(this)">&#x1F3D9;</button>
+      <button class="icon-btn" data-tag="동물"    onclick="handleIcon(this)">&#x1F996;</button>
+      <button class="icon-btn" data-tag="일출일몰" onclick="handleIcon(this)">&#x1F305;</button>
       <button class="icon-btn" data-tag="숙소"    onclick="handleIcon(this)">&#x1F6CC;</button>
+      <button class="icon-btn" data-tag="공원"    onclick="handleIcon(this)">&#x1F334;</button>
       <button class="icon-btn" data-tag="창문"    onclick="handleIcon(this)">&#x1FA9F;</button>
       <button class="icon-btn" data-tag="비행기"  onclick="handleIcon(this)">&#x1F6E9;</button>
     </aside>
@@ -494,14 +493,14 @@ header {
   <button class="icon-btn" data-tag="밥"      onclick="handleIcon(this)">&#x1F367;</button>
   <button class="icon-btn" data-tag="강아지"  onclick="handleIcon(this)">&#x1F436;</button>
   <button class="icon-btn" data-tag="고양이"  onclick="handleIcon(this)">&#x1F431;</button>
-  <button class="icon-btn" data-tag="동물"    onclick="handleIcon(this)">&#x1F996;</button>
   <button class="icon-btn" data-tag="바다"    onclick="handleIcon(this)">&#x1F420;</button>
-  <button class="icon-btn" data-tag="일출일몰" onclick="handleIcon(this)">&#x1F305;</button>
-  <button class="icon-btn" data-tag="도시"    onclick="handleIcon(this)">&#x1F3D9;</button>
-  <button class="icon-btn" data-tag="자연"    onclick="handleIcon(this)">&#x1F308;</button>
-  <button class="icon-btn" data-tag="공원"    onclick="handleIcon(this)">&#x1F334;</button>
   <button class="icon-btn" data-tag="산"      onclick="handleIcon(this)">&#x1F3D4;</button>
+  <button class="icon-btn" data-tag="자연"    onclick="handleIcon(this)">&#x1F308;</button>
+  <button class="icon-btn" data-tag="도시"    onclick="handleIcon(this)">&#x1F3D9;</button>
+  <button class="icon-btn" data-tag="동물"    onclick="handleIcon(this)">&#x1F996;</button>
+  <button class="icon-btn" data-tag="일출일몰" onclick="handleIcon(this)">&#x1F305;</button>
   <button class="icon-btn" data-tag="숙소"    onclick="handleIcon(this)">&#x1F6CC;</button>
+  <button class="icon-btn" data-tag="공원"    onclick="handleIcon(this)">&#x1F334;</button>
   <button class="icon-btn" data-tag="창문"    onclick="handleIcon(this)">&#x1FA9F;</button>
   <button class="icon-btn" data-tag="비행기"  onclick="handleIcon(this)">&#x1F6E9;</button>
 </div>
@@ -640,12 +639,11 @@ function renderGallery(filterTag = null) {
     });
     inner.appendChild(tagsEl);
 
-    // 위치 + 국기
-    if (photo.city) {
+    // 국기
+    if (photo.country) {
       const loc = document.createElement('div');
       loc.className = 'photo-location';
-      const flag = countryFlag[photo.country] || '';
-      loc.textContent = `${flag} ${photo.city}`;
+      loc.textContent = countryFlag[photo.country] || '';
       inner.appendChild(loc);
     }
 
