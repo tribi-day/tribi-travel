@@ -150,6 +150,8 @@ header {
 
 /* ── 갤러리 ── */
 .gallery-view {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   overflow-y: auto;
@@ -265,6 +267,8 @@ header {
 
 /* ── About 뷰 ── */
 .about-view {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   overflow-y: auto;
@@ -992,7 +996,7 @@ document.getElementById('lightbox').addEventListener('click', function(e) {
 // ── 초기 실행 ──
 (async () => {
   const gallery = document.getElementById('galleryView');
-  gallery.innerHTML = '<div style="padding:2rem; font-family:DOSPilgi,monospace; font-size:13px; color:rgba(26,26,26,0.4);">loading...</div>';
+  gallery.innerHTML = '<div style="padding:2rem; font-family:Pretendard,sans-serif; font-size:13px; color:rgba(26,26,26,0.4); grid-column:1/-1;">loading...</div>';
   await loadPhotos();
   renderGallery();
 })();
