@@ -10,26 +10,34 @@ export default async function handler(req, res) {
   }
 
   try {
-    const response = await fetch(`https://api.notion.com/v1/databases/${dbId}/query`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Notion-Version': '2022-06-28',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
+    let allResults = [];
+    let cursor = undefined;
+
+    while (true) {
+      const body = {
         sorts: [{ property: 'date', direction: 'descending' }],
-      }),
-    });
+      };
+      if (cursor) body.start_cursor = cursor;
 
-    const data = await response.json();
+      const response = await fetch(`https://api.notion.com/v1/databases/${dbId}/query`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Notion-Version': '2022-06-28',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      });
 
-    const photos = data.results.map(page => {
+      const data = await response.json();
+      allResults = allResults.concat(data.results);
+
+      if (!data.has_more) break;
+      cursor = data.next_cursor;
+    }
+
+    const photos = allResults.map(page => {
       const props = page.properties;
-      const titleArr = props.file?.title || [];
-      // href가 있으면 href, 없으면 plain_text 이어붙이기
-      const fileUrl = titleArr[0]?.href || titleArr.map(t => t.plain_text).join('') || null;
-
       return {
         file: props.file?.url || null,
         city: props.city?.rich_text?.[0]?.plain_text || '',
