@@ -450,9 +450,9 @@ header {
 <body>
 
 <div class="layout">
-  <header onclick="goHome()" style="cursor: pointer;">
-    <span class="header-globe">&#x1F30D;</span>
-    <span class="header-title">tribi.travel.archive</span>
+  <header>
+    <span class="header-globe" onclick="goMap()" style="cursor:pointer;">&#x1F30D;</span>
+    <span class="header-title" onclick="goHome()" style="cursor:pointer;">tribi.travel.archive</span>
   </header>
 
   <div class="main">
@@ -696,26 +696,45 @@ function initMap(filterTag) {
   markers = [];
 
   const filtered = filterTag ? photos.filter(p => p.tags.includes(filterTag)) : photos;
-  const cityMap = {};
-  filtered.forEach(photo => {
-    const key = `${photo.city}_${photo.country}`;
-    if (!cityMap[key]) cityMap[key] = { ...photo, photos: [] };
-    cityMap[key].photos.push(photo);
-  });
 
-  Object.values(cityMap).forEach(city => {
-    const color = getTagColor(city.photos[0].tags);
-    const icon = L.divIcon({
-      className: '',
-      html: `<div class="custom-marker" style="background:${color};"></div>`,
-      iconSize: [16, 16],
-      iconAnchor: [8, 8],
+  if (filterTag) {
+    // 태그 필터 있을 때 → 도시별로 묶기
+    const cityMap = {};
+    filtered.forEach(photo => {
+      const key = `${photo.city}_${photo.country}`;
+      if (!cityMap[key]) cityMap[key] = { ...photo, photos: [] };
+      cityMap[key].photos.push(photo);
     });
-    const marker = L.marker([city.lat, city.lng], { icon });
-    marker.on('click', () => openMapPopup(city));
-    marker.addTo(leafletMap);
-    markers.push(marker);
-  });
+
+    Object.values(cityMap).forEach(city => {
+      const color = getTagColor(city.photos[0].tags);
+      const icon = L.divIcon({
+        className: '',
+        html: `<div class="custom-marker" style="background:${color};"></div>`,
+        iconSize: [16, 16],
+        iconAnchor: [8, 8],
+      });
+      const marker = L.marker([city.lat, city.lng], { icon });
+      marker.on('click', () => openMapPopup(city));
+      marker.addTo(leafletMap);
+      markers.push(marker);
+    });
+  } else {
+    // 전체 지도 → 사진마다 개별 핀
+    filtered.forEach(photo => {
+      const color = getTagColor(photo.tags);
+      const icon = L.divIcon({
+        className: '',
+        html: `<div class="custom-marker" style="background:${color};"></div>`,
+        iconSize: [16, 16],
+        iconAnchor: [8, 8],
+      });
+      const marker = L.marker([photo.lat, photo.lng], { icon });
+      marker.on('click', () => openMapPopup({ ...photo, photos: [photo] }));
+      marker.addTo(leafletMap);
+      markers.push(marker);
+    });
+  }
 
   setTimeout(() => leafletMap.invalidateSize(), 300);
 }
@@ -748,11 +767,18 @@ function handleIcon(btn) {
   }
 }
 
-function goHome() {
+function goMap() {
   document.querySelectorAll('.icon-btn').forEach(b => b.classList.remove('active'));
   activeTag = null;
   clickCount = 0;
   showMap(null);
+}
+
+function goHome() {
+  document.querySelectorAll('.icon-btn').forEach(b => b.classList.remove('active'));
+  activeTag = null;
+  clickCount = 0;
+  showGallery();
 }
 
 function showGallery(tag = null) {
@@ -824,8 +850,10 @@ function closeLightbox() {
 
 // ── 초기 실행 ──
 (async () => {
+  const gallery = document.getElementById('galleryView');
+  gallery.innerHTML = '<div style="padding:2rem; font-family:DOSPilgi,monospace; font-size:13px; color:rgba(26,26,26,0.4);">loading...</div>';
   await loadPhotos();
-  showMap(null);
+  renderGallery();
 })();
 
 </script>
