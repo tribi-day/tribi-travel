@@ -657,6 +657,7 @@ header {
       </div>
       <div class="sidebar-bottom">
         <button class="about-btn" id="gameBtn" onclick="toggleGame()" title="어디일까?">&#x1F3AE;</button>
+        <button class="about-btn" id="flagBtn" onclick="toggleFlag()" title="국기 토글">&#x1F3F4;</button>
         <button class="about-btn" id="aboutBtn" onclick="toggleAbout()">&#x003F;</button>
       </div>
     </aside>
@@ -893,7 +894,7 @@ function renderGallery(filterTag = null) {
     }
 
     // 국기
-    if (photo.country) {
+    if (showFlag && photo.country) {
       const loc = document.createElement('div');
       loc.className = 'photo-location';
       loc.textContent = countryFlag[photo.country] || '';
@@ -1138,7 +1139,15 @@ document.getElementById('lightbox').addEventListener('click', function(e) {
   if (e.target === this) closeLightbox();
 });
 
-// ── 게임 ──
+// ── 국기 토글 ──
+let showFlag = true;
+
+function toggleFlag() {
+  showFlag = !showFlag;
+  const btn = document.getElementById('flagBtn');
+  btn.style.opacity = showFlag ? '1' : '0.3';
+  renderGallery(activeTag);
+}
 let gameMap = null;
 let gameMarker = null;
 let gameAnswerMarker = null;
