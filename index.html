@@ -257,7 +257,6 @@ header {
 .custom-marker {
   width: 16px;
   height: 16px;
-  background: #e03030;
   border: 2.5px solid white;
   border-radius: 50%;
   cursor: pointer;
@@ -547,6 +546,29 @@ const tagIcon = {
   "비행기":  "\u{1F6E9}",
 };
 
+// 태그별 핀 색상
+const tagColor = {
+  "나":      "#E8A87C",
+  "밥":      "#E8C07C",
+  "강아지":  "#A8D8A8",
+  "고양이":  "#FFB3BA",
+  "동물":    "#98D4C8",
+  "바다":    "#7CB9E8",
+  "산":      "#8DB48E",
+  "자연":    "#B5D5A0",
+  "도시":    "#B0A8D8",
+  "일출일몰": "#F4A460",
+  "숙소":    "#DEB887",
+  "공원":    "#90EE90",
+  "창문":    "#ADD8E6",
+  "비행기":  "#C8A8D8",
+};
+
+function getTagColor(tags) {
+  if (!tags || tags.length === 0) return "#aaa";
+  return tagColor[tags[0]] || "#aaa";
+}
+
 // 나라 → 국기 이모지
 const countryFlag = {
   "South Korea": "🇰🇷", "Korea": "🇰🇷",
@@ -682,9 +704,10 @@ function initMap(filterTag) {
   });
 
   Object.values(cityMap).forEach(city => {
+    const color = getTagColor(city.photos[0].tags);
     const icon = L.divIcon({
       className: '',
-      html: '<div class="custom-marker"></div>',
+      html: `<div class="custom-marker" style="background:${color};"></div>`,
       iconSize: [16, 16],
       iconAnchor: [8, 8],
     });
@@ -729,7 +752,7 @@ function goHome() {
   document.querySelectorAll('.icon-btn').forEach(b => b.classList.remove('active'));
   activeTag = null;
   clickCount = 0;
-  showGallery();
+  showMap(null);
 }
 
 function showGallery(tag = null) {
@@ -801,10 +824,8 @@ function closeLightbox() {
 
 // ── 초기 실행 ──
 (async () => {
-  const gallery = document.getElementById('galleryView');
-  gallery.innerHTML = '<div style="padding:2rem; font-family:DOSPilgi,monospace; font-size:13px; color:rgba(26,26,26,0.4);">loading...</div>';
   await loadPhotos();
-  renderGallery();
+  showMap(null);
 })();
 
 </script>
