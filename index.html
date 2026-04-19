@@ -167,14 +167,16 @@ header {
 
 /* ── 밥 배너 ── */
 .food-banner {
-  grid-column: 1 / -1;
+  position: absolute;
+  top: 20px;
+  left: 15%;
+  right: 0;
+  z-index: 10;
   font-family: 'DOSGothic', monospace;
   font-size: clamp(28px, 4vw, 52px);
   color: var(--ink);
   line-height: 1.1;
-  padding: 12px 4px 24px;
   pointer-events: none;
-  mix-blend-mode: multiply;
   opacity: 0.15;
   letter-spacing: -0.01em;
 }
@@ -730,12 +732,16 @@ function renderGallery(filterTag = null) {
 
   view.innerHTML = '';
 
-  // 밥 태그 배너
+  // 밥 태그 배너 (이전 배너 제거 후 추가)
+  const existing = document.getElementById('foodBanner');
+  if (existing) existing.remove();
+
   if (filterTag === '밥') {
     const banner = document.createElement('div');
     banner.className = 'food-banner';
+    banner.id = 'foodBanner';
     banner.innerHTML = `(almost) <span class="pilgi">every food</span> is VEGAN !`;
-    view.appendChild(banner);
+    document.querySelector('.content').appendChild(banner);
   }
   filtered.forEach((photo, i) => {
     const card = document.createElement('div');
@@ -925,6 +931,8 @@ function showGallery(tag = null) {
   document.getElementById('mapView').classList.add('hidden');
   document.getElementById('aboutView').classList.remove('visible');
   document.getElementById('aboutBtn').classList.remove('active');
+  const existing = document.getElementById('foodBanner');
+  if (existing) existing.remove();
   renderGallery(tag);
 }
 
@@ -933,6 +941,8 @@ function showMap(tag = null) {
   document.getElementById('mapView').classList.remove('hidden');
   document.getElementById('aboutView').classList.remove('visible');
   document.getElementById('aboutBtn').classList.remove('active');
+  const existing = document.getElementById('foodBanner');
+  if (existing) existing.remove();
   setTimeout(() => {
     initMap(tag);
     if (leafletMap) leafletMap.invalidateSize();
