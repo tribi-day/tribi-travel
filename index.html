@@ -857,7 +857,7 @@ function renderGallery(filterTag = null) {
     const banner = document.createElement('div');
     banner.className = 'food-banner';
     banner.id = 'foodBanner';
-    banner.innerHTML = `(almost) <span class="pilgi">everything</span> is VEGAN !`;
+    banner.innerHTML = `<span style="font-size:0.5em;">(almost)</span> <span class="pilgi">everything</span> is VEGAN !`;
     const header = document.querySelector('header');
     const headerH = header.getBoundingClientRect().height;
     const fontSize = parseFloat(getComputedStyle(document.body).fontSize || '16') * 2.5;
