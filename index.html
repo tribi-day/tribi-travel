@@ -701,11 +701,19 @@ let markers = [];
 
 function initMap(filterTag) {
   if (!mapInitialized) {
-    leafletMap = L.map('map', { center: [20, 10], zoom: 2 });
+    leafletMap = L.map('map', {
+      center: [20, 10],
+      zoom: 2,
+      maxBounds: [[-90, -180], [90, 180]],
+      maxBoundsViscosity: 1.0,
+      worldCopyJump: false,
+      noWrap: true,
+    });
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
       attribution: '© OpenStreetMap © CARTO',
       subdomains: 'abcd',
       maxZoom: 19,
+      noWrap: true,
     }).addTo(leafletMap);
     mapInitialized = true;
   }
@@ -716,7 +724,8 @@ function initMap(filterTag) {
   const filtered = filterTag ? photos.filter(p => p.tags.includes(filterTag)) : photos;
 
   if (filterTag) {
-    // 태그 필터 있을 때 → 도시별로 묶기
+    // 태그 필터 있을 때 → 도시별로 묶기, 색상은 필터 태그로 고정
+    const color = tagColor[filterTag] || "#aaa";
     const cityMap = {};
     filtered.forEach(photo => {
       const key = `${photo.city}_${photo.country}`;
@@ -725,7 +734,6 @@ function initMap(filterTag) {
     });
 
     Object.values(cityMap).forEach(city => {
-      const color = getTagColor(city.photos[0].tags);
       const icon = L.divIcon({
         className: '',
         html: `<div class="custom-marker" style="background:${color};"></div>`,
