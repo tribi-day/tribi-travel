@@ -892,16 +892,6 @@ function renderGallery(filterTag = null) {
       inner.appendChild(ph);
     }
 
-    const tagsEl = document.createElement('div');
-    tagsEl.className = 'photo-tags';
-    photo.tags.forEach(tag => {
-      const span = document.createElement('span');
-      span.className = 'photo-tag';
-      span.textContent = tagIcon[tag] || '';
-      tagsEl.appendChild(span);
-    });
-    inner.appendChild(tagsEl);
-
     // 국기
     if (photo.country) {
       const loc = document.createElement('div');
