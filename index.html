@@ -34,7 +34,7 @@
   --ink-mid: rgba(26,26,26,0.45);
   --ink-faint: rgba(26,26,26,0.12);
   --caramel: #b8864e;
-  --sidebar-w: 120px;
+  --sidebar-w: 90px;
 }
 
 html, body {
@@ -96,9 +96,10 @@ header {
   background: transparent;
   border: none;
   cursor: pointer;
-  padding: 4px 2px;
+  padding: 4px 0;
   border-radius: 6px;
   text-align: center;
+  width: 100%;
   transition: opacity 0.15s, filter 0.15s;
   filter: grayscale(1);
   opacity: 0.35;
@@ -212,7 +213,8 @@ header {
   position: absolute;
   bottom: 6px;
   left: 6px;
-  font-size: 16px;
+  font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
+  font-size: 18px;
   line-height: 1;
   filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
   z-index: 1;
