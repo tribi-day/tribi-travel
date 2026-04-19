@@ -72,10 +72,17 @@ header {
 }
 
 .header-title {
-  font-family: 'DOSPilgi', monospace;
+  font-family: 'DOSGothic', monospace;
   font-size: 24px;
   letter-spacing: 0.04em;
   color: var(--ink);
+}
+
+.header-subtitle {
+  font-family: 'DOSGothic', monospace;
+  font-size: 14px;
+  color: var(--ink-mid);
+  letter-spacing: 0.02em;
 }
 
 
@@ -537,6 +544,7 @@ header {
   <header>
     <span class="header-globe" onclick="goMap()" style="cursor:pointer;">&#x1F30D;</span>
     <span class="header-title" onclick="goHome()" style="cursor:pointer;">reef.and.roots</span>
+    <span class="header-subtitle">(plant-based nomad diver!)</span>
     <a href="https://www.instagram.com/tribi.day/" target="_blank" rel="noopener noreferrer"
        onclick="event.stopPropagation();"
        style="margin-left:auto; font-family:'DOSGothic',monospace; font-size:16px;
