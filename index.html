@@ -180,17 +180,12 @@ header {
   z-index: 100;
   font-family: 'DOSGothic', monospace;
   font-size: clamp(28px, 4vw, 52px);
-  color: #571f9c;
+  color: #7c3aed;
   line-height: 1.1;
   pointer-events: none;
   letter-spacing: -0.01em;
+  mix-blend-mode: difference;
   white-space: nowrap;
-}
-
-.food-banner-top {
-  color: #a8e063 !important;
-  z-index: 101;
-  clip-path: inset(0 0 50% 0);
 }
 
 .food-banner .pilgi {
@@ -866,19 +861,8 @@ function renderGallery(filterTag = null) {
     const header = document.querySelector('header');
     const headerH = header.getBoundingClientRect().height;
     const fontSize = parseFloat(getComputedStyle(document.body).fontSize || '16') * 2.5;
-    const top = headerH - fontSize * 0.5;
-    banner.style.top = top + 'px';
-
-    // 두 번째 레이어 (헤더 위 영역 - 초록)
-    const bannerTop = document.createElement('div');
-    bannerTop.className = 'food-banner food-banner-top';
-    bannerTop.id = 'foodBannerTop';
-    bannerTop.innerHTML = banner.innerHTML;
-    bannerTop.style.top = top + 'px';
-    bannerTop.style.clipPath = `inset(0 0 ${fontSize * 0.5}px 0)`;
-
+    banner.style.top = (headerH - fontSize * 0.5) + 'px';
     document.querySelector('.layout').appendChild(banner);
-    document.querySelector('.layout').appendChild(bannerTop);
   }
   filtered.forEach((photo, i) => {
     const card = document.createElement('div');
