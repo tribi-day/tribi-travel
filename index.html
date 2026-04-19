@@ -300,6 +300,83 @@ header {
 
 .about-view.visible { display: block; }
 
+/* ── 게임 뷰 ── */
+.game-view {
+  position: absolute;
+  inset: 0;
+  display: none;
+  padding: 16px;
+  overflow: hidden;
+}
+
+.game-view.visible { display: flex; }
+
+.game-inner {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  height: 100%;
+}
+
+.game-photo-wrap {
+  flex: 1;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.game-photo-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.game-right {
+  width: 340px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.game-status {
+  font-family: 'DOSGothic', monospace;
+  font-size: 13px;
+  color: var(--ink-mid);
+}
+
+.game-score {
+  font-family: 'DOSPilgi', monospace;
+  font-size: 20px;
+  color: var(--ink);
+}
+
+#gameMap {
+  width: 100%;
+  height: 240px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.game-result {
+  font-family: 'DOSGothic', monospace;
+  font-size: 14px;
+  color: var(--caramel);
+  min-height: 40px;
+}
+
+.game-next-btn {
+  font-family: 'DOSPilgi', monospace;
+  font-size: 16px;
+  background: var(--ink);
+  color: var(--cream);
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  align-self: flex-start;
+}
+
 .about-view p {
   font-size: 15px;
   line-height: 1.9;
@@ -574,6 +651,7 @@ header {
         <button class="icon-btn" data-tag="예술"    onclick="handleIcon(this)">&#x1F496;</button>
       </div>
       <div class="sidebar-bottom">
+        <button class="about-btn" id="gameBtn" onclick="toggleGame()" title="어디일까?">&#x1F3AE;</button>
         <button class="about-btn" id="aboutBtn" onclick="toggleAbout()">&#x003F;</button>
       </div>
     </aside>
@@ -594,6 +672,23 @@ header {
         <p>아프리카를 제외한 모든 대륙을 여행하며 찍은 사진들을 태그별로 분류하고, 지도 위에 핀으로 기록합니다. 좌측 아이콘을 눌러 카테고리별 사진을 탐색하거나, 지구 아이콘을 눌러 전체 여행 지도를 확인해보세요.</p>
         <p>현재 진행 중인 여행의 기록도 실시간으로 업데이트됩니다.</p>
         <p>인스타그램 <a href="https://www.instagram.com/tribi.day/" target="_blank" style="color:var(--caramel);">@tribi.day</a> 에서도 만날 수 있습니다.</p>
+      </div>
+
+      <div class="game-view" id="gameView">
+        <div class="game-inner">
+          <div class="game-photo-wrap">
+            <img id="gamePhoto" src="" alt="">
+          </div>
+          <div class="game-right">
+            <div class="game-status" id="gameStatus">사진을 보고 어느 나라인지 맞춰봐!</div>
+            <div class="game-score" id="gameScore">0 / 0</div>
+            <div id="gameMapWrap">
+              <div id="gameMap"></div>
+            </div>
+            <div class="game-result" id="gameResult"></div>
+            <button class="game-next-btn" id="gameNextBtn" onclick="gameNext()" style="display:none;">다음 →</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -951,7 +1046,9 @@ function showGallery(tag = null) {
   document.getElementById('galleryView').classList.remove('hidden');
   document.getElementById('mapView').classList.add('hidden');
   document.getElementById('aboutView').classList.remove('visible');
+  document.getElementById('gameView').classList.remove('visible');
   document.getElementById('aboutBtn').classList.remove('active');
+  document.getElementById('gameBtn').classList.remove('active');
   const existing = document.getElementById('foodBanner');
   if (existing) existing.remove();
   renderGallery(tag);
@@ -961,7 +1058,9 @@ function showMap(tag = null) {
   document.getElementById('galleryView').classList.add('hidden');
   document.getElementById('mapView').classList.remove('hidden');
   document.getElementById('aboutView').classList.remove('visible');
+  document.getElementById('gameView').classList.remove('visible');
   document.getElementById('aboutBtn').classList.remove('active');
+  document.getElementById('gameBtn').classList.remove('active');
   const existing = document.getElementById('foodBanner');
   if (existing) existing.remove();
   setTimeout(() => {
@@ -1044,7 +1143,142 @@ document.getElementById('lightbox').addEventListener('click', function(e) {
   if (e.target === this) closeLightbox();
 });
 
-// ── 초기 실행 ──
+// ── 게임 ──
+let gameMap = null;
+let gameMarker = null;
+let gameAnswerMarker = null;
+let gamePending = [];
+let gameCorrect = 0;
+let gameTotal = 0;
+let gameCurrentPhoto = null;
+let gameGuessed = false;
+
+function toggleGame() {
+  const gameView = document.getElementById('gameView');
+  const gameBtn = document.getElementById('gameBtn');
+  const isVisible = gameView.classList.contains('visible');
+  if (isVisible) {
+    gameView.classList.remove('visible');
+    gameBtn.classList.remove('active');
+    showGallery();
+  } else {
+    document.getElementById('galleryView').classList.add('hidden');
+    document.getElementById('mapView').classList.add('hidden');
+    document.getElementById('aboutView').classList.remove('visible');
+    document.getElementById('aboutBtn').classList.remove('active');
+    gameView.classList.add('visible');
+    gameBtn.classList.add('active');
+    document.querySelectorAll('.icon-btn').forEach(b => b.classList.remove('active'));
+    startGame();
+  }
+}
+
+function startGame() {
+  // GPS 있는 사진만
+  gamePending = photos.filter(p => p.file && p.lat && p.lng && p.country).sort(() => Math.random() - 0.5);
+  gameCorrect = 0;
+  gameTotal = 0;
+  gameGuessed = false;
+  initGameMap();
+  gameNext();
+}
+
+function initGameMap() {
+  if (gameMap) {
+    gameMap.remove();
+    gameMap = null;
+  }
+  gameMap = L.map('gameMap', { center: [20, 10], zoom: 2, zoomControl: true });
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '© OpenStreetMap © CARTO',
+    subdomains: 'abcd',
+    maxZoom: 19,
+  }).addTo(gameMap);
+  gameMap.on('click', onGameMapClick);
+}
+
+function onGameMapClick(e) {
+  if (gameGuessed) return;
+  gameGuessed = true;
+
+  const guessLat = e.latlng.lat;
+  const guessLng = e.latlng.lng;
+  const answerLat = gameCurrentPhoto.lat;
+  const answerLng = gameCurrentPhoto.lng;
+
+  // 거리 계산 (km)
+  const dist = getDistanceKm(guessLat, guessLng, answerLat, answerLng);
+
+  // 정답 마커
+  if (gameMarker) gameMap.removeLayer(gameMarker);
+  if (gameAnswerMarker) gameMap.removeLayer(gameAnswerMarker);
+
+  gameMarker = L.circleMarker([guessLat, guessLng], {
+    radius: 8, color: '#b8864e', fillColor: '#b8864e', fillOpacity: 1
+  }).addTo(gameMap);
+
+  gameAnswerMarker = L.circleMarker([answerLat, answerLng], {
+    radius: 8, color: '#4CAF50', fillColor: '#4CAF50', fillOpacity: 1
+  }).addTo(gameMap);
+
+  // 선 연결
+  L.polyline([[guessLat, guessLng], [answerLat, answerLng]], {
+    color: '#aaa', dashArray: '4'
+  }).addTo(gameMap);
+
+  gameMap.fitBounds([[guessLat, guessLng], [answerLat, answerLng]], { padding: [30, 30] });
+
+  gameTotal++;
+  const flag = countryFlag[gameCurrentPhoto.country] || '';
+  const city = gameCurrentPhoto.city || '';
+
+  let msg = '';
+  if (dist < 500) {
+    gameCorrect++;
+    msg = `🎉 ${Math.round(dist)}km 차이! 정답 : ${flag} ${city}, ${gameCurrentPhoto.country}`;
+  } else if (dist < 2000) {
+    msg = `😅 ${Math.round(dist)}km 차이... 정답 : ${flag} ${city}, ${gameCurrentPhoto.country}`;
+  } else {
+    msg = `💀 ${Math.round(dist)}km 차이ㅋ 정답 : ${flag} ${city}, ${gameCurrentPhoto.country}`;
+  }
+
+  document.getElementById('gameResult').textContent = msg;
+  document.getElementById('gameScore').textContent = `${gameCorrect} / ${gameTotal}`;
+  document.getElementById('gameNextBtn').style.display = 'block';
+  document.getElementById('gameStatus').textContent = '🟤 내 추측   🟢 정답';
+}
+
+function gameNext() {
+  if (gamePending.length === 0) {
+    document.getElementById('gameStatus').textContent = '게임 끝! 새로 시작하려면 🎮 다시 클릭!';
+    document.getElementById('gameNextBtn').style.display = 'none';
+    return;
+  }
+  gameGuessed = false;
+  gameCurrentPhoto = gamePending.pop();
+  document.getElementById('gamePhoto').src = optimizeUrl(gameCurrentPhoto.file);
+  document.getElementById('gameResult').textContent = '';
+  document.getElementById('gameNextBtn').style.display = 'none';
+  document.getElementById('gameStatus').textContent = '지도에서 이 사진이 찍힌 곳을 클릭해봐!';
+
+  if (gameMarker) { gameMap.removeLayer(gameMarker); gameMarker = null; }
+  if (gameAnswerMarker) { gameMap.removeLayer(gameAnswerMarker); gameAnswerMarker = null; }
+  gameMap.eachLayer(layer => {
+    if (layer instanceof L.Polyline && !(layer instanceof L.CircleMarker)) {
+      gameMap.removeLayer(layer);
+    }
+  });
+  gameMap.setView([20, 10], 2);
+  setTimeout(() => gameMap.invalidateSize(), 100);
+}
+
+function getDistanceKm(lat1, lng1, lat2, lng2) {
+  const R = 6371;
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLng = (lng2 - lng1) * Math.PI / 180;
+  const a = Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180) * Math.cos(lat2*Math.PI/180) * Math.sin(dLng/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
 (async () => {
   const gallery = document.getElementById('galleryView');
   gallery.innerHTML = '<div style="padding:2rem; font-family:Pretendard,sans-serif; font-size:13px; color:rgba(26,26,26,0.4); grid-column:1/-1;">loading...</div>';
