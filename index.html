@@ -638,8 +638,13 @@ header {
   }
 }
 
-.mobile-header-right { display: none; }
-.mobile-toggle-bar { display: none; }
+.header-text {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.header-insta-mobile { display: none; }
 
 /* ── 모바일 반응형 ── */
 @media (max-width: 768px) {
@@ -649,6 +654,14 @@ header {
 
   /* 모바일 헤더 */
   .header-insta { display: none !important; }
+  .header-subtitle { display: none; }
+  .header-insta-mobile { display: inline !important; }
+
+  .header-text {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1px;
+  }
 
   .mobile-header-right {
     display: flex;
@@ -657,44 +670,54 @@ header {
     gap: 4px;
   }
 
-  /* 모바일에서 인스타 제목 바로 옆 */
-  .header-insta {
-    display: inline !important;
-    margin-left: 6px !important;
-    font-size: 11px !important;
-  }
-
-  .header-subtitle { display: none; }
-
   /* 모바일 토글 바 */
   .mobile-toggle-bar {
     display: flex;
     justify-content: flex-end;
     gap: 8px;
-    padding: 2px 12px;
+    padding: 0 12px 2px;
     background: var(--cream);
     border-bottom: 0.5px solid var(--ink-faint);
   }
 
-  /* 게임 모바일 - 위아래 분할 */
+  /* 게임 모바일 - 위아래 반반 */
+  .game-view { padding: 0 !important; }
+
   .game-inner {
     flex-direction: column !important;
+    height: 100%;
   }
 
   .game-photo-wrap {
     width: 100% !important;
     height: 50% !important;
-    flex-shrink: 0;
+    flex-shrink: 0 !important;
+    border-radius: 0 !important;
   }
 
   .game-right {
-    height: 50%;
+    height: 50% !important;
+    display: flex;
+    flex-direction: column;
+    padding: 6px 10px;
+    gap: 4px;
     overflow: hidden;
+  }
+
+  #gameMapWrap {
+    flex: 1;
+    min-height: 0;
   }
 
   #gameMap {
     min-height: unset !important;
+    height: 100% !important;
   }
+
+  .game-status { font-size: 11px; }
+  .game-score { font-size: 14px; }
+  .game-result { font-size: 11px; min-height: 28px; }
+  .game-next-btn { font-size: 13px; padding: 6px 12px; }
 
   /* 하단 탭바 표시 */
   .mobile-tabbar {
@@ -753,8 +776,15 @@ header {
 <div class="layout">
   <header>
     <span class="header-globe" onclick="goMap()" style="cursor:pointer;">&#x1F30D;</span>
-    <span class="header-title" onclick="goHome()" style="cursor:pointer;">reef.and.roots</span>
-    <span class="header-subtitle">(plant-based nomad diver!)</span>
+    <div class="header-text">
+      <span class="header-title" onclick="goHome()" style="cursor:pointer;">reef.and.roots</span>
+      <span class="header-subtitle">(plant-based nomad diver!)</span>
+      <a href="https://www.instagram.com/tribi.day/" target="_blank" rel="noopener noreferrer"
+         onclick="event.stopPropagation();"
+         class="header-insta-mobile"
+         style="font-family:'DOSGothic',monospace; font-size:11px;
+                color:var(--ink-mid); text-decoration:none;">@tribi.day</a>
+    </div>
     <a href="https://www.instagram.com/tribi.day/" target="_blank" rel="noopener noreferrer"
        onclick="event.stopPropagation();"
        class="header-insta"
