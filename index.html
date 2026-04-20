@@ -931,10 +931,10 @@ header {
             <img id="gamePhoto" src="" alt="">
           </div>
           <div class="game-right">
-            <div class="game-status" id="gameStatus">사진을 보고 어느 나라인지 맞춰봐!</div>
+            <div class="game-status" id="gameStatus">where was this photo taken?</div>
             <div class="game-score-row">
               <div class="game-score" id="gameScore">0 / 0</div>
-              <button class="game-next-btn" id="gameNextBtn" onclick="gameNext()" style="display:none;">다음 →</button>
+              <button class="game-next-btn" id="gameNextBtn" onclick="gameNext()" style="display:none;">next →</button>
             </div>
             <div id="gameMapWrap" style="flex:1; display:flex; flex-direction:column; position:relative;">
               <div id="gameMap"></div>
@@ -1505,23 +1505,23 @@ function onGameMapClick(e) {
   let msg = '';
   if (dist < 500) {
     gameCorrect++;
-    msg = `🎉 ${Math.round(dist)}km 차이! 정답 : ${flag} ${city}, ${gameCurrentPhoto.country}`;
+    msg = `🎉 ${Math.round(dist)}km away! answer : ${flag} ${city}, ${gameCurrentPhoto.country}`;
   } else if (dist < 2000) {
-    msg = `😅 ${Math.round(dist)}km 차이... 정답 : ${flag} ${city}, ${gameCurrentPhoto.country}`;
+    msg = `😅 ${Math.round(dist)}km away... answer : ${flag} ${city}, ${gameCurrentPhoto.country}`;
   } else {
-    msg = `💀 ${Math.round(dist)}km 차이ㅋ 정답 : ${flag} ${city}, ${gameCurrentPhoto.country}`;
+    msg = `💀 ${Math.round(dist)}km away lol answer : ${flag} ${city}, ${gameCurrentPhoto.country}`;
   }
 
   document.getElementById('gameResult').textContent = msg;
   document.getElementById('gameResult').style.display = 'block';
   document.getElementById('gameScore').textContent = `${gameCorrect} / ${gameTotal}`;
   document.getElementById('gameNextBtn').style.display = 'block';
-  document.getElementById('gameStatus').textContent = '🟤 내 추측   🟢 정답';
+  document.getElementById('gameStatus').textContent = '🟤 my guess   🟢 answer';
 }
 
 function gameNext() {
   if (gamePending.length === 0) {
-    document.getElementById('gameStatus').textContent = '게임 끝! 새로 시작하려면 🎮 다시 클릭!';
+    document.getElementById('gameStatus').textContent = 'game over! click 🎮 to restart';
     document.getElementById('gameNextBtn').style.display = 'none';
     return;
   }
@@ -1531,7 +1531,7 @@ function gameNext() {
   document.getElementById('gameResult').textContent = '';
   document.getElementById('gameResult').style.display = 'none';
   document.getElementById('gameNextBtn').style.display = 'none';
-  document.getElementById('gameStatus').textContent = '지도에서 이 사진이 찍힌 곳을 클릭해봐!';
+  document.getElementById('gameStatus').textContent = 'tap on the map to make your guess!';
 
   if (gameMarker) { gameMap.removeLayer(gameMarker); gameMarker = null; }
   if (gameAnswerMarker) { gameMap.removeLayer(gameAnswerMarker); gameAnswerMarker = null; }
