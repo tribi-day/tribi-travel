@@ -141,47 +141,51 @@ header {
 /* ── 지도/갤러리 토글 ── */
 .view-toggle-wrap {
   display: flex;
-  align-items: center;
   justify-content: center;
-  gap: 6px;
-  padding: 8px 4px;
-}
-
-.view-toggle-icon {
-  font-family: 'DOSPilgi', monospace;
-  font-size: 14px;
-  opacity: 0.5;
-  line-height: 1;
+  padding: 6px 4px 0;
 }
 
 .view-toggle {
-  width: 36px;
-  height: 18px;
+  width: 64px;
+  height: 28px;
   background: var(--ink-faint);
-  border-radius: 9px;
+  border-radius: 14px;
   cursor: pointer;
   position: relative;
   transition: background 0.2s;
-  border: 1px solid var(--ink-faint);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6px;
 }
 
-.view-toggle.gallery {
-  background: rgba(26,26,26,0.15);
+.view-toggle-label {
+  font-family: 'DOSPilgi', monospace;
+  font-size: 13px;
+  line-height: 1;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.6;
+  transition: opacity 0.2s;
 }
+
+.view-toggle.gallery .left { opacity: 0.3; }
+.view-toggle:not(.gallery) .right { opacity: 0.3; }
 
 .view-toggle-thumb {
   position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 12px;
-  height: 12px;
+  top: 3px;
+  left: 3px;
+  width: 22px;
+  height: 22px;
   background: var(--ink);
   border-radius: 50%;
   transition: left 0.2s;
+  opacity: 0.15;
 }
 
 .view-toggle.gallery .view-toggle-thumb {
-  left: 20px;
+  left: 39px;
 }
 
 .icon-btn {
@@ -712,11 +716,11 @@ header {
 
       <!-- 지도/갤러리 토글 -->
       <div class="view-toggle-wrap">
-        <span class="view-toggle-icon">&#x1F30D;</span>
         <div class="view-toggle" id="viewToggle" onclick="handleViewToggle()">
+          <span class="view-toggle-label left">&#x1F30D;</span>
           <div class="view-toggle-thumb" id="viewToggleThumb"></div>
+          <span class="view-toggle-label right">&#x1F5BC;</span>
         </div>
-        <span class="view-toggle-icon">&#x1F5BC;</span>
       </div>
       <div class="sidebar-bottom">
         <div class="sidebar-bottom-row">
@@ -1089,15 +1093,14 @@ function toggleAbout() {
 function goMap() {
   document.querySelectorAll('.icon-btn').forEach(b => b.classList.remove('active'));
   activeTag = null;
-  clickCount = 0;
   showMap(null);
 }
 
 function goHome() {
   document.querySelectorAll('.icon-btn').forEach(b => b.classList.remove('active'));
   activeTag = null;
-  clickCount = 0;
-  showGallery();
+  if (viewMode === 'map') showMap(null);
+  else showGallery(null);
 }
 
 function showGallery(tag = null) {
@@ -1212,10 +1215,8 @@ function handleViewToggle() {
   viewMode = viewMode === 'map' ? 'gallery' : 'map';
   const toggle = document.getElementById('viewToggle');
   toggle.classList.toggle('gallery', viewMode === 'gallery');
-  if (activeTag) {
-    if (viewMode === 'map') showMap(activeTag);
-    else showGallery(activeTag);
-  }
+  if (viewMode === 'map') showMap(activeTag);
+  else showGallery(activeTag);
 }
 let showFlag = true;
 
