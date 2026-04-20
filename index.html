@@ -703,8 +703,17 @@ header {
     border-bottom: 0.5px solid var(--ink-faint);
   }
 
-  /* 게임 모바일 - 사진 40%, 나머지 60% */
-  .game-view { padding: 0 !important; }
+  /* 게임 모바일 - fixed로 헤더 아래부터 */
+  .game-view {
+    position: fixed !important;
+    top: var(--mobile-header-h, 90px);
+    bottom: calc(80px + env(safe-area-inset-bottom));
+    left: 0;
+    right: 0;
+    padding: 0 !important;
+    z-index: 800;
+    background: var(--cream);
+  }
 
   .game-inner {
     flex-direction: column !important;
@@ -1442,6 +1451,13 @@ function toggleGame() {
 const GAME_TAGS = ["바다", "산", "자연", "도시", "일출일몰", "공원", "예술"];
 
 function startGame() {
+  // 모바일 헤더 높이 계산
+  const header = document.querySelector('header');
+  const toggleBar = document.querySelector('.mobile-toggle-bar');
+  if (header && window.innerWidth <= 768) {
+    const h = header.getBoundingClientRect().height + (toggleBar ? toggleBar.getBoundingClientRect().height : 0);
+    document.documentElement.style.setProperty('--mobile-header-h', h + 'px');
+  }
   gamePending = photos.filter(p =>
     p.file && p.lat && p.lng && p.country &&
     p.tags.some(t => GAME_TAGS.includes(t))
