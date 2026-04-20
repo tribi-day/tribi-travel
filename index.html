@@ -99,7 +99,7 @@ header {
   padding: 16px 4px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   height: 100%;
 }
 
@@ -111,6 +111,7 @@ header {
 }
 
 .sidebar-bottom {
+  margin-top: auto;
   padding-top: 8px;
   display: flex;
   flex-direction: column;
@@ -142,7 +143,7 @@ header {
 .view-toggle-wrap {
   display: flex;
   justify-content: center;
-  padding: 6px 4px 0;
+  padding: 4px 4px 0;
 }
 
 .view-toggle {
@@ -716,10 +717,10 @@ header {
 
       <!-- 지도/갤러리 토글 -->
       <div class="view-toggle-wrap">
-        <div class="view-toggle" id="viewToggle" onclick="handleViewToggle()">
+        <div class="view-toggle gallery" id="viewToggle" onclick="handleViewToggle()">
           <span class="view-toggle-label left">&#x1F30D;</span>
           <div class="view-toggle-thumb" id="viewToggleThumb"></div>
-          <span class="view-toggle-label right">&#x1F5BC;</span>
+          <span class="view-toggle-label right">&#x1F4F8;</span>
         </div>
       </div>
       <div class="sidebar-bottom">
@@ -1209,7 +1210,7 @@ document.getElementById('lightbox').addEventListener('click', function(e) {
 });
 
 // ── 지도/갤러리 토글 ──
-let viewMode = 'map'; // 'map' or 'gallery'
+let viewMode = 'gallery';
 
 function handleViewToggle() {
   viewMode = viewMode === 'map' ? 'gallery' : 'map';
