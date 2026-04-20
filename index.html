@@ -1374,7 +1374,10 @@ function getDistanceKm(lat1, lng1, lat2, lng2) {
   const gallery = document.getElementById('galleryView');
   gallery.innerHTML = '<div style="padding:2rem; font-family:Pretendard,sans-serif; font-size:13px; color:rgba(26,26,26,0.4); grid-column:1/-1;">loading...</div>';
   await loadPhotos();
-  renderGallery();
+  showGallery();
+  // 초기 상태 반영
+  document.getElementById('viewToggle').classList.add('gallery');
+  document.getElementById('flagBtn').style.opacity = '1';
 })();
 
 </script>
