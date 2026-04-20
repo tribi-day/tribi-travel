@@ -617,8 +617,25 @@ header {
 .lightbox-close:hover { opacity: 1; }
 
 /* ── 모바일 하단 탭바 (숨김 기본) ── */
-.mobile-tabbar {
+.mobile-controls {
   display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    position: fixed;
+    bottom: calc(60px + env(safe-area-inset-bottom));
+    left: 0;
+    right: 0;
+    background: var(--cream);
+    border-top: 0.5px solid var(--ink-faint);
+    padding: 6px 12px;
+    z-index: 901;
+  }
 }
 
 /* ── 모바일 반응형 ── */
@@ -650,7 +667,7 @@ header {
   /* 갤러리 3열, 하단 탭바 높이만큼 패딩 */
   .gallery-view {
     grid-template-columns: repeat(5, 1fr);
-    padding-bottom: 100px;
+    padding-bottom: 130px;
   }
 
   /* 지도 하단 탭바 높이만큼 패딩 */
@@ -727,7 +744,7 @@ header {
       <!-- 국기 토글 -->
       <div class="view-toggle-wrap" style="padding-top:6px;">
         <div class="view-toggle gallery" id="flagToggle" onclick="toggleFlag()">
-          <span class="view-toggle-label left" style="opacity:0.3;">&#xFE57;</span>
+          <span class="view-toggle-label left" style="opacity:0.3;">&#xF79E;</span>
           <div class="view-toggle-thumb"></div>
           <span class="view-toggle-label right">&#x1F3F3;</span>
         </div>
@@ -798,6 +815,22 @@ header {
   <button class="icon-btn" data-tag="비행기"  onclick="handleIcon(this)">&#x1F6E9;</button>
   <button class="icon-btn" data-tag="책"      onclick="handleIcon(this)">&#x1F4D6;</button>
   <button class="icon-btn" data-tag="예술"    onclick="handleIcon(this)">&#x1F496;</button>
+</div>
+
+<!-- 모바일 하단 컨트롤 바 -->
+<div class="mobile-controls">
+  <div class="view-toggle gallery" id="viewToggleMobile" onclick="handleViewToggle()">
+    <span class="view-toggle-label left">&#x1F30D;</span>
+    <div class="view-toggle-thumb"></div>
+    <span class="view-toggle-label right">&#x1F4F8;</span>
+  </div>
+  <div class="view-toggle gallery" id="flagToggleMobile" onclick="toggleFlag()">
+    <span class="view-toggle-label left" style="opacity:0.3;">&#xF79E;</span>
+    <div class="view-toggle-thumb"></div>
+    <span class="view-toggle-label right">&#x1F3F3;</span>
+  </div>
+  <button class="about-btn" id="gameBtn" onclick="toggleGame()" title="어디일까?">&#x1F3AE;</button>
+  <button class="about-btn" id="aboutBtnMobile" onclick="toggleAbout()">&#x003F;</button>
 </div>
 
 <div class="lightbox" id="lightbox">
@@ -1222,8 +1255,9 @@ let viewMode = 'gallery';
 
 function handleViewToggle() {
   viewMode = viewMode === 'map' ? 'gallery' : 'map';
-  const toggle = document.getElementById('viewToggle');
-  toggle.classList.toggle('gallery', viewMode === 'gallery');
+  document.getElementById('viewToggle').classList.toggle('gallery', viewMode === 'gallery');
+  const mob = document.getElementById('viewToggleMobile');
+  if (mob) mob.classList.toggle('gallery', viewMode === 'gallery');
   if (viewMode === 'map') showMap(activeTag);
   else showGallery(activeTag);
 }
@@ -1231,8 +1265,9 @@ let showFlag = true;
 
 function toggleFlag() {
   showFlag = !showFlag;
-  const toggle = document.getElementById('flagToggle');
-  toggle.classList.toggle('gallery', showFlag);
+  document.getElementById('flagToggle').classList.toggle('gallery', showFlag);
+  const mob = document.getElementById('flagToggleMobile');
+  if (mob) mob.classList.toggle('gallery', showFlag);
   renderGallery(activeTag);
 }
 let gameMap = null;
