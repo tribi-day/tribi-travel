@@ -671,18 +671,17 @@ header {
     gap: 4px;
   }
 
-  /* 모바일 토글 바 - 헤더 패딩 안으로 */
+  /* 모바일 토글 바 - 헤더처럼 */
   .mobile-toggle-bar {
     display: flex;
     justify-content: flex-end;
     gap: 8px;
-    padding: 0 12px 4px;
+    padding: 0 12px 8px;
     background: var(--cream);
     border-bottom: 0.5px solid var(--ink-faint);
-    margin-top: -4px;
   }
 
-  /* 게임 모바일 - 위아래 반반 */
+  /* 게임 모바일 - 사진 40%, 나머지 60% */
   .game-view { padding: 0 !important; }
 
   .game-inner {
@@ -692,23 +691,25 @@ header {
 
   .game-photo-wrap {
     width: 100% !important;
-    height: 50% !important;
+    height: 38% !important;
     flex-shrink: 0 !important;
     border-radius: 0 !important;
   }
 
   .game-right {
-    height: 50% !important;
+    height: 62% !important;
     display: flex;
     flex-direction: column;
-    padding: 6px 10px;
+    padding: 8px 12px;
     gap: 4px;
     overflow: hidden;
+    box-sizing: border-box;
   }
 
   #gameMapWrap {
     flex: 1;
     min-height: 0;
+    overflow: hidden;
   }
 
   #gameMap {
@@ -716,8 +717,8 @@ header {
     height: 100% !important;
   }
 
-  .game-status { font-size: 11px; }
-  .game-score { font-size: 14px; }
+  .game-status { font-size: 11px; flex-shrink: 0; }
+  .game-score { font-size: 14px; flex-shrink: 0; }
   .game-result {
     font-size: 11px;
     min-height: 24px;
