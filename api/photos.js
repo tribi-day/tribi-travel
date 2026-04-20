@@ -1,7 +1,7 @@
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET');
-  res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=600');
+  res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=86400');
 
   const token = process.env.NOTION_TOKEN;
   const dbId = process.env.NOTION_DB_ID;
@@ -17,6 +17,7 @@ export default async function handler(req, res) {
 
     while (pageCount < 10) {
       const body = {
+        sorts: [{ property: 'date', direction: 'descending' }],
         page_size: 100,
       };
       if (cursor) body.start_cursor = cursor;
