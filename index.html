@@ -946,16 +946,16 @@ header {
 
       <div class="about-view" id="aboutView">
         <p>reef.and.roots.는 <a href="https://www.instagram.com/tribi.day/" target="_blank" style="color:var(--ink);">@tribi.day</a>의 여행 기록 아카이브입니다.<br>
-        2021년부터 디지털 노마드로 살며 전세계의 찰나를 수집하고 있어요.<br>
-        채식, 동물, 다이빙, 책방, 노을, 디자인에 관심이 많아요.</p>
+        2021년부터 디지털 노마드로 생활하며 전세계의 찰나를 수집하고 있어요.<br>
+        채식, 동물, 다이빙, 책방, 노을을 사랑해요!</p>
 
-        <p>16가지 태그에 따라 제 취향의 순간들을 분류해보았어요.<br>
-        (ex. 고양이 아이콘을 누르면 전세계의 귀여운 고양이들을 볼 수 있답니다!)</p>
+        <p>14가지의 태그에 따라 제 취향의 순간들을 분류해보았어요.<br>
+        (고양이 아이콘을 누르면 전세계의 귀여운 고양이들을 볼 수 있답니다!)</p>
 
         <p>뷰 토글을 눌러 지도/갤러리 뷰를 전환할 수 있어요.<br>
         국기 토글을 눌러 사진 좌측 하단의 국기를 켜고 끌 수 있어요.<br>
         사진을 클릭하면 날짜와 위치를 볼 수 있어요.<br>
-        게임 아이콘을 클릭하면 사진의 위치를 지도에서 맞춰보는 게임을 할 수 있어요.</p>
+        게임 아이콘을 클릭하면 사진의 위치를 지도에서 pin해보는 게임을 할 수 있어요.</p>
 
         <p>현재 진행 중인 여행의 기록도 실시간으로 업데이트됩니다.<br>
         인스타그램 <a href="https://www.instagram.com/tribi.day/" target="_blank" style="color:var(--caramel);">@tribi.day</a> 에서도 만날 수 있습니다.</p>
@@ -1123,7 +1123,10 @@ function optimizeUrl(url) {
   return url.replace('/upload/', '/upload/q_auto,f_auto,w_800,a_exif,fl_force_strip/');
 }
 
-let shuffledPhotos = [];
+let galleryPage = 0;
+const GALLERY_PAGE_SIZE = 50;
+let galleryObserver = null;
+let currentGalleryPhotos = [];
 
 // ── 갤러리 렌더링 ──
 function renderGallery(filterTag = null) {
@@ -1132,7 +1135,6 @@ function renderGallery(filterTag = null) {
     ? photos.filter(p => p.tags.includes(filterTag))
     : [...photos];
 
-  // 같은 태그면 기존 순서 유지, 새 태그면 새로 섞기
   const key = filterTag || '__all__';
   if (!renderGallery._cache) renderGallery._cache = {};
   if (!renderGallery._cache[key]) {
@@ -1142,9 +1144,11 @@ function renderGallery(filterTag = null) {
     filtered = renderGallery._cache[key];
   }
 
+  currentGalleryPhotos = filtered;
+  galleryPage = 0;
   view.innerHTML = '';
 
-  // 밥 태그 배너 (이전 배너 제거 후 추가)
+  // 밥 태그 배너
   const existing = document.getElementById('foodBanner');
   if (existing) existing.remove();
 
@@ -1164,45 +1168,70 @@ function renderGallery(filterTag = null) {
     }
     document.querySelector('.layout').appendChild(banner);
   }
-  filtered.forEach((photo, i) => {
-    const card = document.createElement('div');
-    card.className = 'photo-card';
-    card.onclick = () => openLightbox(photo);
 
-    const inner = document.createElement('div');
-    inner.className = 'photo-card-inner';
+  renderGalleryPage(view);
+  setupGalleryObserver(view);
+}
 
-    if (photo.file) {
-      const img = document.createElement('img');
-      img.src = optimizeUrl(photo.file);
-      img.alt = photo.city;
-      img.loading = 'lazy';
-      inner.appendChild(img);
-    } else {
-      const ph = document.createElement('div');
-      ph.className = 'placeholder';
-      const emoji = document.createElement('div');
-      emoji.className = 'placeholder-emoji';
-      emoji.textContent = tagIcon[photo.tags[0]] || '📷';
-      const city = document.createElement('div');
-      city.className = 'placeholder-city';
-      city.textContent = photo.city;
-      ph.appendChild(emoji);
-      ph.appendChild(city);
-      inner.appendChild(ph);
+function createPhotoCard(photo) {
+  const card = document.createElement('div');
+  card.className = 'photo-card';
+  card.onclick = () => openLightbox(photo);
+  const inner = document.createElement('div');
+  inner.className = 'photo-card-inner';
+  if (photo.file) {
+    const img = document.createElement('img');
+    img.src = optimizeUrl(photo.file);
+    img.alt = photo.city;
+    img.loading = 'lazy';
+    inner.appendChild(img);
+  } else {
+    const ph = document.createElement('div');
+    ph.className = 'placeholder';
+    const emoji = document.createElement('div');
+    emoji.className = 'placeholder-emoji';
+    emoji.textContent = tagIcon[photo.tags[0]] || '📷';
+    const city = document.createElement('div');
+    city.className = 'placeholder-city';
+    city.textContent = photo.city;
+    ph.appendChild(emoji);
+    ph.appendChild(city);
+    inner.appendChild(ph);
+  }
+  if (showFlag && photo.country) {
+    const loc = document.createElement('div');
+    loc.className = 'photo-location';
+    loc.textContent = countryFlag[photo.country] || '';
+    inner.appendChild(loc);
+  }
+  card.appendChild(inner);
+  return card;
+}
+
+function renderGalleryPage(view) {
+  const start = galleryPage * GALLERY_PAGE_SIZE;
+  const end = start + GALLERY_PAGE_SIZE;
+  const batch = currentGalleryPhotos.slice(start, end);
+  const frag = document.createDocumentFragment();
+  batch.forEach(photo => frag.appendChild(createPhotoCard(photo)));
+  view.appendChild(frag);
+  galleryPage++;
+}
+
+function setupGalleryObserver(view) {
+  if (galleryObserver) galleryObserver.disconnect();
+  if (galleryPage * GALLERY_PAGE_SIZE >= currentGalleryPhotos.length) return;
+  const sentinel = document.createElement('div');
+  sentinel.style.cssText = 'height:1px; grid-column:1/-1;';
+  view.appendChild(sentinel);
+  galleryObserver = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
+      sentinel.remove();
+      renderGalleryPage(view);
+      setupGalleryObserver(view);
     }
-
-    // 국기
-    if (showFlag && photo.country) {
-      const loc = document.createElement('div');
-      loc.className = 'photo-location';
-      loc.textContent = countryFlag[photo.country] || '';
-      inner.appendChild(loc);
-    }
-
-    card.appendChild(inner);
-    view.appendChild(card);
-  });
+  }, { rootMargin: '300px' });
+  galleryObserver.observe(sentinel);
 }
 
 // ── 지도 ──
