@@ -710,6 +710,7 @@ header {
     flex: 1;
     min-height: 0;
     overflow: hidden;
+    position: relative;
   }
 
   #gameMap {
@@ -717,15 +718,29 @@ header {
     height: 100% !important;
   }
 
-  .game-status { font-size: 11px; flex-shrink: 0; }
-  .game-score { font-size: 14px; flex-shrink: 0; }
   .game-result {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    right: 8px;
+    background: rgba(240,235,224,0.92);
+    padding: 6px 10px;
+    border-radius: 4px;
     font-size: 11px;
-    min-height: 24px;
+    z-index: 999;
     flex-shrink: 0;
-    color: var(--caramel);
+    color: var(--ink);
   }
-  .game-next-btn { font-size: 13px; padding: 6px 12px; flex-shrink: 0; }
+
+  .game-next-btn {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    font-size: 13px;
+    padding: 6px 12px;
+    flex-shrink: 0;
+    z-index: 1000;
+  }
 
   /* 하단 탭바 표시 */
   .mobile-tabbar {
@@ -897,11 +912,11 @@ header {
           <div class="game-right">
             <div class="game-status" id="gameStatus">사진을 보고 어느 나라인지 맞춰봐!</div>
             <div class="game-score" id="gameScore">0 / 0</div>
-            <div id="gameMapWrap" style="flex:1; display:flex; flex-direction:column;">
+            <div id="gameMapWrap" style="flex:1; display:flex; flex-direction:column; position:relative;">
               <div id="gameMap"></div>
+              <div class="game-result" id="gameResult"></div>
+              <button class="game-next-btn" id="gameNextBtn" onclick="gameNext()" style="display:none;">다음 →</button>
             </div>
-            <div class="game-result" id="gameResult"></div>
-            <button class="game-next-btn" id="gameNextBtn" onclick="gameNext()" style="display:none;">다음 →</button>
           </div>
         </div>
       </div>
