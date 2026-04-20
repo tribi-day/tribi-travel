@@ -638,11 +638,40 @@ header {
   }
 }
 
+.mobile-header-right { display: none; }
+.mobile-toggle-bar { display: none; }
+
 /* ── 모바일 반응형 ── */
 @media (max-width: 768px) {
 
   /* 사이드바 숨기기 */
   .sidebar { display: none; }
+
+  /* 모바일 헤더 */
+  .header-subtitle { display: none; }
+  .header-insta { display: none !important; }
+
+  .mobile-header-right {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    gap: 4px;
+  }
+
+  /* 모바일 토글 바 */
+  .mobile-toggle-bar {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 4px 12px;
+    background: var(--cream);
+    border-bottom: 0.5px solid var(--ink-faint);
+  }
+
+  /* 모바일 인스타 - 제목 옆으로 */
+  .header-title::after {
+    content: '';
+  }
 
   /* 하단 탭바 표시 */
   .mobile-tabbar {
@@ -705,11 +734,35 @@ header {
     <span class="header-subtitle">(plant-based nomad diver!)</span>
     <a href="https://www.instagram.com/tribi.day/" target="_blank" rel="noopener noreferrer"
        onclick="event.stopPropagation();"
+       class="header-insta"
        style="margin-left:auto; font-family:'DOSGothic',monospace; font-size:16px;
               color:var(--ink-mid); text-decoration:none; letter-spacing:0.04em;">
       @tribi.day
     </a>
+    <!-- 모바일 전용 헤더 우측 -->
+    <div class="mobile-header-right">
+      <a href="https://www.instagram.com/tribi.day/" target="_blank" rel="noopener noreferrer"
+         onclick="event.stopPropagation();"
+         style="font-family:'DOSGothic',monospace; font-size:13px;
+                color:var(--ink-mid); text-decoration:none;">@tribi.day</a>
+      <button class="about-btn" onclick="toggleGame()" title="어디일까?">&#x1F3AE;</button>
+      <button class="about-btn" onclick="toggleAbout()">&#x003F;</button>
+    </div>
   </header>
+
+  <!-- 모바일 전용 토글 바 -->
+  <div class="mobile-toggle-bar">
+    <div class="view-toggle gallery" id="viewToggleMobile" onclick="handleViewToggle()">
+      <span class="view-toggle-label left">&#x1F30D;</span>
+      <div class="view-toggle-thumb"></div>
+      <span class="view-toggle-label right">&#x1F4F8;</span>
+    </div>
+    <div class="view-toggle gallery" id="flagToggleMobile" onclick="toggleFlag()">
+      <span class="view-toggle-label left" style="opacity:0.3;">&#x1F3F4;</span>
+      <div class="view-toggle-thumb"></div>
+      <span class="view-toggle-label right">&#x1F3F3;</span>
+    </div>
+  </div>
 
   <div class="main">
     <aside class="sidebar">
@@ -744,7 +797,7 @@ header {
       <!-- 국기 토글 -->
       <div class="view-toggle-wrap" style="padding-top:6px;">
         <div class="view-toggle gallery" id="flagToggle" onclick="toggleFlag()">
-          <span class="view-toggle-label left" style="opacity:0.3;">&#xF79E;</span>
+          <span class="view-toggle-label left" style="opacity:0.3;">&#x1F3F4;</span>
           <div class="view-toggle-thumb"></div>
           <span class="view-toggle-label right">&#x1F3F3;</span>
         </div>
@@ -818,20 +871,6 @@ header {
 </div>
 
 <!-- 모바일 하단 컨트롤 바 -->
-<div class="mobile-controls">
-  <div class="view-toggle gallery" id="viewToggleMobile" onclick="handleViewToggle()">
-    <span class="view-toggle-label left">&#x1F30D;</span>
-    <div class="view-toggle-thumb"></div>
-    <span class="view-toggle-label right">&#x1F4F8;</span>
-  </div>
-  <div class="view-toggle gallery" id="flagToggleMobile" onclick="toggleFlag()">
-    <span class="view-toggle-label left" style="opacity:0.3;">&#xF79E;</span>
-    <div class="view-toggle-thumb"></div>
-    <span class="view-toggle-label right">&#x1F3F3;</span>
-  </div>
-  <button class="about-btn" id="gameBtn" onclick="toggleGame()" title="어디일까?">&#x1F3AE;</button>
-  <button class="about-btn" id="aboutBtnMobile" onclick="toggleAbout()">&#x003F;</button>
-</div>
 
 <div class="lightbox" id="lightbox">
   <button class="lightbox-close" onclick="closeLightbox()">×</button>
