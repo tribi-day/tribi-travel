@@ -1150,7 +1150,12 @@ function renderGallery(filterTag = null) {
     const header = document.querySelector('header');
     const headerH = header.getBoundingClientRect().height;
     const fontSize = parseFloat(getComputedStyle(document.body).fontSize || '16') * 2.5;
-    banner.style.top = (headerH - fontSize * 0.5) + 'px';
+    if (window.innerWidth <= 768) {
+      banner.style.top = '50%';
+      banner.style.transform = 'translateY(-50%)';
+    } else {
+      banner.style.top = (headerH - fontSize * 0.5) + 'px';
+    }
     document.querySelector('.layout').appendChild(banner);
   }
   filtered.forEach((photo, i) => {
