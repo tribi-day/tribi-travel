@@ -640,8 +640,9 @@ header {
 
 .header-text {
   display: flex;
-  flex-direction: column;
-  gap: 0;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 8px;
 }
 
 .header-row1 {
@@ -651,6 +652,8 @@ header {
 }
 
 .header-insta-mobile { display: none; }
+.mobile-header-right { display: none; }
+.mobile-toggle-bar { display: none; }
 
 /* ── 모바일 반응형 ── */
 @media (max-width: 768px) {
@@ -662,14 +665,9 @@ header {
   .header-insta { display: none !important; }
   .header-subtitle { display: none; }
   .header-insta-mobile { display: inline !important; }
-  .header-text { flex-direction: column; gap: 0; }
-
-  .mobile-header-right {
-    display: flex;
-    align-items: center;
-    margin-left: auto;
-    gap: 4px;
-  }
+  .header-text { flex-direction: row; }
+  .mobile-header-right { display: flex; align-items: center; margin-left: auto; gap: 4px; }
+  .mobile-toggle-bar { display: flex; }
 
   /* 모바일 토글 바 - 헤더처럼 */
   .mobile-toggle-bar {
@@ -720,25 +718,27 @@ header {
 
   .game-result {
     position: absolute;
-    bottom: 8px;
-    left: 8px;
-    right: 8px;
-    background: rgba(240,235,224,0.92);
-    padding: 6px 10px;
-    border-radius: 4px;
-    font-size: 11px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(240,235,224,0.95);
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 12px;
     z-index: 999;
-    flex-shrink: 0;
+    width: 80%;
+    text-align: center;
     color: var(--ink);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
   }
 
   .game-next-btn {
     position: absolute;
-    bottom: 8px;
-    right: 8px;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
     font-size: 13px;
-    padding: 6px 12px;
-    flex-shrink: 0;
+    padding: 8px 20px;
     z-index: 1000;
   }
 
@@ -802,13 +802,13 @@ header {
     <div class="header-text">
       <div class="header-row1">
         <span class="header-title" onclick="goHome()" style="cursor:pointer;">reef.and.roots</span>
+        <span class="header-subtitle">(plant-based nomad diver!)</span>
         <a href="https://www.instagram.com/tribi.day/" target="_blank" rel="noopener noreferrer"
            onclick="event.stopPropagation();"
            class="header-insta-mobile"
            style="font-family:'DOSGothic',monospace; font-size:11px;
                   color:var(--ink-mid); text-decoration:none;">@tribi.day</a>
       </div>
-      <span class="header-subtitle">(plant-based nomad diver!)</span>
     </div>
     <a href="https://www.instagram.com/tribi.day/" target="_blank" rel="noopener noreferrer"
        onclick="event.stopPropagation();"
