@@ -1193,6 +1193,10 @@ function toggleGame() {
     gameView.classList.add('visible');
     gameBtn.classList.add('active');
     document.querySelectorAll('.icon-btn').forEach(b => b.classList.remove('active'));
+    const existing = document.getElementById('foodBanner');
+    if (existing) existing.remove();
+    const existingTop = document.getElementById('foodBannerTop');
+    if (existingTop) existingTop.remove();
     startGame();
   }
 }
