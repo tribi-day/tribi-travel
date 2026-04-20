@@ -488,6 +488,42 @@ header {
   margin-bottom: 1.5rem;
 }
 
+.about-stats {
+  margin-bottom: 1.5rem;
+  max-width: 600px;
+}
+
+.about-stats-title {
+  font-family: 'DOSGothic', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--ink-mid);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  margin-top: 16px;
+}
+
+.about-stats-total {
+  font-family: 'DOSPilgi', monospace;
+  font-size: 32px;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.about-stats-sub {
+  font-size: 13px;
+  color: var(--ink-mid);
+  margin-bottom: 2px;
+  font-family: 'Pretendard', sans-serif;
+  line-height: 1.6;
+}
+
+.about-stats-date {
+  font-family: 'DOSGothic', monospace;
+  font-size: 12px;
+  color: var(--ink-mid);
+}
+
 #map { width: 100%; height: 100%; }
 
 .leaflet-control-zoom {
@@ -957,6 +993,8 @@ header {
         사진을 클릭하면 날짜와 위치를 볼 수 있어요.<br>
         게임 아이콘을 클릭하면 사진의 위치를 지도에서 pin해보는 게임을 할 수 있어요.</p>
 
+        <div class="about-stats" id="aboutStats"></div>
+
         <p>현재 진행 중인 여행의 기록도 실시간으로 업데이트됩니다.<br>
         인스타그램 <a href="https://www.instagram.com/tribi.day/" target="_blank" style="color:var(--caramel);">@tribi.day</a> 에서도 만날 수 있습니다.</p>
       </div>
@@ -1320,6 +1358,49 @@ function handleIcon(btn) {
   else showGallery(tag);
 }
 
+function renderAboutStats() {
+  const el = document.getElementById('aboutStats');
+  if (!el || !photos.length) return;
+
+  // 총 사진 수
+  const total = photos.length;
+
+  // 날짜
+  const dates = photos.map(p => p.date).filter(Boolean).sort();
+  const oldest = dates[0];
+  const newest = dates[dates.length - 1];
+
+  // 태그별
+  const tagCount = {};
+  photos.forEach(p => p.tags.forEach(t => {
+    tagCount[t] = (tagCount[t] || 0) + 1;
+  }));
+  const tagsSorted = Object.entries(tagCount).sort((a,b) => b[1]-a[1]);
+
+  // 국가별
+  const countryCount = {};
+  photos.forEach(p => {
+    if (p.country) countryCount[p.country] = (countryCount[p.country] || 0) + 1;
+  });
+  const countriesSorted = Object.entries(countryCount).sort((a,b) => b[1]-a[1]);
+
+  el.innerHTML = `
+    <div class="about-stats-title">archive</div>
+    <div class="about-stats-total">${total} photos</div>
+    <div class="about-stats-date">${oldest} → ${newest}</div>
+
+    <div class="about-stats-title">by tag</div>
+    ${tagsSorted.map(([tag, cnt]) =>
+      `<div class="about-stats-sub">${tagIcon[tag] || ''} ${tag} — ${cnt}</div>`
+    ).join('')}
+
+    <div class="about-stats-title">by country</div>
+    ${countriesSorted.map(([country, cnt]) =>
+      `<div class="about-stats-sub">${countryFlag[country] || '🏳️'} ${country} — ${cnt}</div>`
+    ).join('')}
+  `;
+}
+
 function toggleAbout() {
   const aboutView = document.getElementById('aboutView');
   const aboutBtn = document.getElementById('aboutBtn');
@@ -1335,6 +1416,7 @@ function toggleAbout() {
     aboutView.classList.add('visible');
     aboutBtn.classList.add('active');
     document.querySelectorAll('.icon-btn').forEach(b => b.classList.remove('active'));
+    renderAboutStats();
   }
 }
 
