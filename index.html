@@ -422,11 +422,29 @@ header {
   flex: 1;
 }
 
+.game-score-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .game-result {
   font-family: 'DOSGothic', monospace;
   font-size: 14px;
   color: var(--caramel);
-  min-height: 40px;
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(240,235,224,0.95);
+  padding: 10px 16px;
+  border-radius: 6px;
+  text-align: center;
+  z-index: 999;
+  width: 80%;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  color: var(--ink);
 }
 
 .game-next-btn {
@@ -911,11 +929,13 @@ header {
           </div>
           <div class="game-right">
             <div class="game-status" id="gameStatus">사진을 보고 어느 나라인지 맞춰봐!</div>
-            <div class="game-score" id="gameScore">0 / 0</div>
+            <div class="game-score-row">
+              <div class="game-score" id="gameScore">0 / 0</div>
+              <button class="game-next-btn" id="gameNextBtn" onclick="gameNext()" style="display:none;">다음 →</button>
+            </div>
             <div id="gameMapWrap" style="flex:1; display:flex; flex-direction:column; position:relative;">
               <div id="gameMap"></div>
               <div class="game-result" id="gameResult"></div>
-              <button class="game-next-btn" id="gameNextBtn" onclick="gameNext()" style="display:none;">다음 →</button>
             </div>
           </div>
         </div>
@@ -1490,6 +1510,7 @@ function onGameMapClick(e) {
   }
 
   document.getElementById('gameResult').textContent = msg;
+  document.getElementById('gameResult').style.display = 'block';
   document.getElementById('gameScore').textContent = `${gameCorrect} / ${gameTotal}`;
   document.getElementById('gameNextBtn').style.display = 'block';
   document.getElementById('gameStatus').textContent = '🟤 내 추측   🟢 정답';
@@ -1505,6 +1526,7 @@ function gameNext() {
   gameCurrentPhoto = gamePending.pop();
   document.getElementById('gamePhoto').src = optimizeUrl(gameCurrentPhoto.file);
   document.getElementById('gameResult').textContent = '';
+  document.getElementById('gameResult').style.display = 'none';
   document.getElementById('gameNextBtn').style.display = 'none';
   document.getElementById('gameStatus').textContent = '지도에서 이 사진이 찍힌 곳을 클릭해봐!';
 
