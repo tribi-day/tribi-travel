@@ -17,7 +17,6 @@ export default async function handler(req, res) {
 
     while (pageCount < 10) {
       const body = {
-        sorts: [{ property: 'date', direction: 'descending' }],
         page_size: 100,
       };
       if (cursor) body.start_cursor = cursor;
@@ -54,7 +53,7 @@ export default async function handler(req, res) {
       };
     });
 
-    res.status(200).json(photos);
+    res.status(200).json({ total: photos.length, photos });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
