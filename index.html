@@ -648,7 +648,6 @@ header {
   .sidebar { display: none; }
 
   /* 모바일 헤더 */
-  .header-subtitle { display: none; }
   .header-insta { display: none !important; }
 
   .mobile-header-right {
@@ -658,19 +657,43 @@ header {
     gap: 4px;
   }
 
+  /* 모바일에서 인스타 제목 바로 옆 */
+  .header-insta {
+    display: inline !important;
+    margin-left: 6px !important;
+    font-size: 11px !important;
+  }
+
+  .header-subtitle { display: none; }
+
   /* 모바일 토글 바 */
   .mobile-toggle-bar {
     display: flex;
     justify-content: flex-end;
     gap: 8px;
-    padding: 4px 12px;
+    padding: 2px 12px;
     background: var(--cream);
     border-bottom: 0.5px solid var(--ink-faint);
   }
 
-  /* 모바일 인스타 - 제목 옆으로 */
-  .header-title::after {
-    content: '';
+  /* 게임 모바일 - 위아래 분할 */
+  .game-inner {
+    flex-direction: column !important;
+  }
+
+  .game-photo-wrap {
+    width: 100% !important;
+    height: 50% !important;
+    flex-shrink: 0;
+  }
+
+  .game-right {
+    height: 50%;
+    overflow: hidden;
+  }
+
+  #gameMap {
+    min-height: unset !important;
   }
 
   /* 하단 탭바 표시 */
@@ -741,10 +764,6 @@ header {
     </a>
     <!-- 모바일 전용 헤더 우측 -->
     <div class="mobile-header-right">
-      <a href="https://www.instagram.com/tribi.day/" target="_blank" rel="noopener noreferrer"
-         onclick="event.stopPropagation();"
-         style="font-family:'DOSGothic',monospace; font-size:13px;
-                color:var(--ink-mid); text-decoration:none;">@tribi.day</a>
       <button class="about-btn" onclick="toggleGame()" title="어디일까?">&#x1F3AE;</button>
       <button class="about-btn" onclick="toggleAbout()">&#x003F;</button>
     </div>
