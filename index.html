@@ -723,9 +723,17 @@ header {
           <span class="view-toggle-label right">&#x1F4F8;</span>
         </div>
       </div>
+
+      <!-- 국기 토글 -->
+      <div class="view-toggle-wrap" style="padding-top:6px;">
+        <div class="view-toggle gallery" id="flagToggle" onclick="toggleFlag()">
+          <span class="view-toggle-label left" style="opacity:0.3;">&#x1F3F4;</span>
+          <div class="view-toggle-thumb"></div>
+          <span class="view-toggle-label right">&#x1F3F3;</span>
+        </div>
+      </div>
       <div class="sidebar-bottom">
         <div class="sidebar-bottom-row">
-          <button class="about-btn" id="flagBtn" onclick="toggleFlag()" title="국기 토글">&#x1F3F4;</button>
           <button class="about-btn" id="gameBtn" onclick="toggleGame()" title="어디일까?">&#x1F3AE;</button>
         </div>
         <div class="sidebar-bottom-row" style="justify-content:center;">
@@ -1223,8 +1231,8 @@ let showFlag = true;
 
 function toggleFlag() {
   showFlag = !showFlag;
-  const btn = document.getElementById('flagBtn');
-  btn.style.opacity = showFlag ? '1' : '0.3';
+  const toggle = document.getElementById('flagToggle');
+  toggle.classList.toggle('gallery', showFlag);
   renderGallery(activeTag);
 }
 let gameMap = null;
@@ -1375,9 +1383,7 @@ function getDistanceKm(lat1, lng1, lat2, lng2) {
   gallery.innerHTML = '<div style="padding:2rem; font-family:Pretendard,sans-serif; font-size:13px; color:rgba(26,26,26,0.4); grid-column:1/-1;">loading...</div>';
   await loadPhotos();
   showGallery();
-  // 초기 상태 반영
   document.getElementById('viewToggle').classList.add('gallery');
-  document.getElementById('flagBtn').style.opacity = '1';
 })();
 
 </script>
