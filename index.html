@@ -1,61 +1,1726 @@
-export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET');
-  res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=600');
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>reef.and.roots</title>
+<link rel="icon" type="image/png" href="./Favicon.png">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<style>
 
-  const token = process.env.NOTION_TOKEN;
-  const dbId = process.env.NOTION_DB_ID;
+@font-face {
+  font-family: 'Tribi';
+  src: url('./fonts/Tribi_eng.ttf') format('truetype');
+  font-weight: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'DOSPilgi';
+  src: url('./fonts/DOSPilgi.ttf') format('truetype');
+  font-weight: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'DOSGothic';
+  src: url('./fonts/DOSGothic.ttf') format('truetype');
+  font-weight: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Retrograde';
+  src: url('./fonts/Retrograde-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-display: swap;
+}
 
-  if (!token || !dbId) {
-    return res.status(500).json({ error: 'Missing env variables' });
-  }
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-  try {
-    let allResults = [];
-    let cursor = undefined;
-    let pageCount = 0;
+:root {
+  --cream: #f0ebe0;
+  --ink: #1a1a1a;
+  --ink-mid: rgba(26,26,26,0.45);
+  --ink-faint: rgba(26,26,26,0.12);
+  --caramel: #b8864e;
+  --sidebar-w: 90px;
+}
 
-    while (pageCount < 10) {
-      const body = {
-        sorts: [{ property: 'date', direction: 'descending' }],
-        page_size: 100,
-      };
-      if (cursor) body.start_cursor = cursor;
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'DOSPilgi', monospace;
+}
 
-      const response = await fetch(`https://api.notion.com/v1/databases/${dbId}/query`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Notion-Version': '2022-06-28',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(body),
-      });
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
 
-      const data = await response.json();
-      allResults = allResults.concat(data.results);
-      pageCount++;
+header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px;
+  flex-shrink: 0;
+}
 
-      if (!data.has_more) break;
-      cursor = data.next_cursor;
-    }
+.header-globe {
+  font-family: 'DOSPilgi', monospace;
+  font-size: 30px;
+  line-height: 1;
+}
 
-    const photos = allResults.map(page => {
-      const props = page.properties;
-      return {
-        file: props.file?.url || null,
-        city: props.city?.rich_text?.[0]?.plain_text || '',
-        country: props.country?.rich_text?.[0]?.plain_text || '',
-        lat: props.lat?.number || 0,
-        lng: props.lng?.number || 0,
-        tags: props.tags?.multi_select?.map(t => t.name) || [],
-        date: props.date?.date?.start || '',
-        instagram: props.instagram?.url || null,
-      };
-    });
+.header-title {
+  font-family: 'DOSGothic', monospace;
+  font-size: 24px;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+}
 
-    res.status(200).json(photos);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+.header-subtitle {
+  font-family: 'DOSGothic', monospace;
+  font-size: 14px;
+  color: var(--ink-mid);
+  letter-spacing: 0.02em;
+  position: relative;
+  top: -1.5px;
+}
+
+.header-insta-mobile {
+  position: relative;
+  top: -1.5px;
+}
+
+
+.main {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.sidebar {
+  width: var(--sidebar-w);
+  flex-shrink: 0;
+  padding: 16px 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100%;
+}
+
+.sidebar-icons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0px;
+  align-content: start;
+}
+
+.sidebar-bottom {
+  margin-top: auto;
+  padding-top: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2px;
+}
+
+.sidebar-bottom-row {
+  display: flex;
+  justify-content: space-around;
+}
+
+.about-btn {
+  font-family: 'DOSPilgi', monospace;
+  font-size: 20px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  opacity: 0.35;
+  transition: opacity 0.15s;
+  filter: grayscale(1);
+}
+
+.about-btn:hover { opacity: 0.65; }
+.about-btn.active { filter: none; opacity: 1; }
+
+/* ── 지도/갤러리 토글 ── */
+.view-toggle-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 16px 4px 0;
+}
+
+.view-toggle {
+  width: 64px;
+  height: 28px;
+  background: var(--ink-faint);
+  border-radius: 14px;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6px;
+}
+
+.view-toggle-label {
+  font-family: 'DOSPilgi', monospace;
+  font-size: 13px;
+  line-height: 1;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.view-toggle.gallery .left { opacity: 0.3; }
+.view-toggle:not(.gallery) .right { opacity: 0.3; }
+
+.view-toggle-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 22px;
+  height: 22px;
+  background: var(--ink);
+  border-radius: 50%;
+  transition: left 0.2s;
+  opacity: 0.15;
+}
+
+.view-toggle.gallery .view-toggle-thumb {
+  left: 39px;
+}
+
+.icon-btn {
+  font-family: 'DOSPilgi', monospace;
+  font-size: 22px;
+  line-height: 1;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px 0;
+  border-radius: 6px;
+  text-align: center;
+  width: 100%;
+  transition: opacity 0.15s, filter 0.15s;
+  filter: grayscale(1);
+  opacity: 0.35;
+}
+
+.icon-btn:hover { opacity: 0.65; }
+.icon-btn.active { filter: grayscale(1) brightness(0); opacity: 1; color: #e03030; }
+
+.content {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ── 갤러리 ── */
+.gallery-view {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  padding: 8px;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-auto-rows: auto;
+  gap: 2px;
+  align-content: start;
+}
+
+.gallery-view.hidden { display: none; }
+
+/* ── 밥 배너 ── */
+.food-banner {
+  position: absolute;
+  left: 45%;
+  right: 0;
+  z-index: 100;
+  font-family: 'DOSGothic', monospace;
+  font-size: clamp(28px, 4vw, 52px);
+  color: #7c3aed;
+  line-height: 1.1;
+  pointer-events: none;
+  letter-spacing: -0.01em;
+  mix-blend-mode: difference;
+  white-space: nowrap;
+}
+
+.food-banner .pilgi {
+  font-family: 'DOSPilgi', monospace;
+}
+
+@media (max-width: 768px) {
+  .food-banner {
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: clamp(20px, 6vw, 36px);
+    white-space: normal;
+    word-break: keep-all;
   }
 }
+
+/* ── 지도 뷰 ── */
+.map-view {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.map-view.hidden { display: none; }
+
+.photo-card {
+  width: 100%;
+  cursor: pointer;
+}
+
+/* 4:5 비율 강제 — padding-top 트릭 */
+.photo-card-inner {
+  position: relative;
+  width: 100%;
+  padding-top: 125%; /* 4:5 = 125% */
+  overflow: hidden;
+  background: #e8e2d6;
+}
+
+.photo-card-inner img,
+.photo-card-inner .placeholder {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.photo-card-inner img {
+  object-fit: cover;
+  display: block;
+  transition: transform 0.2s;
+}
+
+.photo-card:hover .photo-card-inner img { transform: scale(1.03); }
+.photo-card:hover .photo-card-inner { background: #ddd6c8; }
+
+/* 플레이스홀더 */
+.placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.placeholder-city {
+  font-family: 'DOSPilgi', monospace;
+  font-size: 11px;
+  color: var(--ink-mid);
+  text-align: center;
+  padding: 0 8px;
+}
+
+.placeholder-emoji {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.photo-tags {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  display: flex;
+  gap: 2px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  z-index: 1;
+}
+
+.photo-tag {
+  font-family: 'DOSPilgi', monospace;
+  font-size: 16px;
+  line-height: 1;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+}
+
+.photo-location {
+  position: absolute;
+  bottom: 6px;
+  left: 6px;
+  font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
+  font-size: 18px;
+  line-height: 1;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+  z-index: 1;
+}
+
+/* ── About 뷰 ── */
+.about-view {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  padding: 3rem 4rem;
+  display: none;
+  font-family: 'Pretendard', sans-serif;
+  color: var(--ink);
+}
+
+.about-view.visible { display: block; }
+
+/* ── 게임 뷰 ── */
+.game-view {
+  position: absolute;
+  inset: 0;
+  display: none;
+  padding: 16px;
+  overflow: hidden;
+}
+
+.game-view.visible { display: flex; }
+
+.game-inner {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  height: 100%;
+}
+
+.game-photo-wrap {
+  width: 280px;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 4px;
+  background: #e8e2d6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.game-photo-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.game-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.game-status {
+  font-family: 'DOSGothic', monospace;
+  font-size: 13px;
+  color: var(--ink-mid);
+}
+
+.game-score {
+  font-family: 'DOSPilgi', monospace;
+  font-size: 20px;
+  color: var(--ink);
+}
+
+#gameMap {
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  border-radius: 4px;
+  overflow: hidden;
+  flex: 1;
+}
+
+.game-score-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.game-result {
+  font-family: 'DOSGothic', monospace;
+  font-size: 14px;
+  color: var(--caramel);
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(240,235,224,0.95);
+  padding: 10px 16px;
+  border-radius: 6px;
+  text-align: center;
+  z-index: 999;
+  width: 80%;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  color: var(--ink);
+}
+
+.game-next-btn {
+  font-family: 'DOSPilgi', monospace;
+  font-size: 14px;
+  background: var(--ink);
+  color: var(--cream);
+  border: none;
+  padding: 6px 14px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.about-view p {
+  font-size: 15px;
+  line-height: 1.9;
+  color: rgba(26,26,26,0.7);
+  max-width: 600px;
+  margin-bottom: 1.5rem;
+}
+
+.about-stats {
+  margin-bottom: 1.5rem;
+  max-width: 600px;
+}
+
+.about-stats-title {
+  font-family: 'DOSGothic', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--ink-mid);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  margin-top: 16px;
+}
+
+.about-stats-total {
+  font-family: 'DOSGothic', monospace;
+  font-size: 32px;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.about-stats-sub {
+  font-size: 13px;
+  color: var(--ink-mid);
+  margin-bottom: 2px;
+  font-family: 'Pretendard', sans-serif;
+  line-height: 1.6;
+}
+
+.about-stats-date {
+  font-family: 'DOSGothic', monospace;
+  font-size: 12px;
+  color: var(--ink-mid);
+}
+
+#map { width: 100%; height: 100%; }
+
+.leaflet-control-zoom {
+  border: 0.5px solid var(--ink-faint) !important;
+  border-radius: 6px !important;
+  overflow: hidden;
+  box-shadow: none !important;
+}
+
+.leaflet-control-zoom a {
+  background: var(--cream) !important;
+  color: var(--ink) !important;
+  border-bottom: 0.5px solid var(--ink-faint) !important;
+  width: 28px !important;
+  height: 28px !important;
+  line-height: 28px !important;
+}
+
+.leaflet-control-attribution {
+  font-size: 9px !important;
+  background: rgba(240,235,224,0.8) !important;
+  color: var(--ink-mid) !important;
+  box-shadow: none !important;
+}
+
+.custom-marker {
+  width: 16px;
+  height: 16px;
+  border: 2.5px solid white;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.15s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+
+.custom-marker:hover { transform: scale(1.4); }
+
+/* ── 지도 팝업 ── */
+.map-popup {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 300px;
+  background: transparent;
+  z-index: 800;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  max-height: calc(100% - 40px);
+  overflow-y: auto;
+}
+
+.map-popup.open {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(0);
+}
+
+.map-popup-location {
+  font-family: 'DOSGothic', monospace;
+  font-size: 18px;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  padding: 0 0 6px;
+  text-transform: uppercase;
+}
+
+.map-popup-media {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  background: #e0d9cc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DOSPilgi', monospace;
+  font-size: 13px;
+  color: var(--ink-mid);
+  overflow: hidden;
+}
+
+.map-popup-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.map-popup-close-btn {
+  position: sticky;
+  top: 0;
+  float: right;
+  width: 28px;
+  height: 28px;
+  background: var(--ink);
+  color: var(--cream);
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DOSPilgi', monospace;
+  z-index: 10;
+  margin-left: auto;
+}
+
+/* ── 라이트박스 ── */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(26,26,26,0.88);
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+
+.lightbox.open { opacity: 1; pointer-events: all; }
+
+.lightbox img {
+  max-width: 90vw;
+  max-height: 85vh;
+  object-fit: contain;
+}
+
+.lightbox-info {
+  margin-top: 12px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 12px;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 0.06em;
+}
+
+.lightbox-placeholder {
+  width: 60vw;
+  height: 60vh;
+  background: #2a2a2a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DOSPilgi', monospace;
+  color: rgba(255,255,255,0.4);
+  font-size: 14px;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  font-family: 'DOSPilgi', monospace;
+  opacity: 0.7;
+}
+
+.lightbox-close:hover { opacity: 1; }
+
+/* ── 모바일 하단 탭바 (숨김 기본) ── */
+.mobile-controls {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    position: fixed;
+    bottom: calc(60px + env(safe-area-inset-bottom));
+    left: 0;
+    right: 0;
+    background: var(--cream);
+    border-top: 0.5px solid var(--ink-faint);
+    padding: 6px 12px;
+    z-index: 901;
+  }
+}
+
+.header-text {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.header-row1 {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.header-insta-mobile { display: none; }
+.mobile-header-right { display: none; }
+.mobile-toggle-bar { display: none; }
+
+/* ── 모바일 반응형 ── */
+@media (max-width: 768px) {
+
+  /* 사이드바 숨기기 */
+  .sidebar { display: none; }
+
+  /* 모바일 헤더 */
+  .header-insta { display: none !important; }
+  .header-subtitle { display: none; }
+  .header-insta-mobile { display: inline !important; }
+  .header-text { flex-direction: row; }
+  .mobile-header-right { display: flex; align-items: center; margin-left: auto; gap: 4px; }
+  .mobile-toggle-bar { display: flex; }
+
+  /* 모바일 토글 바 - 헤더처럼 */
+  .mobile-toggle-bar {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 0 12px 8px;
+    background: var(--cream);
+    border-bottom: 0.5px solid var(--ink-faint);
+  }
+
+  /* 게임 모바일 - fixed로 헤더 아래부터 */
+  .game-view {
+    position: fixed !important;
+    top: var(--mobile-header-h, 90px);
+    bottom: calc(80px + env(safe-area-inset-bottom));
+    left: 0;
+    right: 0;
+    padding: 0 !important;
+    z-index: 800;
+    background: var(--cream);
+  }
+
+  .game-inner {
+    flex-direction: column !important;
+    height: 100%;
+  }
+
+  .game-photo-wrap {
+    width: 100% !important;
+    height: 38% !important;
+    flex-shrink: 0 !important;
+    border-radius: 0 !important;
+  }
+
+  .game-right {
+    height: 62% !important;
+    display: flex;
+    flex-direction: column;
+    padding: 8px 12px;
+    gap: 4px;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  #gameMapWrap {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    position: relative;
+  }
+
+  #gameMap {
+    min-height: unset !important;
+    height: 100% !important;
+  }
+
+  .game-result {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(240,235,224,0.95);
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    z-index: 999;
+    width: 80%;
+    text-align: center;
+    color: var(--ink);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  }
+
+  .game-next-btn {
+    position: static;
+    transform: none;
+    font-size: 13px;
+    padding: 6px 14px;
+  }
+
+  /* 하단 탭바 표시 */
+  .mobile-tabbar {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: var(--cream);
+    border-top: 0.5px solid var(--ink-faint);
+    z-index: 900;
+    padding: 6px 4px;
+    padding-bottom: calc(6px + env(safe-area-inset-bottom));
+    gap: 2px;
+  }
+
+  .mobile-tabbar .icon-btn {
+    font-size: 20px;
+    padding: 4px;
+  }
+
+  /* 갤러리 3열, 하단 탭바 높이만큼 패딩 */
+  .gallery-view {
+    grid-template-columns: repeat(5, 1fr);
+    padding-bottom: 130px;
+  }
+
+  /* 지도 하단 탭바 높이만큼 패딩 */
+  .map-view {
+    padding-bottom: 90px;
+  }
+
+  /* 지도 팝업 모바일 */
+  .map-popup {
+    top: 60px;
+    bottom: 100px;
+    right: 10px;
+    left: 10px;
+    width: auto;
+    max-height: calc(100% - 160px);
+  }
+
+  /* 헤더 작게 */
+  header {
+    padding: 10px 16px;
+  }
+
+  .header-globe { font-size: 22px; }
+  .header-title { font-size: 16px; }
+
+  .about-view { padding: 1.2rem 1rem; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="layout">
+  <header>
+    <span class="header-globe" onclick="goMap()" style="cursor:pointer;">&#x1F30D;</span>
+    <div class="header-text">
+      <div class="header-row1">
+        <span class="header-title" onclick="goHome()" style="cursor:pointer;">reef.and.roots</span>
+        <span class="header-subtitle">(plant-based nomad diver!)</span>
+        <a href="https://www.instagram.com/tribi.day/" target="_blank" rel="noopener noreferrer"
+           onclick="event.stopPropagation();"
+           class="header-insta-mobile"
+           style="font-family:'DOSGothic',monospace; font-size:11px;
+                  color:var(--ink-mid); text-decoration:none;">@tribi.day</a>
+      </div>
+    </div>
+    <a href="https://www.instagram.com/tribi.day/" target="_blank" rel="noopener noreferrer"
+       onclick="event.stopPropagation();"
+       class="header-insta"
+       style="margin-left:auto; font-family:'DOSGothic',monospace; font-size:16px;
+              color:var(--ink-mid); text-decoration:none; letter-spacing:0.04em;">
+      @tribi.day
+    </a>
+    <!-- 모바일 전용 헤더 우측 -->
+    <div class="mobile-header-right">
+      <button class="about-btn" onclick="toggleGame()" title="어디일까?">&#x1F3AE;</button>
+      <button class="about-btn" onclick="toggleAbout()">&#x003F;</button>
+    </div>
+  </header>
+
+  <!-- 모바일 전용 토글 바 -->
+  <div class="mobile-toggle-bar">
+    <div class="view-toggle gallery" id="viewToggleMobile" onclick="handleViewToggle()">
+      <span class="view-toggle-label left">&#x1F30D;</span>
+      <div class="view-toggle-thumb"></div>
+      <span class="view-toggle-label right">&#x1F4F8;</span>
+    </div>
+    <div class="view-toggle gallery" id="flagToggleMobile" onclick="toggleFlag()">
+      <span class="view-toggle-label left" style="opacity:0.3;">&#x1F3F4;</span>
+      <div class="view-toggle-thumb"></div>
+      <span class="view-toggle-label right">&#x1F3F3;</span>
+    </div>
+  </div>
+
+  <div class="main">
+    <aside class="sidebar">
+      <div class="sidebar-icons">
+        <button class="icon-btn" data-tag="나"      onclick="handleIcon(this)">&#x1F478;</button>
+        <button class="icon-btn" data-tag="동물"    onclick="handleIcon(this)">&#x1F996;</button>
+        <button class="icon-btn" data-tag="강아지"  onclick="handleIcon(this)">&#x1F436;</button>
+        <button class="icon-btn" data-tag="고양이"  onclick="handleIcon(this)">&#x1F431;</button>
+        <button class="icon-btn" data-tag="숙소"    onclick="handleIcon(this)">&#x1F6CC;</button>
+        <button class="icon-btn" data-tag="밥"      onclick="handleIcon(this)">&#x1F367;</button>
+        <button class="icon-btn" data-tag="바다"    onclick="handleIcon(this)">&#x1F420;</button>
+        <button class="icon-btn" data-tag="산"      onclick="handleIcon(this)">&#x1F3D4;</button>
+        <button class="icon-btn" data-tag="자연"    onclick="handleIcon(this)">&#x1F308;</button>
+        <button class="icon-btn" data-tag="도시"    onclick="handleIcon(this)">&#x1F3D9;</button>
+        <button class="icon-btn" data-tag="공원"    onclick="handleIcon(this)">&#x1F334;</button>
+        <button class="icon-btn" data-tag="일출일몰" onclick="handleIcon(this)">&#x1F305;</button>
+        <button class="icon-btn" data-tag="창문"    onclick="handleIcon(this)">&#x1F5BC;</button>
+        <button class="icon-btn" data-tag="비행기"  onclick="handleIcon(this)">&#x1F6E9;</button>
+        <button class="icon-btn" data-tag="책"      onclick="handleIcon(this)">&#x1F4D6;</button>
+        <button class="icon-btn" data-tag="예술"    onclick="handleIcon(this)">&#x1F496;</button>
+      </div>
+
+      <!-- 지도/갤러리 토글 -->
+      <div class="view-toggle-wrap">
+        <div class="view-toggle gallery" id="viewToggle" onclick="handleViewToggle()">
+          <span class="view-toggle-label left">&#x1F30D;</span>
+          <div class="view-toggle-thumb" id="viewToggleThumb"></div>
+          <span class="view-toggle-label right">&#x1F4F8;</span>
+        </div>
+      </div>
+
+      <!-- 국기 토글 -->
+      <div class="view-toggle-wrap" style="padding-top:6px;">
+        <div class="view-toggle gallery" id="flagToggle" onclick="toggleFlag()">
+          <span class="view-toggle-label left" style="opacity:0.3;">&#x1F3F4;</span>
+          <div class="view-toggle-thumb"></div>
+          <span class="view-toggle-label right">&#x1F3F3;</span>
+        </div>
+      </div>
+      <div class="sidebar-bottom">
+        <div class="sidebar-bottom-row">
+          <button class="about-btn" id="gameBtn" onclick="toggleGame()" title="어디일까?">&#x1F3AE;</button>
+        </div>
+        <div class="sidebar-bottom-row" style="justify-content:center;">
+          <button class="about-btn" id="aboutBtn" onclick="toggleAbout()">&#x003F;</button>
+        </div>
+      </div>
+    </aside>
+
+    <div class="content">
+      <div class="gallery-view" id="galleryView"></div>
+
+      <div class="map-view hidden" id="mapView">
+        <div id="map"></div>
+        <div class="map-popup" id="mapPopup">
+          <div class="map-popup-location" id="mapPopupLocation"></div>
+          <div id="mapPopupMedia"></div>
+        </div>
+      </div>
+
+      <div class="about-view" id="aboutView">
+        <p>reef.and.roots.는 <a href="https://www.instagram.com/tribi.day/" target="_blank" style="color:var(--ink);">@tribi.day</a>의 여행 기록 아카이브입니다.<br>
+        2021년부터 디지털 노마드로 생활하며 전세계의 찰나를 수집하고 있어요.<br>
+        채식, 동물, 다이빙, 책방, 노을에 관심이 많아요.</p>
+
+        <p>16가지의 태그에 따라 제 취향의 순간들을 분류해보았어요.<br>
+        (ex.고양이 아이콘을 누르면 전세계의 귀여운 고양이들을 볼 수 있답니다!)</p>
+
+        <p>뷰 토글을 눌러 지도/갤러리 뷰를 전환할 수 있어요.<br>
+        국기 토글을 눌러 사진 좌측 하단의 국기를 켜고 끌 수 있어요.<br>
+        사진을 클릭하면 날짜와 위치를 볼 수 있어요.<br>
+        게임 아이콘을 클릭하면 사진의 위치를 지도에서 맞춰보는 게임을 할 수 있어요.<br>
+        현재 진행 중인 여행의 기록도 실시간으로 업데이트됩니다.</p>
+
+        <p>인스타그램 <a href="https://www.instagram.com/tribi.day/" target="_blank" style="color:var(--caramel);">@tribi.day</a>에서도 만날 수 있습니다.</p>
+
+        <div class="about-stats" id="aboutStats"></div>
+      </div>
+      </div>
+
+      <div class="game-view" id="gameView">
+        <div class="game-inner">
+          <div class="game-photo-wrap">
+            <img id="gamePhoto" src="" alt="">
+          </div>
+          <div class="game-right">
+            <div class="game-status" id="gameStatus">where was this photo taken?</div>
+            <div class="game-score-row">
+              <div class="game-score" id="gameScore">0 / 0</div>
+              <button class="game-next-btn" id="gameNextBtn" onclick="gameNext()" style="display:none;">next →</button>
+            </div>
+            <div id="gameMapWrap" style="flex:1; display:flex; flex-direction:column; position:relative;">
+              <div id="gameMap"></div>
+              <div class="game-result" id="gameResult"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 모바일 하단 탭바 -->
+<div class="mobile-tabbar">
+  <button class="icon-btn" data-tag="나"      onclick="handleIcon(this)">&#x1F478;</button>
+  <button class="icon-btn" data-tag="동물"    onclick="handleIcon(this)">&#x1F996;</button>
+  <button class="icon-btn" data-tag="강아지"  onclick="handleIcon(this)">&#x1F436;</button>
+  <button class="icon-btn" data-tag="고양이"  onclick="handleIcon(this)">&#x1F431;</button>
+  <button class="icon-btn" data-tag="숙소"    onclick="handleIcon(this)">&#x1F6CC;</button>
+  <button class="icon-btn" data-tag="밥"      onclick="handleIcon(this)">&#x1F367;</button>
+  <button class="icon-btn" data-tag="바다"    onclick="handleIcon(this)">&#x1F420;</button>
+  <button class="icon-btn" data-tag="산"      onclick="handleIcon(this)">&#x1F3D4;</button>
+  <button class="icon-btn" data-tag="자연"    onclick="handleIcon(this)">&#x1F308;</button>
+  <button class="icon-btn" data-tag="도시"    onclick="handleIcon(this)">&#x1F3D9;</button>
+  <button class="icon-btn" data-tag="공원"    onclick="handleIcon(this)">&#x1F334;</button>
+  <button class="icon-btn" data-tag="일출일몰" onclick="handleIcon(this)">&#x1F305;</button>
+  <button class="icon-btn" data-tag="창문"    onclick="handleIcon(this)">&#x1F5BC;</button>
+  <button class="icon-btn" data-tag="비행기"  onclick="handleIcon(this)">&#x1F6E9;</button>
+  <button class="icon-btn" data-tag="책"      onclick="handleIcon(this)">&#x1F4D6;</button>
+  <button class="icon-btn" data-tag="예술"    onclick="handleIcon(this)">&#x1F496;</button>
+</div>
+
+<!-- 모바일 하단 컨트롤 바 -->
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">×</button>
+  <div id="lightboxContent" onclick="event.stopPropagation()"></div>
+  <div class="lightbox-info" id="lightboxInfo" onclick="event.stopPropagation()"></div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+
+// ──────────────────────────────────────────
+// 노션에서 사진 데이터 불러오기
+// ──────────────────────────────────────────
+let photos = [];
+
+async function loadPhotos() {
+  try {
+    const res = await fetch('/api/photos');
+    photos = await res.json();
+  } catch (err) {
+    console.error('노션 데이터 로드 실패:', err);
+    photos = [];
+  }
+}
+
+const tagIcon = {
+  "나":      "\u{1F478}",
+  "밥":      "\u{1F367}",
+  "강아지":  "\u{1F436}",
+  "고양이":  "\u{1F431}",
+  "동물":    "\u{1F996}",
+  "바다":    "\u{1F420}",
+  "일출일몰": "\u{1F305}",
+  "도시":    "\u{1F3D9}",
+  "자연":    "\u{1F308}",
+  "공원":    "\u{1F334}",
+  "산":      "\u{1F3D4}",
+  "숙소":    "\u{1F6CC}",
+  "창문":    "\u{1F5BC}",
+  "비행기":  "\u{1F6E9}",
+  "책":      "\u{1F4D6}",
+  "예술":    "\u{1F496}",
+};
+
+// 태그별 핀 색상
+const tagColor = {
+  "나":      "#E8A87C",
+  "밥":      "#E8C07C",
+  "강아지":  "#A8D8A8",
+  "고양이":  "#FFB3BA",
+  "동물":    "#98D4C8",
+  "바다":    "#7CB9E8",
+  "산":      "#8DB48E",
+  "자연":    "#B5D5A0",
+  "도시":    "#B0A8D8",
+  "일출일몰": "#F4A460",
+  "숙소":    "#DEB887",
+  "공원":    "#90EE90",
+  "창문":    "#ADD8E6",
+  "비행기":  "#C8A8D8",
+  "책":      "#F4D03F",
+  "예술":    "#F1948A",
+};
+
+function getTagColor(tags) {
+  if (!tags || tags.length === 0) return "#aaa";
+  return tagColor[tags[0]] || "#aaa";
+}
+
+// 나라 → 국기 이모지
+const countryFlag = {
+  "South Korea": "🇰🇷", "Korea": "🇰🇷",
+  "Japan": "🇯🇵",
+  "Thailand": "🇹🇭", "Thai": "🇹🇭",
+  "Indonesia": "🇮🇩",
+  "Vietnam": "🇻🇳",
+  "Singapore": "🇸🇬",
+  "Malaysia": "🇲🇾",
+  "Philippines": "🇵🇭",
+  "Cambodia": "🇰🇭",
+  "Myanmar": "🇲🇲",
+  "India": "🇮🇳",
+  "China": "🇨🇳",
+  "Taiwan": "🇹🇼",
+  "Hong Kong": "🇭🇰",
+  "Australia": "🇦🇺",
+  "New Zealand": "🇳🇿",
+  "Argentina": "🇦🇷",
+  "Brazil": "🇧🇷",
+  "Colombia": "🇨🇴",
+  "Peru": "🇵🇪",
+  "Bolivia": "🇧🇴",
+  "Chile": "🇨🇱",
+  "Mexico": "🇲🇽",
+  "Guatemala": "🇬🇹",
+  "Costa Rica": "🇨🇷",
+  "Panama": "🇵🇦",
+  "Portugal": "🇵🇹",
+  "Spain": "🇪🇸",
+  "France": "🇫🇷",
+  "Italy": "🇮🇹",
+  "Greece": "🇬🇷",
+  "Germany": "🇩🇪",
+  "Netherlands": "🇳🇱",
+  "UK": "🇬🇧",
+  "Iceland": "🇮🇸",
+  "Norway": "🇳🇴",
+  "Sweden": "🇸🇪",
+  "Denmark": "🇩🇰",
+  "Turkey": "🇹🇷",
+  "Jordan": "🇯🇴",
+  "Israel": "🇮🇱",
+};
+
+function optimizeUrl(url) {
+  if (!url || !url.includes('cloudinary.com')) return url;
+  return url.replace('/upload/', '/upload/q_auto,f_auto,w_800,a_exif,fl_force_strip/');
+}
+
+let galleryPage = 0;
+const GALLERY_PAGE_SIZE = 50;
+let galleryObserver = null;
+let currentGalleryPhotos = [];
+
+// ── 갤러리 렌더링 ──
+function renderGallery(filterTag = null) {
+  const view = document.getElementById('galleryView');
+  let filtered = filterTag
+    ? photos.filter(p => p.tags.includes(filterTag))
+    : [...photos];
+
+  const key = filterTag || '__all__';
+  if (!renderGallery._cache) renderGallery._cache = {};
+  if (!renderGallery._cache[key]) {
+    filtered.sort(() => Math.random() - 0.5);
+    renderGallery._cache[key] = filtered;
+  } else {
+    filtered = renderGallery._cache[key];
+  }
+
+  currentGalleryPhotos = filtered;
+  galleryPage = 0;
+  view.innerHTML = '';
+
+  // 밥 태그 배너
+  const existing = document.getElementById('foodBanner');
+  if (existing) existing.remove();
+
+  if (filterTag === '밥') {
+    const banner = document.createElement('div');
+    banner.className = 'food-banner';
+    banner.id = 'foodBanner';
+    banner.innerHTML = `<span style="font-size:0.5em;">(almost)</span> <span class="pilgi">everything</span> is VEGAN !`;
+    const header = document.querySelector('header');
+    const headerH = header.getBoundingClientRect().height;
+    const fontSize = parseFloat(getComputedStyle(document.body).fontSize || '16') * 2.5;
+    if (window.innerWidth <= 768) {
+      banner.style.top = '50%';
+      banner.style.transform = 'translateY(-50%)';
+    } else {
+      banner.style.top = (headerH - fontSize * 0.5) + 'px';
+    }
+    document.querySelector('.layout').appendChild(banner);
+  }
+
+  renderGalleryPage(view);
+  setupGalleryObserver(view);
+}
+
+function createPhotoCard(photo) {
+  const card = document.createElement('div');
+  card.className = 'photo-card';
+  card.onclick = () => openLightbox(photo);
+  const inner = document.createElement('div');
+  inner.className = 'photo-card-inner';
+  if (photo.file) {
+    const img = document.createElement('img');
+    img.src = optimizeUrl(photo.file);
+    img.alt = photo.city;
+    img.loading = 'lazy';
+    inner.appendChild(img);
+  } else {
+    const ph = document.createElement('div');
+    ph.className = 'placeholder';
+    const emoji = document.createElement('div');
+    emoji.className = 'placeholder-emoji';
+    emoji.textContent = tagIcon[photo.tags[0]] || '📷';
+    const city = document.createElement('div');
+    city.className = 'placeholder-city';
+    city.textContent = photo.city;
+    ph.appendChild(emoji);
+    ph.appendChild(city);
+    inner.appendChild(ph);
+  }
+  if (showFlag && photo.country) {
+    const loc = document.createElement('div');
+    loc.className = 'photo-location';
+    loc.textContent = countryFlag[photo.country] || '';
+    inner.appendChild(loc);
+  }
+  card.appendChild(inner);
+  return card;
+}
+
+function renderGalleryPage(view) {
+  const start = galleryPage * GALLERY_PAGE_SIZE;
+  const end = start + GALLERY_PAGE_SIZE;
+  const batch = currentGalleryPhotos.slice(start, end);
+  const frag = document.createDocumentFragment();
+  batch.forEach(photo => frag.appendChild(createPhotoCard(photo)));
+  view.appendChild(frag);
+  galleryPage++;
+}
+
+function setupGalleryObserver(view) {
+  if (galleryObserver) galleryObserver.disconnect();
+  if (galleryPage * GALLERY_PAGE_SIZE >= currentGalleryPhotos.length) return;
+  const sentinel = document.createElement('div');
+  sentinel.style.cssText = 'height:1px; grid-column:1/-1;';
+  view.appendChild(sentinel);
+  galleryObserver = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
+      sentinel.remove();
+      renderGalleryPage(view);
+      setupGalleryObserver(view);
+    }
+  }, { rootMargin: '300px' });
+  galleryObserver.observe(sentinel);
+}
+
+// ── 지도 ──
+let mapInitialized = false;
+let leafletMap = null;
+let markers = [];
+
+function initMap(filterTag) {
+  if (!mapInitialized) {
+    leafletMap = L.map('map', {
+      center: [20, 10],
+      zoom: 2,
+      zoomSnap: 0.5,
+      worldCopyJump: false,
+    });
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution: '© OpenStreetMap © CARTO',
+      subdomains: 'abcd',
+      maxZoom: 19,
+    }).addTo(leafletMap);
+    leafletMap.on('click', () => closeMapPopup());
+    mapInitialized = true;
+  }
+
+  markers.forEach(m => m.remove());
+  markers = [];
+
+  const filtered = filterTag ? photos.filter(p => p.tags.includes(filterTag)) : photos;
+
+  if (filterTag) {
+    // 태그 필터 있을 때 → 도시별로 묶기, 색상은 필터 태그로 고정
+    const color = tagColor[filterTag] || "#aaa";
+    const cityMap = {};
+    filtered.forEach(photo => {
+      const key = `${photo.city}_${photo.country}`;
+      if (!cityMap[key]) cityMap[key] = { ...photo, photos: [] };
+      cityMap[key].photos.push(photo);
+    });
+
+    Object.values(cityMap).forEach(city => {
+      const icon = L.divIcon({
+        className: '',
+        html: `<div class="custom-marker" style="background:${color};"></div>`,
+        iconSize: [16, 16],
+        iconAnchor: [8, 8],
+      });
+      const marker = L.marker([city.lat, city.lng], { icon });
+      marker.on('click', () => openMapPopup(city));
+      marker.addTo(leafletMap);
+      markers.push(marker);
+    });
+  } else {
+    // 전체 지도 → 사진마다 개별 핀
+    filtered.forEach(photo => {
+      const color = getTagColor(photo.tags);
+      const icon = L.divIcon({
+        className: '',
+        html: `<div class="custom-marker" style="background:${color};"></div>`,
+        iconSize: [16, 16],
+        iconAnchor: [8, 8],
+      });
+      const marker = L.marker([photo.lat, photo.lng], { icon });
+      marker.on('click', () => openMapPopup({ ...photo, photos: [photo] }));
+      marker.addTo(leafletMap);
+      markers.push(marker);
+    });
+  }
+
+  setTimeout(() => {
+    leafletMap.invalidateSize();
+    if (!filterTag) leafletMap.fitWorld();
+  }, 300);
+}
+
+// ── 아이콘 클릭 ──
+let activeTag = null;
+let clickCount = 0;
+
+function handleIcon(btn) {
+  const tag = btn.dataset.tag;
+  document.querySelectorAll('.icon-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll(`.icon-btn[data-tag="${tag}"]`).forEach(b => b.classList.add('active'));
+  activeTag = tag;
+  closeMapPopup();
+  if (viewMode === 'map') showMap(tag);
+  else showGallery(tag);
+}
+
+const tagDisplayName = {
+  "밥": "먹은 것(대체로 비건, 또는 채식)",
+  "일출일몰": "노을",
+  "비행기": "이동 중!",
+  "책": "책방과 책",
+};
+
+function renderAboutStats() {
+  const el = document.getElementById('aboutStats');
+  if (!el || !photos.length) return;
+
+  const total = photos.length;
+  const dates = photos.map(p => p.date).filter(Boolean).sort();
+  const oldest = dates[0];
+  const newest = dates[dates.length - 1];
+
+  const tagCount = {};
+  photos.forEach(p => p.tags.forEach(t => {
+    tagCount[t] = (tagCount[t] || 0) + 1;
+  }));
+  const tagsSorted = Object.entries(tagCount).sort((a,b) => b[1]-a[1]);
+
+  const countryCount = {};
+  photos.forEach(p => {
+    if (p.country) countryCount[p.country] = (countryCount[p.country] || 0) + 1;
+  });
+  const countriesSorted = Object.entries(countryCount).sort((a,b) => b[1]-a[1]);
+
+  el.innerHTML = `
+    <div class="about-stats-title">archive</div>
+    <div class="about-stats-total">${total} photos</div>
+    <div class="about-stats-date">${oldest} → ${newest}</div>
+
+    <div class="about-stats-title">by tag</div>
+    ${tagsSorted.map(([tag, cnt]) =>
+      `<div class="about-stats-sub"><span style="font-family:'DOSPilgi',monospace;">${tagIcon[tag] || ''}</span> ${tagDisplayName[tag] || tag} — ${cnt}</div>`
+    ).join('')}
+
+    <div class="about-stats-title">by country</div>
+    ${countriesSorted.map(([country, cnt]) =>
+      `<div class="about-stats-sub">${countryFlag[country] || '🏳️'} ${country} — ${cnt}</div>`
+    ).join('')}
+  `;
+}
+
+function toggleAbout() {
+  const aboutView = document.getElementById('aboutView');
+  const aboutBtn = document.getElementById('aboutBtn');
+  const isVisible = aboutView.classList.contains('visible');
+
+  if (isVisible) {
+    aboutView.classList.remove('visible');
+    aboutBtn.classList.remove('active');
+    showGallery();
+  } else {
+    document.getElementById('galleryView').classList.add('hidden');
+    document.getElementById('mapView').classList.add('hidden');
+    aboutView.classList.add('visible');
+    aboutBtn.classList.add('active');
+    document.querySelectorAll('.icon-btn').forEach(b => b.classList.remove('active'));
+    renderAboutStats();
+  }
+}
+
+function goMap() {
+  document.querySelectorAll('.icon-btn').forEach(b => b.classList.remove('active'));
+  activeTag = null;
+  showMap(null);
+}
+
+function goHome() {
+  document.querySelectorAll('.icon-btn').forEach(b => b.classList.remove('active'));
+  activeTag = null;
+  if (viewMode === 'map') showMap(null);
+  else showGallery(null);
+}
+
+function showGallery(tag = null) {
+  document.getElementById('galleryView').classList.remove('hidden');
+  document.getElementById('mapView').classList.add('hidden');
+  document.getElementById('aboutView').classList.remove('visible');
+  document.getElementById('gameView').classList.remove('visible');
+  document.getElementById('aboutBtn').classList.remove('active');
+  document.getElementById('gameBtn').classList.remove('active');
+  const existing = document.getElementById('foodBanner');
+  if (existing) existing.remove();
+  const existingTop = document.getElementById('foodBannerTop');
+  if (existingTop) existingTop.remove();
+  renderGallery(tag);
+}
+
+function showMap(tag = null) {
+  document.getElementById('galleryView').classList.add('hidden');
+  document.getElementById('mapView').classList.remove('hidden');
+  document.getElementById('aboutView').classList.remove('visible');
+  document.getElementById('gameView').classList.remove('visible');
+  document.getElementById('aboutBtn').classList.remove('active');
+  document.getElementById('gameBtn').classList.remove('active');
+  const existing2 = document.getElementById('foodBanner');
+  if (existing2) existing2.remove();
+  const existingTop2 = document.getElementById('foodBannerTop');
+  if (existingTop2) existingTop2.remove();
+  setTimeout(() => {
+    initMap(tag);
+    if (leafletMap) leafletMap.invalidateSize();
+  }, 200);
+}
+
+// ── 지도 팝업 ──
+function openMapPopup(city) {
+  document.getElementById('mapPopupLocation').textContent =
+    `${city.country}, ${city.city}`;
+
+  const mediaEl = document.getElementById('mapPopupMedia');
+  mediaEl.innerHTML = '';
+  mediaEl.style = '';
+
+  const cityPhotos = city.photos.filter(p => p.file);
+
+  if (cityPhotos.length > 0) {
+    cityPhotos.forEach(photo => {
+      const wrap = document.createElement('div');
+      wrap.style.cssText = 'width:100%; aspect-ratio:4/5; overflow:hidden; margin-bottom:4px;';
+      const img = document.createElement('img');
+      img.src = optimizeUrl(photo.file);
+      img.alt = city.city;
+      img.style.cssText = 'width:100%; height:100%; object-fit:cover; display:block;';
+      wrap.appendChild(img);
+      mediaEl.appendChild(wrap);
+    });
+  } else {
+    mediaEl.style.fontSize = '13px';
+    mediaEl.textContent = city.city;
+  }
+
+  document.getElementById('mapPopup').classList.add('open');
+  leafletMap.panTo([city.lat, city.lng], { animate: true, duration: 0.5 });
+}
+
+function closeMapPopup() {
+  document.getElementById('mapPopup').classList.remove('open');
+}
+
+// ── 라이트박스 ──
+function openLightbox(photo) {
+  const content = document.getElementById('lightboxContent');
+  const info = document.getElementById('lightboxInfo');
+
+  if (photo.file) {
+    content.innerHTML = `<img src="${optimizeUrl(photo.file)}" alt="${photo.city}" style="max-width:90vw;max-height:85vh;object-fit:contain;">`;
+  } else {
+    content.innerHTML = `<div style="width:60vw;height:60vh;background:#2a2a2a;display:flex;align-items:center;justify-content:center;font-family:DOSPilgi,monospace;color:rgba(255,255,255,0.4);font-size:14px;">${photo.city}</div>`;
+  }
+
+  // 날짜 포맷
+  let dateText = '';
+  if (photo.date) {
+    const d = photo.date.replace(/-/g, '');
+    if (d.length === 8) {
+      dateText = `${d.slice(0,4)}.${d.slice(4,6)}.${d.slice(6,8)}`;
+    } else {
+      dateText = photo.date;
+    }
+  }
+
+  const flag = countryFlag[photo.country] || '';
+  info.innerHTML = `
+    ${dateText ? `<span>${dateText}</span>` : ''}
+    ${photo.city ? `<span>${flag} ${photo.city}, ${photo.country}</span>` : ''}
+  `;
+
+  document.getElementById('lightbox').classList.add('open');
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+}
+
+document.getElementById('lightbox').addEventListener('click', function(e) {
+  if (e.target === this) closeLightbox();
+});
+
+// ── 지도/갤러리 토글 ──
+let viewMode = 'gallery';
+
+function handleViewToggle() {
+  viewMode = viewMode === 'map' ? 'gallery' : 'map';
+  document.getElementById('viewToggle').classList.toggle('gallery', viewMode === 'gallery');
+  const mob = document.getElementById('viewToggleMobile');
+  if (mob) mob.classList.toggle('gallery', viewMode === 'gallery');
+  if (viewMode === 'map') showMap(activeTag);
+  else showGallery(activeTag);
+}
+let showFlag = true;
+
+function toggleFlag() {
+  showFlag = !showFlag;
+  document.getElementById('flagToggle').classList.toggle('gallery', showFlag);
+  const mob = document.getElementById('flagToggleMobile');
+  if (mob) mob.classList.toggle('gallery', showFlag);
+  renderGallery(activeTag);
+}
+let gameMap = null;
+let gameMarker = null;
+let gameAnswerMarker = null;
+let gamePending = [];
+let gameCorrect = 0;
+let gameTotal = 0;
+let gameCurrentPhoto = null;
+let gameGuessed = false;
+
+function toggleGame() {
+  const gameView = document.getElementById('gameView');
+  const gameBtn = document.getElementById('gameBtn');
+  const isVisible = gameView.classList.contains('visible');
+  if (isVisible) {
+    gameView.classList.remove('visible');
+    gameBtn.classList.remove('active');
+    showGallery();
+  } else {
+    document.getElementById('galleryView').classList.add('hidden');
+    document.getElementById('mapView').classList.add('hidden');
+    document.getElementById('aboutView').classList.remove('visible');
+    document.getElementById('aboutBtn').classList.remove('active');
+    gameView.classList.add('visible');
+    gameBtn.classList.add('active');
+    document.querySelectorAll('.icon-btn').forEach(b => b.classList.remove('active'));
+    const existing = document.getElementById('foodBanner');
+    if (existing) existing.remove();
+    const existingTop = document.getElementById('foodBannerTop');
+    if (existingTop) existingTop.remove();
+    startGame();
+  }
+}
+
+const GAME_TAGS = ["바다", "산", "자연", "도시", "일출일몰", "공원", "예술"];
+
+function startGame() {
+  // 모바일 헤더 높이 계산
+  const header = document.querySelector('header');
+  const toggleBar = document.querySelector('.mobile-toggle-bar');
+  if (header && window.innerWidth <= 768) {
+    const h = header.getBoundingClientRect().height + (toggleBar ? toggleBar.getBoundingClientRect().height : 0);
+    document.documentElement.style.setProperty('--mobile-header-h', h + 'px');
+  }
+  gamePending = photos.filter(p =>
+    p.file && p.lat && p.lng && p.country &&
+    p.tags.some(t => GAME_TAGS.includes(t))
+  ).sort(() => Math.random() - 0.5);
+  gameCorrect = 0;
+  gameTotal = 0;
+  gameGuessed = false;
+  initGameMap();
+  gameNext();
+}
+
+function initGameMap() {
+  if (gameMap) {
+    gameMap.remove();
+    gameMap = null;
+  }
+  gameMap = L.map('gameMap', { center: [20, 10], zoom: 2, zoomControl: true });
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '© OpenStreetMap © CARTO',
+    subdomains: 'abcd',
+    maxZoom: 19,
+  }).addTo(gameMap);
+  gameMap.on('click', onGameMapClick);
+}
+
+function onGameMapClick(e) {
+  if (gameGuessed) return;
+  gameGuessed = true;
+
+  const guessLat = e.latlng.lat;
+  const guessLng = e.latlng.lng;
+  const answerLat = gameCurrentPhoto.lat;
+  const answerLng = gameCurrentPhoto.lng;
+
+  // 거리 계산 (km)
+  const dist = getDistanceKm(guessLat, guessLng, answerLat, answerLng);
+
+  // 정답 마커
+  if (gameMarker) gameMap.removeLayer(gameMarker);
+  if (gameAnswerMarker) gameMap.removeLayer(gameAnswerMarker);
+
+  gameMarker = L.circleMarker([guessLat, guessLng], {
+    radius: 8, color: '#b8864e', fillColor: '#b8864e', fillOpacity: 1
+  }).addTo(gameMap);
+
+  gameAnswerMarker = L.circleMarker([answerLat, answerLng], {
+    radius: 8, color: '#4CAF50', fillColor: '#4CAF50', fillOpacity: 1
+  }).addTo(gameMap);
+
+  // 선 연결
+  L.polyline([[guessLat, guessLng], [answerLat, answerLng]], {
+    color: '#aaa', dashArray: '4'
+  }).addTo(gameMap);
+
+  gameMap.fitBounds([[guessLat, guessLng], [answerLat, answerLng]], { padding: [30, 30] });
+
+  gameTotal++;
+  const flag = countryFlag[gameCurrentPhoto.country] || '';
+  const city = gameCurrentPhoto.city || '';
+
+  let msg = '';
+  if (dist < 500) {
+    gameCorrect++;
+    msg = `🎉 ${Math.round(dist)}km away! answer : ${flag} ${city}, ${gameCurrentPhoto.country}`;
+  } else if (dist < 2000) {
+    msg = `😅 ${Math.round(dist)}km away... answer : ${flag} ${city}, ${gameCurrentPhoto.country}`;
+  } else {
+    msg = `💀 ${Math.round(dist)}km away lol answer : ${flag} ${city}, ${gameCurrentPhoto.country}`;
+  }
+
+  document.getElementById('gameResult').textContent = msg;
+  document.getElementById('gameResult').style.display = 'block';
+  document.getElementById('gameScore').textContent = `${gameCorrect} / ${gameTotal}`;
+  document.getElementById('gameNextBtn').style.display = 'block';
+  document.getElementById('gameStatus').textContent = '🟤 my guess   🟢 answer';
+}
+
+function gameNext() {
+  if (gamePending.length === 0) {
+    document.getElementById('gameStatus').textContent = 'game over! click 🎮 to restart';
+    document.getElementById('gameNextBtn').style.display = 'none';
+    return;
+  }
+  gameGuessed = false;
+  gameCurrentPhoto = gamePending.pop();
+  document.getElementById('gamePhoto').src = optimizeUrl(gameCurrentPhoto.file);
+  document.getElementById('gameResult').textContent = '';
+  document.getElementById('gameResult').style.display = 'none';
+  document.getElementById('gameNextBtn').style.display = 'none';
+  document.getElementById('gameStatus').textContent = 'tap on the map to make your guess!';
+
+  if (gameMarker) { gameMap.removeLayer(gameMarker); gameMarker = null; }
+  if (gameAnswerMarker) { gameMap.removeLayer(gameAnswerMarker); gameAnswerMarker = null; }
+  gameMap.eachLayer(layer => {
+    if (layer instanceof L.Polyline && !(layer instanceof L.CircleMarker)) {
+      gameMap.removeLayer(layer);
+    }
+  });
+  gameMap.setView([20, 10], 2);
+  setTimeout(() => gameMap.invalidateSize(), 100);
+}
+
+function getDistanceKm(lat1, lng1, lat2, lng2) {
+  const R = 6371;
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLng = (lng2 - lng1) * Math.PI / 180;
+  const a = Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180) * Math.cos(lat2*Math.PI/180) * Math.sin(dLng/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
+(async () => {
+  const gallery = document.getElementById('galleryView');
+  gallery.innerHTML = '<div style="padding:2rem; font-family:Pretendard,sans-serif; font-size:13px; color:rgba(26,26,26,0.4); grid-column:1/-1;">loading...</div>';
+  await loadPhotos();
+  showGallery();
+  document.getElementById('viewToggle').classList.add('gallery');
+})();
+
+</script>
+</body>
+</html>
