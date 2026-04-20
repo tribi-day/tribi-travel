@@ -640,8 +640,14 @@ header {
 
 .header-text {
   display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.header-row1 {
+  display: flex;
   align-items: baseline;
-  gap: 8px;
+  gap: 6px;
 }
 
 .header-insta-mobile { display: none; }
@@ -656,12 +662,7 @@ header {
   .header-insta { display: none !important; }
   .header-subtitle { display: none; }
   .header-insta-mobile { display: inline !important; }
-
-  .header-text {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1px;
-  }
+  .header-text { flex-direction: column; gap: 0; }
 
   .mobile-header-right {
     display: flex;
@@ -670,14 +671,15 @@ header {
     gap: 4px;
   }
 
-  /* 모바일 토글 바 */
+  /* 모바일 토글 바 - 헤더 패딩 안으로 */
   .mobile-toggle-bar {
     display: flex;
     justify-content: flex-end;
     gap: 8px;
-    padding: 0 12px 2px;
+    padding: 0 12px 4px;
     background: var(--cream);
     border-bottom: 0.5px solid var(--ink-faint);
+    margin-top: -4px;
   }
 
   /* 게임 모바일 - 위아래 반반 */
@@ -716,8 +718,13 @@ header {
 
   .game-status { font-size: 11px; }
   .game-score { font-size: 14px; }
-  .game-result { font-size: 11px; min-height: 28px; }
-  .game-next-btn { font-size: 13px; padding: 6px 12px; }
+  .game-result {
+    font-size: 11px;
+    min-height: 24px;
+    flex-shrink: 0;
+    color: var(--caramel);
+  }
+  .game-next-btn { font-size: 13px; padding: 6px 12px; flex-shrink: 0; }
 
   /* 하단 탭바 표시 */
   .mobile-tabbar {
@@ -777,13 +784,15 @@ header {
   <header>
     <span class="header-globe" onclick="goMap()" style="cursor:pointer;">&#x1F30D;</span>
     <div class="header-text">
-      <span class="header-title" onclick="goHome()" style="cursor:pointer;">reef.and.roots</span>
+      <div class="header-row1">
+        <span class="header-title" onclick="goHome()" style="cursor:pointer;">reef.and.roots</span>
+        <a href="https://www.instagram.com/tribi.day/" target="_blank" rel="noopener noreferrer"
+           onclick="event.stopPropagation();"
+           class="header-insta-mobile"
+           style="font-family:'DOSGothic',monospace; font-size:11px;
+                  color:var(--ink-mid); text-decoration:none;">@tribi.day</a>
+      </div>
       <span class="header-subtitle">(plant-based nomad diver!)</span>
-      <a href="https://www.instagram.com/tribi.day/" target="_blank" rel="noopener noreferrer"
-         onclick="event.stopPropagation();"
-         class="header-insta-mobile"
-         style="font-family:'DOSGothic',monospace; font-size:11px;
-                color:var(--ink-mid); text-decoration:none;">@tribi.day</a>
     </div>
     <a href="https://www.instagram.com/tribi.day/" target="_blank" rel="noopener noreferrer"
        onclick="event.stopPropagation();"
