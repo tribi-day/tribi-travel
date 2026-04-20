@@ -138,6 +138,52 @@ header {
 .about-btn:hover { opacity: 0.65; }
 .about-btn.active { filter: none; opacity: 1; }
 
+/* ── 지도/갤러리 토글 ── */
+.view-toggle-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 4px;
+}
+
+.view-toggle-icon {
+  font-family: 'DOSPilgi', monospace;
+  font-size: 14px;
+  opacity: 0.5;
+  line-height: 1;
+}
+
+.view-toggle {
+  width: 36px;
+  height: 18px;
+  background: var(--ink-faint);
+  border-radius: 9px;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.2s;
+  border: 1px solid var(--ink-faint);
+}
+
+.view-toggle.gallery {
+  background: rgba(26,26,26,0.15);
+}
+
+.view-toggle-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  background: var(--ink);
+  border-radius: 50%;
+  transition: left 0.2s;
+}
+
+.view-toggle.gallery .view-toggle-thumb {
+  left: 20px;
+}
+
 .icon-btn {
   font-family: 'DOSPilgi', monospace;
   font-size: 22px;
@@ -663,6 +709,15 @@ header {
         <button class="icon-btn" data-tag="책"      onclick="handleIcon(this)">&#x1F4D6;</button>
         <button class="icon-btn" data-tag="예술"    onclick="handleIcon(this)">&#x1F496;</button>
       </div>
+
+      <!-- 지도/갤러리 토글 -->
+      <div class="view-toggle-wrap">
+        <span class="view-toggle-icon">&#x1F30D;</span>
+        <div class="view-toggle" id="viewToggle" onclick="handleViewToggle()">
+          <div class="view-toggle-thumb" id="viewToggleThumb"></div>
+        </div>
+        <span class="view-toggle-icon">&#x1F5BC;</span>
+      </div>
       <div class="sidebar-bottom">
         <div class="sidebar-bottom-row">
           <button class="about-btn" id="flagBtn" onclick="toggleFlag()" title="국기 토글">&#x1F3F4;</button>
@@ -1005,22 +1060,12 @@ let clickCount = 0;
 
 function handleIcon(btn) {
   const tag = btn.dataset.tag;
-
-  if (activeTag !== tag) {
-    document.querySelectorAll('.icon-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll(`.icon-btn[data-tag="${tag}"]`).forEach(b => b.classList.add('active'));
-    activeTag = tag;
-    clickCount = 1;
-    closeMapPopup();
-    showMap(tag);
-  } else {
-    clickCount++;
-    if (clickCount % 2 === 0) {
-      showGallery(tag);
-    } else {
-      showMap(tag);
-    }
-  }
+  document.querySelectorAll('.icon-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll(`.icon-btn[data-tag="${tag}"]`).forEach(b => b.classList.add('active'));
+  activeTag = tag;
+  closeMapPopup();
+  if (viewMode === 'map') showMap(tag);
+  else showGallery(tag);
 }
 
 function toggleAbout() {
@@ -1160,7 +1205,18 @@ document.getElementById('lightbox').addEventListener('click', function(e) {
   if (e.target === this) closeLightbox();
 });
 
-// ── 국기 토글 ──
+// ── 지도/갤러리 토글 ──
+let viewMode = 'map'; // 'map' or 'gallery'
+
+function handleViewToggle() {
+  viewMode = viewMode === 'map' ? 'gallery' : 'map';
+  const toggle = document.getElementById('viewToggle');
+  toggle.classList.toggle('gallery', viewMode === 'gallery');
+  if (activeTag) {
+    if (viewMode === 'map') showMap(activeTag);
+    else showGallery(activeTag);
+  }
+}
 let showFlag = true;
 
 function toggleFlag() {
