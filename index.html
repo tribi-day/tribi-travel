@@ -504,7 +504,7 @@ header {
 }
 
 .about-stats-total {
-  font-family: 'DOSPilgi', monospace;
+  font-family: 'DOSGothic', monospace;
   font-size: 32px;
   color: var(--ink);
   margin-bottom: 4px;
@@ -993,10 +993,10 @@ header {
         사진을 클릭하면 날짜와 위치를 볼 수 있어요.<br>
         게임 아이콘을 클릭하면 사진의 위치를 지도에서 pin해보는 게임을 할 수 있어요.</p>
 
-        <div class="about-stats" id="aboutStats"></div>
-
         <p>현재 진행 중인 여행의 기록도 실시간으로 업데이트됩니다.<br>
         인스타그램 <a href="https://www.instagram.com/tribi.day/" target="_blank" style="color:var(--caramel);">@tribi.day</a> 에서도 만날 수 있습니다.</p>
+
+        <div class="about-stats" id="aboutStats"></div>
       </div>
 
       <div class="game-view" id="gameView">
@@ -1358,26 +1358,28 @@ function handleIcon(btn) {
   else showGallery(tag);
 }
 
+const tagDisplayName = {
+  "밥": "먹은 것(대체로 비건, 또는 채식)",
+  "일출일몰": "노을",
+  "비행기": "이동 중!",
+  "책": "책방과 책",
+};
+
 function renderAboutStats() {
   const el = document.getElementById('aboutStats');
   if (!el || !photos.length) return;
 
-  // 총 사진 수
   const total = photos.length;
-
-  // 날짜
   const dates = photos.map(p => p.date).filter(Boolean).sort();
   const oldest = dates[0];
   const newest = dates[dates.length - 1];
 
-  // 태그별
   const tagCount = {};
   photos.forEach(p => p.tags.forEach(t => {
     tagCount[t] = (tagCount[t] || 0) + 1;
   }));
   const tagsSorted = Object.entries(tagCount).sort((a,b) => b[1]-a[1]);
 
-  // 국가별
   const countryCount = {};
   photos.forEach(p => {
     if (p.country) countryCount[p.country] = (countryCount[p.country] || 0) + 1;
@@ -1391,7 +1393,7 @@ function renderAboutStats() {
 
     <div class="about-stats-title">by tag</div>
     ${tagsSorted.map(([tag, cnt]) =>
-      `<div class="about-stats-sub">${tagIcon[tag] || ''} ${tag} — ${cnt}</div>`
+      `<div class="about-stats-sub"><span style="font-family:'DOSPilgi',monospace;">${tagIcon[tag] || ''}</span> ${tagDisplayName[tag] || tag} — ${cnt}</div>`
     ).join('')}
 
     <div class="about-stats-title">by country</div>
