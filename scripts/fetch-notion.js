@@ -47,7 +47,7 @@ async function fetchAll() {
     };
   });
 
-  const outPath = path.join(__dirname, '../public/photos.json');
+  const outPath = path.join(__dirname, '../photos.json');
   fs.writeFileSync(outPath, JSON.stringify(photos, null, 2));
   console.log(`Done! Saved ${photos.length} photos to public/photos.json`);
 }
