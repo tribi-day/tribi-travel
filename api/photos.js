@@ -54,7 +54,7 @@ export default async function handler(req, res) {
       };
     });
 
-    res.status(200).json({ total: photos.length, photos });
+    res.status(200).json(photos);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
