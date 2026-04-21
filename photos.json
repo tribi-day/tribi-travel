@@ -732,7 +732,7 @@
   {
     "file": "https://res.cloudinary.com/docknepza/image/upload/v1776610987/tribi/peru_lima_%EB%8F%84%EC%8B%9C_1776610986.jpg",
     "city": "lima",
-    "country": "",
+    "country": "Peru",
     "lat": -12.120761111111111,
     "lng": -77.02952499999999,
     "tags": [
@@ -6264,15 +6264,15 @@
   },
   {
     "file": "https://res.cloudinary.com/docknepza/image/upload/v1776797128/tribi/20260411_%EB%82%98_%EB%8F%99%EB%AC%BC_1776797127.jpg",
-    "city": "",
-    "country": "",
-    "lat": 0,
-    "lng": 0,
+    "city": "Mexico City",
+    "country": "Mexico",
+    "lat": 19.421383333333335,
+    "lng": -99.18466944444445,
     "tags": [
       "나",
       "동물"
     ],
-    "date": "2026-04-11",
+    "date": "2026-04-10",
     "instagram": null
   },
   {
@@ -6313,16 +6313,16 @@
   },
   {
     "file": "https://res.cloudinary.com/docknepza/image/upload/v1776797260/tribi/%EB%82%98_%EB%8F%99%EB%AC%BC_%EB%B0%94%EB%8B%A4_1776797259.jpg",
-    "city": "",
-    "country": "",
-    "lat": 0,
-    "lng": 0,
+    "city": "providencia",
+    "country": "Colombia",
+    "lat": 13.332672222222222,
+    "lng": -81.39112777777778,
     "tags": [
       "나",
       "동물",
       "바다"
     ],
-    "date": "",
+    "date": "2026-04-03",
     "instagram": null
   },
   {
@@ -6563,8 +6563,8 @@
     "file": "https://res.cloudinary.com/docknepza/image/upload/v1776797214/tribi/20260403_colombia_providencia_%EB%82%98_%EB%B0%94%EB%8B%A4_1776797213.jpg",
     "city": "Providencia",
     "country": "Colombia",
-    "lat": 0,
-    "lng": 0,
+    "lat": 13.333336111111112,
+    "lng": -81.346825,
     "tags": [
       "나",
       "바다"
@@ -6574,7 +6574,7 @@
   },
   {
     "file": "https://res.cloudinary.com/docknepza/image/upload/v1776795859/tribi/20250405_australia_%EB%B0%94%EB%8B%A4_%EA%B3%B5%EC%9B%90_1776795858.jpg",
-    "city": "",
+    "city": "Melbourne",
     "country": "Australia",
     "lat": -37.864425000000004,
     "lng": 144.97064166666667,
@@ -7140,7 +7140,7 @@
   },
   {
     "file": "https://res.cloudinary.com/docknepza/image/upload/v1776797278/tribi/20260403_colombia_%EB%82%98_%EB%B0%94%EB%8B%A4_1776797276.jpg",
-    "city": "",
+    "city": "providencia",
     "country": "Colombia",
     "lat": 13.332672222222222,
     "lng": -81.39112777777778,
@@ -7277,12 +7277,12 @@
     "file": "https://res.cloudinary.com/docknepza/image/upload/v1776797084/tribi/20260413_bolivia_lapaz_%EC%88%99%EC%86%8C_1776797083.jpg",
     "city": "La Paz",
     "country": "Bolivia",
-    "lat": 0,
-    "lng": 0,
+    "lat": -16.500922222222222,
+    "lng": -68.13404722222222,
     "tags": [
       "숙소"
     ],
-    "date": "2026-04-13",
+    "date": "2026-02-10",
     "instagram": null
   },
   {
