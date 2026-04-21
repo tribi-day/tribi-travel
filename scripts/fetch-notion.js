@@ -27,7 +27,7 @@ async function fetchAll() {
 
     const data = await res.json();
     allResults = allResults.concat(data.results);
-    console.log(`Fetched ${allResults.length} photos so far...`);
+    console.log(`Fetched ${allResults.length} photos so far... has_more: ${data.has_more}`);
 
     if (!data.has_more) break;
     cursor = data.next_cursor;
