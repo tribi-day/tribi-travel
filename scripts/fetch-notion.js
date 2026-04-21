@@ -10,7 +10,6 @@ async function fetchAll() {
 
   while (true) {
     const body = {
-      sorts: [{ property: 'date', direction: 'descending' }],
       page_size: 100,
     };
     if (cursor) body.start_cursor = cursor;
