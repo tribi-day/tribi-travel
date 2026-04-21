@@ -25,8 +25,15 @@ async function fetchAll() {
     });
 
     const data = await res.json();
+
+    if (data.object === 'error') {
+  console.error('Notion API error:', data);
+  break;
+}
+    
     allResults = allResults.concat(data.results);
-    console.log(`Fetched ${allResults.length} photos so far...`);
+    
+    console.log(`Fetched ${allResults.length} photos so far... has_more: ${data.has_more}, next_cursor: ${data.next_cursor}`);
 
     if (!data.has_more) break;
     cursor = data.next_cursor;
