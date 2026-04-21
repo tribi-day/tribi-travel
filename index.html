@@ -1060,7 +1060,7 @@ let photos = [];
 
 async function loadPhotos() {
   try {
-    const res = await fetch('/photos.json');
+    const res = await fetch('/api/photos');
     photos = await res.json();
   } catch (err) {
     console.error('노션 데이터 로드 실패:', err);
