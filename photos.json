@@ -4259,8 +4259,8 @@
     "file": "https://res.cloudinary.com/docknepza/image/upload/v1776723209/tribi/20260404_colombia_providencia_%EB%82%98_%EB%B0%94%EB%8B%A4_1776723207.jpg",
     "city": "Providencia",
     "country": "Colombia",
-    "lat": 0,
-    "lng": 0,
+    "lat": 13.3697,
+    "lng": -81.36338055555555,
     "tags": [
       "나",
       "바다"
@@ -4850,8 +4850,8 @@
     "file": "https://res.cloudinary.com/docknepza/image/upload/v1776723206/tribi/20260404_colombia_providencia_%EB%82%98_%EB%B0%94%EB%8B%A4_1776723205.jpg",
     "city": "Providencia",
     "country": "Colombia",
-    "lat": 0,
-    "lng": 0,
+    "lat": 13.3697,
+    "lng": -81.36338055555555,
     "tags": [
       "나",
       "바다"
@@ -5345,8 +5345,8 @@
     "file": "https://res.cloudinary.com/docknepza/image/upload/v1776723204/tribi/20260403_colombia_providencia_%EA%B0%95%EC%95%84%EC%A7%80_1776723203.jpg",
     "city": "Providencia",
     "country": "Colombia",
-    "lat": 0,
-    "lng": 0,
+    "lat": 13.3697,
+    "lng": -81.36338055555555,
     "tags": [
       "강아지"
     ],
@@ -6549,7 +6549,7 @@
   },
   {
     "file": "https://res.cloudinary.com/docknepza/image/upload/v1776796984/tribi/20260408_colombia_%EB%B0%94%EB%8B%A4_1776796983.jpg",
-    "city": "",
+    "city": "Providencia",
     "country": "Colombia",
     "lat": 13.416658333333334,
     "lng": -81.3529361111111,
@@ -7201,14 +7201,14 @@
   },
   {
     "file": "https://res.cloudinary.com/docknepza/image/upload/v1776795802/tribi/20250402_%EB%B9%84%ED%96%89%EA%B8%B0_1776795800.jpg",
-    "city": "",
-    "country": "",
-    "lat": 0,
-    "lng": 0,
+    "city": "Melbourne",
+    "country": "Australia",
+    "lat": -37.7905,
+    "lng": 144.98555,
     "tags": [
       "비행기"
     ],
-    "date": "2025-04-02",
+    "date": "2025-04-03",
     "instagram": null
   },
   {
@@ -7473,14 +7473,14 @@
   },
   {
     "file": "https://res.cloudinary.com/docknepza/image/upload/v1776795799/tribi/20250402_%EB%B9%84%ED%96%89%EA%B8%B0_1776795797.jpg",
-    "city": "",
-    "country": "",
-    "lat": 0,
-    "lng": 0,
+    "city": "Melbourne",
+    "country": "Australia",
+    "lat": -37.7905,
+    "lng": 144.98555,
     "tags": [
       "비행기"
     ],
-    "date": "2025-04-02",
+    "date": "2025-04-03",
     "instagram": null
   },
   {
@@ -7598,6 +7598,29 @@
     "instagram": null
   },
   {
+    "file": null,
+    "city": "",
+    "country": "",
+    "lat": 0,
+    "lng": 0,
+    "tags": [],
+    "date": "",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1776878500/tribi/20190228_czechia_prague_%EB%82%98_%EB%8F%84%EC%8B%9C_1776878497.jpg",
+    "city": "Prague",
+    "country": "Czechia",
+    "lat": 50.082008333333334,
+    "lng": 14.404625000000001,
+    "tags": [
+      "나",
+      "도시"
+    ],
+    "date": "2019-02-28",
+    "instagram": null
+  },
+  {
     "file": "https://res.cloudinary.com/docknepza/image/upload/v1776877093/tribi/20230125_australia_perth_%EC%9D%BC%EC%B6%9C%EC%9D%BC%EB%AA%B0_1776877091.jpg",
     "city": "Perth",
     "country": "Australia",
@@ -7623,6 +7646,43 @@
     "instagram": null
   },
   {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1776878599/tribi/20190308_germany_munich_%EB%8F%84%EC%8B%9C_1776878597.jpg",
+    "city": "Munich",
+    "country": "Germany",
+    "lat": 48.137188888888886,
+    "lng": 11.574813888888889,
+    "tags": [
+      "도시"
+    ],
+    "date": "2019-03-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1776878504/tribi/20190304_hungary_budapest_%EB%82%98_1776878501.jpg",
+    "city": "Budapest",
+    "country": "Hungary",
+    "lat": 47.51889166666667,
+    "lng": 19.082419444444444,
+    "tags": [
+      "나"
+    ],
+    "date": "2019-03-04",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1776878512/tribi/20190326_unitedstates_newyork_%EB%8F%84%EC%8B%9C_%EC%98%88%EC%88%A0_1776878510.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.71505833333334,
+    "lng": -73.95765555555556,
+    "tags": [
+      "도시",
+      "예술"
+    ],
+    "date": "2019-03-26",
+    "instagram": null
+  },
+  {
     "file": "https://res.cloudinary.com/docknepza/image/upload/v1776877021/tribi/20230131_australia_perth_%EB%82%98_%EC%88%99%EC%86%8C_1776877018.jpg",
     "city": "Perth",
     "country": "Australia",
@@ -7636,8 +7696,20 @@
     "instagram": null
   },
   {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1776878582/tribi/20190320_france_paris_%EB%82%98_1776878579.jpg",
+    "city": "Paris",
+    "country": "France",
+    "lat": 48.86494166666667,
+    "lng": 2.346916666666667,
+    "tags": [
+      "나"
+    ],
+    "date": "2019-03-20",
+    "instagram": null
+  },
+  {
     "file": "https://res.cloudinary.com/docknepza/image/upload/v1776876956/tribi/20230125_australia_%EB%B0%94%EB%8B%A4_1776876952.jpg",
-    "city": "",
+    "city": "The Settlement",
     "country": "Australia",
     "lat": -32.021166666666666,
     "lng": 115.52193611111112,
@@ -7645,6 +7717,18 @@
       "바다"
     ],
     "date": "2023-01-25",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1776878620/tribi/20190407_unitedstates_newyork_%EC%98%88%EC%88%A0_1776878617.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.71749444444445,
+    "lng": -73.951575,
+    "tags": [
+      "예술"
+    ],
+    "date": "2019-04-07",
     "instagram": null
   },
   {
@@ -7657,6 +7741,31 @@
       "자연"
     ],
     "date": "2023-01-20",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1776878488/tribi/20190401_unitedstates_newyork_%EB%82%98_%EB%B0%94%EB%8B%A4_1776878487.jpg",
+    "city": "New york",
+    "country": "United States",
+    "lat": 40.758827777777775,
+    "lng": -73.9792638888889,
+    "tags": [
+      "나",
+      "바다"
+    ],
+    "date": "2019-04-01",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1776878562/tribi/20190407_unitedstates_newyork_%EC%B1%85_1776878560.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.71739166666667,
+    "lng": -73.95094166666667,
+    "tags": [
+      "책"
+    ],
+    "date": "2019-04-07",
     "instagram": null
   },
   {
@@ -7685,8 +7794,21 @@
     "instagram": null
   },
   {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1776878486/tribi/20190327_unitedstates_newyork_%EB%8F%84%EC%8B%9C_%EC%98%88%EC%88%A0_1776878484.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.738255555555554,
+    "lng": -73.99919166666666,
+    "tags": [
+      "도시",
+      "예술"
+    ],
+    "date": "2019-03-27",
+    "instagram": null
+  },
+  {
     "file": "https://res.cloudinary.com/docknepza/image/upload/v1776877054/tribi/20230121_australia_%EB%82%98_%EB%B9%84%ED%96%89%EA%B8%B0_1776877053.jpg",
-    "city": "",
+    "city": "Great Barrier Reef",
     "country": "Australia",
     "lat": -16.502747222222222,
     "lng": 146.01400833333332,
@@ -7712,10 +7834,10 @@
   },
   {
     "file": "https://res.cloudinary.com/docknepza/image/upload/v1776876939/tribi/20230121_australia_%EB%B0%94%EB%8B%A4_1776876937.jpg",
-    "city": "",
+    "city": "Great Barrier Reef",
     "country": "Australia",
-    "lat": -16.530897222222222,
-    "lng": 145.98548888888888,
+    "lat": -16.92106666666667,
+    "lng": 145.77717777777778,
     "tags": [
       "바다"
     ],
@@ -7732,6 +7854,44 @@
       "동물"
     ],
     "date": "2023-01-25",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1776878519/tribi/20190326_unitedstates_newyork_%EB%8F%84%EC%8B%9C_1776878516.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.70449166666667,
+    "lng": -73.99255277777777,
+    "tags": [
+      "도시"
+    ],
+    "date": "2019-03-26",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1776878596/tribi/20190309_germany_garmisch-partenkirchen_%EB%82%98_%EC%82%B0_%EC%9E%90%EC%97%B0_1776878593.jpg",
+    "city": "Garmisch-Partenkirchen",
+    "country": "Germany",
+    "lat": 47.421077777777775,
+    "lng": 10.985913888888888,
+    "tags": [
+      "나",
+      "산",
+      "자연"
+    ],
+    "date": "2019-03-09",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1776878578/tribi/20190405_unitedstates_newyork_1776878575.jpg",
+    "city": "New York",
+    "country": "United states",
+    "lat": 40.75087777777778,
+    "lng": -74.00363888888889,
+    "tags": [
+      "나"
+    ],
+    "date": "2019-04-05",
     "instagram": null
   },
   {
@@ -7760,7 +7920,7 @@
   },
   {
     "file": "https://res.cloudinary.com/docknepza/image/upload/v1776877064/tribi/20230121_australia_%EB%B0%94%EB%8B%A4_%EB%B9%84%ED%96%89%EA%B8%B0_1776877062.jpg",
-    "city": "",
+    "city": "Great Barrier Reef",
     "country": "Australia",
     "lat": -16.574005555555555,
     "lng": 145.94905277777778,
@@ -7777,7 +7937,9 @@
     "country": "Australia",
     "lat": -31.951738888888887,
     "lng": 115.86176388888889,
-    "tags": [],
+    "tags": [
+      "도시"
+    ],
     "date": "2023-01-23",
     "instagram": null
   },
@@ -7856,6 +8018,19 @@
     "instagram": null
   },
   {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1776878508/tribi/20190313_france_paris_%EB%82%98_%EB%8F%84%EC%8B%9C_1776878506.jpg",
+    "city": "Paris",
+    "country": "France",
+    "lat": 48.858111111111114,
+    "lng": 2.2893194444444442,
+    "tags": [
+      "나",
+      "도시"
+    ],
+    "date": "2019-03-13",
+    "instagram": null
+  },
+  {
     "file": "https://res.cloudinary.com/docknepza/image/upload/v1776877097/tribi/20230126_australia_perth_%EC%88%99%EC%86%8C_%EC%B0%BD%EB%AC%B8_1776877094.jpg",
     "city": "Perth",
     "country": "Australia",
@@ -7869,15 +8044,52 @@
     "instagram": null
   },
   {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1776878528/tribi/20190329_unitedstates_newyork_%EC%98%88%EC%88%A0_1776878525.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.761475,
+    "lng": -73.97699722222222,
+    "tags": [
+      "예술"
+    ],
+    "date": "2019-03-29",
+    "instagram": null
+  },
+  {
     "file": "https://res.cloudinary.com/docknepza/image/upload/v1776877004/tribi/%EC%B1%85_1776877003.jpg",
-    "city": "",
-    "country": "",
-    "lat": 0,
-    "lng": 0,
+    "city": "Perth",
+    "country": "Australia",
+    "lat": -31.95343888888889,
+    "lng": 115.85705555555555,
     "tags": [
       "책"
     ],
-    "date": "",
+    "date": "2023-01-30",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1776878607/tribi/20190311_france_strasbourg_%EB%82%98_%EB%8F%84%EC%8B%9C_1776878606.jpg",
+    "city": "strasbourg",
+    "country": "France",
+    "lat": 48.57965,
+    "lng": 7.7562,
+    "tags": [
+      "나",
+      "도시"
+    ],
+    "date": "2019-03-11",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1776878574/tribi/20190408_unitedstates_newyork_%EB%82%98_1776878571.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.75087777777778,
+    "lng": -74.00363888888889,
+    "tags": [
+      "나"
+    ],
+    "date": "2019-04-08",
     "instagram": null
   },
   {
@@ -7931,7 +8143,7 @@
   },
   {
     "file": "https://res.cloudinary.com/docknepza/image/upload/v1776877051/tribi/20230121_australia_%EB%B0%94%EB%8B%A4_%EB%B9%84%ED%96%89%EA%B8%B0_1776877049.jpg",
-    "city": "",
+    "city": "Great Barrier Reef",
     "country": "Australia",
     "lat": -16.501769444444445,
     "lng": 146.0155638888889,
@@ -7940,6 +8152,43 @@
       "비행기"
     ],
     "date": "2023-01-21",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1776878585/tribi/20190225_czechia_prague_%EC%9D%BC%EC%B6%9C%EC%9D%BC%EB%AA%B0_1776878583.jpg",
+    "city": "Prague",
+    "country": "Czechia",
+    "lat": 50.086475,
+    "lng": 14.411861111111111,
+    "tags": [
+      "일출일몰"
+    ],
+    "date": "2019-02-25",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1776878496/tribi/20190401_unitedstates_newyork_1776878493.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.758827777777775,
+    "lng": -73.9792638888889,
+    "tags": [
+      "도시",
+      "일출일몰"
+    ],
+    "date": "2019-04-01",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1776878491/tribi/20190401_unitedstates_newyork_%EB%82%98_1776878489.jpg",
+    "city": "New york",
+    "country": "United States",
+    "lat": 40.758827777777775,
+    "lng": -73.9792638888889,
+    "tags": [
+      "나"
+    ],
+    "date": "2019-04-01",
     "instagram": null
   },
   {
@@ -7968,8 +8217,59 @@
     "instagram": null
   },
   {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1776878543/tribi/20190403_canada_niagarafalls_%EC%9E%90%EC%97%B0_%EC%88%99%EC%86%8C_1776878536.jpg",
+    "city": "Niagara Falls",
+    "country": "Canada",
+    "lat": 43.07965,
+    "lng": -79.08187222222222,
+    "tags": [
+      "자연",
+      "숙소"
+    ],
+    "date": "2019-04-03",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1776878569/tribi/20190407_unitedstates_newyork_%EC%B1%85_%EC%98%88%EC%88%A0_1776878567.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.71731944444445,
+    "lng": -73.95161388888889,
+    "tags": [
+      "책",
+      "예술"
+    ],
+    "date": "2019-04-07",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1776878588/tribi/20190304_czechia_prague_1776878586.jpg",
+    "city": "Czechia",
+    "country": "Czechia",
+    "lat": 50.088975000000005,
+    "lng": 14.398175,
+    "tags": [
+      "나",
+      "도시"
+    ],
+    "date": "2019-03-04",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1776878553/tribi/20190403_canada_niagarafalls_%EB%B0%A5_1776878551.jpg",
+    "city": "Niagara Falls",
+    "country": "Canada",
+    "lat": 43.07928888888889,
+    "lng": -79.08184722222222,
+    "tags": [
+      "밥"
+    ],
+    "date": "2019-04-03",
+    "instagram": null
+  },
+  {
     "file": "https://res.cloudinary.com/docknepza/image/upload/v1776877085/tribi/20230125_australia_%EB%82%98_%EB%B0%94%EB%8B%A4_1776877083.jpg",
-    "city": "",
+    "city": "Rottnest Island",
     "country": "Australia",
     "lat": -31.991322222222223,
     "lng": 115.50647777777777,
@@ -7994,7 +8294,7 @@
   },
   {
     "file": "https://res.cloudinary.com/docknepza/image/upload/v1776877082/tribi/20230125_australia_%EB%82%98_%EB%B0%94%EB%8B%A4_1776877080.jpg",
-    "city": "",
+    "city": "Rottnest Island",
     "country": "Australia",
     "lat": -32.021205555555554,
     "lng": 115.52192777777778,
@@ -8006,8 +8306,33 @@
     "instagram": null
   },
   {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1776878565/tribi/20190407_unitedstates_newyork_%EC%B1%85_%EC%98%88%EC%88%A0_1776878563.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.71733888888889,
+    "lng": -73.95125555555556,
+    "tags": [
+      "책",
+      "예술"
+    ],
+    "date": "2019-04-07",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1776878604/tribi/20190313_france_paris_%EB%8F%84%EC%8B%9C_1776878601.jpg",
+    "city": "Paris",
+    "country": "France",
+    "lat": 48.85863888888889,
+    "lng": 2.3509972222222224,
+    "tags": [
+      "도시"
+    ],
+    "date": "2019-03-13",
+    "instagram": null
+  },
+  {
     "file": "https://res.cloudinary.com/docknepza/image/upload/v1776877061/tribi/20230121_australia_%EB%B0%94%EB%8B%A4_1776877059.jpg",
-    "city": "",
+    "city": "Great Barrier Reef",
     "country": "Australia",
     "lat": -16.50265,
     "lng": 146.0170138888889,
@@ -8044,7 +8369,7 @@
   },
   {
     "file": "https://res.cloudinary.com/docknepza/image/upload/v1776876977/tribi/20230127_australia_%EC%9E%90%EC%97%B0_1776876973.jpg",
-    "city": "",
+    "city": "The Settlement",
     "country": "Australia",
     "lat": -30.929983333333336,
     "lng": 115.36393055555556,
@@ -8052,6 +8377,33 @@
       "자연"
     ],
     "date": "2023-01-27",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1776878616/tribi/20190401_unitedstates_newyork_%EB%82%98_%EB%8F%84%EC%8B%9C_%EC%9D%BC%EC%B6%9C%EC%9D%BC%EB%AA%B0_1776878614.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.75906666666667,
+    "lng": -73.979575,
+    "tags": [
+      "나",
+      "도시",
+      "일출일몰"
+    ],
+    "date": "2019-04-01",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1776878592/tribi/20190304_hungary_budapest_%EB%8F%84%EC%8B%9C_%EC%9D%BC%EC%B6%9C%EC%9D%BC%EB%AA%B0_1776878589.jpg",
+    "city": "Budapest",
+    "country": "Hungary",
+    "lat": 47.49859722222222,
+    "lng": 19.040722222222225,
+    "tags": [
+      "도시",
+      "일출일몰"
+    ],
+    "date": "2019-03-04",
     "instagram": null
   },
   {
@@ -8068,7 +8420,7 @@
   },
   {
     "file": "https://res.cloudinary.com/docknepza/image/upload/v1776877008/tribi/20230130_australia_%EB%82%98_%EB%B0%94%EB%8B%A4_1776877005.jpg",
-    "city": "",
+    "city": "Perth",
     "country": "Australia",
     "lat": -31.89456111111111,
     "lng": 115.754875,
@@ -8081,7 +8433,7 @@
   },
   {
     "file": "https://res.cloudinary.com/docknepza/image/upload/v1776876971/tribi/20230127_australia_%EB%82%98_%EC%9D%BC%EC%B6%9C%EC%9D%BC%EB%AA%B0_1776876969.jpg",
-    "city": "",
+    "city": "The Settlement",
     "country": "Australia",
     "lat": -30.603222222222225,
     "lng": 115.16205555555557,
@@ -8090,6 +8442,69 @@
       "일출일몰"
     ],
     "date": "2023-01-27",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1776878515/tribi/20190326_unitedstates_newyork_%EB%8F%84%EC%8B%9C_%EC%B0%BD%EB%AC%B8_1776878513.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.70388888888889,
+    "lng": -73.99093611111111,
+    "tags": [
+      "도시",
+      "창문"
+    ],
+    "date": "2019-03-26",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1776878610/tribi/20190305_czech_praha_%EB%82%98_%EB%B0%A5_1776878608.jpg",
+    "city": "Czechia",
+    "country": "Czechia",
+    "lat": 50.088975000000005,
+    "lng": 14.398175,
+    "tags": [
+      "나",
+      "밥"
+    ],
+    "date": "2019-03-05",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1776878532/tribi/20190401_unitedstates_newyork_%EB%8F%84%EC%8B%9C_1776878530.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.759025,
+    "lng": -73.9792638888889,
+    "tags": [
+      "도시"
+    ],
+    "date": "2019-04-01",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1776878546/tribi/20190403_canada_niagarafalls_%EC%9E%90%EC%97%B0_1776878544.jpg",
+    "city": "Niagara Falls",
+    "country": "Canada",
+    "lat": 43.07884722222222,
+    "lng": -79.07819444444443,
+    "tags": [
+      "자연"
+    ],
+    "date": "2019-04-03",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1776878558/tribi/20190406_unitedstates_newyork_%EC%B1%85_%EC%98%88%EC%88%A0_1776878555.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.717194444444445,
+    "lng": -73.95118055555555,
+    "tags": [
+      "책",
+      "예술"
+    ],
+    "date": "2019-04-06",
     "instagram": null
   },
   {
@@ -8117,6 +8532,31 @@
     "instagram": null
   },
   {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1776878535/tribi/20190403_canada_niagarafalls_%EC%9E%90%EC%97%B0_1776878533.jpg",
+    "city": "Niagara Falls",
+    "country": "Canada",
+    "lat": 43.079600000000006,
+    "lng": -79.08175555555555,
+    "tags": [
+      "자연"
+    ],
+    "date": "2019-04-03",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1776878482/tribi/20190228_czechia_brno_%EB%82%98_%EB%8F%84%EC%8B%9C_1776878479.jpg",
+    "city": "Brno",
+    "country": "Czechia",
+    "lat": 49.19243611111111,
+    "lng": 16.608861111111114,
+    "tags": [
+      "나",
+      "도시"
+    ],
+    "date": "2019-02-28",
+    "instagram": null
+  },
+  {
     "file": "https://res.cloudinary.com/docknepza/image/upload/v1776876927/tribi/20230131_australia_perth_%EC%B0%BD%EB%AC%B8_%EC%B1%85_1776876924.jpg",
     "city": "Perth",
     "country": "Australia",
@@ -8130,8 +8570,21 @@
     "instagram": null
   },
   {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1776878523/tribi/20190326_unitedstates_newyork_%EB%8F%84%EC%8B%9C_%EC%9D%BC%EC%B6%9C%EC%9D%BC%EB%AA%B0_1776878521.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.70416388888889,
+    "lng": -73.99439166666667,
+    "tags": [
+      "도시",
+      "일출일몰"
+    ],
+    "date": "2019-03-26",
+    "instagram": null
+  },
+  {
     "file": "https://res.cloudinary.com/docknepza/image/upload/v1776877057/tribi/20230121_australia_%EB%B0%94%EB%8B%A4_1776877055.jpg",
-    "city": "",
+    "city": "Great Barrier Reef",
     "country": "Australia",
     "lat": -16.518966666666667,
     "lng": 146.01469444444444,
@@ -8164,6 +8617,18 @@
       "숙소"
     ],
     "date": "2023-01-26",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1776878550/tribi/20190403_canada_niagarafalls_%EC%9D%BC%EC%B6%9C%EC%9D%BC%EB%AA%B0_1776878547.jpg",
+    "city": "Niagara Falls",
+    "country": "Canada",
+    "lat": 43.07921666666667,
+    "lng": -79.08596666666666,
+    "tags": [
+      "일출일몰"
+    ],
+    "date": "2019-04-03",
     "instagram": null
   },
   {
