@@ -540,20 +540,6 @@
     "instagram": null
   },
   {
-    "file": "https://res.cloudinary.com/docknepza/image/upload/v1776607734/tribi/20250302_thailand_kohtao_%EB%82%98_%EB%8F%99%EB%AC%BC_%EB%B0%94%EB%8B%A4_1776607731.jpg",
-    "city": "Koh Tao",
-    "country": "Thailand",
-    "lat": 10.087068,
-    "lng": 99.821489,
-    "tags": [
-      "나",
-      "동물",
-      "바다"
-    ],
-    "date": "2025-03-02",
-    "instagram": null
-  },
-  {
     "file": "https://res.cloudinary.com/docknepza/image/upload/v1776610936/tribi/20260203_peru_cuzco_%EB%B0%A5_1776610934.jpg",
     "city": "Cuzco",
     "country": "Peru",
@@ -8926,6 +8912,19 @@
       "바다"
     ],
     "date": "2025-03-06",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1776966589/tribi/20250216_thailand_kopha-ngandistrict_%EB%82%98_%EB%B0%94%EB%8B%A4_1776966588.jpg",
+    "city": "Koh Tao",
+    "country": "Thailand",
+    "lat": 10.10093611111111,
+    "lng": 99.82204444444444,
+    "tags": [
+      "나",
+      "바다"
+    ],
+    "date": "2025-02-16",
     "instagram": null
   },
   {
