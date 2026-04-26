@@ -6682,18 +6682,6 @@
     "instagram": null
   },
   {
-    "file": "https://res.cloudinary.com/docknepza/image/upload/v1776797207/tribi/20260405_colombia_rockypoint_%EB%82%98_1776797205.jpg",
-    "city": "Rocky Point",
-    "country": "Colombia",
-    "lat": 13.345369444444446,
-    "lng": -81.35557499999999,
-    "tags": [
-      "나"
-    ],
-    "date": "2026-04-05",
-    "instagram": null
-  },
-  {
     "file": "https://res.cloudinary.com/docknepza/image/upload/v1776795841/tribi/20250405_australia_melbourne_%EB%82%98_%EA%B3%B5%EC%9B%90_1776795839.jpg",
     "city": "Melbourne",
     "country": "Australia",
@@ -7837,7 +7825,7 @@
   {
     "file": "https://res.cloudinary.com/docknepza/image/upload/v1776878578/tribi/20190405_unitedstates_newyork_1776878575.jpg",
     "city": "New York",
-    "country": "United states",
+    "country": "United States",
     "lat": 40.75087777777778,
     "lng": -74.00363888888889,
     "tags": [
@@ -9211,6 +9199,2744 @@
       "바다"
     ],
     "date": "2025-03-03",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232578/tribi/20250211_thailand_bangkok_%EB%8F%84%EC%8B%9C_1777232576.jpg",
+    "city": "Bangkok",
+    "country": "Thailand",
+    "lat": 13.746233333333333,
+    "lng": 100.53067777777778,
+    "tags": [
+      "도시"
+    ],
+    "date": "2025-02-11",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232846/tribi/20250204_thailand_chiangmaicitymunicipality_%EB%B0%A5_1777232845.jpg",
+    "city": "Chiang Mai City Municipality",
+    "country": "Thailand",
+    "lat": 18.80311388888889,
+    "lng": 98.98171111111111,
+    "tags": [
+      "밥"
+    ],
+    "date": "2025-02-04",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230161/tribi/20230515_portugal_vilanovadegaia_%EB%B0%94%EB%8B%A4_%EC%9D%BC%EC%B6%9C%EC%9D%BC%EB%AA%B0_1777230160.jpg",
+    "city": "Vila Nova de Gaia",
+    "country": "Portugal",
+    "lat": 41.137480555555555,
+    "lng": -8.609411111111111,
+    "tags": [
+      "바다",
+      "일출일몰"
+    ],
+    "date": "2023-05-15",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230527/tribi/20180210_%EB%8F%84%EC%8B%9C_1777230525.jpg",
+    "city": "Otaru",
+    "country": "Japan",
+    "lat": 43.198986,
+    "lng": 141.001924,
+    "tags": [
+      "도시"
+    ],
+    "date": "2018-02-10",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232778/tribi/20250328_indonesia_ubuddistrict_%EC%88%99%EC%86%8C_1777232776.jpg",
+    "city": "Ubud District",
+    "country": "Indonesia",
+    "lat": -8.508491666666666,
+    "lng": 115.26073333333333,
+    "tags": [
+      "숙소"
+    ],
+    "date": "2025-03-28",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230116/tribi/20230503_turkey_%C3%BCsk%C3%BCdar_%EB%B0%A5_%EB%B0%94%EB%8B%A4_1777230114.jpg",
+    "city": "Üsküdar",
+    "country": "Turkey",
+    "lat": 41.008008333333336,
+    "lng": 29.005625,
+    "tags": [
+      "밥",
+      "바다"
+    ],
+    "date": "2023-05-03",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232789/tribi/20250330_indonesia_ubuddistrict_%EA%B3%A0%EC%96%91%EC%9D%B4_1777232788.jpg",
+    "city": "Ubud District",
+    "country": "Indonesia",
+    "lat": -8.508369444444444,
+    "lng": 115.26087222222222,
+    "tags": [
+      "고양이"
+    ],
+    "date": "2025-03-30",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232544/tribi/20250321_indonesia_nusapenida_%EB%82%98_1777232542.jpg",
+    "city": "Nusa Penida",
+    "country": "Indonesia",
+    "lat": -8.707933333333333,
+    "lng": 115.43943888888889,
+    "tags": [
+      "나"
+    ],
+    "date": "2025-03-21",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230164/tribi/20230516_portugal_porto_%EC%B0%BD%EB%AC%B8_1777230163.jpg",
+    "city": "Porto",
+    "country": "Portugal",
+    "lat": 41.14851111111111,
+    "lng": -8.646327777777778,
+    "tags": [
+      "창문"
+    ],
+    "date": "2023-05-16",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232831/tribi/20250203_thailand_bansahakon2_%EC%9E%90%EC%97%B0_1777232829.jpg",
+    "city": "Ban Sahakon 2",
+    "country": "Thailand",
+    "lat": 18.816461111111114,
+    "lng": 99.22766111111112,
+    "tags": [
+      "자연"
+    ],
+    "date": "2025-02-03",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232813/tribi/20250204_thailand_maetaengdistrict_%EB%82%98_%EB%8F%99%EB%AC%BC_1777232812.jpg",
+    "city": "Mae Taeng District",
+    "country": "Thailand",
+    "lat": 19.13548611111111,
+    "lng": 98.8693861111111,
+    "tags": [
+      "나",
+      "동물"
+    ],
+    "date": "2025-02-04",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230519/tribi/20180212_japan_%EB%8F%84%EC%8B%9C_1777230518.jpg",
+    "city": "Otaru",
+    "country": "Japan",
+    "lat": 43.198986,
+    "lng": 141.001924,
+    "tags": [
+      "도시"
+    ],
+    "date": "2018-02-12",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230051/tribi/20230419_turkey_beyo%C4%9Flu_%EA%B0%95%EC%95%84%EC%A7%80_1777230049.jpg",
+    "city": "Beyoğlu",
+    "country": "Turkey",
+    "lat": 41.02589444444445,
+    "lng": 28.97381111111111,
+    "tags": [
+      "강아지"
+    ],
+    "date": "2023-04-19",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229187/tribi/20160121_%EA%B0%95%EC%95%84%EC%A7%80_1777229185.jpg",
+    "city": "Hồ Chí Minh",
+    "country": "Vietnam",
+    "lat": 10.527563,
+    "lng": 107.23328,
+    "tags": [
+      "강아지"
+    ],
+    "date": "2016-01-21",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229884/tribi/20230621_spain_cerdanyoladelvall%C3%A8s_%EA%B0%95%EC%95%84%EC%A7%80_1777229882.jpg",
+    "city": "Cerdanyola del Vallès",
+    "country": "Spain",
+    "lat": 41.50141388888889,
+    "lng": 2.088530555555556,
+    "tags": [
+      "강아지"
+    ],
+    "date": "2023-06-21",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229935/tribi/20230524_portugal_lisbon_%EB%B0%A5_1777229933.jpg",
+    "city": "Lisbon",
+    "country": "Portugal",
+    "lat": 38.71608333333334,
+    "lng": -9.130394444444445,
+    "tags": [
+      "밥"
+    ],
+    "date": "2023-05-24",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230033/tribi/20230417_turkey_istanbul_%EA%B0%95%EC%95%84%EC%A7%80_1777230031.jpg",
+    "city": "Istanbul",
+    "country": "Turkey",
+    "lat": 41.00755,
+    "lng": 28.976511111111108,
+    "tags": [
+      "강아지"
+    ],
+    "date": "2023-04-17",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232932/tribi/20250301_thailand_maetaengdistrict_%EB%82%98_1777232931.jpg",
+    "city": "Mae Taeng District",
+    "country": "Thailand",
+    "lat": 19.13428888888889,
+    "lng": 98.86944444444444,
+    "tags": [
+      "나"
+    ],
+    "date": "2025-03-01",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229950/tribi/20230603_portugal_lagos_%EB%B0%94%EB%8B%A4_1777229947.jpg",
+    "city": "Lagos",
+    "country": "Portugal",
+    "lat": 37.07973055555556,
+    "lng": -8.668552777777776,
+    "tags": [
+      "바다"
+    ],
+    "date": "2023-06-03",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232807/tribi/20241230_thailand_bannongkhwai_%EB%B0%A5_1777232805.jpg",
+    "city": "Ban Nong Khwai",
+    "country": "Thailand",
+    "lat": 18.731063888888887,
+    "lng": 98.92079166666667,
+    "tags": [
+      "밥"
+    ],
+    "date": "2024-12-30",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230560/tribi/20190414_japan_nakano_%EB%8F%84%EC%8B%9C_1777230557.jpg",
+    "city": "Nakano",
+    "country": "Japan",
+    "lat": 35.70623888888889,
+    "lng": 139.68144166666664,
+    "tags": [
+      "도시"
+    ],
+    "date": "2019-04-14",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230685/tribi/20190411_turkey_istanbul_%EB%8F%84%EC%8B%9C_%EA%B3%B5%EC%9B%90_1777230683.jpg",
+    "city": "Istanbul",
+    "country": "Turkey",
+    "lat": 41.01385833333333,
+    "lng": 28.984575,
+    "tags": [
+      "도시",
+      "공원"
+    ],
+    "date": "2019-04-11",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229946/tribi/20230530_portugal_lagos_%EB%82%98_1777229944.jpg",
+    "city": "Lagos",
+    "country": "Portugal",
+    "lat": 37.09379166666667,
+    "lng": -8.682047222222222,
+    "tags": [
+      "나"
+    ],
+    "date": "2023-05-30",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232811/tribi/20250116_thailand_chiangmaicitymunicipality_%EB%82%98_%EA%B3%A0%EC%96%91%EC%9D%B4_1777232809.jpg",
+    "city": "Chiang Mai City Municipality",
+    "country": "Thailand",
+    "lat": 18.79448888888889,
+    "lng": 98.9843361111111,
+    "tags": [
+      "나",
+      "고양이"
+    ],
+    "date": "2025-01-16",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232597/tribi/20250211_thailand_bangkok_%EC%B1%85_1777232595.jpg",
+    "city": "Bangkok",
+    "country": "Thailand",
+    "lat": 13.746599999999999,
+    "lng": 100.53054166666666,
+    "tags": [
+      "책"
+    ],
+    "date": "2025-02-11",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232639/tribi/20250311_indonesia_ubuddistrict_%EB%B0%A5_1777232637.jpg",
+    "city": "Ubud District",
+    "country": "Indonesia",
+    "lat": -8.516697222222223,
+    "lng": 115.25991111111111,
+    "tags": [
+      "밥"
+    ],
+    "date": "2025-03-11",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232824/tribi/20250122_thailand_chiangmaicitymunicipality_%EB%B0%A5_1777232823.jpg",
+    "city": "Chiang Mai City Municipality",
+    "country": "Thailand",
+    "lat": 18.800158333333336,
+    "lng": 98.98014722222223,
+    "tags": [
+      "밥"
+    ],
+    "date": "2025-01-22",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230692/tribi/20190411_turkey_istanbul_%EA%B3%A0%EC%96%91%EC%9D%B4_1777230690.jpg",
+    "city": "Istanbul",
+    "country": "Turkey",
+    "lat": 41.015991666666665,
+    "lng": 28.97204722222222,
+    "tags": [
+      "고양이"
+    ],
+    "date": "2019-04-11",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230524/tribi/20180205_%EB%8F%84%EC%8B%9C_1777230522.jpg",
+    "city": "Otaru",
+    "country": "Japan",
+    "lat": 43.198986,
+    "lng": 141.001924,
+    "tags": [
+      "도시"
+    ],
+    "date": "2018-02-05",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232843/tribi/20250204_thailand_maetaengdistrict_%EB%8F%99%EB%AC%BC_1777232841.jpg",
+    "city": "Mae Taeng District",
+    "country": "Thailand",
+    "lat": 19.13521111111111,
+    "lng": 98.86986666666667,
+    "tags": [
+      "동물"
+    ],
+    "date": "2025-02-04",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232550/tribi/20250102_thailand_chiangmaicitymunicipality_%EB%82%98_1777232548.jpg",
+    "city": "Chiang Mai City Municipality",
+    "country": "Thailand",
+    "lat": 18.789075,
+    "lng": 98.9871,
+    "tags": [
+      "나"
+    ],
+    "date": "2025-01-02",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232850/tribi/20250207_thailand_chiangmaicitymunicipality_%EB%8F%84%EC%8B%9C_1777232848.jpg",
+    "city": "Chiang Mai City Municipality",
+    "country": "Thailand",
+    "lat": 18.80413888888889,
+    "lng": 98.98101944444444,
+    "tags": [
+      "도시"
+    ],
+    "date": "2025-02-07",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230174/tribi/20230517_portugal_porto_%EC%B1%85_1777230172.jpg",
+    "city": "Porto",
+    "country": "Portugal",
+    "lat": 41.14661666666667,
+    "lng": -8.615119444444444,
+    "tags": [
+      "책"
+    ],
+    "date": "2023-05-17",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229964/tribi/20230605_spain_seville_%EA%B3%B5%EC%9B%90_1777229961.jpg",
+    "city": "Seville",
+    "country": "Spain",
+    "lat": 37.38508611111111,
+    "lng": -5.986977777777778,
+    "tags": [
+      "공원"
+    ],
+    "date": "2023-06-05",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232905/tribi/20250112_thailand_chiangmaicitymunicipality_%EC%88%99%EC%86%8C_1777232903.jpg",
+    "city": "Chiang Mai City Municipality",
+    "country": "Thailand",
+    "lat": 18.803511111111114,
+    "lng": 98.98160555555556,
+    "tags": [
+      "숙소"
+    ],
+    "date": "2025-01-12",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230704/tribi/20190411_turkey_istanbul_%EB%8F%84%EC%8B%9C_%EA%B3%B5%EC%9B%90_1777230702.jpg",
+    "city": "Istanbul",
+    "country": "Turkey",
+    "lat": 41.00763333333333,
+    "lng": 28.977638888888887,
+    "tags": [
+      "도시",
+      "공원"
+    ],
+    "date": "2019-04-11",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232786/tribi/20250328_indonesia_ubuddistrict_%EB%8F%84%EC%8B%9C_1777232785.jpg",
+    "city": "Ubud District",
+    "country": "Indonesia",
+    "lat": -8.510247222222223,
+    "lng": 115.26180277777777,
+    "tags": [
+      "도시"
+    ],
+    "date": "2025-03-28",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232919/tribi/20250114_thailand_chiangmaicitymunicipality_%EB%8F%84%EC%8B%9C_1777232917.jpg",
+    "city": "Chiang Mai City Municipality",
+    "country": "Thailand",
+    "lat": 18.80411388888889,
+    "lng": 98.98103333333333,
+    "tags": [
+      "도시"
+    ],
+    "date": "2025-01-14",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232774/tribi/20250325_indonesia_northkuta_%EA%B0%95%EC%95%84%EC%A7%80_1777232772.jpg",
+    "city": "North Kuta",
+    "country": "Indonesia",
+    "lat": -8.655947222222222,
+    "lng": 115.1414638888889,
+    "tags": [
+      "강아지"
+    ],
+    "date": "2025-03-25",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232763/tribi/20250321_indonesia_nusapenida_%EB%8F%99%EB%AC%BC_1777232761.jpg",
+    "city": "Nusa Penida",
+    "country": "Indonesia",
+    "lat": -8.671963888888888,
+    "lng": 115.44934722222223,
+    "tags": [
+      "동물"
+    ],
+    "date": "2025-03-21",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230076/tribi/20230421_turkey_istanbul_%EB%B0%A5_1777230074.jpg",
+    "city": "Istanbul",
+    "country": "Turkey",
+    "lat": 41.03075,
+    "lng": 28.949519444444444,
+    "tags": [
+      "밥"
+    ],
+    "date": "2023-04-21",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232856/tribi/20250103_%EB%82%98_1777232854.jpg",
+    "city": "Chiang Mai City Municipality",
+    "country": "Thailand",
+    "lat": 18.78295,
+    "lng": 98.98859444444444,
+    "tags": [
+      "나"
+    ],
+    "date": "2025-01-07",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230555/tribi/20190413_japan_shibuya_%EB%82%98_%EB%8F%84%EC%8B%9C_1777230554.jpg",
+    "city": "Shibuya",
+    "country": "Japan",
+    "lat": 35.659130555555556,
+    "lng": 139.70060833333332,
+    "tags": [
+      "나",
+      "도시"
+    ],
+    "date": "2019-04-13",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229835/tribi/20230613_spain_m%C3%A1laga_%EB%8F%84%EC%8B%9C_1777229834.jpg",
+    "city": "Málaga",
+    "country": "Spain",
+    "lat": 36.72331666666667,
+    "lng": -4.416827777777778,
+    "tags": [
+      "도시"
+    ],
+    "date": "2023-06-13",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229877/tribi/20230620_spain_cerdanyoladelvall%C3%A8s_%EC%88%99%EC%86%8C_1777229875.jpg",
+    "city": "Cerdanyola del Vallès",
+    "country": "Spain",
+    "lat": 41.501441666666665,
+    "lng": 2.0886,
+    "tags": [
+      "숙소"
+    ],
+    "date": "2023-06-20",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230210/tribi/20230414_turkey_%C3%BCsk%C3%BCdar_%EB%B0%94%EB%8B%A4_%EB%B9%84%ED%96%89%EA%B8%B0_1777230208.jpg",
+    "city": "Üsküdar",
+    "country": "Turkey",
+    "lat": 41.01934166666667,
+    "lng": 29.008605555555555,
+    "tags": [
+      "바다",
+      "비행기"
+    ],
+    "date": "2023-04-14",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229867/tribi/20230618_spain_m%C3%A1laga_%EC%98%88%EC%88%A0_1777229865.jpg",
+    "city": "Málaga",
+    "country": "Spain",
+    "lat": 36.71880277777778,
+    "lng": -4.412661111111111,
+    "tags": [
+      "예술"
+    ],
+    "date": "2023-06-18",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230086/tribi/20230422_turkey_kad%C4%B1k%C3%B6y_%EA%B3%A0%EC%96%91%EC%9D%B4_1777230084.jpg",
+    "city": "Kadıköy",
+    "country": "Turkey",
+    "lat": 40.98629722222222,
+    "lng": 29.03247777777778,
+    "tags": [
+      "고양이"
+    ],
+    "date": "2023-04-22",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232915/tribi/20250113_thailand_chiangmaicitymunicipality_%EB%82%98_1777232913.jpg",
+    "city": "Chiang Mai City Municipality",
+    "country": "Thailand",
+    "lat": 18.797583333333336,
+    "lng": 98.96849722222223,
+    "tags": [
+      "나"
+    ],
+    "date": "2025-01-13",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229917/tribi/20230625_spain_barcelona_%EB%82%98_%EB%8F%84%EC%8B%9C_1777229914.jpg",
+    "city": "Barcelona",
+    "country": "Spain",
+    "lat": 41.414769444444445,
+    "lng": 2.1532833333333334,
+    "tags": [
+      "나",
+      "도시"
+    ],
+    "date": "2023-06-25",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232565/tribi/20250104_thailand_changphueak_%EB%82%98_1777232562.jpg",
+    "city": "Chang Phueak",
+    "country": "Thailand",
+    "lat": 18.813513888888888,
+    "lng": 98.96501944444445,
+    "tags": [
+      "나"
+    ],
+    "date": "2025-01-04",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232930/tribi/20250115_thailand_chiangmaicitymunicipality_%EB%82%98_%EC%88%99%EC%86%8C_1777232927.jpg",
+    "city": "Chiang Mai City Municipality",
+    "country": "Thailand",
+    "lat": 18.803472222222222,
+    "lng": 98.98123055555556,
+    "tags": [
+      "나",
+      "숙소"
+    ],
+    "date": "2025-01-15",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232582/tribi/20250211_thailand_bangkok_%EC%B1%85_1777232579.jpg",
+    "city": "Bangkok",
+    "country": "Thailand",
+    "lat": 13.746638888888889,
+    "lng": 100.53055555555555,
+    "tags": [
+      "책"
+    ],
+    "date": "2025-02-11",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230675/tribi/20190411_turkey_istanbul_%EB%8F%84%EC%8B%9C_%EC%9D%BC%EC%B6%9C%EC%9D%BC%EB%AA%B0_1777230673.jpg",
+    "city": "Istanbul",
+    "country": "Turkey",
+    "lat": 41.00726944444445,
+    "lng": 28.978405555555554,
+    "tags": [
+      "도시",
+      "일출일몰"
+    ],
+    "date": "2019-04-11",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232575/tribi/20250210_thailand_bangkok_%EB%B0%A5_1777232572.jpg",
+    "city": "Bangkok",
+    "country": "Thailand",
+    "lat": 13.759641666666667,
+    "lng": 100.49919166666666,
+    "tags": [
+      "밥"
+    ],
+    "date": "2025-02-10",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229184/tribi/20160113_%EB%82%98_1777229182.jpg",
+    "city": "Hồ Chí Minh",
+    "country": "Vietnam",
+    "lat": 10.527563,
+    "lng": 107.23328,
+    "tags": [
+      "나"
+    ],
+    "date": "2016-01-13",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232728/tribi/20250317_indonesia_nusapenida_%EB%B0%A5_1777232726.jpg",
+    "city": "Nusa Penida",
+    "country": "Indonesia",
+    "lat": -8.680674999999999,
+    "lng": 115.44035277777778,
+    "tags": [
+      "밥"
+    ],
+    "date": "2025-03-17",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229832/tribi/.jpg_1777229831.jpg",
+    "city": "Málaga",
+    "country": "Spain",
+    "lat": 36.72331666666667,
+    "lng": -4.416827777777778,
+    "tags": [
+      "나"
+    ],
+    "date": "2023-06-13",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230029/tribi/20230416_turkey_beyo%C4%9Flu_%EA%B3%A0%EC%96%91%EC%9D%B4_%EB%B0%94%EB%8B%A4_%EB%8F%84%EC%8B%9C_1777230027.jpg",
+    "city": "Beyoğlu",
+    "country": "Turkey",
+    "lat": 41.02220277777778,
+    "lng": 28.97722222222222,
+    "tags": [
+      "고양이",
+      "바다",
+      "도시"
+    ],
+    "date": "2023-04-16",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232547/tribi/20250101_thailand_bannongkhwai_%EB%82%98_%EC%88%99%EC%86%8C_1777232545.jpg",
+    "city": "Ban Nong Khwai",
+    "country": "Thailand",
+    "lat": 18.73110833333333,
+    "lng": 98.92079166666667,
+    "tags": [
+      "나",
+      "숙소"
+    ],
+    "date": "2025-01-01",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232571/tribi/20250210_thailand_bangkok_%EC%88%99%EC%86%8C_1777232569.jpg",
+    "city": "Bangkok",
+    "country": "Thailand",
+    "lat": 13.758355555555555,
+    "lng": 100.49774166666667,
+    "tags": [
+      "숙소"
+    ],
+    "date": "2025-02-10",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230153/tribi/20230514_portugal_vilanovadegaia_%EB%8F%84%EC%8B%9C_1777230151.jpg",
+    "city": "Vila Nova de Gaia",
+    "country": "Portugal",
+    "lat": 41.13788888888889,
+    "lng": -8.609577777777778,
+    "tags": [
+      "도시"
+    ],
+    "date": "2023-05-14",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229928/tribi/20230627_spain_barcelona_%EB%B9%84%ED%96%89%EA%B8%B0_1777229926.jpg",
+    "city": "Barcelona",
+    "country": "Spain",
+    "lat": 41.38659166666667,
+    "lng": 2.170022222222222,
+    "tags": [
+      "비행기"
+    ],
+    "date": "2023-06-27",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229190/tribi/20160121_%EB%8F%99%EB%AC%BC_1777229188.jpg",
+    "city": "Hồ Chí Minh",
+    "country": "Vietnam",
+    "lat": 10.527563,
+    "lng": 107.23328,
+    "tags": [
+      "동물"
+    ],
+    "date": "2016-01-21",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229970/tribi/20230612_spain_m%C3%A1laga_%EC%88%99%EC%86%8C_1777229969.jpg",
+    "city": "Málaga",
+    "country": "Spain",
+    "lat": 36.72943888888889,
+    "lng": -4.4155194444444446,
+    "tags": [
+      "숙소"
+    ],
+    "date": "2023-06-12",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232568/tribi/20250209_thailand_chiangmaicitymunicipality_%EB%82%98_%EB%B9%84%ED%96%89%EA%B8%B0_1777232566.jpg",
+    "city": "Chiang Mai City Municipality",
+    "country": "Thailand",
+    "lat": 18.798994444444446,
+    "lng": 99.0176861111111,
+    "tags": [
+      "나",
+      "비행기"
+    ],
+    "date": "2025-02-09",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230001/tribi/20230414_turkey_kad%C4%B1k%C3%B6y_%EC%B1%85_1777229999.jpg",
+    "city": "Kadıköy",
+    "country": "Turkey",
+    "lat": 40.988572222222224,
+    "lng": 29.03126111111111,
+    "tags": [
+      "책"
+    ],
+    "date": "2023-04-14",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230179/tribi/20230517_portugal_vilanovadegaia_%EC%9D%BC%EC%B6%9C%EC%9D%BC%EB%AA%B0_1777230178.jpg",
+    "city": "Vila Nova de Gaia",
+    "country": "Portugal",
+    "lat": 41.13621944444444,
+    "lng": -8.608333333333333,
+    "tags": [
+      "일출일몰"
+    ],
+    "date": "2023-05-17",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232558/tribi/20250126_thailand_chiangmaicitymunicipality_%EB%8F%84%EC%8B%9C_1777232555.jpg",
+    "city": "Chiang Mai City Municipality",
+    "country": "Thailand",
+    "lat": 18.797769444444445,
+    "lng": 98.97930277777778,
+    "tags": [
+      "도시"
+    ],
+    "date": "2025-01-26",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232878/tribi/20241230_thailand_bannongkhwai_%EC%88%99%EC%86%8C_1777232875.jpg",
+    "city": "Ban Nong Khwai",
+    "country": "Thailand",
+    "lat": 18.731141666666666,
+    "lng": 98.92073055555556,
+    "tags": [
+      "숙소"
+    ],
+    "date": "2024-12-30",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230194/tribi/20230521_portugal_lisbon_%EC%9D%BC%EC%B6%9C%EC%9D%BC%EB%AA%B0_%EA%B3%B5%EC%9B%90_1777230192.jpg",
+    "city": "Lisbon",
+    "country": "Portugal",
+    "lat": 38.711447222222226,
+    "lng": -9.130547222222223,
+    "tags": [
+      "일출일몰",
+      "공원"
+    ],
+    "date": "2023-05-21",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229954/tribi/20230605_spain_seville_%EB%8F%84%EC%8B%9C_%EC%B0%BD%EB%AC%B8_1777229952.jpg",
+    "city": "Seville",
+    "country": "Spain",
+    "lat": 37.376216666666664,
+    "lng": -5.986994444444444,
+    "tags": [
+      "도시",
+      "창문"
+    ],
+    "date": "2023-06-05",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229880/tribi/20230621_spain_cerdanyoladelvall%C3%A8s_%EA%B0%95%EC%95%84%EC%A7%80_1777229878.jpg",
+    "city": "Cerdanyola del Vallès",
+    "country": "Spain",
+    "lat": 41.50141111111111,
+    "lng": 2.088530555555556,
+    "tags": [
+      "강아지"
+    ],
+    "date": "2023-06-21",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230549/tribi/20190413_japan_taito_%EB%8F%84%EC%8B%9C_1777230547.jpg",
+    "city": "Taito",
+    "country": "Japan",
+    "lat": 35.714686111111114,
+    "lng": 139.79571666666666,
+    "tags": [
+      "도시"
+    ],
+    "date": "2019-04-13",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229870/tribi/%EB%82%98_1777229868.jpg",
+    "city": "Málaga",
+    "country": "Spain",
+    "lat": 36.71880277777778,
+    "lng": -4.412661111111111,
+    "tags": [
+      "나"
+    ],
+    "date": "2023-06-18",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232617/tribi/20250211_thailand_bangkok_%EB%B0%A5_1777232615.jpg",
+    "city": "Bangkok",
+    "country": "Thailand",
+    "lat": 13.743894444444443,
+    "lng": 100.54115277777778,
+    "tags": [
+      "밥"
+    ],
+    "date": "2025-02-11",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232620/tribi/20250212_thailand_bangkok_%EB%B0%A5_1777232619.jpg",
+    "city": "Bangkok",
+    "country": "Thailand",
+    "lat": 13.731925,
+    "lng": 100.56768888888888,
+    "tags": [
+      "밥"
+    ],
+    "date": "2025-02-12",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230563/tribi/20190413_japan_minato_%EB%8F%84%EC%8B%9C_%EC%9D%BC%EC%B6%9C%EC%9D%BC%EB%AA%B0_1777230561.jpg",
+    "city": "Minato",
+    "country": "Japan",
+    "lat": 35.65734166666667,
+    "lng": 139.74960277777777,
+    "tags": [
+      "도시",
+      "일출일몰"
+    ],
+    "date": "2019-04-13",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232898/tribi/20250111_thailand_bannongkhwai_%EA%B0%95%EC%95%84%EC%A7%80_1777232896.jpg",
+    "city": "Ban Nong Khwai",
+    "country": "Thailand",
+    "lat": 18.728016666666665,
+    "lng": 98.92121944444445,
+    "tags": [
+      "강아지"
+    ],
+    "date": "2025-01-11",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230201/tribi/20230524_portugal_lisbon_%EA%B3%B5%EC%9B%90_1777230200.jpg",
+    "city": "Lisbon",
+    "country": "Portugal",
+    "lat": 38.711261111111114,
+    "lng": -9.134238888888888,
+    "tags": [
+      "공원"
+    ],
+    "date": "2023-05-24",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232734/tribi/20250319_%EB%8F%99%EB%AC%BC_%EB%B0%94%EB%8B%A4_1777232732.jpg",
+    "city": "Nusa Penida",
+    "country": "Indonesia",
+    "lat": -8.769386111111112,
+    "lng": 115.48399444444445,
+    "tags": [
+      "동물",
+      "바다"
+    ],
+    "date": "2025-03-14",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230113/tribi/20230429_turkey_antalya_%EA%B0%95%EC%95%84%EC%A7%80_1777230111.jpg",
+    "city": "Antalya",
+    "country": "Turkey",
+    "lat": 36.853677777777776,
+    "lng": 30.806627777777777,
+    "tags": [
+      "강아지"
+    ],
+    "date": "2023-04-29",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230092/tribi/20230424_turkey_istanbul_%EA%B3%A0%EC%96%91%EC%9D%B4_%EB%8F%84%EC%8B%9C_1777230090.jpg",
+    "city": "Istanbul",
+    "country": "Turkey",
+    "lat": 41.029444444444444,
+    "lng": 28.935702777777777,
+    "tags": [
+      "고양이",
+      "도시"
+    ],
+    "date": "2023-04-24",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232538/tribi/20250320_%EB%8F%99%EB%AC%BC_%EB%B0%94%EB%8B%A4_1777232538.jpg",
+    "city": "Nusa Penida",
+    "country": "Indonesia",
+    "lat": -8.769386111111112,
+    "lng": 115.48399444444445,
+    "tags": [
+      "동물",
+      "바다"
+    ],
+    "date": "2025-03-14",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232901/tribi/20250111_thailand_chiangmaicitymunicipality_%EC%88%99%EC%86%8C_1777232899.jpg",
+    "city": "Chiang Mai City Municipality",
+    "country": "Thailand",
+    "lat": 18.80312222222222,
+    "lng": 98.98175833333333,
+    "tags": [
+      "숙소"
+    ],
+    "date": "2025-01-11",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232796/tribi/20250331_indonesia_ubuddistrict_%EB%B0%A5_1777232794.jpg",
+    "city": "Ubud District",
+    "country": "Indonesia",
+    "lat": -8.508458333333333,
+    "lng": 115.26071944444445,
+    "tags": [
+      "밥"
+    ],
+    "date": "2025-03-31",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232711/tribi/20250314_indonesia_nusapenida_%EB%B0%A5_1777232709.jpg",
+    "city": "Nusa Penida",
+    "country": "Indonesia",
+    "lat": -8.666108333333334,
+    "lng": 115.46416388888889,
+    "tags": [
+      "밥"
+    ],
+    "date": "2025-03-14",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230101/tribi/20230427_turkey_antalya_%EA%B0%95%EC%95%84%EC%A7%80_1777230098.jpg",
+    "city": "Antalya",
+    "country": "Turkey",
+    "lat": 36.84719722222223,
+    "lng": 30.811772222222224,
+    "tags": [
+      "강아지"
+    ],
+    "date": "2023-04-27",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230048/tribi/20230417_turkey_kad%C4%B1k%C3%B6y_%EB%82%98_%EA%B3%A0%EC%96%91%EC%9D%B4_%EC%88%99%EC%86%8C_1777230046.jpg",
+    "city": "Kadıköy",
+    "country": "Turkey",
+    "lat": 40.98632777777778,
+    "lng": 29.0326,
+    "tags": [
+      "나",
+      "고양이",
+      "숙소"
+    ],
+    "date": "2023-04-17",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230080/tribi/20230422_turkey_kad%C4%B1k%C3%B6y_%EC%88%99%EC%86%8C_1777230078.jpg",
+    "city": "Kadıköy",
+    "country": "Turkey",
+    "lat": 40.98629722222222,
+    "lng": 29.03247777777778,
+    "tags": [
+      "숙소"
+    ],
+    "date": "2023-04-22",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230026/tribi/20230416_turkey_kad%C4%B1k%C3%B6y_%EA%B3%A0%EC%96%91%EC%9D%B4_1777230024.jpg",
+    "city": "Kadıköy",
+    "country": "Turkey",
+    "lat": 40.98646388888889,
+    "lng": 29.03203611111111,
+    "tags": [
+      "고양이"
+    ],
+    "date": "2023-04-16",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230542/tribi/20190413_japan_shibuya_%EA%B3%B5%EC%9B%90_1777230540.jpg",
+    "city": "Shibuya",
+    "country": "Japan",
+    "lat": 35.67053333333333,
+    "lng": 139.6959527777778,
+    "tags": [
+      "공원"
+    ],
+    "date": "2019-04-13",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232870/tribi/20250106_%EB%82%98_1777232869.jpg",
+    "city": "Chiang Mai City Municipality",
+    "country": "Thailand",
+    "lat": 18.78295,
+    "lng": 98.98859444444444,
+    "tags": [
+      "나"
+    ],
+    "date": "2025-01-07",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229181/tribi/%EB%8F%84%EC%8B%9C_1777229179.jpg",
+    "city": "Hồ Chí Minh",
+    "country": "Vietnam",
+    "lat": 10.527563,
+    "lng": 107.23328,
+    "tags": [
+      "도시"
+    ],
+    "date": "2016-01-13",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229973/tribi/20230612_spain_m%C3%A1laga_%EC%88%99%EC%86%8C_%EC%B0%BD%EB%AC%B8_1777229971.jpg",
+    "city": "Málaga",
+    "country": "Spain",
+    "lat": 36.72967222222223,
+    "lng": -4.415844444444445,
+    "tags": [
+      "숙소",
+      "창문"
+    ],
+    "date": "2023-06-12",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229843/tribi/20230613_spain_m%C3%A1laga_%EB%B0%94%EB%8B%A4_1777229841.jpg",
+    "city": "Málaga",
+    "country": "Spain",
+    "lat": 36.71496388888889,
+    "lng": -4.413216666666667,
+    "tags": [
+      "바다"
+    ],
+    "date": "2023-06-13",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229992/tribi/20230429_turkey_antalya_%EB%82%98_%EB%B0%94%EB%8B%A4_1777229990.jpg",
+    "city": "Antalya",
+    "country": "Turkey",
+    "lat": 36.88591944444445,
+    "lng": 30.702805555555553,
+    "tags": [
+      "나",
+      "바다"
+    ],
+    "date": "2023-04-29",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229890/tribi/20230621_spain_barcelona_%EB%B0%A5_1777229888.jpg",
+    "city": "Barcelona",
+    "country": "Spain",
+    "lat": 41.38126111111111,
+    "lng": 2.175386111111111,
+    "tags": [
+      "밥"
+    ],
+    "date": "2023-06-21",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229830/tribi/20230623_spain_barcelona_%EB%8F%84%EC%8B%9C_1777229828.jpg",
+    "city": "Barcelona",
+    "country": "Spain",
+    "lat": 41.40378888888889,
+    "lng": 2.174661111111111,
+    "tags": [
+      "도시"
+    ],
+    "date": "2023-06-23",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232894/tribi/20250110_thailand_bannongkhwai_%EA%B3%A0%EC%96%91%EC%9D%B4_1777232892.jpg",
+    "city": "Ban Nong Khwai",
+    "country": "Thailand",
+    "lat": 18.731138888888886,
+    "lng": 98.92073055555556,
+    "tags": [
+      "고양이"
+    ],
+    "date": "2025-01-10",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230005/tribi/20230414_turkey_istanbul_%EA%B3%A0%EC%96%91%EC%9D%B4_%EA%B3%B5%EC%9B%90_1777230003.jpg",
+    "city": "Istanbul",
+    "country": "Turkey",
+    "lat": 41.011433333333336,
+    "lng": 28.979430555555552,
+    "tags": [
+      "고양이",
+      "공원"
+    ],
+    "date": "2023-04-14",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230701/tribi/20190411_turkey_istanbul_%EB%8F%84%EC%8B%9C_1777230699.jpg",
+    "city": "Istanbul",
+    "country": "Turkey",
+    "lat": 41.007377777777776,
+    "lng": 28.97830833333333,
+    "tags": [
+      "도시"
+    ],
+    "date": "2019-04-11",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229958/tribi/20230605_spain_seville_%EB%8F%84%EC%8B%9C_%EC%B0%BD%EB%AC%B8_1777229956.jpg",
+    "city": "Seville",
+    "country": "Spain",
+    "lat": 37.37694166666667,
+    "lng": -5.986219444444444,
+    "tags": [
+      "도시",
+      "창문"
+    ],
+    "date": "2023-06-05",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230021/tribi/20230416_turkey_kad%C4%B1k%C3%B6y_%EA%B3%A0%EC%96%91%EC%9D%B4_%EB%8F%84%EC%8B%9C_1777230018.jpg",
+    "city": "Kadıköy",
+    "country": "Turkey",
+    "lat": 40.98148333333334,
+    "lng": 29.031358333333333,
+    "tags": [
+      "고양이",
+      "도시"
+    ],
+    "date": "2023-04-16",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229839/tribi/20230613_spain_m%C3%A1laga_%EB%8F%84%EC%8B%9C_1777229837.jpg",
+    "city": "Málaga",
+    "country": "Spain",
+    "lat": 36.71820833333334,
+    "lng": -4.415416666666667,
+    "tags": [
+      "도시"
+    ],
+    "date": "2023-06-13",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232908/tribi/20250113_thailand_chiangmaicitymunicipality_%EB%82%98_%EC%88%99%EC%86%8C_1777232907.jpg",
+    "city": "Chiang Mai City Municipality",
+    "country": "Thailand",
+    "lat": 18.803361111111112,
+    "lng": 98.98195555555556,
+    "tags": [
+      "나",
+      "숙소"
+    ],
+    "date": "2025-01-13",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230009/tribi/20230414_turkey_kad%C4%B1k%C3%B6y_%EB%82%98_%EC%88%99%EC%86%8C_1777230007.jpg",
+    "city": "Kadıköy",
+    "country": "Turkey",
+    "lat": 40.98630277777778,
+    "lng": 29.032227777777777,
+    "tags": [
+      "나",
+      "숙소"
+    ],
+    "date": "2023-04-14",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229986/tribi/%EB%82%98_%EB%8F%84%EC%8B%9C_1777229981.jpg",
+    "city": "Istanbul",
+    "country": "Turkey",
+    "lat": 41.01356944444444,
+    "lng": 28.97933611111111,
+    "tags": [
+      "나",
+      "도시"
+    ],
+    "date": "2023-04-17",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230129/tribi/20230508_turkey_g%C3%B6reme_%EC%82%B0_%EC%9D%BC%EC%B6%9C%EC%9D%BC%EB%AA%B0_1777230128.jpg",
+    "city": "Göreme",
+    "country": "Turkey",
+    "lat": 38.642513888888885,
+    "lng": 34.83334444444445,
+    "tags": [
+      "산",
+      "일출일몰"
+    ],
+    "date": "2023-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230186/tribi/20230518_portugal_porto_%EC%9D%BC%EC%B6%9C%EC%9D%BC%EB%AA%B0_1777230184.jpg",
+    "city": "Porto",
+    "country": "Portugal",
+    "lat": 41.14051388888889,
+    "lng": -8.611658333333333,
+    "tags": [
+      "일출일몰"
+    ],
+    "date": "2023-05-18",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232721/tribi/20250317_indonesia_nusapenida_%EB%B0%94%EB%8B%A4_1777232720.jpg",
+    "city": "Nusa Penida",
+    "country": "Indonesia",
+    "lat": -8.70786111111111,
+    "lng": 115.4394138888889,
+    "tags": [
+      "바다"
+    ],
+    "date": "2025-03-17",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232803/tribi/20241229_southkorea_anyang-si_%EB%82%98_%EB%B9%84%ED%96%89%EA%B8%B0_1777232801.jpg",
+    "city": "Anyang-si",
+    "country": "South Korea",
+    "lat": 37.38506944444445,
+    "lng": 126.94318333333334,
+    "tags": [
+      "나",
+      "비행기"
+    ],
+    "date": "2024-12-29",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232624/tribi/20250212_thailand_bangkok_%EB%B0%A5_1777232622.jpg",
+    "city": "Bangkok",
+    "country": "Thailand",
+    "lat": 13.759916666666667,
+    "lng": 100.49895555555555,
+    "tags": [
+      "밥"
+    ],
+    "date": "2025-02-12",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229874/tribi/20230620_spain_cerdanyoladelvall%C3%A8s_%EC%88%99%EC%86%8C_1777229872.jpg",
+    "city": "Cerdanyola del Vallès",
+    "country": "Spain",
+    "lat": 41.50141388888889,
+    "lng": 2.088611111111111,
+    "tags": [
+      "숙소"
+    ],
+    "date": "2023-06-20",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232874/tribi/20241230_thailand_bannongkhwai_%EC%88%99%EC%86%8C_%EC%B0%BD%EB%AC%B8_1777232872.jpg",
+    "city": "Ban Nong Khwai",
+    "country": "Thailand",
+    "lat": 18.73111944444444,
+    "lng": 98.92074722222223,
+    "tags": [
+      "숙소",
+      "창문"
+    ],
+    "date": "2024-12-30",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232748/tribi/20250320_%EB%8F%99%EB%AC%BC_%EB%B0%94%EB%8B%A4_1777232746.jpg",
+    "city": "Nusa Penida",
+    "country": "Indonesia",
+    "lat": -8.769386111111112,
+    "lng": 115.48399444444445,
+    "tags": [
+      "동물",
+      "바다"
+    ],
+    "date": "2025-03-14",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230204/tribi/20230525_portugal_lagos_%EC%88%99%EC%86%8C_%EC%B0%BD%EB%AC%B8_1777230203.jpg",
+    "city": "Lagos",
+    "country": "Portugal",
+    "lat": 37.09378888888889,
+    "lng": -8.68201111111111,
+    "tags": [
+      "숙소",
+      "창문"
+    ],
+    "date": "2023-05-25",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232741/tribi/20250320_indonesia_nusapenida_%EB%B0%94%EB%8B%A4_1777232740.jpg",
+    "city": "Nusa Penida",
+    "country": "Indonesia",
+    "lat": -8.667349999999999,
+    "lng": 115.46776666666666,
+    "tags": [
+      "바다"
+    ],
+    "date": "2025-03-20",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229856/tribi/20230615_spain_ronda_%EA%B3%A0%EC%96%91%EC%9D%B4_1777229853.jpg",
+    "city": "Ronda",
+    "country": "Spain",
+    "lat": 36.74143055555556,
+    "lng": -5.167447222222222,
+    "tags": [
+      "고양이"
+    ],
+    "date": "2023-06-15",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230058/tribi/20230419_turkey_beyo%C4%9Flu_%EA%B3%A0%EC%96%91%EC%9D%B4_%EB%8F%84%EC%8B%9C_1777230056.jpg",
+    "city": "Beyoğlu",
+    "country": "Turkey",
+    "lat": 41.02845277777778,
+    "lng": 28.97992222222222,
+    "tags": [
+      "고양이",
+      "도시"
+    ],
+    "date": "2023-04-19",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229932/tribi/20230522_portugal_lisbon_%EC%B1%85_1777229930.jpg",
+    "city": "Lisbon",
+    "country": "Portugal",
+    "lat": 38.70276388888889,
+    "lng": -9.178744444444444,
+    "tags": [
+      "책"
+    ],
+    "date": "2023-05-22",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232629/tribi/20250309_indonesia_ubuddistrict_%EB%B0%A5_1777232626.jpg",
+    "city": "Ubud District",
+    "country": "Indonesia",
+    "lat": -8.5055,
+    "lng": 115.25463888888889,
+    "tags": [
+      "밥"
+    ],
+    "date": "2025-03-09",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232853/tribi/20250208_thailand_chiangmaicitymunicipality_%EA%B3%A0%EC%96%91%EC%9D%B4_1777232851.jpg",
+    "city": "Chiang Mai City Municipality",
+    "country": "Thailand",
+    "lat": 18.80334722222222,
+    "lng": 98.98202500000001,
+    "tags": [
+      "고양이"
+    ],
+    "date": "2025-02-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229827/tribi/20230623_spain_barcelona_%EB%8F%84%EC%8B%9C_1777229825.jpg",
+    "city": "Barcelona",
+    "country": "Spain",
+    "lat": 41.404681599999996,
+    "lng": 2.1744719999999997,
+    "tags": [
+      "도시"
+    ],
+    "date": "2023-06-23",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230171/tribi/20230516_portugal_porto_%EB%8F%84%EC%8B%9C_%EC%9D%BC%EC%B6%9C%EC%9D%BC%EB%AA%B0_1777230169.jpg",
+    "city": "Porto",
+    "country": "Portugal",
+    "lat": 41.14997777777778,
+    "lng": -8.607055555555554,
+    "tags": [
+      "도시",
+      "일출일몰"
+    ],
+    "date": "2023-05-16",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229912/tribi/20230625_spain_barcelona_%EB%82%98_%EB%8F%84%EC%8B%9C_1777229910.jpg",
+    "city": "Barcelona",
+    "country": "Spain",
+    "lat": 41.4148,
+    "lng": 2.153311111111111,
+    "tags": [
+      "나",
+      "도시"
+    ],
+    "date": "2023-06-25",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230013/tribi/20230415_turkey_kad%C4%B1k%C3%B6y_%EC%88%99%EC%86%8C_1777230011.jpg",
+    "city": "Kadıköy",
+    "country": "Turkey",
+    "lat": 40.986275,
+    "lng": 29.03245833333333,
+    "tags": [
+      "숙소"
+    ],
+    "date": "2023-04-15",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229864/tribi/20230618_spain_m%C3%A1laga_%EC%98%88%EC%88%A0_1777229861.jpg",
+    "city": "Málaga",
+    "country": "Spain",
+    "lat": 36.71877222222222,
+    "lng": -4.412658333333334,
+    "tags": [
+      "예술"
+    ],
+    "date": "2023-06-18",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229194/tribi/20160121_%EB%8F%99%EB%AC%BC_1777229192.jpg",
+    "city": "Hồ Chí Minh",
+    "country": "Vietnam",
+    "lat": 10.527563,
+    "lng": 107.23328,
+    "tags": [
+      "동물"
+    ],
+    "date": "2016-01-21",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230044/tribi/20230417_turkey_kad%C4%B1k%C3%B6y_%EC%88%99%EC%86%8C_1777230042.jpg",
+    "city": "Kadıköy",
+    "country": "Turkey",
+    "lat": 40.98628055555556,
+    "lng": 29.032469444444445,
+    "tags": [
+      "숙소"
+    ],
+    "date": "2023-04-17",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230177/tribi/20230517_portugal_porto_%EC%98%88%EC%88%A0_1777230175.jpg",
+    "city": "Porto",
+    "country": "Portugal",
+    "lat": 41.146125,
+    "lng": -8.608988888888888,
+    "tags": [
+      "예술"
+    ],
+    "date": "2023-05-17",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229924/tribi/20230626_spain_cerdanyoladelvall%C3%A8s_%EC%B0%BD%EB%AC%B8_1777229922.jpg",
+    "city": "Cerdanyola del Vallès",
+    "country": "Spain",
+    "lat": 41.50051944444444,
+    "lng": 2.0892861111111114,
+    "tags": [
+      "창문"
+    ],
+    "date": "2023-06-26",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229943/tribi/20230527_portugal_lagos_%EC%98%88%EC%88%A0_1777229941.jpg",
+    "city": "Lagos",
+    "country": "Portugal",
+    "lat": 37.09645555555556,
+    "lng": -8.678063888888888,
+    "tags": [
+      "예술"
+    ],
+    "date": "2023-05-27",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232816/tribi/20250118_thailand_chiangmaicitymunicipality_%EC%98%88%EC%88%A0_1777232815.jpg",
+    "city": "Chiang Mai City Municipality",
+    "country": "Thailand",
+    "lat": 18.794622222222223,
+    "lng": 98.98198055555555,
+    "tags": [
+      "예술"
+    ],
+    "date": "2025-01-18",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232553/tribi/20250201_thailand_chiangmaicitymunicipality_%EC%B0%BD%EB%AC%B8_1777232551.jpg",
+    "city": "Chiang Mai City Municipality",
+    "country": "Thailand",
+    "lat": 18.798952777777778,
+    "lng": 98.97629444444445,
+    "tags": [
+      "창문"
+    ],
+    "date": "2025-02-01",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230552/tribi/20190413_japan_taito_%EB%8F%84%EC%8B%9C_1777230550.jpg",
+    "city": "Taito",
+    "country": "Japan",
+    "lat": 35.710883333333335,
+    "lng": 139.797975,
+    "tags": [
+      "도시"
+    ],
+    "date": "2019-04-13",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230106/tribi/20230428_turkey_pamukkale_%EB%82%98_%EC%9E%90%EC%97%B0_1777230104.jpg",
+    "city": "Pamukkale",
+    "country": "Turkey",
+    "lat": 37.92299444444444,
+    "lng": 29.124122222222223,
+    "tags": [
+      "나",
+      "자연"
+    ],
+    "date": "2023-04-28",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232636/tribi/20250310_indonesia_ubuddistrict_%EB%82%98_1777232634.jpg",
+    "city": "Ubud District",
+    "country": "Indonesia",
+    "lat": -8.513094444444445,
+    "lng": 115.26188611111111,
+    "tags": [
+      "나"
+    ],
+    "date": "2025-03-10",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232696/tribi/20250313_indonesia_nusapenida_%EB%B0%94%EB%8B%A4_1777232693.jpg",
+    "city": "Nusa Penida",
+    "country": "Indonesia",
+    "lat": -8.666525,
+    "lng": 115.46444722222222,
+    "tags": [
+      "바다"
+    ],
+    "date": "2025-03-13",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232691/tribi/20250312_indonesia_nusapenida_%EB%B0%94%EB%8B%A4_1777232641.jpg",
+    "city": "Nusa Penida",
+    "country": "Indonesia",
+    "lat": -8.67778611111111,
+    "lng": 115.44220833333334,
+    "tags": [
+      "바다"
+    ],
+    "date": "2025-03-12",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232602/tribi/20250211_thailand_bangkok_%EC%98%88%EC%88%A0_1777232600.jpg",
+    "city": "Bangkok",
+    "country": "Thailand",
+    "lat": 13.746744444444444,
+    "lng": 100.53043333333333,
+    "tags": [
+      "예술"
+    ],
+    "date": "2025-02-11",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232756/tribi/20250320_%EB%8F%99%EB%AC%BC_%EB%B0%94%EB%8B%A4_1777232752.jpg",
+    "city": "Nusa Penida",
+    "country": "Indonesia",
+    "lat": -8.769386111111112,
+    "lng": 115.48399444444445,
+    "tags": [
+      "동물",
+      "바다"
+    ],
+    "date": "2025-03-14",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232704/tribi/20250314_indonesia_nusapenida_%EB%B0%94%EB%8B%A4_1777232702.jpg",
+    "city": "Nusa Penida",
+    "country": "Indonesia",
+    "lat": -8.66586388888889,
+    "lng": 115.47356388888889,
+    "tags": [
+      "바다"
+    ],
+    "date": "2025-03-14",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229905/tribi/20230623_spain_cerdanyoladelvall%C3%A8s_%EB%B0%A5_1777229900.jpg",
+    "city": "Cerdanyola del Vallès",
+    "country": "Spain",
+    "lat": 41.50145,
+    "lng": 2.0885583333333333,
+    "tags": [
+      "밥"
+    ],
+    "date": "2023-06-23",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230207/tribi/%EC%88%99%EC%86%8C_1777230206.jpg",
+    "city": "Kadıköy",
+    "country": "Turkey",
+    "lat": 40.98629722222222,
+    "lng": 29.03247777777778,
+    "tags": [
+      "숙소"
+    ],
+    "date": "2023-04-22",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232700/tribi/20250313_indonesia_nusapenida_%EC%9D%BC%EC%B6%9C%EC%9D%BC%EB%AA%B0_1777232698.jpg",
+    "city": "Nusa Penida",
+    "country": "Indonesia",
+    "lat": -8.672474999999999,
+    "lng": 115.44937222222222,
+    "tags": [
+      "일출일몰"
+    ],
+    "date": "2025-03-13",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230168/tribi/20230516_portugal_porto_%EC%98%88%EC%88%A0_1777230166.jpg",
+    "city": "Porto",
+    "country": "Portugal",
+    "lat": 41.144675,
+    "lng": -8.6124,
+    "tags": [
+      "예술"
+    ],
+    "date": "2023-05-16",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232745/tribi/20250320_%EB%82%98_%EB%8F%99%EB%AC%BC_%EB%B0%94%EB%8B%A4_1777232743.jpg",
+    "city": "Nusa Penida",
+    "country": "Indonesia",
+    "lat": -8.769386111111112,
+    "lng": 115.48399444444445,
+    "tags": [
+      "나",
+      "동물",
+      "바다"
+    ],
+    "date": "2025-03-14",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229921/tribi/20230625_spain_barcelona_%EB%8F%84%EC%8B%9C_%EC%98%88%EC%88%A0_1777229919.jpg",
+    "city": "Barcelona",
+    "country": "Spain",
+    "lat": 41.41366111111111,
+    "lng": 2.1528916666666666,
+    "tags": [
+      "도시",
+      "예술"
+    ],
+    "date": "2023-06-25",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232731/tribi/20250319_indonesia_nusapenida_%EB%B0%A5_1777232729.jpg",
+    "city": "Nusa Penida",
+    "country": "Indonesia",
+    "lat": -8.66608888888889,
+    "lng": 115.46417222222223,
+    "tags": [
+      "밥"
+    ],
+    "date": "2025-03-19",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230040/tribi/20230417_turkey_kad%C4%B1k%C3%B6y_%EA%B3%A0%EC%96%91%EC%9D%B4_1777230039.jpg",
+    "city": "Kadıköy",
+    "country": "Turkey",
+    "lat": 40.98643611111111,
+    "lng": 29.032091666666666,
+    "tags": [
+      "고양이"
+    ],
+    "date": "2023-04-17",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230017/tribi/20230416_turkey_kad%C4%B1k%C3%B6y_%EA%B3%A0%EC%96%91%EC%9D%B4_%EB%8F%84%EC%8B%9C_1777230014.jpg",
+    "city": "Kadıköy",
+    "country": "Turkey",
+    "lat": 40.983780555555555,
+    "lng": 29.03386388888889,
+    "tags": [
+      "고양이",
+      "도시"
+    ],
+    "date": "2023-04-16",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232606/tribi/20250211_thailand_bangkok_%EC%98%88%EC%88%A0_1777232605.jpg",
+    "city": "Bangkok",
+    "country": "Thailand",
+    "lat": 13.746855555555555,
+    "lng": 100.53046388888889,
+    "tags": [
+      "예술"
+    ],
+    "date": "2025-02-11",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230096/tribi/20230424_turkey_beyo%C4%9Flu_%EB%B0%94%EB%8B%A4_%EC%9D%BC%EC%B6%9C%EC%9D%BC%EB%AA%B0_1777230094.jpg",
+    "city": "Beyoğlu",
+    "country": "Turkey",
+    "lat": 41.02614722222222,
+    "lng": 28.963583333333332,
+    "tags": [
+      "바다",
+      "일출일몰"
+    ],
+    "date": "2023-04-24",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232609/tribi/20250211_thailand_bangkok_%EC%98%88%EC%88%A0_1777232608.jpg",
+    "city": "Bangkok",
+    "country": "Thailand",
+    "lat": 13.746649999999999,
+    "lng": 100.53008333333334,
+    "tags": [
+      "예술"
+    ],
+    "date": "2025-02-11",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229178/tribi/%EB%82%98_1777229177.jpg",
+    "city": "Hồ Chí Minh",
+    "country": "Vietnam",
+    "lat": 10.527563,
+    "lng": 107.23328,
+    "tags": [
+      "나"
+    ],
+    "date": "2016-01-13",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230126/tribi/20230508_turkey_g%C3%B6reme_%EC%88%99%EC%86%8C_1777230124.jpg",
+    "city": "Göreme",
+    "country": "Turkey",
+    "lat": 38.64490277777778,
+    "lng": 34.82628888888889,
+    "tags": [
+      "숙소"
+    ],
+    "date": "2023-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230055/tribi/20230419_turkey_beyo%C4%9Flu_%EA%B3%A0%EC%96%91%EC%9D%B4_1777230053.jpg",
+    "city": "Beyoğlu",
+    "country": "Turkey",
+    "lat": 41.03082777777778,
+    "lng": 28.975177777777777,
+    "tags": [
+      "고양이"
+    ],
+    "date": "2023-04-19",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230037/tribi/20230417_turkey_istanbul_%EA%B3%A0%EC%96%91%EC%9D%B4_1777230035.jpg",
+    "city": "Istanbul",
+    "country": "Turkey",
+    "lat": 41.01356944444444,
+    "lng": 28.97933611111111,
+    "tags": [
+      "고양이"
+    ],
+    "date": "2023-04-17",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232724/tribi/20250317_indonesia_nusapenida_%EB%82%98_%EB%B0%94%EB%8B%A4_1777232723.jpg",
+    "city": "Nusa Penida",
+    "country": "Indonesia",
+    "lat": -8.70791111111111,
+    "lng": 115.43922500000001,
+    "tags": [
+      "나",
+      "바다"
+    ],
+    "date": "2025-03-17",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230698/tribi/20190411_turkey_istanbul_%EA%B0%95%EC%95%84%EC%A7%80_1777230696.jpg",
+    "city": "Istanbul",
+    "country": "Turkey",
+    "lat": 41.00705833333333,
+    "lng": 28.977802777777775,
+    "tags": [
+      "강아지"
+    ],
+    "date": "2019-04-11",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229852/tribi/20230615_spain_ronda_%EA%B3%A0%EC%96%91%EC%9D%B4_1777229850.jpg",
+    "city": "Ronda",
+    "country": "Spain",
+    "lat": 36.74146666666667,
+    "lng": -5.167333333333334,
+    "tags": [
+      "고양이"
+    ],
+    "date": "2023-06-15",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230689/tribi/20190411_turkey_istanbul_%EA%B3%A0%EC%96%91%EC%9D%B4_1777230687.jpg",
+    "city": "Istanbul",
+    "country": "Turkey",
+    "lat": 41.01079444444444,
+    "lng": 28.981358333333333,
+    "tags": [
+      "고양이"
+    ],
+    "date": "2019-04-11",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232891/tribi/20250109_thailand_bannongkhwai_%EA%B3%A0%EC%96%91%EC%9D%B4_1777232889.jpg",
+    "city": "Ban Nong Khwai",
+    "country": "Thailand",
+    "lat": 18.730988888888888,
+    "lng": 98.92068611111111,
+    "tags": [
+      "고양이"
+    ],
+    "date": "2025-01-09",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230159/tribi/20230515_portugal_porto_%EB%B0%A5_1777230157.jpg",
+    "city": "Porto",
+    "country": "Portugal",
+    "lat": 41.150127777777776,
+    "lng": -8.607352777777777,
+    "tags": [
+      "밥"
+    ],
+    "date": "2023-05-15",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232760/tribi/20250321_indonesia_nusapenida_%EB%82%98_%EB%B0%94%EB%8B%A4_1777232758.jpg",
+    "city": "Nusa Penida",
+    "country": "Indonesia",
+    "lat": -8.683808333333333,
+    "lng": 115.48245277777778,
+    "tags": [
+      "나",
+      "바다"
+    ],
+    "date": "2025-03-21",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232590/tribi/20250211_thailand_bangkok_%EC%B1%85_1777232588.jpg",
+    "city": "Bangkok",
+    "country": "Thailand",
+    "lat": 13.746627777777777,
+    "lng": 100.53055555555555,
+    "tags": [
+      "책"
+    ],
+    "date": "2025-02-11",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229895/tribi/20230621_spain_cerdanyoladelvall%C3%A8s_%EA%B0%95%EC%95%84%EC%A7%80_1777229893.jpg",
+    "city": "Cerdanyola del Vallès",
+    "country": "Spain",
+    "lat": 41.50145277777778,
+    "lng": 2.0886305555555555,
+    "tags": [
+      "강아지"
+    ],
+    "date": "2023-06-21",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230134/tribi/20230509_turkey_g%C3%B6reme_%EC%82%B0_%EC%9E%90%EC%97%B0_%EC%9D%BC%EC%B6%9C%EC%9D%BC%EB%AA%B0_1777230132.jpg",
+    "city": "Göreme",
+    "country": "Turkey",
+    "lat": 38.65315555555556,
+    "lng": 34.83157222222223,
+    "tags": [
+      "산",
+      "자연",
+      "일출일몰"
+    ],
+    "date": "2023-05-09",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232708/tribi/20250314_indonesia_nusapenida_%EB%B0%94%EB%8B%A4_1777232706.jpg",
+    "city": "Nusa Penida",
+    "country": "Indonesia",
+    "lat": -8.769386111111112,
+    "lng": 115.48399444444445,
+    "tags": [
+      "바다"
+    ],
+    "date": "2025-03-14",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230190/tribi/20230519_portugal_porto_%EC%98%88%EC%88%A0_1777230188.jpg",
+    "city": "Porto",
+    "country": "Portugal",
+    "lat": 41.14660277777778,
+    "lng": -8.614622222222222,
+    "tags": [
+      "예술"
+    ],
+    "date": "2023-05-19",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230061/tribi/20230420_turkey_kad%C4%B1k%C3%B6y_%EA%B3%A0%EC%96%91%EC%9D%B4_%EB%B0%94%EB%8B%A4_1777230059.jpg",
+    "city": "Kadıköy",
+    "country": "Turkey",
+    "lat": 40.96288333333334,
+    "lng": 29.064875,
+    "tags": [
+      "고양이",
+      "바다"
+    ],
+    "date": "2023-04-20",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229980/tribi/%EC%88%99%EC%86%8C_1777229978.jpg",
+    "city": "Kadıköy",
+    "country": "Turkey",
+    "lat": 40.98632777777778,
+    "lng": 29.0326,
+    "tags": [
+      "숙소"
+    ],
+    "date": "2023-04-17",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230538/tribi/20180217_%EB%8F%84%EC%8B%9C_1777230536.jpg",
+    "city": "Otaru",
+    "country": "Japan",
+    "lat": 43.198986,
+    "lng": 141.001924,
+    "tags": [
+      "도시"
+    ],
+    "date": "2018-02-17",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230183/tribi/20230517_portugal_vilanovadegaia_%EC%9D%BC%EC%B6%9C%EC%9D%BC%EB%AA%B0_1777230181.jpg",
+    "city": "Vila Nova de Gaia",
+    "country": "Portugal",
+    "lat": 41.138755555555555,
+    "lng": -8.608152777777777,
+    "tags": [
+      "일출일몰"
+    ],
+    "date": "2023-05-17",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232884/tribi/20241231_thailand_bannongkhwai_%EA%B3%A0%EC%96%91%EC%9D%B4_1777232883.jpg",
+    "city": "Ban Nong Khwai",
+    "country": "Thailand",
+    "lat": 18.731002777777775,
+    "lng": 98.9208,
+    "tags": [
+      "고양이"
+    ],
+    "date": "2024-12-31",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230197/tribi/20230524_portugal_lisbon_%EC%98%88%EC%88%A0_1777230195.jpg",
+    "city": "Lisbon",
+    "country": "Portugal",
+    "lat": 38.72008888888889,
+    "lng": -9.12973888888889,
+    "tags": [
+      "예술"
+    ],
+    "date": "2023-05-24",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229860/tribi/20230616_spain_nerja_%EB%B0%94%EB%8B%A4_1777229858.jpg",
+    "city": "Nerja",
+    "country": "Spain",
+    "lat": 36.74513888888889,
+    "lng": -3.8755277777777777,
+    "tags": [
+      "바다"
+    ],
+    "date": "2023-06-16",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230149/tribi/20230511_turkey_g%C3%B6reme_%EC%9D%BC%EC%B6%9C%EC%9D%BC%EB%AA%B0_%EC%B0%BD%EB%AC%B8_1777230144.jpg",
+    "city": "Göreme",
+    "country": "Turkey",
+    "lat": 38.644730555555554,
+    "lng": 34.82622222222223,
+    "tags": [
+      "일출일몰",
+      "창문"
+    ],
+    "date": "2023-05-11",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232881/tribi/20241230_thailand_banfon_%EA%B0%95%EC%95%84%EC%A7%80_1777232879.jpg",
+    "city": "Ban Fon",
+    "country": "Thailand",
+    "lat": 18.729138888888887,
+    "lng": 98.91130000000001,
+    "tags": [
+      "강아지"
+    ],
+    "date": "2024-12-30",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230521/tribi/%EB%8F%84%EC%8B%9C_1777230520.jpg",
+    "city": "Otaru",
+    "country": "Japan",
+    "lat": 43.198986,
+    "lng": 141.001924,
+    "tags": [
+      "도시"
+    ],
+    "date": "2018-02-10",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232586/tribi/20250211_thailand_bangkok_%EC%B1%85_1777232584.jpg",
+    "city": "Bangkok",
+    "country": "Thailand",
+    "lat": 13.746716666666666,
+    "lng": 100.530525,
+    "tags": [
+      "책"
+    ],
+    "date": "2025-02-11",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232535/tribi/20250320_%EB%8F%99%EB%AC%BC_%EB%B0%94%EB%8B%A4_1777232534.jpg",
+    "city": "Nusa Penida",
+    "country": "Indonesia",
+    "lat": -8.769386111111112,
+    "lng": 115.48399444444445,
+    "tags": [
+      "동물",
+      "바다"
+    ],
+    "date": "2025-03-14",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230535/tribi/20180215_%EB%8F%84%EC%8B%9C_1777230533.jpg",
+    "city": "Otaru",
+    "country": "Japan",
+    "lat": 43.198986,
+    "lng": 141.001924,
+    "tags": [
+      "도시"
+    ],
+    "date": "2018-02-15",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229908/tribi/20230624_spain_cerdanyoladelvall%C3%A8s_%EB%B0%A5_1777229907.jpg",
+    "city": "Cerdanyola del Vallès",
+    "country": "Spain",
+    "lat": 41.50143333333333,
+    "lng": 2.088563888888889,
+    "tags": [
+      "밥"
+    ],
+    "date": "2023-06-24",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232540/tribi/20250320_%EB%8F%99%EB%AC%BC_%EB%B0%94%EB%8B%A4_1777232539.jpg",
+    "city": "Nusa Penida",
+    "country": "Indonesia",
+    "lat": -8.769386111111112,
+    "lng": 115.48399444444445,
+    "tags": [
+      "동물",
+      "바다"
+    ],
+    "date": "2025-03-14",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230109/tribi/20230429_turkey_antalya_%EA%B0%95%EC%95%84%EC%A7%80_1777230108.jpg",
+    "city": "Antalya",
+    "country": "Turkey",
+    "lat": 36.853677777777776,
+    "lng": 30.806627777777777,
+    "tags": [
+      "강아지"
+    ],
+    "date": "2023-04-29",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230089/tribi/20230424_turkey_ey%C3%BCpsultan_%EA%B3%A0%EC%96%91%EC%9D%B4_1777230087.jpg",
+    "city": "Eyüpsultan",
+    "country": "Turkey",
+    "lat": 41.05226388888889,
+    "lng": 28.932405555555558,
+    "tags": [
+      "고양이"
+    ],
+    "date": "2023-04-24",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232594/tribi/20250211_thailand_bangkok_%EC%B1%85_1777232592.jpg",
+    "city": "Bangkok",
+    "country": "Thailand",
+    "lat": 13.746611111111111,
+    "lng": 100.53055555555555,
+    "tags": [
+      "책"
+    ],
+    "date": "2025-02-11",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229887/tribi/20230621_spain_barcelona_%EB%8F%84%EC%8B%9C_1777229885.jpg",
+    "city": "Barcelona",
+    "country": "Spain",
+    "lat": 41.394419444444445,
+    "lng": 2.1553666666666667,
+    "tags": [
+      "도시"
+    ],
+    "date": "2023-06-21",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229899/tribi/20230622_spain_cerdanyoladelvall%C3%A8s_%EC%88%99%EC%86%8C_1777229897.jpg",
+    "city": "Cerdanyola del Vallès",
+    "country": "Spain",
+    "lat": 41.50128888888889,
+    "lng": 2.0886444444444447,
+    "tags": [
+      "숙소"
+    ],
+    "date": "2023-06-22",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230532/tribi/20180212_%EB%8F%84%EC%8B%9C_1777230531.jpg",
+    "city": "Otaru",
+    "country": "Japan",
+    "lat": 43.198986,
+    "lng": 141.001924,
+    "tags": [
+      "도시"
+    ],
+    "date": "2018-02-12",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229849/tribi/20230615_spain_ronda_%EB%8F%84%EC%8B%9C_1777229847.jpg",
+    "city": "Ronda",
+    "country": "Spain",
+    "lat": 36.740544444444446,
+    "lng": -5.165266666666667,
+    "tags": [
+      "도시"
+    ],
+    "date": "2023-06-15",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232561/tribi/%EB%82%98_%EB%8F%99%EB%AC%BC_%EB%B0%94%EB%8B%A4_1777232559.jpg",
+    "city": "Nusa Penida",
+    "country": "Indonesia",
+    "lat": -8.769386111111112,
+    "lng": 115.48399444444445,
+    "tags": [
+      "나",
+      "동물",
+      "바다"
+    ],
+    "date": "2025-03-14",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230123/tribi/20230507_turkey_kad%C4%B1k%C3%B6y_%EA%B3%A0%EC%96%91%EC%9D%B4_1777230121.jpg",
+    "city": "Kadıköy",
+    "country": "Turkey",
+    "lat": 40.986336111111115,
+    "lng": 29.03225833333333,
+    "tags": [
+      "고양이"
+    ],
+    "date": "2023-05-07",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232613/tribi/20250211_thailand_bangkok_%EC%98%88%EC%88%A0_1777232611.jpg",
+    "city": "Bangkok",
+    "country": "Thailand",
+    "lat": 13.74673611111111,
+    "lng": 100.53038055555555,
+    "tags": [
+      "예술"
+    ],
+    "date": "2025-02-11",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230140/tribi/20230509_turkey_g%C3%B6reme_%EC%9E%90%EC%97%B0_1777230138.jpg",
+    "city": "Göreme",
+    "country": "Turkey",
+    "lat": 38.65508333333333,
+    "lng": 34.813736111111105,
+    "tags": [
+      "자연"
+    ],
+    "date": "2023-05-09",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230156/tribi/20230515_%EB%82%98_1777230154.jpg",
+    "city": "Porto",
+    "country": "Portugal",
+    "lat": 41.14051388888889,
+    "lng": -8.611658333333333,
+    "tags": [
+      "나"
+    ],
+    "date": "2023-05-18",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230067/tribi/20230420_turkey_kad%C4%B1k%C3%B6y_%EA%B3%A0%EC%96%91%EC%9D%B4_1777230062.jpg",
+    "city": "Kadıköy",
+    "country": "Turkey",
+    "lat": 40.96729444444445,
+    "lng": 29.054241666666666,
+    "tags": [
+      "고양이"
+    ],
+    "date": "2023-04-20",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232827/tribi/20250202_thailand_chiangmaicitymunicipality_%EB%82%98_%EC%88%99%EC%86%8C_1777232825.jpg",
+    "city": "Chiang Mai City Municipality",
+    "country": "Thailand",
+    "lat": 18.803397222222223,
+    "lng": 98.98140833333333,
+    "tags": [
+      "나",
+      "숙소"
+    ],
+    "date": "2025-02-02",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230529/tribi/20180210_%EC%9E%90%EC%97%B0_1777230528.jpg",
+    "city": "Otaru",
+    "country": "Japan",
+    "lat": 43.198986,
+    "lng": 141.001924,
+    "tags": [
+      "자연"
+    ],
+    "date": "2018-02-10",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232912/tribi/20250113_thailand_chiangmaicitymunicipality_%EB%B0%A5_1777232910.jpg",
+    "city": "Chiang Mai City Municipality",
+    "country": "Thailand",
+    "lat": 18.79855277777778,
+    "lng": 98.96865,
+    "tags": [
+      "밥"
+    ],
+    "date": "2025-01-13",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230546/tribi/20190413_japan_taito_%EB%8F%84%EC%8B%9C_1777230544.jpg",
+    "city": "Taito",
+    "country": "Japan",
+    "lat": 35.71358611111111,
+    "lng": 139.79672222222223,
+    "tags": [
+      "도시"
+    ],
+    "date": "2019-04-13",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232800/tribi/20250401_indonesia_ubuddistrict_%EB%B0%A5_1777232798.jpg",
+    "city": "Ubud District",
+    "country": "Indonesia",
+    "lat": -8.508197222222222,
+    "lng": 115.26263333333333,
+    "tags": [
+      "밥"
+    ],
+    "date": "2025-04-01",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232737/tribi/20250320_indonesia_nusapenida_%EC%B0%BD%EB%AC%B8_1777232736.jpg",
+    "city": "Nusa Penida",
+    "country": "Indonesia",
+    "lat": -8.666036111111111,
+    "lng": 115.46416388888889,
+    "tags": [
+      "창문"
+    ],
+    "date": "2025-03-20",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229989/tribi/%EC%88%99%EC%86%8C_1777229988.jpg",
+    "city": "Kadıköy",
+    "country": "Turkey",
+    "lat": 40.98632777777778,
+    "lng": 29.0326,
+    "tags": [
+      "숙소"
+    ],
+    "date": "2023-04-17",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232793/tribi/20250331_indonesia_ubuddistrict_%EB%8F%99%EB%AC%BC_1777232791.jpg",
+    "city": "Ubud District",
+    "country": "Indonesia",
+    "lat": -8.512341666666666,
+    "lng": 115.26101666666666,
+    "tags": [
+      "동물"
+    ],
+    "date": "2025-03-31",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229998/tribi/20230413_kazakhstan_almaty_%EC%82%B0_%EB%B9%84%ED%96%89%EA%B8%B0_1777229996.jpg",
+    "city": "Almaty",
+    "country": "Kazakhstan",
+    "lat": 43.34805555555556,
+    "lng": 77.01210833333333,
+    "tags": [
+      "산",
+      "비행기"
+    ],
+    "date": "2023-04-13",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230678/tribi/%EB%82%98_1777230677.jpg",
+    "city": "Istanbul",
+    "country": "Turkey",
+    "lat": 41.01079444444444,
+    "lng": 28.981358333333333,
+    "tags": [
+      "나"
+    ],
+    "date": "2019-04-11",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230119/tribi/20230507_turkey_kad%C4%B1k%C3%B6y_%EA%B3%A0%EC%96%91%EC%9D%B4_1777230118.jpg",
+    "city": "Kadıköy",
+    "country": "Turkey",
+    "lat": 40.98656388888889,
+    "lng": 29.0321,
+    "tags": [
+      "고양이"
+    ],
+    "date": "2023-05-07",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232632/tribi/20250310_indonesia_ubuddistrict_%EC%98%88%EC%88%A0_1777232630.jpg",
+    "city": "Ubud District",
+    "country": "Indonesia",
+    "lat": -8.513094444444445,
+    "lng": 115.26181111111111,
+    "tags": [
+      "예술"
+    ],
+    "date": "2025-03-10",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229995/tribi/20230518_%EB%82%98_%EB%B0%94%EB%8B%A4_1777229993.jpg",
+    "city": "Porto",
+    "country": "Portugal",
+    "lat": 41.14051388888889,
+    "lng": -8.611658333333333,
+    "tags": [
+      "나",
+      "바다"
+    ],
+    "date": "2023-05-18",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230137/tribi/20230509_turkey_g%C3%B6reme_%EC%82%B0_%EC%9E%90%EC%97%B0_%EC%9D%BC%EC%B6%9C%EC%9D%BC%EB%AA%B0_1777230135.jpg",
+    "city": "Göreme",
+    "country": "Turkey",
+    "lat": 38.65472777777778,
+    "lng": 34.82611388888889,
+    "tags": [
+      "산",
+      "자연",
+      "일출일몰"
+    ],
+    "date": "2023-05-09",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232716/tribi/20250317_indonesia_nusapenida_%EB%B0%94%EB%8B%A4_1777232712.jpg",
+    "city": "Nusa Penida",
+    "country": "Indonesia",
+    "lat": -8.66696111111111,
+    "lng": 115.44837222222223,
+    "tags": [
+      "바다"
+    ],
+    "date": "2025-03-17",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232887/tribi/20250107_thailand_chiangmaicitymunicipality_%EB%B0%A5_1777232886.jpg",
+    "city": "Chiang Mai City Municipality",
+    "country": "Thailand",
+    "lat": 18.78295,
+    "lng": 98.98859444444444,
+    "tags": [
+      "밥"
+    ],
+    "date": "2025-01-07",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230071/tribi/20230421_turkey_beyo%C4%9Flu_%EA%B3%A0%EC%96%91%EC%9D%B4_1777230069.jpg",
+    "city": "Beyoğlu",
+    "country": "Turkey",
+    "lat": 41.03001666666667,
+    "lng": 28.982174999999998,
+    "tags": [
+      "고양이"
+    ],
+    "date": "2023-04-21",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229939/tribi/20230526_portugal_lagos_%EB%B0%94%EB%8B%A4_1777229937.jpg",
+    "city": "Lagos",
+    "country": "Portugal",
+    "lat": 37.090247222222224,
+    "lng": -8.669983333333333,
+    "tags": [
+      "바다"
+    ],
+    "date": "2023-05-26",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232821/tribi/20250119_thailand_chiangmaicitymunicipality_%EB%B0%A5_1777232818.jpg",
+    "city": "Chiang Mai City Municipality",
+    "country": "Thailand",
+    "lat": 18.804341666666666,
+    "lng": 98.9837111111111,
+    "tags": [
+      "밥"
+    ],
+    "date": "2025-01-19",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229977/tribi/20230612_spain_m%C3%A1laga_%EB%8F%84%EC%8B%9C_1777229975.jpg",
+    "city": "Málaga",
+    "country": "Spain",
+    "lat": 36.72668055555556,
+    "lng": -4.41425,
+    "tags": [
+      "도시"
+    ],
+    "date": "2023-06-12",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777230694/tribi/20190411_turkey_beyo%C4%9Flu_%EB%8F%84%EC%8B%9C_1777230693.jpg",
+    "city": "Beyoğlu",
+    "country": "Turkey",
+    "lat": 41.01862777777778,
+    "lng": 28.971919444444442,
+    "tags": [
+      "도시"
+    ],
+    "date": "2019-04-11",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777232860/tribi/20250106_%EB%82%98_1777232858.jpg",
+    "city": "Chiang Mai City Municipality",
+    "country": "Thailand",
+    "lat": 18.78295,
+    "lng": 98.98859444444444,
+    "tags": [
+      "나"
+    ],
+    "date": "2025-01-07",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229967/tribi/20230612_spain_m%C3%A1laga_%EC%88%99%EC%86%8C_%EC%B0%BD%EB%AC%B8_1777229965.jpg",
+    "city": "Málaga",
+    "country": "Spain",
+    "lat": 36.72969444444445,
+    "lng": -4.415713888888889,
+    "tags": [
+      "숙소",
+      "창문"
+    ],
+    "date": "2023-06-12",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1777229845/tribi/20230614_spain_m%C3%A1laga_%EB%8F%84%EC%8B%9C_1777229844.jpg",
+    "city": "Málaga",
+    "country": "Spain",
+    "lat": 36.72577777777778,
+    "lng": -4.421205555555556,
+    "tags": [
+      "도시"
+    ],
+    "date": "2023-06-14",
     "instagram": null
   }
 ]
