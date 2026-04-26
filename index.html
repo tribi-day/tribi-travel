@@ -872,7 +872,7 @@ header {
   .header-globe { font-size: 22px; }
   .header-title { font-size: 16px; }
 
-  .about-view { padding: 1.2rem 1rem; }
+  .about-view { padding: 1.2rem 1rem 160px; }
 }
 
 </style>
@@ -1074,7 +1074,7 @@ let photos = [];
 
 async function loadPhotos() {
   try {
-    const res = await fetch('/api/photos');
+    const res = await fetch('/photos.json');
     photos = await res.json();
   } catch (err) {
     console.error('노션 데이터 로드 실패:', err);
