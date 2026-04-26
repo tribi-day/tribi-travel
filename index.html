@@ -997,6 +997,20 @@ header {
         <p>인스타그램 <a href="https://www.instagram.com/tribi.day/" target="_blank" style="color:var(--caramel);">@tribi.day</a>에서도 만날 수 있습니다.</p>
 
         <div class="about-stats" id="aboutStats"></div>
+
+        <!-- 히든 나라별 갤러리 -->
+        <div style="text-align:center; margin-top:2rem;">
+          <span id="countryGalleryToggle" onclick="toggleCountryGallery()"
+            style="font-size:18px; cursor:pointer; opacity:0.3; letter-spacing:2px; user-select:none;">
+            🏴🏳️🏴🏳️🏴🏳️
+          </span>
+        </div>
+        <div id="countryGallery" style="display:none; margin-top:1.5rem;">
+          <div id="countryCarousel" style="display:flex; gap:8px; overflow-x:auto; padding:8px 0 12px; scroll-behavior:smooth; scrollbar-width:none; -ms-overflow-style:none;">
+          </div>
+          <div id="countryPhotoGrid" style="display:grid; grid-template-columns:repeat(5,1fr); gap:1px; margin-top:12px;"></div>
+          <div id="countryPhotoMsg" style="font-family:DOSGothic,monospace; font-size:12px; color:var(--ink-mid); text-align:center; padding:1rem 0; display:none;"></div>
+        </div>
       </div>
       </div>
 
@@ -1778,9 +1792,95 @@ function getDistanceKm(lat1, lng1, lat2, lng2) {
   const a = Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180) * Math.cos(lat2*Math.PI/180) * Math.sin(dLng/2)**2;
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 }
+
+// ── 나라별 갤러리 ──
+let countryGalleryOpen = false;
+let selectedCountry = null;
+
+function toggleCountryGallery() {
+  countryGalleryOpen = !countryGalleryOpen;
+  const el = document.getElementById('countryGallery');
+  const toggle = document.getElementById('countryGalleryToggle');
+  if (countryGalleryOpen) {
+    el.style.display = 'block';
+    toggle.style.opacity = '1';
+    buildCountryCarousel();
+  } else {
+    el.style.display = 'none';
+    toggle.style.opacity = '0.3';
+  }
+}
+
+function buildCountryCarousel() {
+  // 나라별로 사진 모아서 날짜순 정렬
+  const countryMap = {};
+  photos.forEach(p => {
+    if (!p.country) return;
+    if (!countryMap[p.country]) countryMap[p.country] = [];
+    countryMap[p.country].push(p);
+  });
+  // 나라를 첫 사진 날짜 기준으로 정렬 (오래된 순)
+  const countries = Object.keys(countryMap).sort((a, b) => {
+    const aDate = countryMap[a].map(p => p.date).filter(Boolean).sort()[0] || '';
+    const bDate = countryMap[b].map(p => p.date).filter(Boolean).sort()[0] || '';
+    return aDate.localeCompare(bDate);
+  });
+
+  const carousel = document.getElementById('countryCarousel');
+  carousel.innerHTML = '';
+  countries.forEach(country => {
+    const flag = countryFlag[country] || '🏳️';
+    const cnt = countryMap[country].length;
+    const card = document.createElement('div');
+    card.style.cssText = 'flex-shrink:0; cursor:pointer; padding:8px 12px; border-radius:6px; background:var(--ink-faint); font-family:DOSGothic,monospace; font-size:12px; white-space:nowrap; transition:background 0.15s; text-align:center;';
+    card.innerHTML = `<div style="font-size:22px;">${flag}</div><div style="margin-top:2px;">${country}</div><div style="font-size:10px; color:var(--ink-mid); margin-top:1px;">${cnt}장</div>`;
+    card.dataset.country = country;
+    card.onclick = () => selectCountry(country, countryMap[country], card);
+    carousel.appendChild(card);
+  });
+}
+
+function selectCountry(country, countryPhotos, cardEl) {
+  selectedCountry = country;
+  // 카드 하이라이트
+  document.querySelectorAll('#countryCarousel > div').forEach(c => {
+    c.style.background = 'var(--ink-faint)';
+    c.style.color = 'var(--ink)';
+  });
+  cardEl.style.background = 'var(--ink)';
+  cardEl.style.color = 'var(--cream)';
+
+  // 날짜 오름차순 정렬
+  const sorted = [...countryPhotos].sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+
+  const grid = document.getElementById('countryPhotoGrid');
+  grid.innerHTML = '';
+  sorted.forEach(photo => {
+    if (!photo.file) return;
+    const wrap = document.createElement('div');
+    wrap.style.cssText = 'position:relative; width:100%; padding-top:125%; overflow:hidden; background:#e8e2d6; cursor:pointer;';
+    const img = document.createElement('img');
+    img.src = optimizeUrl(photo.file);
+    img.loading = 'lazy';
+    img.style.cssText = 'position:absolute; inset:0; width:100%; height:100%; object-fit:cover;';
+    img.onclick = () => openLightbox(photo);
+    // 날짜 오버레이
+    if (photo.date) {
+      const dateEl = document.createElement('div');
+      dateEl.style.cssText = 'position:absolute; bottom:4px; left:5px; font-family:DOSGothic,monospace; font-size:9px; color:rgba(255,255,255,0.75); text-shadow:0 1px 2px rgba(0,0,0,0.5); z-index:1; pointer-events:none;';
+      dateEl.textContent = photo.date.replace(/-/g,'.');
+      wrap.appendChild(dateEl);
+    }
+    wrap.appendChild(img);
+    grid.appendChild(wrap);
+  });
+
+  // 선택된 나라 카드로 스크롤
+  cardEl.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+}
 (async () => {
   const gallery = document.getElementById('galleryView');
-  gallery.innerHTML = '<div style="padding:2rem; font-family:Pretendard,sans-serif; font-size:13px; color:rgba(26,26,26,0.4); grid-column:1/-1;">loading...</div>';
+  gallery.innerHTML = '<div style="padding:2rem; font-family:DOSGothic,monospace; font-size:13px; color:rgba(26,26,26,0.4); grid-column:1/-1; text-align:center; line-height:2;">loading photos...<br><span style="font-size:11px;">this may take a moment ☕</span></div>';
   await loadPhotos();
   showGallery();
   document.getElementById('viewToggle').classList.add('gallery');
