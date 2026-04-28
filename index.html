@@ -2039,7 +2039,7 @@ function selectCountry(country, countryPhotos, cardEl) {
     const dist = getDistance(e.touches);
     const ratio = initialDist / dist; // 오므리면 ratio>1(확대→컬럼 줄이기), 벌리면 ratio<1(축소→컬럼 늘리기)
     let newCols = Math.round(initialCols * ratio);
-    newCols = Math.min(10, Math.max(2, newCols));
+    newCols = Math.min(10, Math.max(3, newCols));
     const gallery = document.getElementById('galleryView');
     gallery.style.gridTemplateColumns = `repeat(${newCols}, 1fr)`;
   }, { passive: true });
