@@ -166,7 +166,7 @@ header {
   appearance: none;
   width: 10px;
   height: 10px;
-  background: rgba(26,26,26,0.35);
+  background: rgba(26,26,26,0.45);
   border-radius: 50%;
   cursor: pointer;
   margin-top: -4.5px;
@@ -175,19 +175,19 @@ header {
   width: 10px;
   height: 10px;
   border: none;
-  background: rgba(26,26,26,0.35);
+  background: rgba(26,26,26,0.45);
   border-radius: 50%;
   cursor: pointer;
 }
 #gridSlider::-webkit-slider-runnable-track {
   background: rgba(26,26,26,0.2);
-  height: 1px;
-  border-radius: 1px;
+  height: 2.5px;
+  border-radius: 2px;
 }
 #gridSlider::-moz-range-track {
   background: rgba(26,26,26,0.2);
-  height: 1px;
-  border-radius: 1px;
+  height: 2.5px;
+  border-radius: 2px;
 }
 /* ── 지도/갤러리 토글 ── */
 .view-toggle-wrap {
@@ -1859,7 +1859,8 @@ function changeGridCols(val) {
       -webkit-appearance: none;
       width: ${size}px;
       height: ${size}px;
-      background: rgba(26,26,26,0.35);
+      background: var(--cream);
+      box-shadow: 0 0 0 ${size*0.35}px rgba(26,26,26,0.45);
       border-radius: 50%;
       cursor: pointer;
       margin-top: -${size/2 - 0.5}px;
@@ -1868,7 +1869,8 @@ function changeGridCols(val) {
       width: ${size}px;
       height: ${size}px;
       border: none;
-      background: rgba(26,26,26,0.35);
+      background: var(--cream);
+      box-shadow: 0 0 0 ${size*0.35}px rgba(26,26,26,0.45);
       border-radius: 50%;
       cursor: pointer;
     }
