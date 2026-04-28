@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>reef.and.roots</title>
 <link rel="icon" type="image/png" href="./Favicon.png">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
@@ -2012,6 +2012,7 @@ function selectCountry(country, countryPhotos, cardEl) {
 (function() {
   let initialDist = null;
   let initialCols = 5;
+  let isPinching = false;
 
   function getDistance(touches) {
     const dx = touches[0].clientX - touches[1].clientX;
@@ -2027,25 +2028,32 @@ function selectCountry(country, countryPhotos, cardEl) {
     return match ? parseInt(match[1]) : 5;
   }
 
-  document.addEventListener('touchstart', e => {
+  const gallery = document.getElementById('galleryView');
+
+  gallery.addEventListener('touchstart', e => {
     if (e.touches.length === 2) {
+      isPinching = true;
       initialDist = getDistance(e.touches);
       initialCols = getCurrentCols();
+      e.preventDefault();
     }
-  }, { passive: true });
+  }, { passive: false });
 
-  document.addEventListener('touchmove', e => {
+  gallery.addEventListener('touchmove', e => {
     if (e.touches.length !== 2 || !initialDist) return;
+    e.preventDefault();
     const dist = getDistance(e.touches);
-    const ratio = initialDist / dist; // 오므리면 ratio>1(확대→컬럼 줄이기), 벌리면 ratio<1(축소→컬럼 늘리기)
+    const ratio = initialDist / dist;
     let newCols = Math.round(initialCols * ratio);
     newCols = Math.min(10, Math.max(3, newCols));
-    const gallery = document.getElementById('galleryView');
     gallery.style.gridTemplateColumns = `repeat(${newCols}, 1fr)`;
-  }, { passive: true });
+  }, { passive: false });
 
-  document.addEventListener('touchend', e => {
-    if (e.touches.length < 2) initialDist = null;
+  gallery.addEventListener('touchend', e => {
+    if (e.touches.length < 2) {
+      isPinching = false;
+      initialDist = null;
+    }
   }, { passive: true });
 })();
 </script>
