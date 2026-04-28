@@ -164,18 +164,19 @@ header {
 #gridSlider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 20px;
-  height: 20px;
-  background: transparent;
+  width: 10px;
+  height: 10px;
+  background: rgba(26,26,26,0.35);
+  border-radius: 50%;
   cursor: pointer;
-  margin-top: -10px;
-  transition: font-size 0.1s;
+  margin-top: -4.5px;
 }
 #gridSlider::-moz-range-thumb {
-  width: 20px;
-  height: 20px;
+  width: 10px;
+  height: 10px;
   border: none;
-  background: transparent;
+  background: rgba(26,26,26,0.35);
+  border-radius: 50%;
   cursor: pointer;
 }
 #gridSlider::-webkit-slider-runnable-track {
@@ -1844,11 +1845,9 @@ function changeGridCols(val) {
   val = parseInt(val);
   document.getElementById('gridColsLabel').textContent = val;
   document.getElementById('galleryView').style.gridTemplateColumns = `repeat(${val}, 1fr)`;
-  // 돋보기 크기: 5→12px, 20→22px 선형 보간
-  const minSize = 12, maxSize = 22, minVal = 5, maxVal = 20;
-  const size = minSize + (val - minVal) / (maxVal - minVal) * (maxSize - minSize);
-  const emoji = encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="${size+4}" height="${size+4}" viewBox="0 0 ${size+4} ${size+4}"><text x="0" y="${size}" font-size="${size}">🔍</text></svg>`);
-  const url = `url("data:image/svg+xml,${emoji}")`;
+  // 점 크기: 5칸→크게(14px), 20칸→작게(4px) — 왼쪽일수록 커짐
+  const minVal = 5, maxVal = 20, minSize = 4, maxSize = 14;
+  const size = maxSize - (val - minVal) / (maxVal - minVal) * (maxSize - minSize);
   const style = document.getElementById('gridThumbStyle') || (() => {
     const s = document.createElement('style');
     s.id = 'gridThumbStyle';
@@ -1858,17 +1857,19 @@ function changeGridCols(val) {
   style.textContent = `
     #gridSlider::-webkit-slider-thumb {
       -webkit-appearance: none;
-      width: ${size+4}px;
-      height: ${size+4}px;
-      background: transparent url("data:image/svg+xml,${emoji}") no-repeat center/contain;
+      width: ${size}px;
+      height: ${size}px;
+      background: rgba(26,26,26,0.35);
+      border-radius: 50%;
       cursor: pointer;
-      margin-top: -${(size+4)/2 + 2}px;
+      margin-top: -${size/2 - 0.5}px;
     }
     #gridSlider::-moz-range-thumb {
-      width: ${size+4}px;
-      height: ${size+4}px;
+      width: ${size}px;
+      height: ${size}px;
       border: none;
-      background: transparent url("data:image/svg+xml,${emoji}") no-repeat center/contain;
+      background: rgba(26,26,26,0.35);
+      border-radius: 50%;
       cursor: pointer;
     }
   `;
