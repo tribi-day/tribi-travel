@@ -1959,6 +1959,45 @@ function selectCountry(country, countryPhotos, cardEl) {
   // 선택된 나라 카드로 스크롤
   cardEl.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
 }
+
+// ── 모바일 핀치 줌으로 갤러리 열 조절 ──
+(function() {
+  let startDist = null;
+  let startCols = 5;
+
+  function getTouchDist(e) {
+    const dx = e.touches[0].clientX - e.touches[1].clientX;
+    const dy = e.touches[0].clientY - e.touches[1].clientY;
+    return Math.sqrt(dx*dx + dy*dy);
+  }
+
+  function getCurrentCols() {
+    const grid = document.getElementById('galleryView');
+    const style = grid.style.gridTemplateColumns;
+    const match = style.match(/repeat\((\d+)/);
+    return match ? parseInt(match[1]) : 5;
+  }
+
+  document.addEventListener('touchstart', e => {
+    if (e.touches.length === 2) {
+      startDist = getTouchDist(e);
+      startCols = getCurrentCols();
+    }
+  }, { passive: true });
+
+  document.addEventListener('touchmove', e => {
+    if (e.touches.length !== 2 || startDist === null) return;
+    const dist = getTouchDist(e);
+    const ratio = startDist / dist; // 오므리면 ratio>1 → 열 늘어남, 벌리면 ratio<1 → 열 줄어듦
+    const newCols = Math.round(startCols * ratio);
+    const clamped = Math.max(2, Math.min(10, newCols));
+    document.getElementById('galleryView').style.gridTemplateColumns = `repeat(${clamped}, 1fr)`;
+  }, { passive: true });
+
+  document.addEventListener('touchend', e => {
+    if (e.touches.length < 2) startDist = null;
+  }, { passive: true });
+})();
 (async () => {
   const gallery = document.getElementById('galleryView');
   gallery.innerHTML = '<div style="padding:2rem; font-family:DOSGothic,monospace; font-size:13px; color:rgba(26,26,26,0.4); grid-column:1/-1; text-align:center; line-height:2;">loading photos...<br><span style="font-size:11px;">this may take a moment ☕</span></div>';
@@ -1968,6 +2007,47 @@ function selectCountry(country, countryPhotos, cardEl) {
   changeGridCols(10); // 초기 돋보기 크기 설정
 })();
 
+
+// ── 모바일 핀치 줌으로 갤러리 컬럼 조절 ──
+(function() {
+  let initialDist = null;
+  let initialCols = 5;
+
+  function getDistance(touches) {
+    const dx = touches[0].clientX - touches[1].clientX;
+    const dy = touches[0].clientY - touches[1].clientY;
+    return Math.sqrt(dx*dx + dy*dy);
+  }
+
+  function getCurrentCols() {
+    const gallery = document.getElementById('galleryView');
+    const cols = gallery.style.gridTemplateColumns;
+    if (!cols) return 5;
+    const match = cols.match(/repeat\((\d+)/);
+    return match ? parseInt(match[1]) : 5;
+  }
+
+  document.addEventListener('touchstart', e => {
+    if (e.touches.length === 2) {
+      initialDist = getDistance(e.touches);
+      initialCols = getCurrentCols();
+    }
+  }, { passive: true });
+
+  document.addEventListener('touchmove', e => {
+    if (e.touches.length !== 2 || !initialDist) return;
+    const dist = getDistance(e.touches);
+    const ratio = initialDist / dist; // 오므리면 ratio>1(확대→컬럼 줄이기), 벌리면 ratio<1(축소→컬럼 늘리기)
+    let newCols = Math.round(initialCols * ratio);
+    newCols = Math.min(10, Math.max(2, newCols));
+    const gallery = document.getElementById('galleryView');
+    gallery.style.gridTemplateColumns = `repeat(${newCols}, 1fr)`;
+  }, { passive: true });
+
+  document.addEventListener('touchend', e => {
+    if (e.touches.length < 2) initialDist = null;
+  }, { passive: true });
+})();
 </script>
 </body>
 </html>
