@@ -2004,7 +2004,8 @@ function selectCountry(country, countryPhotos, cardEl) {
   await loadPhotos();
   showGallery();
   document.getElementById('viewToggle').classList.add('gallery');
-  changeGridCols(10); // 초기 돋보기 크기 설정
+  // 모바일이면 5칸, PC면 10칸으로 초기화
+  changeGridCols(window.innerWidth <= 768 ? 5 : 10);
 })();
 
 
