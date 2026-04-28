@@ -164,16 +164,16 @@ header {
 #gridSlider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   background: #a0a0a0;
   border-radius: 50%;
   cursor: pointer;
-  margin-top: -4.5px;
+  margin-top: -4.75px;
 }
 #gridSlider::-moz-range-thumb {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   border: none;
   background: #a0a0a0;
   border-radius: 50%;
@@ -1845,8 +1845,8 @@ function changeGridCols(val) {
   val = parseInt(val);
   document.getElementById('gridColsLabel').textContent = val;
   document.getElementById('galleryView').style.gridTemplateColumns = `repeat(${val}, 1fr)`;
-  // 점 크기: 5칸→크게(14px), 20칸→작게(4px) — 왼쪽일수록 커짐
-  const minVal = 5, maxVal = 20, minSize = 4, maxSize = 14;
+  // 점 크기: 5칸→크게(16px), 20칸→작게(8px) — 왼쪽일수록 커짐
+  const minVal = 5, maxVal = 20, minSize = 8, maxSize = 16;
   const size = maxSize - (val - minVal) / (maxVal - minVal) * (maxSize - minSize);
   const style = document.getElementById('gridThumbStyle') || (() => {
     const s = document.createElement('style');
@@ -1862,7 +1862,7 @@ function changeGridCols(val) {
       background: #a0a0a0;
       border-radius: 50%;
       cursor: pointer;
-      margin-top: -${size/2 - 0.5}px;
+      margin-top: -${size/2 - 1.25}px;
     }
     #gridSlider::-moz-range-thumb {
       width: ${size}px;
