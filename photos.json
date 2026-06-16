@@ -1,5 +1,993 @@
 [
   {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587332/tribi/20260427_mexico_oaxacacity_%EB%8F%84%EC%8B%9C_%EC%98%88%EC%88%A0_1781587328.jpg",
+    "city": "Oaxaca City",
+    "country": "Mexico",
+    "lat": 17.0649,
+    "lng": -96.72990555555556,
+    "tags": [
+      "도시",
+      "예술"
+    ],
+    "date": "2026-04-27",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587327/tribi/20260427_mexico_oaxacacity_%EC%98%88%EC%88%A0_1781587324.jpg",
+    "city": "Oaxaca City",
+    "country": "Mexico",
+    "lat": 17.064227777777777,
+    "lng": -96.72421944444444,
+    "tags": [
+      "예술"
+    ],
+    "date": "2026-04-27",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587323/tribi/20260427_mexico_oaxacacity_%EC%98%88%EC%88%A0_1781587319.jpg",
+    "city": "Oaxaca City",
+    "country": "Mexico",
+    "lat": 17.063980555555556,
+    "lng": -96.72611944444445,
+    "tags": [
+      "예술"
+    ],
+    "date": "2026-04-27",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587316/tribi/20260427_mexico_oaxacacity_%EC%98%88%EC%88%A0_1781587312.jpg",
+    "city": "Oaxaca City",
+    "country": "Mexico",
+    "lat": 17.064680555555555,
+    "lng": -96.717675,
+    "tags": [
+      "예술"
+    ],
+    "date": "2026-04-27",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587310/tribi/20260427_mexico_oaxacacity_%EA%B3%A0%EC%96%91%EC%9D%B4_1781587307.jpg",
+    "city": "Oaxaca City",
+    "country": "Mexico",
+    "lat": 17.06355,
+    "lng": -96.71724722222223,
+    "tags": [
+      "고양이"
+    ],
+    "date": "2026-04-27",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587305/tribi/20260427_mexico_oaxacacity_%EA%B3%A0%EC%96%91%EC%9D%B4_1781587301.jpg",
+    "city": "Oaxaca City",
+    "country": "Mexico",
+    "lat": 17.063441666666666,
+    "lng": -96.71737777777778,
+    "tags": [
+      "고양이"
+    ],
+    "date": "2026-04-27",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587299/tribi/20260427_mexico_oaxacacity_%EA%B3%A0%EC%96%91%EC%9D%B4_1781587296.jpg",
+    "city": "Oaxaca City",
+    "country": "Mexico",
+    "lat": 17.063441666666666,
+    "lng": -96.71734722222223,
+    "tags": [
+      "고양이"
+    ],
+    "date": "2026-04-27",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587294/tribi/20260427_mexico_oaxacacity_%EA%B3%A0%EC%96%91%EC%9D%B4_1781587290.jpg",
+    "city": "Oaxaca City",
+    "country": "Mexico",
+    "lat": 17.063441666666666,
+    "lng": -96.71736944444444,
+    "tags": [
+      "고양이"
+    ],
+    "date": "2026-04-27",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587288/tribi/20260427_mexico_oaxacacity_%EA%B3%A0%EC%96%91%EC%9D%B4_1781587283.jpg",
+    "city": "Oaxaca City",
+    "country": "Mexico",
+    "lat": 17.063441666666666,
+    "lng": -96.71736944444444,
+    "tags": [
+      "고양이"
+    ],
+    "date": "2026-04-27",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587281/tribi/20260427_mexico_oaxacacity_%EA%B3%A0%EC%96%91%EC%9D%B4_1781587276.jpg",
+    "city": "Oaxaca City",
+    "country": "Mexico",
+    "lat": 17.063441666666666,
+    "lng": -96.71736111111112,
+    "tags": [
+      "고양이"
+    ],
+    "date": "2026-04-27",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587274/tribi/20260427_mexico_oaxacacity_%EA%B3%A0%EC%96%91%EC%9D%B4_1781587272.jpg",
+    "city": "Oaxaca City",
+    "country": "Mexico",
+    "lat": 17.063441666666666,
+    "lng": -96.71736944444444,
+    "tags": [
+      "고양이"
+    ],
+    "date": "2026-04-27",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587270/tribi/20260427_mexico_oaxacacity_%EA%B3%A0%EC%96%91%EC%9D%B4_1781587267.jpg",
+    "city": "Oaxaca City",
+    "country": "Mexico",
+    "lat": 17.06346388888889,
+    "lng": -96.71733888888889,
+    "tags": [
+      "고양이"
+    ],
+    "date": "2026-04-27",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587265/tribi/20260427_mexico_oaxacacity_%EA%B3%A0%EC%96%91%EC%9D%B4_1781587261.jpg",
+    "city": "Oaxaca City",
+    "country": "Mexico",
+    "lat": 17.063477777777777,
+    "lng": -96.71733055555556,
+    "tags": [
+      "고양이"
+    ],
+    "date": "2026-04-27",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587259/tribi/20260427_mexico_oaxacacity_%EB%B0%A5_1781587257.jpg",
+    "city": "Oaxaca City",
+    "country": "Mexico",
+    "lat": 17.0628,
+    "lng": -96.72441111111111,
+    "tags": [
+      "밥"
+    ],
+    "date": "2026-04-27",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587255/tribi/20260427_mexico_oaxacacity_%EB%8F%84%EC%8B%9C_%EC%9D%BC%EC%B6%9C%EC%9D%BC%EB%AA%B0_1781587252.jpg",
+    "city": "Oaxaca City",
+    "country": "Mexico",
+    "lat": 17.061183333333336,
+    "lng": -96.72577777777778,
+    "tags": [
+      "도시",
+      "일출일몰"
+    ],
+    "date": "2026-04-27",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587250/tribi/20260427_mexico_oaxacacity_%EB%8F%84%EC%8B%9C_1781587247.jpg",
+    "city": "Oaxaca City",
+    "country": "Mexico",
+    "lat": 17.060944444444445,
+    "lng": -96.72538055555556,
+    "tags": [
+      "도시"
+    ],
+    "date": "2026-04-27",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587245/tribi/20260428_mexico_oaxacacity_%EB%B9%84%ED%96%89%EA%B8%B0_1781587232.jpg",
+    "city": "Oaxaca City",
+    "country": "Mexico",
+    "lat": 17.051180555555558,
+    "lng": -96.72466388888888,
+    "tags": [
+      "비행기"
+    ],
+    "date": "2026-04-28",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587231/tribi/20260428_mexico_oaxacacity_%EB%B9%84%ED%96%89%EA%B8%B0_1781587228.jpg",
+    "city": "Oaxaca City",
+    "country": "Mexico",
+    "lat": 17.051180555555558,
+    "lng": -96.72466388888888,
+    "tags": [
+      "비행기"
+    ],
+    "date": "2026-04-28",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587226/tribi/20260428_mexico_playadelcarmen_%EB%82%98_%EB%B9%84%ED%96%89%EA%B8%B0_1781587222.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.622197222222223,
+    "lng": -87.0747611111111,
+    "tags": [
+      "나",
+      "비행기"
+    ],
+    "date": "2026-04-28",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587220/tribi/20260428_mexico_playadelcarmen_%EB%B0%A5_1781587217.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.635458333333332,
+    "lng": -87.07173055555555,
+    "tags": [
+      "밥"
+    ],
+    "date": "2026-04-28",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587214/tribi/20260428_mexico_playadelcarmen_%EB%B0%94%EB%8B%A4_%EC%9D%BC%EC%B6%9C%EC%9D%BC%EB%AA%B0_1781587211.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.62773888888889,
+    "lng": -87.06665,
+    "tags": [
+      "바다",
+      "일출일몰"
+    ],
+    "date": "2026-04-28",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587209/tribi/20260428_mexico_playadelcarmen_%EB%82%98_%EB%B0%94%EB%8B%A4_%EC%9D%BC%EC%B6%9C%EC%9D%BC%EB%AA%B0_1781587205.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.62775,
+    "lng": -87.06669722222222,
+    "tags": [
+      "나",
+      "바다",
+      "일출일몰"
+    ],
+    "date": "2026-04-28",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587203/tribi/20260428_mexico_playadelcarmen_%EA%B0%95%EC%95%84%EC%A7%80_1781587200.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.627772222222223,
+    "lng": -87.06668055555555,
+    "tags": [
+      "강아지"
+    ],
+    "date": "2026-04-28",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587199/tribi/20260428_mexico_playadelcarmen_%EB%B0%94%EB%8B%A4_%EC%9D%BC%EC%B6%9C%EC%9D%BC%EB%AA%B0_1781587196.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.62771111111111,
+    "lng": -87.06689444444444,
+    "tags": [
+      "바다",
+      "일출일몰"
+    ],
+    "date": "2026-04-28",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587194/tribi/20260428_mexico_playadelcarmen_%EB%B0%94%EB%8B%A4_%EC%9D%BC%EC%B6%9C%EC%9D%BC%EB%AA%B0_1781587190.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.62778611111111,
+    "lng": -87.06669722222222,
+    "tags": [
+      "바다",
+      "일출일몰"
+    ],
+    "date": "2026-04-28",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587189/tribi/20260428_mexico_playadelcarmen_%EB%B0%A5_1781587186.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.632325,
+    "lng": -87.07641666666666,
+    "tags": [
+      "밥"
+    ],
+    "date": "2026-04-28",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587185/tribi/20260428_mexico_playadelcarmen_%EB%B0%A5_1781587182.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.631930555555556,
+    "lng": -87.0743111111111,
+    "tags": [
+      "밥"
+    ],
+    "date": "2026-04-28",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587180/tribi/20260429_mexico_playadelcarmen_%EC%88%99%EC%86%8C_1781587176.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.634249999999998,
+    "lng": -87.07396666666666,
+    "tags": [
+      "숙소"
+    ],
+    "date": "2026-04-29",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587174/tribi/20260429_mexico_%EC%9E%90%EC%97%B0_1781587170.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.51283888888889,
+    "lng": -87.247125,
+    "tags": [
+      "자연"
+    ],
+    "date": "2026-04-29",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587163/tribi/20260429_mexico_%EC%9E%90%EC%97%B0_1781587159.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.513394444444444,
+    "lng": -87.247275,
+    "tags": [
+      "자연"
+    ],
+    "date": "2026-04-29",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587158/tribi/20260429_mexico_%EC%9E%90%EC%97%B0_1781587154.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.51326111111111,
+    "lng": -87.24716111111111,
+    "tags": [
+      "자연"
+    ],
+    "date": "2026-04-29",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587152/tribi/20260429_mexico_%EC%9E%90%EC%97%B0_1781587149.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.513155555555556,
+    "lng": -87.24715555555555,
+    "tags": [
+      "자연"
+    ],
+    "date": "2026-04-29",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587147/tribi/20260429_%EC%9E%90%EC%97%B0_1781587141.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.513155555555556,
+    "lng": -87.24715555555555,
+    "tags": [
+      "자연"
+    ],
+    "date": "2026-04-29",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587140/tribi/20260429_mexico_%EB%B0%94%EB%8B%A4_%EC%9E%90%EC%97%B0_1781587137.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.513483333333333,
+    "lng": -87.24716944444445,
+    "tags": [
+      "자연"
+    ],
+    "date": "2026-04-29",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587135/tribi/20260429_mexico_playadelcarmen_%EB%B0%A5_1781587132.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.634249999999998,
+    "lng": -87.07396666666666,
+    "tags": [
+      "밥"
+    ],
+    "date": "2026-04-29",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587130/tribi/20260429_mexico_playadelcarmen_%EB%B0%A5_1781587126.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.63425833333333,
+    "lng": -87.07392222222222,
+    "tags": [
+      "밥"
+    ],
+    "date": "2026-04-29",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587121/tribi/20260429_mexico_playadelcarmen_%EC%9D%BC%EC%B6%9C%EC%9D%BC%EB%AA%B0_%EC%88%99%EC%86%8C_1781587118.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.634249999999998,
+    "lng": -87.07396666666666,
+    "tags": [
+      "일출일몰",
+      "숙소"
+    ],
+    "date": "2026-04-29",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587116/tribi/20260430_mexico_ciudadaventuras_%EC%9E%90%EC%97%B0_1781587112.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.491711111111112,
+    "lng": -87.25798055555556,
+    "tags": [
+      "자연"
+    ],
+    "date": "2026-04-30",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587110/tribi/20260430_mexico_ciudadaventuras_%EC%9E%90%EC%97%B0_1781587106.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.491672222222224,
+    "lng": -87.25792777777778,
+    "tags": [
+      "자연"
+    ],
+    "date": "2026-04-30",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587105/tribi/20260430_mexico_ciudadaventuras_%EB%82%98_1781587101.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.49151666666667,
+    "lng": -87.25801944444444,
+    "tags": [
+      "나"
+    ],
+    "date": "2026-04-30",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587099/tribi/20260430_mexico_ciudadaventuras_%EC%9E%90%EC%97%B0_1781587095.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.491725000000002,
+    "lng": -87.25784166666666,
+    "tags": [
+      "자연"
+    ],
+    "date": "2026-04-30",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587093/tribi/20260430_mexico_ciudadaventuras_%EB%B0%94%EB%8B%A4_%EC%9E%90%EC%97%B0_1781587089.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.491930555555555,
+    "lng": -87.25791944444444,
+    "tags": [
+      "자연"
+    ],
+    "date": "2026-04-30",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587087/tribi/20260430_mexico_ciudadaventuras_%EB%B0%94%EB%8B%A4_%EC%9E%90%EC%97%B0_1781587082.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.491780555555557,
+    "lng": -87.25795833333333,
+    "tags": [
+      "자연"
+    ],
+    "date": "2026-04-30",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587080/tribi/20260430_mexico_ciudadaventuras_%EB%8F%99%EB%AC%BC_1781587076.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.491630555555556,
+    "lng": -87.25783611111112,
+    "tags": [
+      "동물"
+    ],
+    "date": "2026-04-30",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587074/tribi/20260430_mexico_%EB%B0%94%EB%8B%A4_1781587070.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.483652777777777,
+    "lng": -87.27687777777777,
+    "tags": [
+      "자연"
+    ],
+    "date": "2026-04-30",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587066/tribi/20260430_mexico_%EB%B0%94%EB%8B%A4_1781587062.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.48368888888889,
+    "lng": -87.27697777777777,
+    "tags": [
+      "자연"
+    ],
+    "date": "2026-04-30",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587059/tribi/20260430_mexico_%EB%B0%94%EB%8B%A4_1781587055.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.48428888888889,
+    "lng": -87.27664166666666,
+    "tags": [
+      "자연"
+    ],
+    "date": "2026-04-30",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587053/tribi/20260430_mexico_%EB%B0%94%EB%8B%A4_1781587049.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.483722222222223,
+    "lng": -87.27693888888889,
+    "tags": [
+      "자연"
+    ],
+    "date": "2026-04-30",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587047/tribi/20260430_mexico_%EB%B0%94%EB%8B%A4_1781587043.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.483780555555555,
+    "lng": -87.27701666666667,
+    "tags": [
+      "자연"
+    ],
+    "date": "2026-04-30",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587041/tribi/20260430_mexico_playadelcarmen_%EB%8F%84%EC%8B%9C_%EC%88%99%EC%86%8C_1781587032.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.634233333333334,
+    "lng": -87.07389166666667,
+    "tags": [
+      "도시",
+      "숙소"
+    ],
+    "date": "2026-04-30",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587030/tribi/20260430_mexico_playadelcarmen_%EB%B0%A5_1781587026.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.63422222222222,
+    "lng": -87.07393611111111,
+    "tags": [
+      "밥"
+    ],
+    "date": "2026-04-30",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587019/tribi/20260430_mexico_playadelcarmen_%EC%88%99%EC%86%8C_1781587016.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.634272222222222,
+    "lng": -87.07395833333332,
+    "tags": [
+      "숙소"
+    ],
+    "date": "2026-04-30",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587014/tribi/20260430_mexico_playadelcarmen_%EC%9D%BC%EC%B6%9C%EC%9D%BC%EB%AA%B0_1781587011.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.628205555555557,
+    "lng": -87.06720833333333,
+    "tags": [
+      "일출일몰"
+    ],
+    "date": "2026-04-30",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587009/tribi/20260430_mexico_playadelcarmen_%EB%82%98_%EB%B0%94%EB%8B%A4_1781587006.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.627388888888888,
+    "lng": -87.0671611111111,
+    "tags": [
+      "나",
+      "바다"
+    ],
+    "date": "2026-04-30",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587004/tribi/20260430_mexico_playadelcarmen_%EB%B0%94%EB%8B%A4_%EC%9D%BC%EC%B6%9C%EC%9D%BC%EB%AA%B0_1781587001.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.627402777777778,
+    "lng": -87.06718333333333,
+    "tags": [
+      "바다",
+      "일출일몰"
+    ],
+    "date": "2026-04-30",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587000/tribi/20260501_mexico_playadelcarmen_%EB%B0%A5_1781586996.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.634249999999998,
+    "lng": -87.07395833333332,
+    "tags": [
+      "밥"
+    ],
+    "date": "2026-05-01",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781586994/tribi/20260501_mexico_playadelcarmen_%EB%82%98_%EB%B0%A5_1781586991.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.62741666666667,
+    "lng": -87.07353888888889,
+    "tags": [
+      "나",
+      "밥"
+    ],
+    "date": "2026-05-01",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781586989/tribi/20260501_mexico_playadelcarmen_%EB%B0%94%EB%8B%A4_1781586986.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.62333611111111,
+    "lng": -87.07463888888888,
+    "tags": [
+      "바다"
+    ],
+    "date": "2026-05-01",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781586984/tribi/20260501_mexico_playadelcarmen_%EC%9E%90%EC%97%B0_1781586980.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.622044444444445,
+    "lng": -87.07510277777777,
+    "tags": [
+      "자연"
+    ],
+    "date": "2026-05-01",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781586979/tribi/20260502_mexico_playadelcarmen_%EB%B0%94%EB%8B%A4_1781586975.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.643652777777778,
+    "lng": -87.06211944444445,
+    "tags": [
+      "도시"
+    ],
+    "date": "2026-05-02",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781586973/tribi/20260502_mexico_playadelcarmen_%EA%B3%A0%EC%96%91%EC%9D%B4_1781586970.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.643652777777778,
+    "lng": -87.06211944444445,
+    "tags": [
+      "고양이"
+    ],
+    "date": "2026-05-02",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781586968/tribi/20260502_mexico_playadelcarmen_%EB%B0%94%EB%8B%A4_%EC%9E%90%EC%97%B0_1781586964.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.623947222222224,
+    "lng": -87.18495833333334,
+    "tags": [
+      "자연"
+    ],
+    "date": "2026-05-02",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781586955/tribi/20260502_mexico_playadelcarmen_%EB%B0%A5_1781586952.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.624083333333335,
+    "lng": -87.18511111111111,
+    "tags": [
+      "밥"
+    ],
+    "date": "2026-05-02",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781586950/tribi/20260502_mexico_playadelcarmen_%EB%82%98_1781586948.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.634249999999998,
+    "lng": -87.07395833333332,
+    "tags": [
+      "나"
+    ],
+    "date": "2026-05-02",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781586946/tribi/20260502_mexico_playadelcarmen_%EB%B0%A5_1781586943.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.632241666666665,
+    "lng": -87.07629444444444,
+    "tags": [
+      "밥"
+    ],
+    "date": "2026-05-02",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781586942/tribi/20260502_mexico_playadelcarmen_%EB%82%98_1781586938.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.624047222222224,
+    "lng": -87.18517222222222,
+    "tags": [
+      "나"
+    ],
+    "date": "2026-05-02",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781586937/tribi/20260503_mexico_playadelcarmen_%EC%88%99%EC%86%8C_1781586932.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.634158333333332,
+    "lng": -87.07398333333333,
+    "tags": [
+      "숙소"
+    ],
+    "date": "2026-05-03",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781586929/tribi/20260503_mexico_playadelcarmen_%EB%B0%A5_1781586926.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.630169444444444,
+    "lng": -87.07124444444445,
+    "tags": [
+      "밥"
+    ],
+    "date": "2026-05-03",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781586924/tribi/20260503_mexico_playadelcarmen_%EB%B0%A5_1781586921.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.630169444444444,
+    "lng": -87.071175,
+    "tags": [
+      "밥"
+    ],
+    "date": "2026-05-03",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781586918/tribi/20260503_mexico_playadelcarmen_%EB%B0%A5_1781586915.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.63423611111111,
+    "lng": -87.07393611111111,
+    "tags": [
+      "밥"
+    ],
+    "date": "2026-05-03",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781586906/tribi/20260504_%EB%B0%94%EB%8B%A4_1781586903.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.867622222222224,
+    "lng": -87.02483333333333,
+    "tags": [
+      "자연"
+    ],
+    "date": "2026-05-04",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781586902/tribi/20260504_%EB%B0%94%EB%8B%A4_1781586899.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.867622222222224,
+    "lng": -87.02483333333333,
+    "tags": [
+      "자연"
+    ],
+    "date": "2026-05-04",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781586898/tribi/20260504_mexico_leonavicario_%EA%B0%95%EC%95%84%EC%A7%80_1781586895.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.867622222222224,
+    "lng": -87.02483333333333,
+    "tags": [
+      "강아지"
+    ],
+    "date": "2026-05-04",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781586888/tribi/20260504_mexico_playadelcarmen_%EA%B3%A0%EC%96%91%EC%9D%B4_1781586884.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.633944444444445,
+    "lng": -87.07171666666666,
+    "tags": [
+      "고양이"
+    ],
+    "date": "2026-05-04",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781586882/tribi/20260505_mexico_playadelcarmen_%EB%B0%A5_1781586879.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.634283333333332,
+    "lng": -87.07295277777777,
+    "tags": [
+      "밥"
+    ],
+    "date": "2026-05-05",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781586877/tribi/20260505_mexico_playadelcarmen_%EB%8F%84%EC%8B%9C_1781586873.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.63402222222222,
+    "lng": -87.07375277777777,
+    "tags": [
+      "도시"
+    ],
+    "date": "2026-05-05",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781586872/tribi/20260505_mexico_playadelcarmen_%EB%82%98_1781586869.jpg",
+    "city": "Playa del Carmen",
+    "country": "Mexico",
+    "lat": 20.63428611111111,
+    "lng": -87.07294444444445,
+    "tags": [
+      "나"
+    ],
+    "date": "2026-05-05",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781586867/tribi/20260506_mexico_canc%C3%BAn_%EB%B0%A5_1781586864.jpg",
+    "city": "Cancún",
+    "country": "Mexico",
+    "lat": 21.166038888888888,
+    "lng": -86.82402777777777,
+    "tags": [
+      "밥"
+    ],
+    "date": "2026-05-06",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781586862/tribi/20260507_mexico_canc%C3%BAn_%EC%88%99%EC%86%8C_1781586859.jpg",
+    "city": "Cancún",
+    "country": "Mexico",
+    "lat": 21.165494444444445,
+    "lng": -86.82546944444444,
+    "tags": [
+      "숙소"
+    ],
+    "date": "2026-05-07",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781586858/tribi/20260507_mexico_canc%C3%BAn_%EB%82%98_%EC%88%99%EC%86%8C_%EB%B9%84%ED%96%89%EA%B8%B0_1781586855.jpg",
+    "city": "Cancún",
+    "country": "Mexico",
+    "lat": 21.16548333333333,
+    "lng": -86.82546111111111,
+    "tags": [
+      "나",
+      "숙소",
+      "비행기"
+    ],
+    "date": "2026-05-07",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781586853/tribi/20260507_mexico_canc%C3%BAn_%EC%9D%BC%EC%B6%9C%EC%9D%BC%EB%AA%B0_%EB%B9%84%ED%96%89%EA%B8%B0_1781586849.jpg",
+    "city": "Cancún",
+    "country": "Mexico",
+    "lat": 21.164127777777775,
+    "lng": -86.82669722222222,
+    "tags": [
+      "일출일몰",
+      "비행기"
+    ],
+    "date": "2026-05-07",
+    "instagram": null
+  },
+  {
     "file": "https://res.cloudinary.com/docknepza/image/upload/v1777311528/tribi/20260420_mexico_sanagust%C3%ADndelasjuntas_%EB%B9%84%ED%96%89%EA%B8%B0_1777311526.jpg",
     "city": "San Agustín de las Juntas",
     "country": "Mexico",
