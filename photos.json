@@ -1,5 +1,815 @@
 [
   {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669384/tribi/20260403_%EB%82%98_%EB%8F%84%EC%8B%9C_1781669382.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.72137777777778,
+    "lng": -73.96479722222223,
+    "tags": [
+      "나",
+      "도시"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669372/tribi/20260507_unitedstates_newyork_%EB%8F%84%EC%8B%9C_1781669368.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.74830277777778,
+    "lng": -73.97831666666667,
+    "tags": [
+      "도시"
+    ],
+    "date": "2026-05-07",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669366/tribi/20260507_unitedstates_newyork_%EB%8F%84%EC%8B%9C_1781669359.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.74950277777778,
+    "lng": -73.98078055555555,
+    "tags": [
+      "도시"
+    ],
+    "date": "2026-05-07",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669357/tribi/20260507_unitedstates_newyork_%EA%B3%B5%EC%9B%90_1781669354.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.75449722222222,
+    "lng": -73.98369722222222,
+    "tags": [
+      "공원"
+    ],
+    "date": "2026-05-07",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669352/tribi/20260507_unitedstates_newyork_%EA%B3%B5%EC%9B%90_1781669348.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.754244444444446,
+    "lng": -73.98329166666667,
+    "tags": [
+      "공원"
+    ],
+    "date": "2026-05-07",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669346/tribi/20260507_unitedstates_newyork_%EA%B3%B5%EC%9B%90_%EC%B1%85_1781669342.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.75416111111111,
+    "lng": -73.98328333333333,
+    "tags": [
+      "공원",
+      "책"
+    ],
+    "date": "2026-05-07",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669340/tribi/20260507_unitedstates_newyork_%EB%8F%84%EC%8B%9C_1781669336.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.75915277777778,
+    "lng": -73.98479444444445,
+    "tags": [
+      "도시"
+    ],
+    "date": "2026-05-07",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669335/tribi/20260507_unitedstates_newyork_%EC%98%88%EC%88%A0_1781669331.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.75908611111111,
+    "lng": -73.98490833333334,
+    "tags": [
+      "예술"
+    ],
+    "date": "2026-05-07",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669329/tribi/20260507_unitedstates_newyork_%EB%8F%84%EC%8B%9C_1781669325.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.7533,
+    "lng": -73.98054444444445,
+    "tags": [
+      "도시"
+    ],
+    "date": "2026-05-07",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669323/tribi/20260507_unitedstates_newyork_%EB%B0%A5_1781669321.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.74968055555556,
+    "lng": -73.97561666666667,
+    "tags": [
+      "밥"
+    ],
+    "date": "2026-05-07",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669319/tribi/20260507_unitedstates_newyork_%EB%8F%84%EC%8B%9C_1781669315.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.75447777777778,
+    "lng": -74.00075555555556,
+    "tags": [
+      "도시"
+    ],
+    "date": "2026-05-07",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669313/tribi/20260507_unitedstates_newyork_%EB%8F%84%EC%8B%9C_%EC%9D%BC%EC%B6%9C%EC%9D%BC%EB%AA%B0_1781669310.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.75185277777778,
+    "lng": -74.00196944444444,
+    "tags": [
+      "도시",
+      "일출일몰"
+    ],
+    "date": "2026-05-07",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669309/tribi/20260507_unitedstates_newyork_%EB%8F%84%EC%8B%9C_%EC%9D%BC%EC%B6%9C%EC%9D%BC%EB%AA%B0_1781669306.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.74229444444445,
+    "lng": -74.0107111111111,
+    "tags": [
+      "도시",
+      "일출일몰"
+    ],
+    "date": "2026-05-07",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669304/tribi/20260507_unitedstates_carteret_%EB%8F%84%EC%8B%9C_%EB%B9%84%ED%96%89%EA%B8%B0_1781669302.jpg",
+    "city": "Carteret",
+    "country": "United States",
+    "lat": 40.59591666666667,
+    "lng": -74.22331111111112,
+    "tags": [
+      "도시",
+      "비행기"
+    ],
+    "date": "2026-05-07",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669298/tribi/20260507_unitedstates_newyork_%EB%8F%84%EC%8B%9C_1781669294.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.752563888888886,
+    "lng": -73.98171111111111,
+    "tags": [
+      "도시"
+    ],
+    "date": "2026-05-07",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669293/tribi/20260507_unitedstates_newyork_%EA%B3%B5%EC%9B%90_1781669289.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.754105555555554,
+    "lng": -73.98300833333333,
+    "tags": [
+      "공원"
+    ],
+    "date": "2026-05-07",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669284/tribi/20260507_unitedstates_newyork_%EB%8F%84%EC%8B%9C_%EC%9D%BC%EC%B6%9C%EC%9D%BC%EB%AA%B0_1781669280.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.75343055555555,
+    "lng": -74.00382222222223,
+    "tags": [
+      "도시",
+      "일출일몰"
+    ],
+    "date": "2026-05-07",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669278/tribi/20260508_unitedstates_newyork_%EC%88%99%EC%86%8C_1781669274.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.75571111111111,
+    "lng": -73.88842777777778,
+    "tags": [
+      "숙소"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669273/tribi/20260508_unitedstates_newyork_%EC%88%99%EC%86%8C_1781669269.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.75571111111111,
+    "lng": -73.88842777777778,
+    "tags": [
+      "숙소"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669268/tribi/20260508_unitedstates_newyork_%EB%8F%84%EC%8B%9C_1781669262.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.751583333333336,
+    "lng": -73.887375,
+    "tags": [
+      "도시"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669261/tribi/20260508_unitedstates_newyork_%EB%B0%A5_1781669257.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.74764166666667,
+    "lng": -73.88356111111112,
+    "tags": [
+      "밥"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669255/tribi/20260508_unitedstates_newyork_%EC%98%88%EC%88%A0_1781669249.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.71568611111111,
+    "lng": -73.95036944444445,
+    "tags": [
+      "예술"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669247/tribi/20260508_unitedstates_newyork_%EC%B1%85_1781669243.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.71367777777778,
+    "lng": -73.95033333333333,
+    "tags": [
+      "책"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669241/tribi/20260508_unitedstates_newyork_%EC%B1%85_1781669238.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.713725000000004,
+    "lng": -73.95033333333333,
+    "tags": [
+      "책"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669236/tribi/20260508_unitedstates_newyork_%EC%B1%85_1781669233.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.714222222222226,
+    "lng": -73.95143055555556,
+    "tags": [
+      "책"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669232/tribi/20260508_unitedstates_newyork_%EC%B1%85_1781669228.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.712525,
+    "lng": -73.95120277777778,
+    "tags": [
+      "책"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669227/tribi/20260508_%EB%82%98_%EC%B1%85_1781669223.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.714733333333335,
+    "lng": -73.9525,
+    "tags": [
+      "나",
+      "책"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669222/tribi/20260508_unitedstates_newyork_%EC%B1%85_1781669218.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.714733333333335,
+    "lng": -73.9525,
+    "tags": [
+      "책"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669217/tribi/20260508_unitedstates_newyork_%EC%B1%85_1781669213.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.71473055555556,
+    "lng": -73.9525,
+    "tags": [
+      "책"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669211/tribi/20260508_unitedstates_newyork_%EC%B1%85_1781669207.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.714733333333335,
+    "lng": -73.95249166666667,
+    "tags": [
+      "책"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669200/tribi/20260508_unitedstates_newyork_%EB%8F%84%EC%8B%9C_%EC%98%88%EC%88%A0_1781669196.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.716816666666666,
+    "lng": -73.95686388888889,
+    "tags": [
+      "도시",
+      "예술"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669195/tribi/20260508_unitedstates_newyork_%EB%8F%84%EC%8B%9C_1781669192.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.71502777777778,
+    "lng": -73.95459722222222,
+    "tags": [
+      "도시"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669190/tribi/20260508_unitedstates_newyork_%EB%8F%84%EC%8B%9C_1781669186.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.719008333333335,
+    "lng": -73.95675,
+    "tags": [
+      "도시"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669184/tribi/20260508_unitedstates_newyork_%EB%82%98_1781669181.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.71989722222222,
+    "lng": -73.9602888888889,
+    "tags": [
+      "나"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669179/tribi/20260508_unitedstates_newyork_%EB%82%98_%EB%B0%A5_1781669177.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.720086111111115,
+    "lng": -73.96020555555556,
+    "tags": [
+      "나",
+      "밥"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669175/tribi/20260508_unitedstates_newyork_%EC%B1%85_1781669172.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.71653333333334,
+    "lng": -73.95919722222223,
+    "tags": [
+      "책"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669170/tribi/20260508_unitedstates_newyork_%EC%B1%85_1781669167.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.716502777777784,
+    "lng": -73.9592138888889,
+    "tags": [
+      "책"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669165/tribi/20260508_unitedstates_newyork_%EC%B1%85_1781669161.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.717686111111114,
+    "lng": -73.96209722222223,
+    "tags": [
+      "책"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669160/tribi/20260508_%EB%82%98_%EC%B1%85_1781669157.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.71765555555556,
+    "lng": -73.96209722222223,
+    "tags": [
+      "나",
+      "책"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669156/tribi/20260508_unitedstates_newyork_%EC%B1%85_1781669152.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.71765555555556,
+    "lng": -73.96209722222223,
+    "tags": [
+      "책"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669151/tribi/20260508_unitedstates_newyork_%EC%B1%85_1781669148.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.717686111111114,
+    "lng": -73.96205833333333,
+    "tags": [
+      "책"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669147/tribi/20260508_unitedstates_newyork_%EC%B1%85_1781669144.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.71765,
+    "lng": -73.96211111111111,
+    "tags": [
+      "책"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669143/tribi/20260508_unitedstates_newyork_%EC%B1%85_1781669140.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.71765555555556,
+    "lng": -73.96203611111112,
+    "tags": [
+      "책"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669138/tribi/20260508_unitedstates_newyork_%EB%8F%84%EC%8B%9C_1781669134.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.72137777777778,
+    "lng": -73.96479722222223,
+    "tags": [
+      "도시"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669129/tribi/20260508_unitedstates_newyork_%EB%8F%84%EC%8B%9C_1781669126.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.721333333333334,
+    "lng": -73.96478333333333,
+    "tags": [
+      "도시"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669125/tribi/20260508_%EB%82%98_%EB%B9%84%ED%96%89%EA%B8%B0_1781669122.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.703075000000005,
+    "lng": -73.99504722222223,
+    "tags": [
+      "나",
+      "비행기"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669120/tribi/20260508_unitedstates_newyork_%EB%8F%84%EC%8B%9C_1781669116.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.703075000000005,
+    "lng": -73.99504722222223,
+    "tags": [
+      "도시"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669114/tribi/20260508_unitedstates_newyork_%EB%8F%84%EC%8B%9C_1781669109.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.703747222222226,
+    "lng": -73.99543888888888,
+    "tags": [
+      "도시"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669107/tribi/20260508_unitedstates_newyork_%EB%8F%84%EC%8B%9C_1781669103.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.703158333333334,
+    "lng": -73.99408611111112,
+    "tags": [
+      "도시"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669101/tribi/20260508_unitedstates_newyork_%EB%8F%84%EC%8B%9C_1781669097.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.70330555555556,
+    "lng": -73.99625277777778,
+    "tags": [
+      "도시"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669095/tribi/20260508_unitedstates_newyork_%EB%8F%84%EC%8B%9C_1781669092.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.702358333333336,
+    "lng": -73.99078333333334,
+    "tags": [
+      "도시"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669090/tribi/20260508_unitedstates_newyork_%EB%B0%A5_1781669087.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.70249444444445,
+    "lng": -73.99112777777778,
+    "tags": [
+      "밥"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669086/tribi/20260508_unitedstates_newyork_%EB%8F%84%EC%8B%9C_%EC%B0%BD%EB%AC%B8_1781669081.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.70323055555556,
+    "lng": -73.98961666666666,
+    "tags": [
+      "도시",
+      "창문"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669079/tribi/20260508_unitedstates_newyork_%EB%8F%84%EC%8B%9C_%EA%B3%B5%EC%9B%90_1781669076.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.70406388888889,
+    "lng": -73.99184444444444,
+    "tags": [
+      "도시",
+      "공원"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669074/tribi/20260508_unitedstates_newyork_%EB%8F%84%EC%8B%9C_%EA%B3%B5%EC%9B%90_1781669070.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.704238888888895,
+    "lng": -73.99340833333333,
+    "tags": [
+      "도시",
+      "공원"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669067/tribi/20260508_unitedstates_newyork_%EB%8F%84%EC%8B%9C_%EA%B3%B5%EC%9B%90_1781669064.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.70365277777778,
+    "lng": -73.99363611111112,
+    "tags": [
+      "도시",
+      "공원"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669063/tribi/20260508_unitedstates_newyork_%EB%8F%84%EC%8B%9C_1781669059.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.70375555555556,
+    "lng": -73.99542222222222,
+    "tags": [
+      "도시"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669057/tribi/20260508_unitedstates_newyork_%EB%8F%84%EC%8B%9C_1781669053.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.70539166666667,
+    "lng": -73.99262222222222,
+    "tags": [
+      "도시"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669052/tribi/20260508_unitedstates_newyork_%EB%8F%84%EC%8B%9C_1781669048.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.70896944444445,
+    "lng": -73.98914444444445,
+    "tags": [
+      "도시"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669046/tribi/20260508_unitedstates_newyork_%EB%82%98_%EB%8F%84%EC%8B%9C_1781669042.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.72051944444445,
+    "lng": -73.9654,
+    "tags": [
+      "나",
+      "도시"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669041/tribi/20260508_unitedstates_newyork_%EB%8F%84%EC%8B%9C_1781669037.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.71984166666667,
+    "lng": -73.96533333333333,
+    "tags": [
+      "도시"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669035/tribi/20260508_unitedstates_newyork_%EC%B1%85_1781669031.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.71760833333334,
+    "lng": -73.96195277777778,
+    "tags": [
+      "책"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669030/tribi/20260508_unitedstates_newyork_%EB%8F%84%EC%8B%9C_%EC%9D%BC%EC%B6%9C%EC%9D%BC%EB%AA%B0_1781669027.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.70549444444445,
+    "lng": -73.99611666666667,
+    "tags": [
+      "도시",
+      "일출일몰"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669025/tribi/20260508_unitedstates_newyork_%EC%B1%85_1781669020.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.717666666666666,
+    "lng": -73.96205833333333,
+    "tags": [
+      "책"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669018/tribi/20260508_unitedstates_newyork_%EC%B1%85_1781669015.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.717666666666666,
+    "lng": -73.96204444444444,
+    "tags": [
+      "책"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781669013/tribi/20260508_unitedstates_newyork_%EA%B0%95%EC%95%84%EC%A7%80_%EC%B1%85_1781669009.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.71766944444445,
+    "lng": -73.96199722222222,
+    "tags": [
+      "강아지",
+      "책"
+    ],
+    "date": "2026-05-08",
+    "instagram": null
+  },
+  {
     "file": "https://res.cloudinary.com/docknepza/image/upload/v1781587332/tribi/20260427_mexico_oaxacacity_%EB%8F%84%EC%8B%9C_%EC%98%88%EC%88%A0_1781587328.jpg",
     "city": "Oaxaca City",
     "country": "Mexico",
