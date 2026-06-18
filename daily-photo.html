@@ -22,6 +22,7 @@
     border-radius: 12px;
     overflow: hidden;
     background: #e8e2d6;
+    cursor: pointer;
   }
   .photo-frame img {
     width: 100%;
@@ -35,6 +36,12 @@
     color: #666;
     display: flex;
     justify-content: space-between;
+  }
+  .hint {
+    margin-top: 4px;
+    font-size: 11px;
+    color: #aaa;
+    text-align: center;
   }
   .loading, .error {
     color: #999;
@@ -70,31 +77,39 @@ function optimizeUrl(url) {
 
 (async () => {
   const widget = document.getElementById('widget');
-  try {
-    const res = await fetch('/photos.json');
-    const data = await res.json();
-    const valid = Array.isArray(data) ? data.filter(p => p.file) : [];
+  let validPhotos = [];
 
-    if (valid.length === 0) {
-      widget.innerHTML = '<div class="error">사진을 불러올 수 없어요.</div>';
-      return;
-    }
-
-    const seed = getDailySeed();
-    const index = seed % valid.length;
-    const photo = valid[index];
-
+  function renderPhoto(photo) {
     const locationText = [photo.city, photo.country].filter(Boolean).join(', ');
-
     widget.innerHTML = `
-      <div class="photo-frame">
+      <div class="photo-frame" id="photoFrame">
         <img src="${optimizeUrl(photo.file)}" alt="${photo.city || 'travel photo'}">
       </div>
       <div class="info-row">
         <span>${locationText}</span>
         <span>${photo.date || ''}</span>
       </div>
+      <div class="hint">사진을 클릭하면 다른 사진을 볼 수 있어요</div>
     `;
+    document.getElementById('photoFrame').onclick = () => {
+      const randomIndex = Math.floor(Math.random() * validPhotos.length);
+      renderPhoto(validPhotos[randomIndex]);
+    };
+  }
+
+  try {
+    const res = await fetch('/photos.json');
+    const data = await res.json();
+    validPhotos = Array.isArray(data) ? data.filter(p => p.file) : [];
+
+    if (validPhotos.length === 0) {
+      widget.innerHTML = '<div class="error">사진을 불러올 수 없어요.</div>';
+      return;
+    }
+
+    const seed = getDailySeed();
+    const index = seed % validPhotos.length;
+    renderPhoto(validPhotos[index]);
   } catch (err) {
     widget.innerHTML = '<div class="error">사진을 불러올 수 없어요.</div>';
   }
