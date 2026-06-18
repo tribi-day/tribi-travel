@@ -89,7 +89,6 @@ function optimizeUrl(url) {
         <span>${locationText}</span>
         <span>${photo.date || ''}</span>
       </div>
-      <div class="hint">사진을 클릭하면 다른 사진을 볼 수 있어요</div>
     `;
     document.getElementById('photoFrame').onclick = () => {
       const randomIndex = Math.floor(Math.random() * validPhotos.length);
