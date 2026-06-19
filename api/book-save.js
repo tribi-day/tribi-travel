@@ -15,6 +15,15 @@ export default async function handler(req, res) {
 
   const titlePropName = type === 'fiction' ? 'name' : '제목';
 
+  // 올해 연도 계산
+  const currentYear = new Date().getFullYear();
+
+  // 연도별 노션 페이지 ID 매핑
+  const yearPageIds = {
+    2026: '24cf7517c6504fe298553ad1f6ffae86',
+  };
+  const yearPageId = yearPageIds[currentYear];
+
   const properties = {
     [titlePropName]: {
       title: [{ text: { content: book.title || '' } }],
@@ -22,16 +31,34 @@ export default async function handler(req, res) {
     작가: {
       rich_text: [{ text: { content: (book.authors || []).join(', ') } }],
     },
-출판사: {
-  select: { name: book.publisher || '' },
-},
+    출판사: {
+      select: { name: book.publisher || '' },
+    },
+    현황: {
+      status: { name: '읽는 중' },
+    },
   };
 
+  // 총 페이지
+  if (book.page && book.page > 0) {
+    properties['총 페이지'] = {
+      number: book.page,
+    };
+  }
+
+  // 연도 관계형
+  if (yearPageId) {
+    properties['연도'] = {
+      relation: [{ id: yearPageId }],
+    };
+  }
+
+  // 책 표지 — external URL
   if (book.thumbnail) {
     properties['책 표지'] = {
       files: [
         {
-          name: 'cover',
+          name: book.title || 'cover',
           type: 'external',
           external: { url: book.thumbnail },
         },
