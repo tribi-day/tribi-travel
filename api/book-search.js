@@ -42,7 +42,7 @@ export default async function handler(req, res) {
         page: naverMatch?.page ? parseInt(naverMatch.page) : null,
       };
     });
-
+console.log('naver response:', JSON.stringify(naverData));
     res.status(200).json({ documents: merged });
   } catch (err) {
     res.status(500).json({ error: err.message });
