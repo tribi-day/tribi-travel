@@ -194,7 +194,7 @@ async function search(query) {
   }
 }
 
-function selectBook(i) {
+async function selectBook(i) {
   const book = window._searchResults[i];
   if (!book) return;
   selectedBook = book;
@@ -215,14 +215,27 @@ function selectBook(i) {
   }
 
   document.getElementById('saveMsg').innerHTML = '';
-  // 다음 책 검색 링크 설정
   const bookLink = document.getElementById('bookLink');
   if (bookLink && book.url) bookLink.href = book.url;
-  // 페이지 입력 초기화
   document.getElementById('pageInput').value = '';
   document.getElementById('saveHint').innerHTML = '';
   document.getElementById('searchView').style.display = 'none';
   document.getElementById('selectView').style.display = 'block';
+
+  // ISBN으로 페이지 수 & 네이버 이미지 비동기 조회
+  const isbnParts = (book.isbn || '').trim().split(' ');
+  const isbn13 = isbnParts.find(i => i.length === 13) || isbnParts[0];
+  if (isbn13) {
+    try {
+      const r = await fetch(`/api/book-search?isbn=${isbn13}`);
+      const d = await r.json();
+      if (d.image) { thumb.src = d.image; thumb.style.display = 'block'; }
+      if (d.page) {
+        document.getElementById('pageInput').value = d.page;
+        selectedBook.page = d.page;
+      }
+    } catch {}
+  }
 }
 
 function goBack() {
