@@ -13,8 +13,6 @@
     color: #1a1a1a;
   }
   .wrap { max-width: 480px; margin: 0 auto; }
-
-  /* 검색창 */
   .search-input {
     width: 100%;
     padding: 10px 14px;
@@ -25,12 +23,8 @@
     color: #1a1a1a;
   }
   .search-input:focus { border-color: #aaa; }
-
-  /* 로딩 */
   .hint { color: #aaa; font-size: 13px; margin-top: 10px; }
-
-  /* 결과 목록 */
-  .result-row {
+  .result-item {
     display: flex;
     gap: 12px;
     padding: 12px 0;
@@ -38,7 +32,7 @@
     cursor: pointer;
     align-items: flex-start;
   }
-  .result-row:hover { background: #fafafa; }
+  .result-item:hover { background: #fafafa; }
   .thumb {
     width: 46px;
     height: 62px;
@@ -50,164 +44,152 @@
   .book-title { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
   .book-author { font-size: 12px; color: #777; margin-bottom: 2px; }
   .book-publisher { font-size: 12px; color: #bbb; }
-
-  /* 선택된 책 */
   .back-btn {
-    background: none;
-    border: none;
-    color: #888;
-    font-size: 13px;
-    cursor: pointer;
-    padding: 0;
-    margin-bottom: 18px;
+    background: none; border: none; color: #888;
+    font-size: 13px; cursor: pointer; padding: 0; margin-bottom: 18px;
   }
-  .selected-wrap { display: flex; gap: 16px; margin-bottom: 24px; }
-  .selected-thumb {
-    width: 72px;
-    border-radius: 6px;
-    object-fit: cover;
-    flex-shrink: 0;
-    align-self: flex-start;
-  }
+  .selected-wrap { display: flex; gap: 16px; margin-bottom: 20px; }
+  .selected-thumb { width: 72px; border-radius: 6px; object-fit: cover; flex-shrink: 0; align-self: flex-start; }
   .selected-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; line-height: 1.4; }
   .selected-author { font-size: 13px; color: #555; margin-bottom: 2px; }
-  .selected-publisher { font-size: 13px; color: #aaa; }
+  .selected-pub { font-size: 13px; color: #aaa; }
+  .page-row { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+  .page-label { font-size: 13px; color: #888; }
+  .page-input {
+    width: 100px; padding: 7px 10px;
+    border-radius: 8px; border: 1px solid #e0e0e0;
+    font-size: 14px; outline: none; color: #1a1a1a;
+  }
+  .daum-link {
+    font-size: 11px; color: #aaa; text-decoration: none;
+    border: 1px solid #e0e0e0; border-radius: 4px; padding: 3px 8px;
+  }
   .db-label { font-size: 13px; color: #888; margin-bottom: 12px; }
-
-  /* 버튼 */
   .btn-row { display: flex; gap: 10px; }
   .btn-primary {
-    flex: 1;
-    padding: 11px 0;
-    border-radius: 8px;
-    border: none;
-    background: #1a1a1a;
-    color: #fff;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
+    flex: 1; padding: 11px 0; border-radius: 8px; border: none;
+    background: #1a1a1a; color: #fff; font-size: 14px; font-weight: 600; cursor: pointer;
   }
   .btn-secondary {
-    flex: 1;
-    padding: 11px 0;
-    border-radius: 8px;
-    border: 1.5px solid #1a1a1a;
-    background: #fff;
-    color: #1a1a1a;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
+    flex: 1; padding: 11px 0; border-radius: 8px;
+    border: 1.5px solid #1a1a1a; background: #fff;
+    color: #1a1a1a; font-size: 14px; font-weight: 600; cursor: pointer;
   }
   .btn-primary:disabled, .btn-secondary:disabled { opacity: 0.5; cursor: default; }
-
-  /* 메시지 */
-  .msg {
-    margin-top: 14px;
-    padding: 10px 14px;
-    border-radius: 8px;
-    font-size: 13px;
-  }
+  .msg { margin-top: 14px; padding: 10px 14px; border-radius: 8px; font-size: 13px; }
   .msg.ok { background: #f0fdf4; color: #166534; }
   .msg.err { background: #fef2f2; color: #991b1b; }
 </style>
 </head>
 <body>
-<div class="wrap" id="wrap">
+<div class="wrap">
 
   <!-- 검색 화면 -->
   <div id="searchView">
-    <input
-      id="searchInput"
-      class="search-input"
-      type="text"
-      placeholder="책 제목으로 검색..."
-      oninput="handleInput(this.value)"
-    />
+    <input id="searchInput" class="search-input" type="text" placeholder="책 제목으로 검색...">
     <div id="searchHint"></div>
     <div id="resultList"></div>
   </div>
 
   <!-- 선택 화면 -->
   <div id="selectView" style="display:none;">
-    <button class="back-btn" onclick="goBack()">← 다시 검색</button>
+    <button class="back-btn" id="backBtn">← 다시 검색</button>
     <div class="selected-wrap">
       <img id="selThumb" class="selected-thumb" src="" alt="" style="display:none;">
       <div>
         <div class="selected-title" id="selTitle"></div>
         <div class="selected-author" id="selAuthor"></div>
-        <div class="selected-publisher" id="selPublisher"></div>
+        <div class="selected-pub" id="selPub"></div>
       </div>
+    </div>
+    <div class="page-row">
+      <span class="page-label">총 페이지</span>
+      <input id="pageInput" class="page-input" type="number" placeholder="직접 입력" min="1">
+      <a id="daumLink" class="daum-link" href="" target="_blank">다음에서 확인 →</a>
     </div>
     <p class="db-label">어느 DB에 저장할까요?</p>
     <div class="btn-row">
-      <button class="btn-primary" id="btnFiction" onclick="save('fiction')">픽션</button>
-      <button class="btn-secondary" id="btnNonfiction" onclick="save('nonfiction')">논픽션</button>
+      <button class="btn-primary" id="btnFiction">픽션</button>
+      <button class="btn-secondary" id="btnNonfiction">논픽션</button>
     </div>
     <div id="saveHint"></div>
     <div id="saveMsg"></div>
   </div>
 
 </div>
-
 <script>
 let selectedBook = null;
 let searchTimer = null;
+let searchResults = [];
 
-function handleInput(val) {
+// 검색 입력
+document.getElementById('searchInput').addEventListener('input', function() {
+  const val = this.value;
   clearTimeout(searchTimer);
   if (!val.trim()) {
     document.getElementById('resultList').innerHTML = '';
     document.getElementById('searchHint').innerHTML = '';
     return;
   }
-  searchTimer = setTimeout(() => search(val), 500);
-}
+  searchTimer = setTimeout(() => doSearch(val), 500);
+});
 
-async function search(query) {
+// 뒤로가기
+document.getElementById('backBtn').addEventListener('click', function() {
+  selectedBook = null;
+  document.getElementById('selectView').style.display = 'none';
+  document.getElementById('searchView').style.display = 'block';
+});
+
+// 저장 버튼
+document.getElementById('btnFiction').addEventListener('click', () => doSave('fiction'));
+document.getElementById('btnNonfiction').addEventListener('click', () => doSave('nonfiction'));
+
+async function doSearch(query) {
   document.getElementById('searchHint').innerHTML = '<div class="hint">검색 중...</div>';
   document.getElementById('resultList').innerHTML = '';
   try {
     const res = await fetch(`/api/book-search?query=${encodeURIComponent(query)}`);
     const data = await res.json();
-    const books = data.documents || [];
+    searchResults = data.documents || [];
     document.getElementById('searchHint').innerHTML = '';
-    if (books.length === 0) {
+    if (searchResults.length === 0) {
       document.getElementById('resultList').innerHTML = '<div class="hint">검색 결과가 없어요.</div>';
       return;
     }
-    window._searchResults = books;
     const list = document.getElementById('resultList');
     list.innerHTML = '';
-    books.forEach((b, i) => {
+    searchResults.forEach(function(book, i) {
       const row = document.createElement('div');
-      row.className = 'result-row';
+      row.className = 'result-item';
+      const thumbHtml = book.thumbnail
+        ? `<img class="thumb" src="${book.thumbnail}" alt="">`
+        : `<div class="thumb"></div>`;
       row.innerHTML = `
-        ${b.thumbnail ? `<img class="thumb" src="${b.thumbnail}" alt="">` : `<div class="thumb"></div>`}
+        ${thumbHtml}
         <div>
-          <div class="book-title">${b.title}</div>
-          <div class="book-author">${(b.authors || []).join(', ')}</div>
-          <div class="book-publisher">${b.publisher || ''}</div>
+          <div class="book-title">${book.title}</div>
+          <div class="book-author">${(book.authors || []).join(', ')}</div>
+          <div class="book-publisher">${book.publisher || ''}</div>
         </div>
       `;
-      row.addEventListener('click', () => selectBook(i));
+      row.addEventListener('click', function() { selectBook(i); });
       list.appendChild(row);
     });
-  } catch {
-    document.getElementById('searchHint').innerHTML = '<div class="hint">검색 중 오류가 발생했어요.</div>';
+  } catch(e) {
+    document.getElementById('searchHint').innerHTML = '<div class="hint">오류가 발생했어요.</div>';
   }
 }
 
 function selectBook(i) {
-  const book = window._searchResults[i];
+  const book = searchResults[i];
   if (!book) return;
   selectedBook = book;
 
   const year = book.datetime ? new Date(book.datetime).getFullYear() : null;
-
   document.getElementById('selTitle').textContent = book.title || '';
   document.getElementById('selAuthor').textContent = (book.authors || []).join(', ');
-  document.getElementById('selPublisher').textContent =
-    [book.publisher, year].filter(Boolean).join(' · ');
+  document.getElementById('selPub').textContent = [book.publisher, year].filter(Boolean).join(' · ');
 
   const thumb = document.getElementById('selThumb');
   if (book.thumbnail) {
@@ -217,28 +199,24 @@ function selectBook(i) {
     thumb.style.display = 'none';
   }
 
-  document.getElementById('saveMsg').innerHTML = '';
-  const bookLink = document.getElementById('bookLink');
-  if (bookLink && book.url) bookLink.href = book.url;
+  document.getElementById('daumLink').href = book.url || '';
   document.getElementById('pageInput').value = '';
+  document.getElementById('saveMsg').innerHTML = '';
   document.getElementById('saveHint').innerHTML = '';
+  document.getElementById('btnFiction').disabled = false;
+  document.getElementById('btnNonfiction').disabled = false;
+
   document.getElementById('searchView').style.display = 'none';
   document.getElementById('selectView').style.display = 'block';
-
 }
 
-function goBack() {
-  selectedBook = null;
-  document.getElementById('selectView').style.display = 'none';
-  document.getElementById('searchView').style.display = 'block';
-}
-
-async function save(type) {
+async function doSave(type) {
   if (!selectedBook) return;
-  const btnF = document.getElementById('btnFiction');
-  const btnN = document.getElementById('btnNonfiction');
-  btnF.disabled = true;
-  btnN.disabled = true;
+  const pageVal = parseInt(document.getElementById('pageInput').value);
+  if (pageVal > 0) selectedBook.page = pageVal;
+
+  document.getElementById('btnFiction').disabled = true;
+  document.getElementById('btnNonfiction').disabled = true;
   document.getElementById('saveHint').innerHTML = '<div class="hint" style="margin-top:12px; text-align:center;">저장 중...</div>';
   document.getElementById('saveMsg').innerHTML = '';
 
@@ -253,22 +231,24 @@ async function save(type) {
     if (data.success) {
       document.getElementById('saveMsg').innerHTML =
         `<div class="msg ok">${type === 'fiction' ? '픽션' : '논픽션'} DB에 저장됐어요 ✓</div>`;
-      setTimeout(() => {
-        goBack();
+      setTimeout(function() {
+        selectedBook = null;
+        document.getElementById('selectView').style.display = 'none';
+        document.getElementById('searchView').style.display = 'block';
         document.getElementById('searchInput').value = '';
         document.getElementById('resultList').innerHTML = '';
       }, 2000);
     } else {
       document.getElementById('saveMsg').innerHTML =
         `<div class="msg err">저장 실패: ${data.error}</div>`;
-      btnF.disabled = false;
-      btnN.disabled = false;
+      document.getElementById('btnFiction').disabled = false;
+      document.getElementById('btnNonfiction').disabled = false;
     }
-  } catch (err) {
+  } catch(e) {
     document.getElementById('saveMsg').innerHTML =
-      `<div class="msg err">오류: ${err.message}</div>`;
-    btnF.disabled = false;
-    btnN.disabled = false;
+      `<div class="msg err">오류: ${e.message}</div>`;
+    document.getElementById('btnFiction').disabled = false;
+    document.getElementById('btnNonfiction').disabled = false;
   }
 }
 </script>
