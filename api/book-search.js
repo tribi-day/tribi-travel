@@ -34,8 +34,9 @@ export default async function handler(req, res) {
         );
         const naverData = await naverRes.json();
         const item = (naverData.items || [])[0];
-        const page = item?.page ? parseInt(item.page) : null;
-        return { ...book, page };
+        // 네이버 고화질 이미지로 교체, page는 API 미제공
+        const naverImage = item?.image || null;
+        return { ...book, thumbnail: naverImage || book.thumbnail, page: null };
       } catch {
         return { ...book, page: null };
       }
