@@ -197,7 +197,7 @@ async function search(query) {
   }
 }
 
-async function selectBook(i) {
+function selectBook(i) {
   const book = window._searchResults[i];
   if (!book) return;
   selectedBook = book;
@@ -225,20 +225,6 @@ async function selectBook(i) {
   document.getElementById('searchView').style.display = 'none';
   document.getElementById('selectView').style.display = 'block';
 
-  // ISBN으로 페이지 수 & 네이버 이미지 비동기 조회
-  const isbnParts = (book.isbn || '').trim().split(' ');
-  const isbn13 = isbnParts.find(i => i.length === 13) || isbnParts[0];
-  if (isbn13) {
-    try {
-      const r = await fetch(`/api/book-search?isbn=${isbn13}`);
-      const d = await r.json();
-      if (d.image) { thumb.src = d.image; thumb.style.display = 'block'; }
-      if (d.page) {
-        document.getElementById('pageInput').value = d.page;
-        selectedBook.page = d.page;
-      }
-    } catch {}
-  }
 }
 
 function goBack() {
