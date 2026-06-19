@@ -208,6 +208,23 @@ function selectBook(i) {
 
   document.getElementById('searchView').style.display = 'none';
   document.getElementById('selectView').style.display = 'block';
+
+  // 책 선택 후 ISBN으로 네이버 이미지 비동기 조회 (클릭 속도 영향 없음)
+  const isbnParts = (book.isbn || '').trim().split(' ');
+  const isbn13 = isbnParts.find(p => p.length === 13);
+  if (isbn13) {
+    fetch(`/api/book-search?isbn=${isbn13}`)
+      .then(r => r.json())
+      .then(d => {
+        if (d.image) {
+          selectedBook.thumbnail = d.image;
+          const thumb = document.getElementById('selThumb');
+          thumb.src = d.image;
+          thumb.style.display = 'block';
+        }
+      })
+      .catch(() => {});
+  }
 }
 
 async function doSave(type) {
