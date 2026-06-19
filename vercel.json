@@ -2,6 +2,12 @@
   "functions": {
     "api/photos.js": {
       "maxDuration": 30
+    },
+    "api/book-search.js": {
+      "maxDuration": 10
+    },
+    "api/book-save.js": {
+      "maxDuration": 10
     }
   }
 }
