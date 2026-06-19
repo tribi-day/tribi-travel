@@ -8,6 +8,9 @@
     },
     "api/book-save.js": {
       "maxDuration": 10
+    },
+    "api/naver-test.js": {
+      "maxDuration": 10
     }
   }
 }
