@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>책 검색 위젯</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: transparent;
+    padding: 20px;
+    color: #1a1a1a;
+  }
+  .wrap { max-width: 480px; margin: 0 auto; }
+
+  /* 검색창 */
+  .search-input {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    font-size: 15px;
+    outline: none;
+    color: #1a1a1a;
+  }
+  .search-input:focus { border-color: #aaa; }
+
+  /* 로딩 */
+  .hint { color: #aaa; font-size: 13px; margin-top: 10px; }
+
+  /* 결과 목록 */
+  .result-row {
+    display: flex;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+    align-items: flex-start;
+  }
+  .result-row:hover { background: #fafafa; }
+  .thumb {
+    width: 46px;
+    height: 62px;
+    object-fit: cover;
+    border-radius: 4px;
+    flex-shrink: 0;
+    background: #f0f0f0;
+  }
+  .book-title { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
+  .book-author { font-size: 12px; color: #777; margin-bottom: 2px; }
+  .book-publisher { font-size: 12px; color: #bbb; }
+
+  /* 선택된 책 */
+  .back-btn {
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 13px;
+    cursor: pointer;
+    padding: 0;
+    margin-bottom: 18px;
+  }
+  .selected-wrap { display: flex; gap: 16px; margin-bottom: 24px; }
+  .selected-thumb {
+    width: 72px;
+    border-radius: 6px;
+    object-fit: cover;
+    flex-shrink: 0;
+    align-self: flex-start;
+  }
+  .selected-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; line-height: 1.4; }
+  .selected-author { font-size: 13px; color: #555; margin-bottom: 2px; }
+  .selected-publisher { font-size: 13px; color: #aaa; }
+  .db-label { font-size: 13px; color: #888; margin-bottom: 12px; }
+
+  /* 버튼 */
+  .btn-row { display: flex; gap: 10px; }
+  .btn-primary {
+    flex: 1;
+    padding: 11px 0;
+    border-radius: 8px;
+    border: none;
+    background: #1a1a1a;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .btn-secondary {
+    flex: 1;
+    padding: 11px 0;
+    border-radius: 8px;
+    border: 1.5px solid #1a1a1a;
+    background: #fff;
+    color: #1a1a1a;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .btn-primary:disabled, .btn-secondary:disabled { opacity: 0.5; cursor: default; }
+
+  /* 메시지 */
+  .msg {
+    margin-top: 14px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+  }
+  .msg.ok { background: #f0fdf4; color: #166534; }
+  .msg.err { background: #fef2f2; color: #991b1b; }
+</style>
+</head>
+<body>
+<div class="wrap" id="wrap">
+
+  <!-- 검색 화면 -->
+  <div id="searchView">
+    <input
+      id="searchInput"
+      class="search-input"
+      type="text"
+      placeholder="책 제목으로 검색..."
+      oninput="handleInput(this.value)"
+    />
+    <div id="searchHint"></div>
+    <div id="resultList"></div>
+  </div>
+
+  <!-- 선택 화면 -->
+  <div id="selectView" style="display:none;">
+    <button class="back-btn" onclick="goBack()">← 다시 검색</button>
+    <div class="selected-wrap">
+      <img id="selThumb" class="selected-thumb" src="" alt="" style="display:none;">
+      <div>
+        <div class="selected-title" id="selTitle"></div>
+        <div class="selected-author" id="selAuthor"></div>
+        <div class="selected-publisher" id="selPublisher"></div>
+      </div>
+    </div>
+    <p class="db-label">어느 DB에 저장할까요?</p>
+    <div class="btn-row">
+      <button class="btn-primary" id="btnFiction" onclick="save('fiction')">픽션</button>
+      <button class="btn-secondary" id="btnNonfiction" onclick="save('nonfiction')">논픽션</button>
+    </div>
+    <div id="saveHint"></div>
+    <div id="saveMsg"></div>
+  </div>
+
+</div>
+
+<script>
+let selectedBook = null;
+let searchTimer = null;
+
+function handleInput(val) {
+  clearTimeout(searchTimer);
+  if (!val.trim()) {
+    document.getElementById('resultList').innerHTML = '';
+    document.getElementById('searchHint').innerHTML = '';
+    return;
+  }
+  searchTimer = setTimeout(() => search(val), 500);
+}
+
+async function search(query) {
+  document.getElementById('searchHint').innerHTML = '<div class="hint">검색 중...</div>';
+  document.getElementById('resultList').innerHTML = '';
+  try {
+    const res = await fetch(`/api/book-search?query=${encodeURIComponent(query)}`);
+    const data = await res.json();
+    const books = data.documents || [];
+    document.getElementById('searchHint').innerHTML = '';
+    if (books.length === 0) {
+      document.getElementById('resultList').innerHTML = '<div class="hint">검색 결과가 없어요.</div>';
+      return;
+    }
+    document.getElementById('resultList').innerHTML = books.map((b, i) => `
+      <div class="result-row" onclick="selectBook(${i})">
+        ${b.thumbnail
+          ? `<img class="thumb" src="${b.thumbnail}" alt="">`
+          : `<div class="thumb"></div>`}
+        <div>
+          <div class="book-title">${b.title}</div>
+          <div class="book-author">${(b.authors || []).join(', ')}</div>
+          <div class="book-publisher">${b.publisher || ''}</div>
+        </div>
+      </div>
+    `).join('');
+    // 검색 결과를 전역에 저장
+    window._searchResults = books;
+  } catch {
+    document.getElementById('searchHint').innerHTML = '<div class="hint">검색 중 오류가 발생했어요.</div>';
+  }
+}
+
+function selectBook(i) {
+  const book = window._searchResults[i];
+  if (!book) return;
+  selectedBook = book;
+
+  const year = book.datetime ? new Date(book.datetime).getFullYear() : null;
+
+  document.getElementById('selTitle').textContent = book.title || '';
+  document.getElementById('selAuthor').textContent = (book.authors || []).join(', ');
+  document.getElementById('selPublisher').textContent =
+    [book.publisher, year].filter(Boolean).join(' · ');
+
+  const thumb = document.getElementById('selThumb');
+  if (book.thumbnail) {
+    thumb.src = book.thumbnail;
+    thumb.style.display = 'block';
+  } else {
+    thumb.style.display = 'none';
+  }
+
+  document.getElementById('saveMsg').innerHTML = '';
+  document.getElementById('saveHint').innerHTML = '';
+  document.getElementById('searchView').style.display = 'none';
+  document.getElementById('selectView').style.display = 'block';
+}
+
+function goBack() {
+  selectedBook = null;
+  document.getElementById('selectView').style.display = 'none';
+  document.getElementById('searchView').style.display = 'block';
+}
+
+async function save(type) {
+  if (!selectedBook) return;
+  const btnF = document.getElementById('btnFiction');
+  const btnN = document.getElementById('btnNonfiction');
+  btnF.disabled = true;
+  btnN.disabled = true;
+  document.getElementById('saveHint').innerHTML = '<div class="hint" style="margin-top:12px; text-align:center;">저장 중...</div>';
+  document.getElementById('saveMsg').innerHTML = '';
+
+  try {
+    const res = await fetch('/api/book-save', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ book: selectedBook, type }),
+    });
+    const data = await res.json();
+    document.getElementById('saveHint').innerHTML = '';
+    if (data.success) {
+      document.getElementById('saveMsg').innerHTML =
+        `<div class="msg ok">${type === 'fiction' ? '픽션' : '논픽션'} DB에 저장됐어요 ✓</div>`;
+      setTimeout(() => {
+        goBack();
+        document.getElementById('searchInput').value = '';
+        document.getElementById('resultList').innerHTML = '';
+      }, 2000);
+    } else {
+      document.getElementById('saveMsg').innerHTML =
+        `<div class="msg err">저장 실패: ${data.error}</div>`;
+      btnF.disabled = false;
+      btnN.disabled = false;
+    }
+  } catch (err) {
+    document.getElementById('saveMsg').innerHTML =
+      `<div class="msg err">오류: ${err.message}</div>`;
+    btnF.disabled = false;
+    btnN.disabled = false;
+  }
+}
+</script>
+</body>
+</html>
