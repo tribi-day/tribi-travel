@@ -215,6 +215,11 @@ function selectBook(i) {
   }
 
   document.getElementById('saveMsg').innerHTML = '';
+  // 다음 책 검색 링크 설정
+  const bookLink = document.getElementById('bookLink');
+  if (bookLink && book.url) bookLink.href = book.url;
+  // 페이지 입력 초기화
+  document.getElementById('pageInput').value = '';
   document.getElementById('saveHint').innerHTML = '';
   document.getElementById('searchView').style.display = 'none';
   document.getElementById('selectView').style.display = 'block';
