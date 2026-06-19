@@ -1,12 +1,12 @@
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
 
-  const { query } = req.query;
-  if (!query) return res.status(400).json({ error: 'query required' });
+  // 채식주의자 ISBN13
+  const isbn = '9788936434595';
 
   try {
     const naverRes = await fetch(
-      `https://openapi.naver.com/v1/search/book.json?query=${encodeURIComponent(query)}&display=3`,
+      `https://openapi.naver.com/v1/search/book_adv.json?d_isbn=${isbn}`,
       {
         headers: {
           'X-Naver-Client-Id': process.env.NAVER_CLIENT_ID,
