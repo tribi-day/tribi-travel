@@ -18,6 +18,16 @@ export default async function handler(req, res) {
   // 올해 연도 계산
   const currentYear = new Date().getFullYear();
 
+  // 카카오 썸네일 URL을 원본 이미지 URL로 변환
+  function getOriginalThumbnail(url) {
+    if (!url) return url;
+    // R120x174.q85/?fname= 패턴에서 원본 URL 추출
+    const match = url.match(/fname=([^&]+)/);
+    if (match) return decodeURIComponent(match[1]);
+    return url;
+  }
+  const thumbnailUrl = getOriginalThumbnail(book.thumbnail);
+
   // 연도별 노션 페이지 ID 매핑
   const yearPageIds = {
     2026: '24cf7517c6504fe298553ad1f6ffae86',
@@ -41,9 +51,7 @@ export default async function handler(req, res) {
 
   // 총 페이지
   if (book.page && book.page > 0) {
-    properties['총 페이지'] = {
-      number: book.page,
-    };
+    properties['총 페이지'] = { number: book.page };
   }
 
   // 연도 관계형
@@ -60,7 +68,7 @@ export default async function handler(req, res) {
         {
           name: book.title || 'cover',
           type: 'external',
-          external: { url: book.thumbnail },
+          external: { url: thumbnailUrl },
         },
       ],
     };
@@ -78,7 +86,7 @@ export default async function handler(req, res) {
         parent: { database_id: dbId },
         properties,
         cover: book.thumbnail
-          ? { type: 'external', external: { url: book.thumbnail } }
+          ? { type: 'external', external: { url: thumbnailUrl } }
           : undefined,
       }),
     });
