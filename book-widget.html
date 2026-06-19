@@ -175,20 +175,23 @@ async function search(query) {
       document.getElementById('resultList').innerHTML = '<div class="hint">검색 결과가 없어요.</div>';
       return;
     }
-    document.getElementById('resultList').innerHTML = books.map((b, i) => `
-      <div class="result-row" onclick="selectBook(${i})">
-        ${b.thumbnail
-          ? `<img class="thumb" src="${b.thumbnail}" alt="">`
-          : `<div class="thumb"></div>`}
+    window._searchResults = books;
+    const list = document.getElementById('resultList');
+    list.innerHTML = '';
+    books.forEach((b, i) => {
+      const row = document.createElement('div');
+      row.className = 'result-row';
+      row.innerHTML = `
+        ${b.thumbnail ? `<img class="thumb" src="${b.thumbnail}" alt="">` : `<div class="thumb"></div>`}
         <div>
           <div class="book-title">${b.title}</div>
           <div class="book-author">${(b.authors || []).join(', ')}</div>
           <div class="book-publisher">${b.publisher || ''}</div>
         </div>
-      </div>
-    `).join('');
-    // 검색 결과를 전역에 저장
-    window._searchResults = books;
+      `;
+      row.addEventListener('click', () => selectBook(i));
+      list.appendChild(row);
+    });
   } catch {
     document.getElementById('searchHint').innerHTML = '<div class="hint">검색 중 오류가 발생했어요.</div>';
   }
