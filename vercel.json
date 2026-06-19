@@ -4,7 +4,7 @@
       "maxDuration": 30
     },
     "api/book-search.js": {
-      "maxDuration": 10
+      "maxDuration": 30
     },
     "api/book-save.js": {
       "maxDuration": 10
