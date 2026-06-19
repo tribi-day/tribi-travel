@@ -22,9 +22,9 @@ export default async function handler(req, res) {
     작가: {
       rich_text: [{ text: { content: (book.authors || []).join(', ') } }],
     },
-    출판사: {
-      rich_text: [{ text: { content: book.publisher || '' } }],
-    },
+출판사: {
+  select: { name: book.publisher || '' },
+},
   };
 
   if (book.thumbnail) {
