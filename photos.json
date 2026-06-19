@@ -1,5 +1,978 @@
 [
   {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858667/tribi/20260511_%EB%82%98_%EB%B9%84%ED%96%89%EA%B8%B0_1781858664.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.779583333333335,
+    "lng": -73.96200555555556,
+    "tags": [
+      "나",
+      "비행기"
+    ],
+    "date": "2026-05-12",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858663/tribi/20260512_unitedstates_newyork_%EB%8F%84%EC%8B%9C_1781858660.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.753952777777776,
+    "lng": -73.97443333333334,
+    "tags": [
+      "도시"
+    ],
+    "date": "2026-05-12",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858658/tribi/20260512_unitedstates_newyork_%EB%B0%A5_1781858654.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.75706388888889,
+    "lng": -73.97585277777777,
+    "tags": [
+      "밥"
+    ],
+    "date": "2026-05-12",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858652/tribi/20260512_%EB%82%98_%EB%8F%84%EC%8B%9C_%EA%B3%B5%EC%9B%90_1781858650.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.78250833333333,
+    "lng": -73.96563611111111,
+    "tags": [
+      "나",
+      "도시",
+      "공원"
+    ],
+    "date": "2026-05-12",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858648/tribi/20260512_unitedstates_newyork_%EB%8F%84%EC%8B%9C_1781858645.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.779583333333335,
+    "lng": -73.96200555555556,
+    "tags": [
+      "도시"
+    ],
+    "date": "2026-05-12",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858644/tribi/20260513_canada_vancouver_%EB%B0%A5_1781858641.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.29389166666667,
+    "lng": -123.11991111111111,
+    "tags": [
+      "밥"
+    ],
+    "date": "2026-05-13",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858639/tribi/20260514_canada_vancouver_%EB%8F%99%EB%AC%BC_1781858636.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.29598611111111,
+    "lng": -123.13558333333334,
+    "tags": [
+      "동물"
+    ],
+    "date": "2026-05-14",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858635/tribi/20260514_canada_vancouver_%EB%8F%99%EB%AC%BC_1781858631.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.296258333333334,
+    "lng": -123.12908055555555,
+    "tags": [
+      "동물"
+    ],
+    "date": "2026-05-14",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858630/tribi/20260514_canada_vancouver_%EA%B3%B5%EC%9B%90_1781858626.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.299141666666664,
+    "lng": -123.12359722222222,
+    "tags": [
+      "공원"
+    ],
+    "date": "2026-05-14",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858625/tribi/20260514_canada_vancouver_%EB%8F%84%EC%8B%9C_1781858621.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.29298055555555,
+    "lng": -123.12838055555555,
+    "tags": [
+      "도시"
+    ],
+    "date": "2026-05-14",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858619/tribi/20260514_canada_vancouver_%EB%B0%A5_%EA%B3%B5%EC%9B%90_1781858615.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.29389166666667,
+    "lng": -123.11991111111111,
+    "tags": [
+      "밥",
+      "공원"
+    ],
+    "date": "2026-05-14",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858613/tribi/20260514_canada_vancouver_%EA%B3%B5%EC%9B%90_1781858609.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.298027777777776,
+    "lng": -123.12474722222221,
+    "tags": [
+      "공원"
+    ],
+    "date": "2026-05-14",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858608/tribi/20260514_canada_vancouver_%EB%8F%84%EC%8B%9C_1781858604.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.28579444444444,
+    "lng": -123.11290833333332,
+    "tags": [
+      "도시"
+    ],
+    "date": "2026-05-14",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858603/tribi/20260514_canada_vancouver_%EB%B0%A5_1781858600.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.29389166666667,
+    "lng": -123.11991111111111,
+    "tags": [
+      "밥"
+    ],
+    "date": "2026-05-14",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858598/tribi/20260515_canada_burnaby_%EC%98%88%EC%88%A0_1781858595.jpg",
+    "city": "Burnaby",
+    "country": "Canada",
+    "lat": 49.22539444444445,
+    "lng": -122.99874166666667,
+    "tags": [
+      "예술"
+    ],
+    "date": "2026-05-15",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858594/tribi/20260515_canada_vancouver_%EB%B0%A5_1781858590.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.29389166666667,
+    "lng": -123.11991111111111,
+    "tags": [
+      "밥"
+    ],
+    "date": "2026-05-15",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858588/tribi/20260516_canada_electoralareaa_%EB%8F%99%EB%AC%BC_1781858586.jpg",
+    "city": "Electoral Area A",
+    "country": "Canada",
+    "lat": 49.26229166666667,
+    "lng": -123.26209166666666,
+    "tags": [
+      "동물"
+    ],
+    "date": "2026-05-16",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858583/tribi/20260516_canada_electoralareaa_%EB%B9%84%ED%96%89%EA%B8%B0_1781858579.jpg",
+    "city": "Electoral Area A",
+    "country": "Canada",
+    "lat": 49.26866944444444,
+    "lng": -123.25874444444445,
+    "tags": [
+      "비행기"
+    ],
+    "date": "2026-05-16",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858576/tribi/20260516_canada_vancouver_%EB%8F%84%EC%8B%9C_1781858573.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.27551388888889,
+    "lng": -123.12381666666666,
+    "tags": [
+      "도시"
+    ],
+    "date": "2026-05-16",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858571/tribi/20260516_canada_vancouver_%EB%B0%A5_1781858568.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.29389166666667,
+    "lng": -123.11991111111111,
+    "tags": [
+      "밥"
+    ],
+    "date": "2026-05-16",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858566/tribi/20260516_canada_electoralareaa_%EA%B3%B5%EC%9B%90_1781858561.jpg",
+    "city": "Electoral Area A",
+    "country": "Canada",
+    "lat": 49.26826388888889,
+    "lng": -123.25916944444444,
+    "tags": [
+      "공원"
+    ],
+    "date": "2026-05-16",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858553/tribi/20260516_canada_electoralareaa_%EB%8F%84%EC%8B%9C_%EA%B3%B5%EC%9B%90_1781858549.jpg",
+    "city": "Electoral Area A",
+    "country": "Canada",
+    "lat": 49.270430555555556,
+    "lng": -123.25438055555556,
+    "tags": [
+      "도시",
+      "공원"
+    ],
+    "date": "2026-05-16",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858547/tribi/20260516_canada_electoralareaa_%EB%8F%84%EC%8B%9C_%EA%B3%B5%EC%9B%90_1781858543.jpg",
+    "city": "Electoral Area A",
+    "country": "Canada",
+    "lat": 49.266891666666666,
+    "lng": -123.2491388888889,
+    "tags": [
+      "도시",
+      "공원"
+    ],
+    "date": "2026-05-16",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858541/tribi/20260516_canada_vancouver_%EB%8F%84%EC%8B%9C_1781858536.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.26969444444445,
+    "lng": -123.253625,
+    "tags": [
+      "도시"
+    ],
+    "date": "2026-05-16",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858533/tribi/20260516_canada_electoralareaa_%EB%8F%84%EC%8B%9C_1781858530.jpg",
+    "city": "Electoral Area A",
+    "country": "Canada",
+    "lat": 49.26683888888889,
+    "lng": -123.2491388888889,
+    "tags": [
+      "도시"
+    ],
+    "date": "2026-05-16",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858528/tribi/20260516_canada_vancouver_%EB%B0%A5_1781858524.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.29389166666667,
+    "lng": -123.11991111111111,
+    "tags": [
+      "밥"
+    ],
+    "date": "2026-05-16",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858523/tribi/20260516_canada_electoralareaa_%EB%B0%94%EB%8B%A4_1781858519.jpg",
+    "city": "Electoral Area A",
+    "country": "Canada",
+    "lat": 49.265277777777776,
+    "lng": -123.26421388888889,
+    "tags": [
+      "바다"
+    ],
+    "date": "2026-05-16",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858518/tribi/20260516_canada_electoralareaa_%EB%B0%94%EB%8B%A4_1781858515.jpg",
+    "city": "Electoral Area A",
+    "country": "Canada",
+    "lat": 49.26878611111111,
+    "lng": -123.26271111111112,
+    "tags": [
+      "바다"
+    ],
+    "date": "2026-05-16",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858514/tribi/20260516_canada_electoralareaa_%EB%B0%94%EB%8B%A4_1781858510.jpg",
+    "city": "Electoral Area A",
+    "country": "Canada",
+    "lat": 49.26218055555555,
+    "lng": -123.26212222222222,
+    "tags": [
+      "바다"
+    ],
+    "date": "2026-05-16",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858508/tribi/20260516_canada_electoralareaa_%EB%B0%94%EB%8B%A4_1781858505.jpg",
+    "city": "Electoral Area A",
+    "country": "Canada",
+    "lat": 49.262188888888886,
+    "lng": -123.26213055555556,
+    "tags": [
+      "바다"
+    ],
+    "date": "2026-05-16",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858503/tribi/20260516_canada_electoralareaa_%EB%B0%A5_1781858500.jpg",
+    "city": "Electoral Area A",
+    "country": "Canada",
+    "lat": 49.26654444444444,
+    "lng": -123.24851944444444,
+    "tags": [
+      "밥"
+    ],
+    "date": "2026-05-16",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858499/tribi/20260516_canada_electoralareaa_%EB%8F%99%EB%AC%BC_1781858495.jpg",
+    "city": "Electoral Area A",
+    "country": "Canada",
+    "lat": 49.267738888888886,
+    "lng": -123.25933055555555,
+    "tags": [
+      "동물"
+    ],
+    "date": "2026-05-16",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858493/tribi/20260517_canada_vancouver_%EB%B0%A5_1781858490.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.29389166666667,
+    "lng": -123.11991111111111,
+    "tags": [
+      "밥"
+    ],
+    "date": "2026-05-17",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858488/tribi/20260517_canada_vancouver_%EB%8F%99%EB%AC%BC_1781858486.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.30506388888889,
+    "lng": -123.1383138888889,
+    "tags": [
+      "동물"
+    ],
+    "date": "2026-05-17",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858472/tribi/20260517_canada_vancouver_%EB%B0%94%EB%8B%A4_%EA%B3%B5%EC%9B%90_1781858467.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.29546666666666,
+    "lng": -123.15235833333334,
+    "tags": [
+      "바다",
+      "공원"
+    ],
+    "date": "2026-05-17",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858465/tribi/20260517_canada_vancouver_%EA%B3%B5%EC%9B%90_1781858462.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.29546111111111,
+    "lng": -123.15220000000001,
+    "tags": [
+      "공원"
+    ],
+    "date": "2026-05-17",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858459/tribi/20260517_canada_vancouver_%EB%B0%94%EB%8B%A4_1781858455.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.28736388888889,
+    "lng": -123.11267222222222,
+    "tags": [
+      "바다"
+    ],
+    "date": "2026-05-17",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858454/tribi/20260517_canada_vancouver_%EB%8F%84%EC%8B%9C_1781858450.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.293011111111106,
+    "lng": -123.13395000000001,
+    "tags": [
+      "도시"
+    ],
+    "date": "2026-05-17",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858448/tribi/20260517_canada_vancouver_%EB%B0%A5_1781858445.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.29389166666667,
+    "lng": -123.11991111111111,
+    "tags": [
+      "밥"
+    ],
+    "date": "2026-05-17",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858443/tribi/20260517_canada_vancouver_%EB%8F%84%EC%8B%9C_1781858440.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.28285277777778,
+    "lng": -123.11844722222222,
+    "tags": [
+      "도시"
+    ],
+    "date": "2026-05-17",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858430/tribi/20260517_canada_vancouver_%EA%B3%B5%EC%9B%90_1781858427.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.2982,
+    "lng": -123.11884444444443,
+    "tags": [
+      "공원"
+    ],
+    "date": "2026-05-17",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858426/tribi/20260517_canada_vancouver_%EB%8F%84%EC%8B%9C_%EA%B3%B5%EC%9B%90_1781858421.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.295477777777776,
+    "lng": -123.15211388888889,
+    "tags": [
+      "도시",
+      "공원"
+    ],
+    "date": "2026-05-17",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858419/tribi/20260517_canada_vancouver_%EB%8F%84%EC%8B%9C_%EA%B3%B5%EC%9B%90_1781858416.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.295494444444444,
+    "lng": -123.15213055555556,
+    "tags": [
+      "도시",
+      "공원"
+    ],
+    "date": "2026-05-17",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858414/tribi/20260517_canada_vancouver_%EA%B3%B5%EC%9B%90_1781858409.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.29371944444444,
+    "lng": -123.14973333333334,
+    "tags": [
+      "공원"
+    ],
+    "date": "2026-05-17",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858407/tribi/20260517_canada_vancouver_%EA%B3%B5%EC%9B%90_1781858403.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.29585,
+    "lng": -123.15226666666668,
+    "tags": [
+      "공원"
+    ],
+    "date": "2026-05-17",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858400/tribi/20260517_canada_vancouver_%EA%B3%B5%EC%9B%90_1781858397.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.300888888888885,
+    "lng": -123.14881111111112,
+    "tags": [
+      "공원"
+    ],
+    "date": "2026-05-17",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858394/tribi/20260517_canada_vancouver_%EA%B3%B5%EC%9B%90_1781858389.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.30133055555555,
+    "lng": -123.15811944444445,
+    "tags": [
+      "공원"
+    ],
+    "date": "2026-05-17",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858387/tribi/20260517_canada_vancouver_%EB%8F%99%EB%AC%BC_1781858383.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.30502222222222,
+    "lng": -123.13806111111111,
+    "tags": [
+      "동물"
+    ],
+    "date": "2026-05-17",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858381/tribi/20260517_canada_vancouver_%EA%B3%B5%EC%9B%90_1781858377.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.30897777777778,
+    "lng": -123.13635277777779,
+    "tags": [
+      "공원"
+    ],
+    "date": "2026-05-17",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858375/tribi/20260517_canada_vancouver_%EB%8F%99%EB%AC%BC_%EA%B3%B5%EC%9B%90_1781858371.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.30005555555555,
+    "lng": -123.12419166666666,
+    "tags": [
+      "동물",
+      "공원"
+    ],
+    "date": "2026-05-17",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858369/tribi/20260517_canada_vancouver_%EA%B3%B5%EC%9B%90_1781858365.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.300127777777774,
+    "lng": -123.12426111111111,
+    "tags": [
+      "공원"
+    ],
+    "date": "2026-05-17",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858363/tribi/20260517_canada_vancouver_%EB%8F%84%EC%8B%9C_1781858358.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.28773611111111,
+    "lng": -123.12960833333332,
+    "tags": [
+      "도시"
+    ],
+    "date": "2026-05-17",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858356/tribi/20260518_canada_vancouver_%EB%B0%A5_1781858352.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.29389166666667,
+    "lng": -123.11991111111111,
+    "tags": [
+      "밥"
+    ],
+    "date": "2026-05-18",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858350/tribi/20260518_canada_vancouver_%EC%B1%85_1781858343.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.24995555555556,
+    "lng": -123.10105,
+    "tags": [
+      "책"
+    ],
+    "date": "2026-05-18",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858341/tribi/20260518_canada_vancouver_%EC%B1%85_1781858337.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.24995,
+    "lng": -123.10094444444444,
+    "tags": [
+      "책"
+    ],
+    "date": "2026-05-18",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858336/tribi/20260518_canada_vancouver_%EC%98%88%EC%88%A0_1781858332.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.25676388888889,
+    "lng": -123.10089166666666,
+    "tags": [
+      "예술"
+    ],
+    "date": "2026-05-18",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858330/tribi/20260518_canada_vancouver_%EB%8F%84%EC%8B%9C_1781858327.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.27447222222222,
+    "lng": -123.13461944444445,
+    "tags": [
+      "도시"
+    ],
+    "date": "2026-05-18",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858326/tribi/20260518_canada_vancouver_%EB%8F%84%EC%8B%9C_1781858321.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.27359722222222,
+    "lng": -123.13175833333332,
+    "tags": [
+      "도시"
+    ],
+    "date": "2026-05-18",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858320/tribi/20260518_canada_vancouver_%EB%8F%99%EB%AC%BC_1781858317.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.27693611111111,
+    "lng": -123.12850277777777,
+    "tags": [
+      "동물"
+    ],
+    "date": "2026-05-18",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858315/tribi/20260518_canada_vancouver_%EC%B1%85_1781858312.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.24995833333333,
+    "lng": -123.10096666666666,
+    "tags": [
+      "책"
+    ],
+    "date": "2026-05-18",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858303/tribi/20260518_canada_vancouver_%EB%8F%84%EC%8B%9C_%EA%B3%B5%EC%9B%90_1781858299.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.27735833333333,
+    "lng": -123.15154166666667,
+    "tags": [
+      "도시",
+      "공원"
+    ],
+    "date": "2026-05-18",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858297/tribi/20260518_canada_vancouver_%EC%98%88%EC%88%A0_1781858294.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.25158611111111,
+    "lng": -123.10100555555555,
+    "tags": [
+      "예술"
+    ],
+    "date": "2026-05-18",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858292/tribi/20260518_canada_vancouver_%EC%98%88%EC%88%A0_1781858288.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.25199444444444,
+    "lng": -123.10079166666667,
+    "tags": [
+      "예술"
+    ],
+    "date": "2026-05-18",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858286/tribi/20260518_canada_vancouver_%EC%B1%85_1781858283.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.24991111111111,
+    "lng": -123.10093055555555,
+    "tags": [
+      "책"
+    ],
+    "date": "2026-05-18",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858281/tribi/20260518_canada_vancouver_%EC%B1%85_1781858278.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.25677777777778,
+    "lng": -123.10083055555555,
+    "tags": [
+      "책"
+    ],
+    "date": "2026-05-18",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858276/tribi/20260518_canada_vancouver_%EB%8F%84%EC%8B%9C_1781858272.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.27062222222222,
+    "lng": -123.14535555555557,
+    "tags": [
+      "도시"
+    ],
+    "date": "2026-05-18",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858270/tribi/20260518_canada_vancouver_%EC%B1%85_1781858267.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.25695,
+    "lng": -123.10079166666667,
+    "tags": [
+      "책"
+    ],
+    "date": "2026-05-18",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858266/tribi/20260518_canada_vancouver_%EC%B1%85_1781858263.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.25683611111111,
+    "lng": -123.10094444444444,
+    "tags": [
+      "책"
+    ],
+    "date": "2026-05-18",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858261/tribi/20260518_canada_vancouver_%EC%B1%85_1781858257.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.25683611111111,
+    "lng": -123.10089166666666,
+    "tags": [
+      "책"
+    ],
+    "date": "2026-05-18",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858255/tribi/20260519_canada_richmond_%EB%B0%A5_1781858252.jpg",
+    "city": "Richmond",
+    "country": "Canada",
+    "lat": 49.19757499999999,
+    "lng": -123.17839166666667,
+    "tags": [
+      "밥"
+    ],
+    "date": "2026-05-19",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858250/tribi/20260518_canada_vancouver_%EB%8F%84%EC%8B%9C_%EA%B3%B5%EC%9B%90_1781858247.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.278702777777774,
+    "lng": -123.14707222222223,
+    "tags": [
+      "도시",
+      "공원"
+    ],
+    "date": "2026-05-18",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858246/tribi/20260520_southkorea_incheon_%EB%B9%84%ED%96%89%EA%B8%B0_1781858242.jpg",
+    "city": "Incheon",
+    "country": "South Korea",
+    "lat": 37.44823333333333,
+    "lng": 126.45136944444445,
+    "tags": [
+      "비행기"
+    ],
+    "date": "2026-05-20",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858236/tribi/20260512_unitedstates_newyork_%EA%B3%B5%EC%9B%90_1781858232.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.78250833333333,
+    "lng": -73.96563611111111,
+    "tags": [
+      "공원"
+    ],
+    "date": "2026-05-12",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858230/tribi/20260512_unitedstates_newyork_%EA%B3%B5%EC%9B%90_1781858226.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.782069444444446,
+    "lng": -73.96740833333334,
+    "tags": [
+      "공원"
+    ],
+    "date": "2026-05-12",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858223/tribi/20260512_unitedstates_newyork_%EA%B3%B5%EC%9B%90_1781858219.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.78247777777778,
+    "lng": -73.96607222222222,
+    "tags": [
+      "공원"
+    ],
+    "date": "2026-05-12",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858217/tribi/20260512_unitedstates_newyork_%EB%B0%A5_%EA%B3%B5%EC%9B%90_1781858212.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.782469444444445,
+    "lng": -73.96607222222222,
+    "tags": [
+      "밥",
+      "공원"
+    ],
+    "date": "2026-05-12",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858210/tribi/20260512_unitedstates_newyork_%EA%B3%B5%EC%9B%90_1781858206.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.78230277777778,
+    "lng": -73.96258611111111,
+    "tags": [
+      "공원"
+    ],
+    "date": "2026-05-12",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858204/tribi/20260512_unitedstates_newyork_%EA%B3%B5%EC%9B%90_1781858199.jpg",
+    "city": "New York",
+    "country": "United States",
+    "lat": 40.78131944444444,
+    "lng": -73.96151666666667,
+    "tags": [
+      "공원"
+    ],
+    "date": "2026-05-12",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858197/tribi/20260518_canada_vancouver_%EC%B1%85_1781858193.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.25685555555555,
+    "lng": -123.10085277777777,
+    "tags": [
+      "책"
+    ],
+    "date": "2026-05-18",
+    "instagram": null
+  },
+  {
+    "file": "https://res.cloudinary.com/docknepza/image/upload/v1781858191/tribi/20260518_canada_vancouver_%EC%B1%85_1781858187.jpg",
+    "city": "Vancouver",
+    "country": "Canada",
+    "lat": 49.256875,
+    "lng": -123.10086944444444,
+    "tags": [
+      "책"
+    ],
+    "date": "2026-05-18",
+    "instagram": null
+  },
+  {
     "file": "https://res.cloudinary.com/docknepza/image/upload/v1781765803/tribi/20260509_unitedstates_newyork_%EA%B0%95%EC%95%84%EC%A7%80_1781765799.jpg",
     "city": "New York",
     "country": "United States",
