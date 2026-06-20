@@ -9,74 +9,120 @@
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     background: transparent;
-    padding: 16px;
+    padding: 20px 16px;
     color: #1a1a1a;
   }
-  .wrap { max-width: 480px; margin: 0 auto; }
-
+  .wrap { max-width: 360px; margin: 0 auto; }
   .loading { color: #aaa; font-size: 13px; text-align: center; padding: 24px 0; }
 
-  /* 책 카드 */
-  .book-card {
-    background: #fff;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-    margin-bottom: 16px;
+  /* 네비게이션 */
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
   }
+  .nav-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #bbb;
+    padding: 4px 8px;
+    transition: color 0.15s;
+    line-height: 1;
+  }
+  .nav-btn:hover { color: #1a1a1a; }
+  .nav-btn:disabled { opacity: 0.2; cursor: default; }
+  .nav-dots {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+  .nav-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #e0e0e0;
+    transition: background 0.2s;
+  }
+  .nav-dot.active { background: #1a1a1a; }
 
   /* 책 표지 */
   .cover-wrap {
-    width: 100%;
-    aspect-ratio: 3 / 2;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 28px;
+  }
+  .book-3d {
+    position: relative;
+    display: inline-block;
+  }
+  .book-3d img {
+    display: block;
+    width: 160px;
+    height: auto;
+    border-radius: 2px 6px 6px 2px;
+    box-shadow:
+      -4px 0 6px rgba(0,0,0,0.15),
+      4px 4px 12px rgba(0,0,0,0.2),
+      8px 8px 24px rgba(0,0,0,0.15),
+      12px 12px 32px rgba(0,0,0,0.08);
+  }
+  .book-spine {
+    position: absolute;
+    top: 2px;
+    left: -8px;
+    width: 8px;
+    height: calc(100% - 4px);
+    background: linear-gradient(to right, #888, #ccc, #999);
+    border-radius: 2px 0 0 2px;
+    box-shadow: -2px 2px 6px rgba(0,0,0,0.2);
+  }
+  .cover-placeholder {
+    width: 160px;
+    height: 220px;
     background: #f0ebe0;
+    border-radius: 2px 6px 6px 2px;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
-  }
-  .cover-wrap img {
-    height: 100%;
-    width: auto;
-    object-fit: contain;
-  }
-  .cover-placeholder {
     font-size: 48px;
-    opacity: 0.3;
+    box-shadow:
+      -4px 0 6px rgba(0,0,0,0.15),
+      4px 4px 12px rgba(0,0,0,0.2),
+      8px 8px 24px rgba(0,0,0,0.15);
   }
 
   /* 책 정보 */
-  .book-info {
-    padding: 16px 16px 12px;
-  }
   .book-title {
-    font-size: 17px;
+    font-size: 18px;
     font-weight: 700;
-    margin-bottom: 4px;
+    text-align: center;
+    margin-bottom: 6px;
     line-height: 1.4;
   }
   .book-author {
     font-size: 13px;
     color: #777;
+    text-align: center;
     margin-bottom: 4px;
   }
   .book-genre {
     font-size: 12px;
-    color: #aaa;
-    margin-bottom: 12px;
+    color: #bbb;
+    text-align: center;
+    margin-bottom: 20px;
   }
 
-  /* 진행도 바 */
-  .progress-wrap {
-    margin-bottom: 10px;
-  }
+  /* 진행도 */
   .progress-bar {
     width: 100%;
-    height: 6px;
+    height: 5px;
     background: #f0ebe0;
     border-radius: 3px;
     overflow: hidden;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
   }
   .progress-fill {
     height: 100%;
@@ -86,36 +132,27 @@
   }
   .progress-text {
     font-size: 12px;
-    color: #aaa;
+    color: #bbb;
     display: flex;
     justify-content: space-between;
+    margin-bottom: 20px;
   }
 
   /* 페이지 컨트롤 */
   .page-control {
-    padding: 12px 16px 16px;
-    border-top: 1px solid #f5f5f5;
     display: flex;
     align-items: center;
-    gap: 8px;
+    justify-content: space-between;
+    padding-top: 16px;
+    border-top: 1px solid #f0f0f0;
   }
   .page-display {
-    font-size: 15px;
-    font-weight: 600;
-    color: #1a1a1a;
-    min-width: 60px;
+    font-size: 20px;
+    font-weight: 700;
   }
-  .page-total {
-    font-size: 13px;
-    color: #bbb;
-    flex: 1;
-  }
-  .btn-group {
-    display: flex;
-    gap: 6px;
-  }
+  .btn-group { display: flex; gap: 6px; }
   .page-btn {
-    padding: 7px 12px;
+    padding: 8px 14px;
     border-radius: 8px;
     border: 1.5px solid #e0e0e0;
     background: #fff;
@@ -127,7 +164,6 @@
   }
   .page-btn:hover { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
   .page-btn:disabled { opacity: 0.4; cursor: default; }
-  .page-btn.saving { opacity: 0.5; }
 
   .toast {
     position: fixed;
@@ -155,6 +191,7 @@
 
 <script>
 let books = [];
+let current = 0;
 
 function showToast(msg) {
   const t = document.getElementById('toast');
@@ -168,87 +205,90 @@ function pct(book) {
   return Math.min(100, Math.round(book.currentPage / book.totalPage * 100));
 }
 
-function renderBooks() {
+function render() {
   const wrap = document.getElementById('wrap');
   if (books.length === 0) {
     wrap.innerHTML = '<div class="loading">읽는 중인 책이 없어요 📚</div>';
     return;
   }
-  wrap.innerHTML = '';
-  books.forEach((book, i) => {
-    const card = document.createElement('div');
-    card.className = 'book-card';
-    card.id = `card-${i}`;
-    card.innerHTML = bookCardHTML(book, i);
-    wrap.appendChild(card);
 
-    // 버튼 이벤트
-    [1, 5, 10].forEach(n => {
-      const btn = card.querySelector(`.btn-plus-${n}`);
-      if (btn) btn.addEventListener('click', () => addPage(i, n));
-    });
-  });
-}
-
-function bookCardHTML(book, i) {
+  const book = books[current];
   const p = pct(book);
-  const coverHTML = book.cover
-    ? `<img src="${book.cover}" alt="${book.title}">`
-    : `<div class="cover-placeholder">📖</div>`;
-  const genreHTML = book.genre
-    ? `<div class="book-genre">${book.genre}</div>`
-    : '';
-  const pageText = book.totalPage
-    ? `${book.currentPage}p / ${book.totalPage}p`
-    : `${book.currentPage}p`;
+  const pageText = book.totalPage ? `${book.currentPage}p / ${book.totalPage}p` : `${book.currentPage}p`;
   const pctText = book.totalPage ? `${p}%` : '';
 
-  return `
+  const dotsHTML = books.map((_, i) =>
+    `<div class="nav-dot ${i === current ? 'active' : ''}"></div>`
+  ).join('');
+
+  const coverHTML = book.cover
+    ? `<div class="book-3d">
+        <div class="book-spine"></div>
+        <img src="${book.cover}" alt="${book.title}">
+      </div>`
+    : `<div class="cover-placeholder">📖</div>`;
+
+  const genreHTML = book.genre
+    ? `<div class="book-genre">${book.genre}</div>`
+    : '<div class="book-genre" style="margin-bottom:20px;"></div>';
+
+  wrap.innerHTML = `
+    <div class="nav">
+      <button class="nav-btn" id="prevBtn">&#8249;</button>
+      <div class="nav-dots">${dotsHTML}</div>
+      <button class="nav-btn" id="nextBtn">&#8250;</button>
+    </div>
     <div class="cover-wrap">${coverHTML}</div>
-    <div class="book-info">
-      <div class="book-title">${book.title}</div>
-      <div class="book-author">${book.author}</div>
-      ${genreHTML}
-      <div class="progress-wrap">
-        <div class="progress-bar">
-          <div class="progress-fill" id="fill-${i}" style="width:${p}%"></div>
-        </div>
-        <div class="progress-text">
-          <span id="page-text-${i}">${pageText}</span>
-          <span>${pctText}</span>
-        </div>
-      </div>
+    <div class="book-title">${book.title}</div>
+    <div class="book-author">${book.author}</div>
+    ${genreHTML}
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill" style="width:${p}%"></div>
+    </div>
+    <div class="progress-text">
+      <span id="pageText">${pageText}</span>
+      <span id="pctText">${pctText}</span>
     </div>
     <div class="page-control">
-      <div>
-        <div class="page-display" id="page-display-${i}">${book.currentPage}p</div>
-        <div class="page-total">${book.totalPage ? `/ ${book.totalPage}p` : ''}</div>
-      </div>
+      <div class="page-display" id="pageDisplay">${book.currentPage}p</div>
       <div class="btn-group">
-        <button class="page-btn btn-plus-1">+1</button>
-        <button class="page-btn btn-plus-5">+5</button>
-        <button class="page-btn btn-plus-10">+10</button>
+        <button class="page-btn" id="btn1">+1</button>
+        <button class="page-btn" id="btn5">+5</button>
+        <button class="page-btn" id="btn10">+10</button>
       </div>
     </div>
   `;
+
+  // 네비게이션
+  document.getElementById('prevBtn').disabled = current === 0;
+  document.getElementById('nextBtn').disabled = current === books.length - 1;
+  document.getElementById('prevBtn').addEventListener('click', () => { current--; render(); });
+  document.getElementById('nextBtn').addEventListener('click', () => { current++; render(); });
+
+  // 페이지 버튼
+  document.getElementById('btn1').addEventListener('click', () => addPage(1));
+  document.getElementById('btn5').addEventListener('click', () => addPage(5));
+  document.getElementById('btn10').addEventListener('click', () => addPage(10));
 }
 
-async function addPage(i, amount) {
-  const book = books[i];
+async function addPage(amount) {
+  const book = books[current];
   const newPage = book.currentPage + amount;
+  book.currentPage = newPage;
 
   // UI 즉시 업데이트
-  book.currentPage = newPage;
   const p = pct(book);
-  document.getElementById(`fill-${i}`).style.width = p + '%';
-  document.getElementById(`page-display-${i}`).textContent = newPage + 'p';
-  const pageText = book.totalPage ? `${newPage}p / ${book.totalPage}p` : `${newPage}p`;
-  document.getElementById(`page-text-${i}`).textContent = pageText;
+  document.getElementById('progressFill').style.width = p + '%';
+  document.getElementById('pageDisplay').textContent = newPage + 'p';
+  document.getElementById('pageText').textContent =
+    book.totalPage ? `${newPage}p / ${book.totalPage}p` : `${newPage}p`;
+  if (book.totalPage) document.getElementById('pctText').textContent = p + '%';
 
   // 버튼 비활성화
-  const card = document.getElementById(`card-${i}`);
-  const btns = card.querySelectorAll('.page-btn');
-  btns.forEach(b => { b.disabled = true; b.classList.add('saving'); });
+  ['btn1','btn5','btn10'].forEach(id => {
+    const b = document.getElementById(id);
+    if (b) b.disabled = true;
+  });
 
   try {
     const r = await fetch('/api/book-reading', {
@@ -257,24 +297,23 @@ async function addPage(i, amount) {
       body: JSON.stringify({ pageId: book.pageId, currentPage: newPage }),
     });
     const data = await r.json();
-    if (data.success) {
-      showToast(`${newPage}p 저장됐어요 ✓`);
-    } else {
-      showToast('저장 실패 :(');
-    }
+    if (data.success) showToast(`${newPage}p 저장됐어요 ✓`);
+    else showToast('저장 실패 :(');
   } catch {
     showToast('오류가 발생했어요');
   } finally {
-    btns.forEach(b => { b.disabled = false; b.classList.remove('saving'); });
+    ['btn1','btn5','btn10'].forEach(id => {
+      const b = document.getElementById(id);
+      if (b) b.disabled = false;
+    });
   }
 }
 
-// 초기 로드
 (async () => {
   try {
     const r = await fetch('/api/book-reading');
     books = await r.json();
-    renderBooks();
+    render();
   } catch {
     document.getElementById('wrap').innerHTML = '<div class="loading">불러올 수 없어요 :(</div>';
   }
