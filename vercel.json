@@ -11,9 +11,9 @@
     },
     "api/naver-test.js": {
       "maxDuration": 10
-    }
+    },
     "api/book-reading.js": {
-  "maxDuration": 10
-}
+      "maxDuration": 10
+    }
   }
 }
