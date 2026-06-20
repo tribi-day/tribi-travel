@@ -60,25 +60,15 @@
   }
   .book-3d img {
     display: block;
-    width: 128px;
+    width: 122px;
     height: auto;
     border-radius: 2px 6px 6px 2px;
     box-shadow:
       2px 2px 8px rgba(0,0,0,0.15),
       4px 4px 16px rgba(0,0,0,0.1);
   }
-  .book-spine {
-    position: absolute;
-    top: 2px;
-    left: -8px;
-    width: 8px;
-    height: calc(100% - 4px);
-    background: linear-gradient(to right, #888, #ccc, #999);
-    border-radius: 2px 0 0 2px;
-    box-shadow: -2px 2px 6px rgba(0,0,0,0.2);
-  }
   .cover-placeholder {
-    width: 128px;
+    width: 122px;
     height: 220px;
     background: #f0ebe0;
     border-radius: 2px 6px 6px 2px;
@@ -93,7 +83,7 @@
 
   /* 책 정보 */
   .book-title {
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 700;
     text-align: center;
     margin-bottom: 20px;
@@ -214,7 +204,6 @@ function render() {
 
   const coverHTML = book.cover
     ? `<div class="book-3d">
-        <div class="book-spine"></div>
         <img src="${book.cover}" alt="${book.title}">
       </div>`
     : `<div class="cover-placeholder">📖</div>`;
