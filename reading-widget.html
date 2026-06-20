@@ -96,7 +96,7 @@
     font-size: 18px;
     font-weight: 700;
     text-align: center;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
     line-height: 1.4;
   }
     .book-genre {
@@ -237,7 +237,7 @@ function render() {
       <span id="pctText">${pctText}</span>
     </div>
     <div class="page-control">
-      <div class="page-display" id="pageDisplay">${book.currentPage}p</div>
+      <div class="page-display" id="pageDisplay" title="클릭해서 직접 입력" style="cursor:pointer;" onclick="editPage()">${book.currentPage}p</div>
       <div class="btn-group">
         <button class="page-btn" id="btn1">+1</button>
         <button class="page-btn" id="btn5">+5</button>
@@ -256,6 +256,59 @@ function render() {
   document.getElementById('btn1').addEventListener('click', () => addPage(1));
   document.getElementById('btn5').addEventListener('click', () => addPage(5));
   document.getElementById('btn10').addEventListener('click', () => addPage(10));
+}
+
+function editPage() {
+  const book = books[current];
+  const display = document.getElementById('pageDisplay');
+  const input = document.createElement('input');
+  input.type = 'number';
+  input.value = book.currentPage;
+  input.min = 0;
+  input.style.cssText = 'width:70px; font-size:15px; font-weight:600; border:none; border-bottom:1.5px solid #1a1a1a; outline:none; background:transparent; color:#1a1a1a;';
+  display.replaceWith(input);
+  input.focus();
+  input.select();
+
+  const confirm = async () => {
+    const val = parseInt(input.value);
+    if (!isNaN(val) && val >= 0) {
+      book.currentPage = val;
+      const p = pct(book);
+      document.getElementById('progressFill').style.width = p + '%';
+      document.getElementById('pageText').textContent =
+        book.totalPage ? `${val}p / ${book.totalPage}p` : `${val}p`;
+      if (book.totalPage) document.getElementById('pctText').textContent = p + '%';
+      const div = document.createElement('div');
+      div.className = 'page-display';
+      div.id = 'pageDisplay';
+      div.title = '클릭해서 직접 입력';
+      div.style.cursor = 'pointer';
+      div.textContent = val + 'p';
+      div.onclick = editPage;
+      input.replaceWith(div);
+      try {
+        await fetch('/api/book-reading', {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ pageId: book.pageId, currentPage: val }),
+        });
+        showToast(`${val}p 저장됐어요 ✓`);
+      } catch { showToast('오류가 발생했어요'); }
+    } else {
+      const div = document.createElement('div');
+      div.className = 'page-display';
+      div.id = 'pageDisplay';
+      div.title = '클릭해서 직접 입력';
+      div.style.cursor = 'pointer';
+      div.textContent = book.currentPage + 'p';
+      div.onclick = editPage;
+      input.replaceWith(div);
+    }
+  };
+
+  input.addEventListener('blur', confirm);
+  input.addEventListener('keydown', e => { if (e.key === 'Enter') input.blur(); });
 }
 
 async function addPage(amount) {
@@ -300,6 +353,8 @@ async function addPage(amount) {
   try {
     const r = await fetch('/api/book-reading');
     books = await r.json();
+    // 총 페이지 많은 순 정렬
+    books.sort((a, b) => (b.totalPage || 0) - (a.totalPage || 0));
     render();
   } catch {
     document.getElementById('wrap').innerHTML = '<div class="loading">불러올 수 없어요 :(</div>';
