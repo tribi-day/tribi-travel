@@ -27,15 +27,12 @@ export default async function handler(req, res) {
 
     const p = page.properties;
     const num = key => p[key]?.number ?? p[key]?.formula?.number ?? p[key]?.rollup?.number ?? null;
-    // 디버그: 젤많이읽은달 raw 값 확인
-    const debugProp = p['독서 젤많이읽은달'];
-    console.log('debug:', JSON.stringify(debugProp));
+
     const arr = key => p[key]?.formula?.array ?? p[key]?.rollup?.array ?? [];
 
-    // 월별 데이터 배열에서 최다 달 계산
-    const monthCounts = arr('독서 젤많이읽은달').map(item =>
-      typeof item === 'number' ? item : (item?.number ?? 0)
-    );
+    // 월별 데이터 - formula string "0,0,1,..." 파싱
+    const monthStr = p['독서 젤많이읽은달']?.formula?.string || '';
+    const monthCounts = monthStr.split(',').map(s => parseInt(s.trim()) || 0);
     const maxCount = Math.max(...monthCounts, 0);
     const bestMonths = monthCounts
       .map((cnt, i) => cnt === maxCount && maxCount > 0 ? `${i+1}월` : null)
