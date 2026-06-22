@@ -160,11 +160,7 @@ const year = new Date().getFullYear().toString();
         <div class="goal-pct">${pct}%</div>
       </div>
 
-      ${d.bestMonthMsg ? `
-      <div class="best-month">
-        <div class="best-month-label">가장 많이 읽은 달</div>
-        <div class="best-month-val">${d.bestMonthMsg}</div>
-      </div>` : d.bestMonth ? `
+      ${d.bestMonth ? `
       <div class="best-month">
         <div>
           <div class="best-month-label">가장 많이 읽은 달</div>
