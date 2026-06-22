@@ -44,7 +44,7 @@ export default async function handler(req, res) {
     const bestMonthCountNum = num('독서 젤많이읽은수');
 
     // 2. 책 표지 조회 (픽션 + 논픽션, 완독+읽는중)
-    const fetchCovers = async (dbId, isFiction) => {
+    const fetchBooks = async (dbId) => {
       const r = await fetch(`https://api.notion.com/v1/databases/${dbId}/query`, {
         method: 'POST',
         headers: {
@@ -67,7 +67,7 @@ export default async function handler(req, res) {
               }
             ]
           },
-          page_size: 20,
+          page_size: 50,
         }),
       });
       const d = await r.json();
@@ -75,14 +75,35 @@ export default async function handler(req, res) {
         const cover = pg.properties['책 표지']?.files?.[0]?.external?.url
           || pg.properties['책 표지']?.files?.[0]?.file?.url
           || null;
-        return cover;
-      }).filter(Boolean);
+        const date = pg.properties['완독일']?.date?.start
+          || pg.properties['날짜']?.date?.start
+          || pg.created_time
+          || null;
+        return { cover, date };
+      });
     };
 
-    const [fictionCovers, nonfictionCovers] = await Promise.all([
-      fetchCovers(fictionDbId, true),
-      fetchCovers(nonfictionDbId, false),
+    const [fictionBooks, nonfictionBooks] = await Promise.all([
+      fetchBooks(fictionDbId),
+      fetchBooks(nonfictionDbId),
     ]);
+    const fictionCovers = fictionBooks.map(b => b.cover).filter(Boolean);
+    const nonfictionCovers = nonfictionBooks.map(b => b.cover).filter(Boolean);
+
+    // 월별 집계로 베스트 달 계산
+    const allBooks = [...fictionBooks, ...nonfictionBooks];
+    const monthTally = new Array(12).fill(0);
+    allBooks.forEach(b => {
+      if (b.date) {
+        const m = new Date(b.date).getMonth(); // 0-indexed
+        monthTally[m]++;
+      }
+    });
+    const calcMaxCount = Math.max(...monthTally, 0);
+    const calcBestMonths = monthTally
+      .map((cnt, i) => cnt === calcMaxCount && calcMaxCount > 0 ? `${i+1}월` : null)
+      .filter(Boolean)
+      .join(', ');
 
     res.status(200).json({
       year,
@@ -94,9 +115,9 @@ export default async function handler(req, res) {
       nonfictionTotal: num('nonfiction total'),
       nonfictionPage: num('nonfiction page'),
       nonfiction5stars: num('nonfiction 5 stars'),
-      bestMonth: bestMonths,
+      bestMonth: calcBestMonths || bestMonths,
       bestMonthMsg,
-      bestMonthCount: maxCount,
+      bestMonthCount: calcMaxCount || maxCount,
       fictionCovers,
       nonfictionCovers,
     });
