@@ -14,6 +14,9 @@
     },
     "api/book-reading.js": {
       "maxDuration": 10
+    },
+    "api/reading-stats.js": {
+  "maxDuration": 10
     }
   }
 }
