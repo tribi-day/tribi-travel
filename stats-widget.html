@@ -149,7 +149,7 @@ const year = new Date().getFullYear().toString();
     document.getElementById('wrap').innerHTML = `
       <div style="display:flex; align-items:baseline; gap:10px; margin-bottom:12px;">
         <div class="year-title" style="margin-bottom:0;">${d.year}</div>
-        <div style="font-size:14px; font-weight:300; color:#aaa; letter-spacing:0.05em;">독서 현황</div>
+        <div style="font-size:28px; font-weight:800; color:#aaa; letter-spacing:-0.5px;">독서 현황</div>
       </div>
 
       <div class="goal-section">
@@ -176,14 +176,14 @@ const year = new Date().getFullYear().toString();
         <div class="card">
           <div class="card-label">Fiction</div>
           <div class="card-num">${d.fictionTotal || 0}<span>권</span></div>
-          <div class="card-pages">총 ${(d.fictionPage || 0).toLocaleString()}p 읽었어요</div>
+          <div class="card-pages">총 ${(d.fictionPage || 0).toLocaleString()}p 읽었어요.</div>
           <div class="card-stars">${stars(d.fiction5stars)}</div>
           ${coverStrip(d.fictionCovers)}
         </div>
         <div class="card">
           <div class="card-label">Nonfiction</div>
           <div class="card-num">${d.nonfictionTotal || 0}<span>권</span></div>
-          <div class="card-pages">총 ${(d.nonfictionPage || 0).toLocaleString()}p 읽었어요</div>
+          <div class="card-pages">총 ${(d.nonfictionPage || 0).toLocaleString()}p 읽었어요.</div>
           <div class="card-stars">${stars(d.nonfiction5stars)}</div>
           ${coverStrip(d.nonfictionCovers)}
         </div>
