@@ -91,7 +91,12 @@
     line-height: 1;
     margin-bottom: 6px;
   }
-  .card-num span { font-size: 14px; font-weight: 600; }
+  .card-num span {
+    font-size: 13px;
+    font-weight: 600;
+    vertical-align: 3px;
+    margin-left: 2px;
+  }
   .card-pages { font-size: 12px; color: #777; margin-bottom: 6px; }
   .card-stars { font-size: 12px; color: #aaa; margin-bottom: 10px; }
   .star-gold { color: #f4b942; }
@@ -99,22 +104,14 @@
   /* 책 표지 스트립 */
   .covers {
     display: flex;
+    flex-wrap: wrap;
     gap: 3px;
-    overflow: hidden;
     margin-top: 10px;
-    border-radius: 4px;
   }
   .cover-thumb {
-    width: 28px;
-    height: 40px;
+    width: 18px;
+    height: 26px;
     object-fit: cover;
-    border-radius: 2px;
-    flex-shrink: 0;
-  }
-  .cover-placeholder {
-    width: 28px;
-    height: 40px;
-    background: #e8e2d6;
     border-radius: 2px;
     flex-shrink: 0;
   }
@@ -176,14 +173,14 @@ const year = new Date().getFullYear().toString();
         <div class="card">
           <div class="card-label">Fiction</div>
           <div class="card-num">${d.fictionTotal || 0}<span>권</span></div>
-          <div class="card-pages">${(d.fictionPage || 0).toLocaleString()}p</div>
+          <div class="card-pages">총 ${(d.fictionPage || 0).toLocaleString()}p 읽었어요</div>
           <div class="card-stars">${stars(d.fiction5stars)}</div>
           ${coverStrip(d.fictionCovers)}
         </div>
         <div class="card">
           <div class="card-label">Nonfiction</div>
           <div class="card-num">${d.nonfictionTotal || 0}<span>권</span></div>
-          <div class="card-pages">${(d.nonfictionPage || 0).toLocaleString()}p</div>
+          <div class="card-pages">총 ${(d.nonfictionPage || 0).toLocaleString()}p 읽었어요</div>
           <div class="card-stars">${stars(d.nonfiction5stars)}</div>
           ${coverStrip(d.nonfictionCovers)}
         </div>
