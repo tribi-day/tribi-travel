@@ -14,12 +14,7 @@ export default async function handler(req, res) {
         'Notion-Version': '2022-06-28',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        filter: {
-          property: '연도',
-          title: { equals: year },
-        },
-      }),
+      body: JSON.stringify({}),
     });
     const data = await r.json();
     const page = (data.results || [])[0];
