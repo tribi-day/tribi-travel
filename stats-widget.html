@@ -16,27 +16,15 @@
   .loading { color: #aaa; font-size: 13px; text-align: center; padding: 24px 0; }
 
   /* 헤더 */
-  .header {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
   .year-title {
     font-size: 28px;
     font-weight: 800;
     letter-spacing: -0.5px;
-  }
-  .message {
-    font-size: 12px;
-    color: #aaa;
-    text-align: right;
-    max-width: 180px;
-    line-height: 1.4;
+    margin-bottom: 20px;
   }
 
   /* 목표 달성 바 */
-  .goal-section { margin-bottom: 24px; }
+  .goal-section { margin-bottom: 16px; }
   .goal-row {
     display: flex;
     justify-content: space-between;
@@ -62,12 +50,27 @@
   }
   .goal-pct { font-size: 12px; color: #aaa; text-align: right; }
 
+  /* 베스트 달 */
+  .best-month {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 14px;
+    border: 1px solid #f0f0f0;
+    border-radius: 10px;
+    margin-bottom: 16px;
+  }
+  .best-month-label { font-size: 11px; color: #aaa; margin-bottom: 3px; }
+  .best-month-val { font-size: 16px; font-weight: 700; }
+  .best-month-count { font-size: 22px; font-weight: 800; }
+  .best-month-count span { font-size: 12px; font-weight: 400; color: #aaa; }
+
   /* 픽션/논픽션 카드 */
   .cards {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 0;
   }
   .card {
     background: #f8f6f2;
@@ -83,38 +86,38 @@
     margin-bottom: 10px;
   }
   .card-num {
-    font-size: 32px;
+    font-size: 28px;
     font-weight: 800;
     line-height: 1;
-    margin-bottom: 2px;
+    margin-bottom: 6px;
   }
-  .card-sub { font-size: 11px; color: #aaa; margin-bottom: 10px; }
-  .card-pages {
-    font-size: 13px;
-    font-weight: 600;
-    color: #555;
-    margin-bottom: 4px;
-  }
-  .card-stars {
-    font-size: 11px;
-    color: #aaa;
-  }
-  .star { color: #f4b942; }
+  .card-num span { font-size: 14px; font-weight: 600; }
+  .card-pages { font-size: 12px; color: #777; margin-bottom: 6px; }
+  .card-stars { font-size: 12px; color: #aaa; margin-bottom: 10px; }
+  .star-gold { color: #f4b942; }
 
-  /* 베스트 달 */
-  .best-month {
-    background: #1a1a1a;
-    color: #fff;
-    border-radius: 12px;
-    padding: 14px 16px;
+  /* 책 표지 스트립 */
+  .covers {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    gap: 3px;
+    overflow: hidden;
+    margin-top: 10px;
+    border-radius: 4px;
   }
-  .best-month-label { font-size: 11px; color: rgba(255,255,255,0.5); margin-bottom: 4px; }
-  .best-month-val { font-size: 20px; font-weight: 700; }
-  .best-month-count { font-size: 28px; font-weight: 800; text-align: right; }
-  .best-month-count span { font-size: 13px; font-weight: 400; color: rgba(255,255,255,0.5); }
+  .cover-thumb {
+    width: 28px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .cover-placeholder {
+    width: 28px;
+    height: 40px;
+    background: #e8e2d6;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
 </style>
 </head>
 <body>
@@ -135,14 +138,19 @@ const year = new Date().getFullYear().toString();
     }
 
     const total = (d.fictionTotal || 0) + (d.nonfictionTotal || 0);
-    const totalPages = (d.fictionPage || 0) + (d.nonfictionPage || 0);
     const pct = d.목표권수 ? Math.min(100, Math.round(total / d.목표권수 * 100)) : 0;
 
+    const stars = (count) => `<span class="star-gold">★★★★★</span> ${count || 0}권`;
+
+    const coverStrip = (covers) => {
+      if (!covers || covers.length === 0) return '';
+      return `<div class="covers">${covers.map(url =>
+        `<img class="cover-thumb" src="${url}" alt="">`
+      ).join('')}</div>`;
+    };
+
     document.getElementById('wrap').innerHTML = `
-      <div class="header">
-        <div class="year-title">${d.year}</div>
-        ${d.message ? `<div class="message">${d.message}</div>` : ''}
-      </div>
+      <div class="year-title">${d.year}</div>
 
       <div class="goal-section">
         <div class="goal-row">
@@ -155,34 +163,33 @@ const year = new Date().getFullYear().toString();
         <div class="goal-pct">${pct}%</div>
       </div>
 
-      <div class="cards">
-        <div class="card">
-          <div class="card-label">Fiction</div>
-          <div class="card-num">${d.fictionTotal || 0}</div>
-          <div class="card-sub">권</div>
-          <div class="card-pages">${(d.fictionPage || 0).toLocaleString()}p</div>
-          <div class="card-stars"><span class="star">★</span>★★★★ ${d.fiction5stars || 0}권</div>
-        </div>
-        <div class="card">
-          <div class="card-label">Nonfiction</div>
-          <div class="card-num">${d.nonfictionTotal || 0}</div>
-          <div class="card-sub">권</div>
-          <div class="card-pages">${(d.nonfictionPage || 0).toLocaleString()}p</div>
-          <div class="card-stars"><span class="star">★</span>★★★★ ${d.nonfiction5stars || 0}권</div>
-        </div>
-      </div>
-
       ${d.bestMonth ? `
       <div class="best-month">
         <div>
           <div class="best-month-label">가장 많이 읽은 달</div>
           <div class="best-month-val">${d.bestMonth}</div>
         </div>
-        <div class="best-month-count">${d.bestMonthCount || ''}<span>권</span></div>
+        <div class="best-month-count">${d.bestMonthCount}<span>권</span></div>
       </div>` : ''}
+
+      <div class="cards">
+        <div class="card">
+          <div class="card-label">Fiction</div>
+          <div class="card-num">${d.fictionTotal || 0}<span>권</span></div>
+          <div class="card-pages">${(d.fictionPage || 0).toLocaleString()}p</div>
+          <div class="card-stars">${stars(d.fiction5stars)}</div>
+          ${coverStrip(d.fictionCovers)}
+        </div>
+        <div class="card">
+          <div class="card-label">Nonfiction</div>
+          <div class="card-num">${d.nonfictionTotal || 0}<span>권</span></div>
+          <div class="card-pages">${(d.nonfictionPage || 0).toLocaleString()}p</div>
+          <div class="card-stars">${stars(d.nonfiction5stars)}</div>
+          ${coverStrip(d.nonfictionCovers)}
+        </div>
+      </div>
     `;
 
-    // 바 애니메이션
     setTimeout(() => {
       const bar = document.getElementById('bigBar');
       if (bar) bar.style.width = pct + '%';
