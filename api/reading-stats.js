@@ -3,7 +3,7 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Methods', 'GET');
 
   const token = process.env.NOTION_TOKEN;
-  const dbId = '1fbcf63226b3419a82ce3d624385eae0';
+  const dbId = '61542799ff2c48049614b6d467d1f3c0';
   const year = req.query.year || new Date().getFullYear().toString();
 
   try {
@@ -14,7 +14,12 @@ export default async function handler(req, res) {
         'Notion-Version': '2022-06-28',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({}),
+      body: JSON.stringify({
+        filter: {
+          property: '연도',
+          title: { equals: year },
+        },
+      }),
     });
     const data = await r.json();
     const page = (data.results || [])[0];
