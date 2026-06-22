@@ -27,6 +27,9 @@ export default async function handler(req, res) {
 
     const p = page.properties;
     const num = key => p[key]?.number ?? p[key]?.formula?.number ?? p[key]?.rollup?.number ?? null;
+    // 책 달 메세지 - 노션 스타일 태그 제거
+    const rawMsg = p['책 달 메세지']?.formula?.string || '';
+    const bestMonthMsg = rawMsg.replace(/​/g, '').replace(/[-*~_`]/g, '').trim();
 
     const arr = key => p[key]?.formula?.array ?? p[key]?.rollup?.array ?? [];
 
@@ -38,6 +41,7 @@ export default async function handler(req, res) {
       .map((cnt, i) => cnt === maxCount && maxCount > 0 ? `${i+1}월` : null)
       .filter(Boolean)
       .join(', ');
+    const bestMonthCountNum = num('독서 젤많이읽은수');
 
     // 2. 책 표지 조회 (픽션 + 논픽션, 완독+읽는중)
     const fetchCovers = async (dbId, isFiction) => {
@@ -50,9 +54,17 @@ export default async function handler(req, res) {
         },
         body: JSON.stringify({
           filter: {
-            or: [
-              { property: '현황', status: { equals: '완독' } },
-              { property: '현황', status: { equals: '읽는 중' } },
+            and: [
+              {
+                or: [
+                  { property: '현황', status: { equals: '완독' } },
+                  { property: '현황', status: { equals: '읽는 중' } },
+                ]
+              },
+              {
+                property: '연도',
+                relation: { contains: '24cf7517c6504fe298553ad1f6ffae86' },
+              }
             ]
           },
           page_size: 20,
@@ -83,6 +95,7 @@ export default async function handler(req, res) {
       nonfictionPage: num('nonfiction page'),
       nonfiction5stars: num('nonfiction 5 stars'),
       bestMonth: bestMonths,
+      bestMonthMsg,
       bestMonthCount: maxCount,
       fictionCovers,
       nonfictionCovers,
