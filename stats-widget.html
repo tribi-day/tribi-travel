@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>reading stats</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: transparent;
+    padding: 20px 16px;
+    color: #1a1a1a;
+  }
+  .wrap { max-width: 360px; margin: 0 auto; }
+  .loading { color: #aaa; font-size: 13px; text-align: center; padding: 24px 0; }
+
+  /* 헤더 */
+  .header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .year-title {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+  }
+  .message {
+    font-size: 12px;
+    color: #aaa;
+    text-align: right;
+    max-width: 180px;
+    line-height: 1.4;
+  }
+
+  /* 목표 달성 바 */
+  .goal-section { margin-bottom: 24px; }
+  .goal-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+  }
+  .goal-label { font-size: 12px; color: #aaa; }
+  .goal-count { font-size: 22px; font-weight: 700; }
+  .goal-count span { font-size: 13px; font-weight: 400; color: #aaa; }
+  .big-bar {
+    width: 100%;
+    height: 10px;
+    background: #f0ebe0;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 6px;
+  }
+  .big-bar-fill {
+    height: 100%;
+    background: #1a1a1a;
+    border-radius: 5px;
+    transition: width 1s ease;
+  }
+  .goal-pct { font-size: 12px; color: #aaa; text-align: right; }
+
+  /* 픽션/논픽션 카드 */
+  .cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .card {
+    background: #f8f6f2;
+    border-radius: 12px;
+    padding: 14px;
+  }
+  .card-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: #aaa;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .card-num {
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 2px;
+  }
+  .card-sub { font-size: 11px; color: #aaa; margin-bottom: 10px; }
+  .card-pages {
+    font-size: 13px;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 4px;
+  }
+  .card-stars {
+    font-size: 11px;
+    color: #aaa;
+  }
+  .star { color: #f4b942; }
+
+  /* 베스트 달 */
+  .best-month {
+    background: #1a1a1a;
+    color: #fff;
+    border-radius: 12px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .best-month-label { font-size: 11px; color: rgba(255,255,255,0.5); margin-bottom: 4px; }
+  .best-month-val { font-size: 20px; font-weight: 700; }
+  .best-month-count { font-size: 28px; font-weight: 800; text-align: right; }
+  .best-month-count span { font-size: 13px; font-weight: 400; color: rgba(255,255,255,0.5); }
+</style>
+</head>
+<body>
+<div class="wrap" id="wrap">
+  <div class="loading">불러오는 중...</div>
+</div>
+
+<script>
+const year = new Date().getFullYear().toString();
+
+(async () => {
+  try {
+    const r = await fetch(`/api/reading-stats?year=${year}`);
+    const d = await r.json();
+    if (d.error) {
+      document.getElementById('wrap').innerHTML = `<div class="loading">${d.error}</div>`;
+      return;
+    }
+
+    const total = (d.fictionTotal || 0) + (d.nonfictionTotal || 0);
+    const totalPages = (d.fictionPage || 0) + (d.nonfictionPage || 0);
+    const pct = d.목표권수 ? Math.min(100, Math.round(total / d.목표권수 * 100)) : 0;
+
+    document.getElementById('wrap').innerHTML = `
+      <div class="header">
+        <div class="year-title">${d.year}</div>
+        ${d.message ? `<div class="message">${d.message}</div>` : ''}
+      </div>
+
+      <div class="goal-section">
+        <div class="goal-row">
+          <div class="goal-label">목표 달성도</div>
+          <div class="goal-count">${total}<span> / ${d.목표권수 || '?'}권</span></div>
+        </div>
+        <div class="big-bar">
+          <div class="big-bar-fill" id="bigBar" style="width:0%"></div>
+        </div>
+        <div class="goal-pct">${pct}%</div>
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <div class="card-label">Fiction</div>
+          <div class="card-num">${d.fictionTotal || 0}</div>
+          <div class="card-sub">권</div>
+          <div class="card-pages">${(d.fictionPage || 0).toLocaleString()}p</div>
+          <div class="card-stars"><span class="star">★</span>★★★★ ${d.fiction5stars || 0}권</div>
+        </div>
+        <div class="card">
+          <div class="card-label">Nonfiction</div>
+          <div class="card-num">${d.nonfictionTotal || 0}</div>
+          <div class="card-sub">권</div>
+          <div class="card-pages">${(d.nonfictionPage || 0).toLocaleString()}p</div>
+          <div class="card-stars"><span class="star">★</span>★★★★ ${d.nonfiction5stars || 0}권</div>
+        </div>
+      </div>
+
+      ${d.bestMonth ? `
+      <div class="best-month">
+        <div>
+          <div class="best-month-label">가장 많이 읽은 달</div>
+          <div class="best-month-val">${d.bestMonth}</div>
+        </div>
+        <div class="best-month-count">${d.bestMonthCount || ''}<span>권</span></div>
+      </div>` : ''}
+    `;
+
+    // 바 애니메이션
+    setTimeout(() => {
+      const bar = document.getElementById('bigBar');
+      if (bar) bar.style.width = pct + '%';
+    }, 100);
+
+  } catch (e) {
+    document.getElementById('wrap').innerHTML = '<div class="loading">불러올 수 없어요 :(</div>';
+  }
+})();
+</script>
+</body>
+</html>
