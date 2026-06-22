@@ -20,7 +20,7 @@
     font-size: 28px;
     font-weight: 800;
     letter-spacing: -0.5px;
-    margin-bottom: 20px;
+    margin-bottom: 0;
   }
 
   /* 목표 달성 바 */
@@ -147,7 +147,10 @@ const year = new Date().getFullYear().toString();
     };
 
     document.getElementById('wrap').innerHTML = `
-      <div class="year-title">${d.year}</div>
+      <div style="display:flex; align-items:baseline; gap:10px; margin-bottom:12px;">
+        <div class="year-title" style="margin-bottom:0;">${d.year}</div>
+        <div style="font-size:14px; font-weight:300; color:#aaa; letter-spacing:0.05em;">독서 현황</div>
+      </div>
 
       <div class="goal-section">
         <div class="goal-row">
