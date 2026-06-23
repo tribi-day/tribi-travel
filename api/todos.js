@@ -58,6 +58,7 @@ export default async function handler(req, res) {
           pageId: page.id,
           title: p['할 일']?.title?.[0]?.plain_text || '',
           category: p['분류']?.select?.name || '',
+          categoryColor: p['분류']?.select?.color || '',
           status: p['상태']?.status?.name || '',
         };
       });
