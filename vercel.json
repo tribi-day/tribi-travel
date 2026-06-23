@@ -17,6 +17,9 @@
     },
     "api/reading-stats.js": {
       "maxDuration": 10
+    },
+    "api/todos.js": { 
+      "maxDuration": 10
     }
   }
 }
