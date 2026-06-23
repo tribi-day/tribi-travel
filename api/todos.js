@@ -1,11 +1,38 @@
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, PATCH, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   if (req.method === 'OPTIONS') return res.status(200).end();
 
   const token = process.env.NOTION_TOKEN;
   const dbId = '3814852b4d7e8016ab94dd664d076865';
+
+  // POST: 할일 추가
+  if (req.method === 'POST') {
+    const { title, category } = req.body;
+    try {
+      const r = await fetch('https://api.notion.com/v1/pages', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Notion-Version': '2022-06-28',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          parent: { database_id: dbId },
+          properties: {
+            '할 일': { title: [{ text: { content: title } }] },
+            ...(category ? { '분류': { select: { name: category } } } : {}),
+          },
+        }),
+      });
+      const data = await r.json();
+      if (r.ok) return res.status(200).json({ success: true });
+      return res.status(500).json({ error: data.message });
+    } catch (err) {
+      return res.status(500).json({ error: err.message });
+    }
+  }
 
   // PATCH: 상태 업데이트
   if (req.method === 'PATCH') {
