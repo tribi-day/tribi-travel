@@ -1,6 +1,6 @@
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT, DELETE, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   if (req.method === 'OPTIONS') return res.status(200).end();
 
@@ -25,6 +25,53 @@ export default async function handler(req, res) {
             ...(category ? { '분류': { select: { name: category } } } : {}),
           },
         }),
+      });
+      const data = await r.json();
+      if (r.ok) return res.status(200).json({ success: true });
+      return res.status(500).json({ error: data.message });
+    } catch (err) {
+      return res.status(500).json({ error: err.message });
+    }
+  }
+
+  // PUT: 할일 수정
+  if (req.method === 'PUT') {
+    const { pageId, title, category } = req.body;
+    try {
+      const r = await fetch(`https://api.notion.com/v1/pages/${pageId}`, {
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Notion-Version': '2022-06-28',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          properties: {
+            '할 일': { title: [{ text: { content: title } }] },
+            ...(category ? { '분류': { select: { name: category } } } : {}),
+          },
+        }),
+      });
+      const data = await r.json();
+      if (r.ok) return res.status(200).json({ success: true });
+      return res.status(500).json({ error: data.message });
+    } catch (err) {
+      return res.status(500).json({ error: err.message });
+    }
+  }
+
+  // DELETE: 할일 삭제 (아카이브)
+  if (req.method === 'DELETE') {
+    const { pageId } = req.body;
+    try {
+      const r = await fetch(`https://api.notion.com/v1/pages/${pageId}`, {
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Notion-Version': '2022-06-28',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ archived: true }),
       });
       const data = await r.json();
       if (r.ok) return res.status(200).json({ success: true });
