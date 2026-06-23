@@ -146,6 +146,64 @@
   }
   .modal-submit:disabled { opacity: 0.5; }
   .empty { text-align: center; padding: 60px 20px; color: #aaa; font-size: 14px; }
+  .edit-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 300;
+    align-items: flex-end;
+  }
+  .edit-modal-overlay.open { display: flex; }
+  .edit-modal {
+    background: #fff;
+    border-radius: 20px 20px 0 0;
+    padding: 24px 20px 40px;
+    width: 100%;
+  }
+  .edit-modal-title { font-size: 17px; font-weight: 700; margin-bottom: 16px; }
+  .edit-input {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+    font-size: 15px;
+    outline: none;
+    margin-bottom: 12px;
+  }
+  .edit-select {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+    font-size: 15px;
+    outline: none;
+    margin-bottom: 12px;
+    background: #fff;
+    appearance: none;
+  }
+  .edit-btn-row { display: flex; gap: 8px; margin-top: 4px; }
+  .edit-save-btn {
+    flex: 1;
+    padding: 13px;
+    border-radius: 10px;
+    border: none;
+    background: #1a1a1a;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .edit-delete-btn {
+    padding: 13px 18px;
+    border-radius: 10px;
+    border: none;
+    background: #fff0f0;
+    color: #cc3333;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+  }
 </style>
 </head>
 <body>
@@ -179,6 +237,26 @@
   </div>
 </div>
 
+<div class="edit-modal-overlay" id="editModalOverlay" onclick="closeEditModal(event)">
+  <div class="edit-modal">
+    <div class="edit-modal-title">할일 수정</div>
+    <input id="editTodoInput" class="edit-input" type="text" placeholder="할일을 입력하세요">
+    <select id="editTodoCategory" class="edit-select">
+      <option value="">분류 선택</option>
+      <option value="tribi studio">tribi studio</option>
+      <option value="coding">coding</option>
+      <option value="write">write</option>
+      <option value="read">read</option>
+      <option value="sns">sns</option>
+      <option value="etc">etc</option>
+    </select>
+    <div class="edit-btn-row">
+      <button class="edit-save-btn" id="editSaveBtn" onclick="saveEdit()">저장</button>
+      <button class="edit-delete-btn" id="editDeleteBtn" onclick="deleteTodo()">삭제</button>
+    </div>
+  </div>
+</div>
+
 <script>
 
   const notionColors = {
@@ -199,6 +277,75 @@
   }
 
 let todos = [];
+
+let editingTodo = null;
+
+function openEditModal(todo) {
+  editingTodo = todo;
+  document.getElementById('editTodoInput').value = todo.title;
+  document.getElementById('editTodoCategory').value = todo.category || '';
+  document.getElementById('editModalOverlay').classList.add('open');
+  document.getElementById('editTodoInput').focus();
+}
+
+function closeEditModal(e) {
+  if (e.target === document.getElementById('editModalOverlay')) {
+    document.getElementById('editModalOverlay').classList.remove('open');
+    editingTodo = null;
+  }
+}
+
+async function saveEdit() {
+  if (!editingTodo) return;
+  const title = document.getElementById('editTodoInput').value.trim();
+  const category = document.getElementById('editTodoCategory').value;
+  if (!title) return;
+
+  const btn = document.getElementById('editSaveBtn');
+  btn.disabled = true;
+  btn.textContent = '저장 중...';
+
+  try {
+    const r = await fetch('/api/todos', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ pageId: editingTodo.pageId, title, category }),
+    });
+    const data = await r.json();
+    if (data.success) {
+      document.getElementById('editModalOverlay').classList.remove('open');
+      editingTodo = null;
+      loadTodos();
+    }
+  } catch {}
+
+  btn.disabled = false;
+  btn.textContent = '저장';
+}
+
+async function deleteTodo() {
+  if (!editingTodo) return;
+  if (!confirm('정말 삭제할까요?')) return;
+
+  const btn = document.getElementById('editDeleteBtn');
+  btn.disabled = true;
+
+  try {
+    const r = await fetch('/api/todos', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ pageId: editingTodo.pageId }),
+    });
+    const data = await r.json();
+    if (data.success) {
+      document.getElementById('editModalOverlay').classList.remove('open');
+      editingTodo = null;
+      loadTodos();
+    }
+  } catch {}
+
+  btn.disabled = false;
+}
 
 function openModal() {
   document.getElementById('modalOverlay').classList.add('open');
@@ -287,6 +434,11 @@ function render() {
         <div class="todo-text">${todo.title}</div>
       `;
       item.addEventListener('click', () => completeTodo(todo));
+      item.addEventListener('contextmenu', (e) => { e.preventDefault(); openEditModal(todo); });
+      let pressTimer;
+      item.addEventListener('touchstart', () => { pressTimer = setTimeout(() => openEditModal(todo), 500); });
+      item.addEventListener('touchend', () => clearTimeout(pressTimer));
+      item.addEventListener('touchmove', () => clearTimeout(pressTimer));
       groupEl.appendChild(item);
     });
     list.appendChild(groupEl);
