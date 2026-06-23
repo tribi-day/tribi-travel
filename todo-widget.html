@@ -79,6 +79,72 @@
     white-space: nowrap;
   }
   .loading { text-align: center; padding: 40px; color: #aaa; font-size: 14px; }
+  .add-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 20px;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: #1a1a1a;
+    color: #fff;
+    font-size: 26px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    z-index: 100;
+  }
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 200;
+    align-items: flex-end;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: #fff;
+    border-radius: 20px 20px 0 0;
+    padding: 24px 20px 40px;
+    width: 100%;
+  }
+  .modal-title { font-size: 17px; font-weight: 700; margin-bottom: 16px; }
+  .modal-input {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+    font-size: 15px;
+    outline: none;
+    margin-bottom: 12px;
+  }
+  .modal-select {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+    font-size: 15px;
+    outline: none;
+    margin-bottom: 16px;
+    background: #fff;
+    appearance: none;
+  }
+  .modal-submit {
+    width: 100%;
+    padding: 14px;
+    border-radius: 10px;
+    border: none;
+    background: #1a1a1a;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .modal-submit:disabled { opacity: 0.5; }
   .empty { text-align: center; padding: 60px 20px; color: #aaa; font-size: 14px; }
 </style>
 </head>
@@ -92,6 +158,25 @@
 </div>
 <div class="list" id="list">
   <div class="loading">불러오는 중...</div>
+</div>
+
+<button class="add-btn" onclick="openModal()">+</button>
+
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal">
+    <div class="modal-title">할일 추가</div>
+    <input id="newTodoInput" class="modal-input" type="text" placeholder="할일을 입력하세요">
+    <select id="newTodoCategory" class="modal-select">
+      <option value="">분류 선택</option>
+      <option value="tribi studio">tribi studio</option>
+      <option value="coding">coding</option>
+      <option value="write">write</option>
+      <option value="read">read</option>
+      <option value="sns">sns</option>
+      <option value="etc">etc</option>
+    </select>
+    <button class="modal-submit" id="submitBtn" onclick="addTodo()">추가</button>
+  </div>
 </div>
 
 <script>
@@ -114,6 +199,45 @@
   }
 
 let todos = [];
+
+function openModal() {
+  document.getElementById('modalOverlay').classList.add('open');
+  document.getElementById('newTodoInput').focus();
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('modalOverlay')) {
+    document.getElementById('modalOverlay').classList.remove('open');
+  }
+}
+
+async function addTodo() {
+  const title = document.getElementById('newTodoInput').value.trim();
+  const category = document.getElementById('newTodoCategory').value;
+  if (!title) return;
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = '추가 중...';
+
+  try {
+    const r = await fetch('/api/todos', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ title, category }),
+    });
+    const data = await r.json();
+    if (data.success) {
+      document.getElementById('modalOverlay').classList.remove('open');
+      document.getElementById('newTodoInput').value = '';
+      document.getElementById('newTodoCategory').value = '';
+      loadTodos();
+    }
+  } catch {}
+
+  btn.disabled = false;
+  btn.textContent = '추가';
+}
 
 async function loadTodos() {
   document.getElementById('list').innerHTML = '<div class="loading">불러오는 중...</div>';
