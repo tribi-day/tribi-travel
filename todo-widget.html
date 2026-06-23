@@ -32,13 +32,13 @@
   .list { padding: 12px 16px 40px; }
   .category-group { margin-bottom: 20px; }
   .category-label {
+    display: inline-block;
     font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    color: #aaa;
-    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 0.03em;
     margin-bottom: 8px;
-    padding-left: 4px;
+    padding: 3px 10px;
+    border-radius: 20px;
   }
   .todo-item {
     display: flex;
@@ -85,7 +85,7 @@
 <body>
 <div class="header">
   <div>
-    <div class="header-title">할일</div>
+  
     <div class="header-count" id="count"></div>
   </div>
   <button class="refresh-btn" onclick="loadTodos()">↻</button>
@@ -95,6 +95,24 @@
 </div>
 
 <script>
+
+  const notionColors = {
+    default: { bg: '#f1ede9', text: '#8b7d72' },
+    gray:    { bg: '#e3e2e0', text: '#787774' },
+    brown:   { bg: '#f1ede9', text: '#8b7d72' },
+    orange:  { bg: '#fdecc8', text: '#9b6700' },
+    yellow:  { bg: '#fef3b0', text: '#8b7000' },
+    green:   { bg: '#dbeddb', text: '#1e6f45' },
+    blue:    { bg: '#d3e5ef', text: '#0f5f8a' },
+    purple:  { bg: '#e8deee', text: '#6940a5' },
+    pink:    { bg: '#f5e0e9', text: '#a5224e' },
+    red:     { bg: '#ffe2dd', text: '#ba3a2d' },
+  };
+  function getCategoryStyle(color) {
+    const c = notionColors[color] || notionColors.default;
+    return `background:${c.bg}; color:${c.text};`;
+  }
+
 let todos = [];
 
 async function loadTodos() {
@@ -122,15 +140,18 @@ function render() {
   const groups = {};
   todos.forEach(t => {
     const cat = t.category || '기타';
-    if (!groups[cat]) groups[cat] = [];
-    groups[cat].push(t);
+    const catColor = t.categoryColor || 'default';
+    if (!groups[cat]) groups[cat] = { items: [], color: catColor };
+    groups[cat].items.push(t);
   });
 
   list.innerHTML = '';
-  Object.entries(groups).forEach(([cat, items]) => {
-    const group = document.createElement('div');
-    group.className = 'category-group';
-    group.innerHTML = `<div class="category-label">${cat}</div>`;
+  Object.entries(groups).forEach(([cat, group]) => {
+    const { items, color } = group;
+    const groupEl = document.createElement('div');
+    groupEl.className = 'category-group';
+    const catStyle = getCategoryStyle(color);
+    groupEl.innerHTML = `<div class="category-label" style="${catStyle}">${cat}</div>`;
     items.forEach(todo => {
       const item = document.createElement('div');
       item.className = 'todo-item';
@@ -140,12 +161,11 @@ function render() {
           ${todo.status === '완료' ? '✓' : ''}
         </div>
         <div class="todo-text">${todo.title}</div>
-        ${todo.status && todo.status !== '완료' ? `<div class="todo-status">${todo.status}</div>` : ''}
       `;
       item.addEventListener('click', () => completeTodo(todo));
-      group.appendChild(item);
+      groupEl.appendChild(item);
     });
-    list.appendChild(group);
+    list.appendChild(groupEl);
   });
 }
 
