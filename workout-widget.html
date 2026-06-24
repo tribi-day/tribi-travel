@@ -214,6 +214,18 @@
 </div>
 
 <script>
+const NOTION_COLORS = {
+  default: { bg: '#f1f1ef', text: '#787774' },
+  gray:    { bg: '#e3e2e0', text: '#787774' },
+  brown:   { bg: '#f1ede9', text: '#8b7d72' },
+  orange:  { bg: '#fdecc8', text: '#9b6700' },
+  yellow:  { bg: '#fef3b0', text: '#8b7000' },
+  green:   { bg: '#dbeddb', text: '#1e6f45' },
+  blue:    { bg: '#d3e5ef', text: '#0f5f8a' },
+  purple:  { bg: '#e8deee', text: '#6940a5' },
+  pink:    { bg: '#f5e0e9', text: '#a5224e' },
+  red:     { bg: '#ffe2dd', text: '#ba3a2d' },
+};
 let year = new Date().getFullYear();
 let month = new Date().getMonth() + 1;
 let records = [];
