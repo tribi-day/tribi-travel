@@ -40,6 +40,7 @@ export default async function handler(req, res) {
           pageId: page.id,
           date: p['날짜']?.date?.start || '',
           type: p['운동 종류']?.select?.name || '',
+          typeColor: p['운동 종류']?.select?.color || 'default',
           duration: p['운동 시간']?.number || null,
         };
       });
