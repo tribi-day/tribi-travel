@@ -286,6 +286,10 @@ function renderCalendar() {
 
     const dayEl = document.createElement('div');
     dayEl.className = `cal-day ${hasWorkout ? 'has-workout' : ''} ${isToday ? 'today' : ''}`;
+    if (hasWorkout) {
+      const c = NOTION_COLORS[recs[0].typeColor] || NOTION_COLORS.default;
+      dayEl.style.background = c.bg;
+    }
     dayEl.innerHTML = `<div class="day-num">${d}</div>${typeHTML}`;
 
     if (hasWorkout) {
