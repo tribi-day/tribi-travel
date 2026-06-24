@@ -20,6 +20,9 @@
     },
     "api/todos.js": { 
       "maxDuration": 10
+    },
+    "api/workout.js": {
+      "maxDuration": 10
     }
   }
 }
