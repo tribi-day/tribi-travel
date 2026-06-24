@@ -279,7 +279,10 @@ function renderCalendar() {
     const isToday = dateStr === today;
 
     const typeHTML = hasWorkout
-      ? recs.map(r => `<div class="day-type">${r.type || '운동'}</div>`).join('')
+      ? recs.map(r => {
+            const c = NOTION_COLORS[r.typeColor] || NOTION_COLORS.default;
+            return `<div class="day-type" style="background:${c.bg};color:${c.text};border-radius:4px;padding:1px 3px;">${r.type || '운동'}</div>`;
+          }).join('')
       : '';
 
     const dayEl = document.createElement('div');
