@@ -228,7 +228,7 @@ let year = new Date().getFullYear();
 let month = new Date().getMonth() + 1;
 let records = [];
 const today = new Date().toISOString().split('T')[0];
-const DAYS = ['일','월','화','수','목','금','토'];
+const DAYS = ['월','화','수','목','금','토','일'];
 
 document.getElementById('prevBtn').addEventListener('click', () => {
   month--; if (month < 1) { month = 12; year--; } load();
@@ -257,7 +257,7 @@ function renderCalendar() {
   const grid = document.getElementById('calGrid');
   grid.innerHTML = DAYS.map(d => `<div class="cal-dow">${d}</div>`).join('');
 
-  const firstDay = new Date(year, month - 1, 1).getDay();
+  const firstDay = (new Date(year, month - 1, 1).getDay() + 6) % 7; // 월요일 시작
   const daysInMonth = new Date(year, month, 0).getDate();
 
   // 날짜별 기록 맵
