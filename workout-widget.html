@@ -277,18 +277,15 @@ function renderCalendar() {
     const hasWorkout = recs.length > 0;
     const isToday = dateStr === today;
 
-    const typeHTML = hasWorkout
-      ? recs.map(r => {
-            const c = NOTION_COLORS[r.typeColor] || NOTION_COLORS.default;
-            return `<div class="day-type" style="background:${c.bg};color:${c.text};border-radius:4px;padding:1px 3px;">${r.type || '운동'}</div>`;
-          }).join('')
-      : '';
-
     const dayEl = document.createElement('div');
     dayEl.className = `cal-day ${hasWorkout ? 'has-workout' : ''} ${isToday ? 'today' : ''}`;
+    let typeHTML = '';
     if (hasWorkout) {
-      const c = NOTION_COLORS[recs[0].typeColor] || NOTION_COLORS.default;
+      const first = recs[0];
+      const c = NOTION_COLORS[first.typeColor] || NOTION_COLORS.default;
       dayEl.style.background = c.bg;
+      const extra = recs.length > 1 ? ` +${recs.length - 1}` : '';
+      typeHTML = `<div class="day-type" style="color:${c.text};border-radius:4px;padding:1px 3px;">${(first.type || '운동')}${extra}</div>`;
     }
     dayEl.innerHTML = `<div class="day-num">${d}</div>${typeHTML}`;
 
