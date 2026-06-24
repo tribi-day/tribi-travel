@@ -32,7 +32,7 @@
   .cal-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 3px;
+    gap: 2px;
   }
   .cal-dow {
     text-align: center;
@@ -42,7 +42,7 @@
     padding: 4px 0 6px;
   }
   .cal-day {
-    aspect-ratio: 0.75;
+    aspect-ratio: 0.65;
     border-radius: 8px;
     display: flex;
     flex-direction: column;
@@ -67,13 +67,13 @@
   .cal-day.has-workout:active { background: #d0e8d0; }
   .cal-day:not(.empty):not(.has-workout):active { background: #f0ebe0; }
   .day-num {
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 500;
     line-height: 1;
     margin-bottom: 3px;
   }
   .day-type {
-    font-size: 8px;
+    font-size: 10px;
     color: #3a8a3a;
     font-weight: 600;
     text-align: center;
