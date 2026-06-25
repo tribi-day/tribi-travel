@@ -7,12 +7,7 @@
   "theme_color": "#f8f6f2",
   "icons": [
     {
-      "src": "/todo-icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "/todo-icon-512.png",
+      "src": "/todo-icon.png",
       "sizes": "512x512",
       "type": "image/png"
     }
