@@ -332,7 +332,7 @@ function renderStats() {
   `;
 }
 
-// ── 운동 프리셋 ──
+// 운동 프리셋
 const PRESETS = {
   '하체': [
     { name: '맨몸 스쿼트', reps: 20, sets: 2, weight: null },
@@ -420,7 +420,7 @@ function renderStep2(type) {
   const presets = PRESETS[type];
   document.getElementById('modalContent').innerHTML = `
     <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
-      <button onclick="renderStep1()" style="background:none;border:none;color:#aaa;font-size:16px;cursor:pointer;">←</button>
+      <button onclick="renderStep1()" style="background:none;border:none;color:#aaa;font-size:16px;cursor:pointer;">&lt;</button>
       <div class="modal-title" style="margin:0;">${type}</div>
     </div>
     <div id="presetList" style="max-height:50vh; overflow-y:auto; margin-bottom:16px;">
@@ -476,7 +476,7 @@ function toggleExercise(i) {
 function renderStepSimple(type) {
   document.getElementById('modalContent').innerHTML = `
     <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
-      <button onclick="renderStep1()" style="background:none;border:none;color:#aaa;font-size:16px;cursor:pointer;">←</button>
+      <button onclick="renderStep1()" style="background:none;border:none;color:#aaa;font-size:16px;cursor:pointer;">&lt;</button>
       <div class="modal-title" style="margin:0;">${type}</div>
     </div>
     <div class="modal-label">운동 시간 (분)</div>
