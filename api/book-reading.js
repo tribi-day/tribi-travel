@@ -1,125 +1,354 @@
-export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET');
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>reading now</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: transparent;
+    padding: 12px 16px;
+    color: #1a1a1a;
+  }
+  .wrap { max-width: 360px; margin: 0 auto; }
+  .loading { color: #aaa; font-size: 13px; text-align: center; padding: 24px 0; }
 
-  const token = process.env.NOTION_TOKEN;
-  const dbId = '61542799ff2c48049614b6d467d1f3c0';
-  const fictionDbId = process.env.NOTION_FICTION_DB_ID;
-  const nonfictionDbId = process.env.NOTION_NONFICTION_DB_ID;
-  const year = req.query.year || new Date().getFullYear().toString();
+  /* 네비게이션 */
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .nav-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #bbb;
+    padding: 4px 8px;
+    transition: color 0.15s;
+    line-height: 1;
+  }
+  .nav-btn:hover { color: #1a1a1a; }
+  .nav-btn:disabled { opacity: 0.2; cursor: default; }
+  .nav-dots {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+  .nav-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #e0e0e0;
+    transition: background 0.2s;
+  }
+  .nav-dot.active { background: #1a1a1a; }
+
+  /* 책 표지 */
+  .cover-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 22px;
+  }
+  .book-3d {
+    position: relative;
+    display: inline-block;
+  }
+  .book-3d img {
+    display: block;
+    width: 122px;
+    height: auto;
+    border-radius: 2px 6px 6px 2px;
+    box-shadow:
+      2px 2px 6px rgba(0,0,0,0.1),
+      4px 4px 12px rgba(0,0,0,0.07);
+  }
+  .cover-placeholder {
+    width: 122px;
+    height: 220px;
+    background: #f0ebe0;
+    border-radius: 2px 6px 6px 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    box-shadow:
+      2px 2px 6px rgba(0,0,0,0.1),
+      4px 4px 12px rgba(0,0,0,0.07);
+  }
+
+  /* 책 정보 */
+  .book-title {
+    font-size: 17px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 18px;
+    line-height: 1.4;
+  }
+    .book-genre {
+    font-size: 12px;
+    color: #bbb;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+
+  /* 진행도 */
+  .progress-bar {
+    width: 100%;
+    height: 5px;
+    background: #f0ebe0;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+  .progress-fill {
+    height: 100%;
+    background: #1a1a1a;
+    border-radius: 3px;
+    transition: width 0.4s ease;
+  }
+  .progress-text {
+    font-size: 12px;
+    color: #bbb;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+
+  /* 페이지 컨트롤 */
+  .page-control {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 16px;
+    border-top: 1px solid #f0f0f0;
+  }
+  .page-display {
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .btn-group { display: flex; gap: 6px; }
+  .page-btn {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+    background: #fff;
+    color: #1a1a1a;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .page-btn:hover { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+  .page-btn:disabled { opacity: 0.4; cursor: default; }
+
+  .toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1a1a1a;
+    color: #fff;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 13px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  .toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+<div class="wrap" id="wrap">
+  <div class="loading">불러오는 중...</div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+let books = [];
+let current = 0;
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 1800);
+}
+
+function pct(book) {
+  if (!book.totalPage || book.totalPage === 0) return 0;
+  return Math.min(100, Math.round(book.currentPage / book.totalPage * 100));
+}
+
+function render() {
+  const wrap = document.getElementById('wrap');
+  if (books.length === 0) {
+    wrap.innerHTML = '<div class="loading">읽는 중인 책이 없어요 📚</div>';
+    return;
+  }
+
+  const book = books[current];
+  const p = pct(book);
+  const pageText = book.totalPage ? `${book.currentPage}p / ${book.totalPage}p` : `${book.currentPage}p`;
+  const pctText = book.totalPage ? `${p}%` : '';
+
+  const dotsHTML = books.map((_, i) =>
+    `<div class="nav-dot ${i === current ? 'active' : ''}"></div>`
+  ).join('');
+
+  const coverHTML = book.cover
+    ? `<div class="book-3d">
+        <img src="${book.cover}" alt="${book.title}">
+      </div>`
+    : `<div class="cover-placeholder">📖</div>`;
+
+
+
+  wrap.innerHTML = `
+    <div class="nav">
+      <button class="nav-btn" id="prevBtn">&#8249;</button>
+      <div class="nav-dots">${dotsHTML}</div>
+      <button class="nav-btn" id="nextBtn">&#8250;</button>
+    </div>
+    <div class="cover-wrap">${coverHTML}</div>
+    <div class="book-title">${book.title}${book.author ? `, <span style="font-weight:400; color:#777;">${book.author}</span>` : ''}</div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill" style="width:${p}%"></div>
+    </div>
+    <div class="progress-text">
+      <span id="pageText">${pageText}</span>
+      <span id="pctText">${pctText}</span>
+    </div>
+    <div class="page-control">
+      <div class="page-display" id="pageDisplay" title="클릭해서 직접 입력" style="cursor:pointer;" onclick="editPage()">${book.currentPage}p</div>
+      <div class="btn-group">
+        <button class="page-btn" id="btn1">+1</button>
+        <button class="page-btn" id="btn5">+5</button>
+        <button class="page-btn" id="btn10">+10</button>
+      </div>
+    </div>
+  `;
+
+  // 네비게이션
+  document.getElementById('prevBtn').disabled = current === 0;
+  document.getElementById('nextBtn').disabled = current === books.length - 1;
+  document.getElementById('prevBtn').addEventListener('click', () => { current--; render(); });
+  document.getElementById('nextBtn').addEventListener('click', () => { current++; render(); });
+
+  // 페이지 버튼
+  document.getElementById('btn1').addEventListener('click', () => addPage(1));
+  document.getElementById('btn5').addEventListener('click', () => addPage(5));
+  document.getElementById('btn10').addEventListener('click', () => addPage(10));
+}
+
+function editPage() {
+  const book = books[current];
+  const display = document.getElementById('pageDisplay');
+  const input = document.createElement('input');
+  input.type = 'number';
+  input.value = book.currentPage;
+  input.min = 0;
+  input.style.cssText = 'width:70px; font-size:15px; font-weight:600; border:none; border-bottom:1.5px solid #1a1a1a; outline:none; background:transparent; color:#1a1a1a;';
+  display.replaceWith(input);
+  input.focus();
+  input.select();
+
+  const confirm = async () => {
+    const val = parseInt(input.value);
+    if (!isNaN(val) && val >= 0) {
+      book.currentPage = val;
+      const p = pct(book);
+      document.getElementById('progressFill').style.width = p + '%';
+      document.getElementById('pageText').textContent =
+        book.totalPage ? `${val}p / ${book.totalPage}p` : `${val}p`;
+      if (book.totalPage) document.getElementById('pctText').textContent = p + '%';
+      const div = document.createElement('div');
+      div.className = 'page-display';
+      div.id = 'pageDisplay';
+      div.title = '클릭해서 직접 입력';
+      div.style.cursor = 'pointer';
+      div.textContent = val + 'p';
+      div.onclick = editPage;
+      input.replaceWith(div);
+      try {
+        await fetch('/api/book-reading', {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ pageId: book.pageId, currentPage: val }),
+        });
+        showToast(`${val}p 저장됐어요 ✓`);
+      } catch { showToast('오류가 발생했어요'); }
+    } else {
+      const div = document.createElement('div');
+      div.className = 'page-display';
+      div.id = 'pageDisplay';
+      div.title = '클릭해서 직접 입력';
+      div.style.cursor = 'pointer';
+      div.textContent = book.currentPage + 'p';
+      div.onclick = editPage;
+      input.replaceWith(div);
+    }
+  };
+
+  input.addEventListener('blur', confirm);
+  input.addEventListener('keydown', e => { if (e.key === 'Enter') input.blur(); });
+}
+
+async function addPage(amount) {
+  const book = books[current];
+  const newPage = book.currentPage + amount;
+  book.currentPage = newPage;
+
+  // UI 즉시 업데이트
+  const p = pct(book);
+  document.getElementById('progressFill').style.width = p + '%';
+  document.getElementById('pageDisplay').textContent = newPage + 'p';
+  document.getElementById('pageText').textContent =
+    book.totalPage ? `${newPage}p / ${book.totalPage}p` : `${newPage}p`;
+  if (book.totalPage) document.getElementById('pctText').textContent = p + '%';
+
+  // 버튼 비활성화
+  ['btn1','btn5','btn10'].forEach(id => {
+    const b = document.getElementById(id);
+    if (b) b.disabled = true;
+  });
 
   try {
-    // 1. 스탯 DB 조회
-    const r = await fetch(`https://api.notion.com/v1/databases/${dbId}/query`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Notion-Version': '2022-06-28',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        filter: { property: '연도', title: { equals: year } },
-      }),
+    const r = await fetch('/api/book-reading', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ pageId: book.pageId, currentPage: newPage }),
     });
     const data = await r.json();
-    const page = (data.results || [])[0];
-    if (!page) return res.status(404).json({ error: 'No data for this year' });
-
-    const p = page.properties;
-    const num = key => p[key]?.number ?? p[key]?.formula?.number ?? p[key]?.rollup?.number ?? null;
-    // 책 달 메세지 - 노션 스타일 태그 제거
-    const rawMsg = p['책 달 메세지']?.formula?.string || '';
-    const bestMonthMsg = rawMsg.replace(/​/g, '').replace(/[-*~_`]/g, '').trim();
-
-    const arr = key => p[key]?.formula?.array ?? p[key]?.rollup?.array ?? [];
-
-    // 월별 데이터 - formula string "0,0,1,..." 파싱
-    const monthStr = p['독서 젤많이읽은달']?.formula?.string || '';
-    const monthCounts = monthStr.split(',').map(s => parseInt(s.trim()) || 0);
-    const maxCount = Math.max(...monthCounts, 0);
-    const bestMonths = monthCounts
-      .map((cnt, i) => cnt === maxCount && maxCount > 0 ? `${i+1}월` : null)
-      .filter(Boolean)
-      .join(', ');
-    const bestMonthCountNum = num('독서 젤많이읽은수');
-
-    // 2. 책 표지 조회 (픽션 + 논픽션, 완독+읽는중)
-    const fetchBooks = async (dbId) => {
-      const r = await fetch(`https://api.notion.com/v1/databases/${dbId}/query`, {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Notion-Version': '2022-06-28',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          filter: {
-            and: [
-              {
-                or: [
-                  { property: '현황', status: { equals: '완독' } },
-                  { property: '현황', status: { equals: '읽는 중' } },
-                ]
-              },
-              {
-                property: '연도',
-                relation: { contains: '24cf7517c6504fe298553ad1f6ffae86' },
-              }
-            ]
-          },
-          page_size: 50,
-        }),
-      });
-      const d = await r.json();
-      return (d.results || []).map(pg => {
-        const cover = pg.properties['책 표지']?.files?.[0]?.external?.url
-          || pg.properties['책 표지']?.files?.[0]?.file?.url
-          || null;
-        // 완독일 없으면 집계 제외
-        const date = pg.properties['완독일']?.date?.start || null;
-        return { cover, date };
-      });
-    };
-
-    const [fictionBooks, nonfictionBooks] = await Promise.all([
-      fetchBooks(fictionDbId),
-      fetchBooks(nonfictionDbId),
-    ]);
-    const fictionCovers = fictionBooks.map(b => b.cover).filter(Boolean);
-    const nonfictionCovers = nonfictionBooks.map(b => b.cover).filter(Boolean);
-
-    // 월별 집계로 베스트 달 계산
-    const allBooks = [...fictionBooks, ...nonfictionBooks];
-    const monthTally = new Array(12).fill(0);
-    allBooks.forEach(b => {
-      if (b.date) {
-        const m = new Date(b.date).getMonth(); // 0-indexed
-        monthTally[m]++;
-      }
+    if (data.success) showToast(`${newPage}p 저장됐어요 ✓`);
+    else showToast('저장 실패 :(');
+  } catch {
+    showToast('오류가 발생했어요');
+  } finally {
+    ['btn1','btn5','btn10'].forEach(id => {
+      const b = document.getElementById(id);
+      if (b) b.disabled = false;
     });
-    const calcMaxCount = Math.max(...monthTally, 0);
-    const calcBestMonths = monthTally
-      .map((cnt, i) => cnt === calcMaxCount && calcMaxCount > 0 ? `${i+1}월` : null)
-      .filter(Boolean)
-      .join(', ');
-
-    res.status(200).json({
-      year,
-      목표권수: num('목표 독서 권수'),
-      달성도: num('목표독서량 달성도'),
-      fictionTotal: num('fiction total'),
-      fictionPage: num('fiction page'),
-      fiction5stars: num('fiction 5 stars'),
-      nonfictionTotal: num('nonfiction total'),
-      nonfictionPage: num('nonfiction page'),
-      nonfiction5stars: num('nonfiction 5 stars'),
-      bestMonth: calcBestMonths || bestMonths,
-      bestMonthMsg,
-      bestMonthCount: calcMaxCount || maxCount,
-      fictionCovers,
-      nonfictionCovers,
-    });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
   }
 }
+
+(async () => {
+  try {
+    const r = await fetch('/api/book-reading');
+    books = await r.json();
+    // 총 페이지 많은 순 정렬
+    books.sort((a, b) => (b.totalPage || 0) - (a.totalPage || 0));
+    render();
+  } catch {
+    document.getElementById('wrap').innerHTML = '<div class="loading">불러올 수 없어요 :(</div>';
+  }
+})();
+</script>
+</body>
+</html>
