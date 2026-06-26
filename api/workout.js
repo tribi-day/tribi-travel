@@ -52,7 +52,7 @@ export default async function handler(req, res) {
 
   // POST: 운동 기록 추가
   if (req.method === 'POST') {
-    const { date, type, duration } = req.body;
+    const { date, type, duration, detail } = req.body;
     try {
       const r = await fetch('https://api.notion.com/v1/pages', {
         method: 'POST',
@@ -68,6 +68,7 @@ export default async function handler(req, res) {
             '날짜': { date: { start: date } },
             ...(type ? { '운동 종류': { select: { name: type } } } : {}),
             ...(duration ? { '운동 시간': { number: duration } } : {}),
+            ...(detail ? { '디테일': { rich_text: [{ text: { content: detail } }] } } : {}),
           },
         }),
       });
