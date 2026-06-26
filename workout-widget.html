@@ -199,15 +199,8 @@
 <button class="add-btn" onclick="openModal()">+</button>
 
 <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
-  <div class="modal">
-    <div class="modal-title">운동 기록 추가</div>
-    <div class="modal-label">날짜</div>
-    <input id="workoutDate" class="modal-input" type="date">
-    <div class="modal-label">운동 종류</div>
-    <input id="workoutType" class="modal-input" type="text" placeholder="예: 헬스 상체, 러닝">
-    <div class="modal-label">운동 시간 (분)</div>
-    <input id="workoutDuration" class="modal-input" type="number" placeholder="60">
-    <button class="modal-submit" id="submitBtn" onclick="addWorkout()">추가</button>
+  <div class="modal" id="modalContent">
+    <!-- 단계별로 채워짐 -->
   </div>
 </div>
 
@@ -339,10 +332,54 @@ function renderStats() {
   `;
 }
 
+// ── 운동 프리셋 ──
+const PRESETS = {
+  '하체': [
+    { name: '맨몸 스쿼트', reps: 20, sets: 2, weight: null },
+    { name: '스쿼트', reps: 10, sets: 3, weight: 10 },
+    { name: '맨몸 런지', reps: 20, sets: 2, weight: null },
+    { name: '런지', reps: 10, sets: 3, weight: 10 },
+    { name: '아웃타이', reps: 20, sets: 3, weight: 40 },
+    { name: '이너타이', reps: 20, sets: 3, weight: 15 },
+    { name: '레그프레스', reps: 10, sets: 4, weight: 40 },
+    { name: '레그컬', reps: 20, sets: 4, weight: 15 },
+    { name: '데드리프트', reps: 20, sets: 3, weight: 20 },
+  ],
+  '상체': [
+    { name: '시티드로우', reps: 20, sets: 3, weight: 15 },
+    { name: '바벨로우', reps: 20, sets: 3, weight: 15 },
+    { name: '렛풀다운', reps: 20, sets: 3, weight: 15 },
+    { name: '덤벨킥백', reps: 20, sets: 3, weight: 2 },
+    { name: '인클라인 푸시업', reps: 20, sets: 3, weight: null },
+    { name: '사레레', reps: 20, sets: 3, weight: 2 },
+    { name: '시티드 플라이', reps: 20, sets: 3, weight: 15 },
+    { name: '덤벨 숄더 프레스', reps: 20, sets: 3, weight: 4 },
+    { name: '덤벨 익스텐션', reps: 20, sets: 3, weight: 5 },
+    { name: '어시스트 풀업', reps: 20, sets: 3, weight: 40 },
+  ],
+  '무분할': [],
+  '유산소': [
+    { name: '복근 운동 영상', duration: 5, unit: '분' },
+    { name: '스탭밀', duration: 20, unit: '분', note: '속도 4-6' },
+    { name: '마이마운틴', duration: 20, unit: '분', note: '각도 7, 속도 7' },
+    { name: '폼롤러 스트레칭', duration: 5, unit: '분' },
+    { name: '집-시내 걸어가기', duration: 25, unit: '분' },
+  ],
+};
+// 무분할 = 상체 + 하체 합치기
+PRESETS['무분할'] = [...PRESETS['상체'], ...PRESETS['하체']];
+
+const WORKOUT_TYPES = ['하체', '상체', '무분할', '유산소', 'PT 수업', '댄스', '등산', '크로스핏', '프다', '수영', '스쿠버', '클라이밍'];
+
+let selectedExercises = []; // { preset, reps, sets, weight, note }
+let currentType = '';
+let workoutDate = today;
+
 function openModal() {
-  document.getElementById('workoutDate').value = today;
-  document.getElementById('workoutType').value = '';
-  document.getElementById('workoutDuration').value = '';
+  currentType = '';
+  selectedExercises = [];
+  workoutDate = today;
+  renderStep1();
   document.getElementById('modalOverlay').classList.add('open');
 }
 
@@ -351,20 +388,138 @@ function closeModal(e) {
     document.getElementById('modalOverlay').classList.remove('open');
 }
 
-async function addWorkout() {
-  const date = document.getElementById('workoutDate').value;
-  const type = document.getElementById('workoutType').value.trim();
-  const duration = parseInt(document.getElementById('workoutDuration').value);
-  if (!date) return;
+function renderStep1() {
+  document.getElementById('modalContent').innerHTML = `
+    <div class="modal-title">운동 기록 추가</div>
+    <div class="modal-label">날짜</div>
+    <input id="workoutDateInput" class="modal-input" type="date" value="${today}">
+    <div class="modal-label" style="margin-top:4px;">운동 종류</div>
+    <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px;">
+      ${WORKOUT_TYPES.map(t => `
+        <button onclick="selectType('${t}')" style="
+          padding:8px 14px; border-radius:20px; border:1.5px solid #e0e0e0;
+          background:#fff; font-size:13px; cursor:pointer; color:#1a1a1a;
+        ">${t}</button>
+      `).join('')}
+    </div>
+  `;
+}
 
-  const btn = document.getElementById('submitBtn');
-  btn.disabled = true; btn.textContent = '추가 중...';
+function selectType(type) {
+  currentType = type;
+  workoutDate = document.getElementById('workoutDateInput').value || today;
+  const hasPreset = PRESETS[type] && PRESETS[type].length > 0;
+  if (hasPreset) {
+    renderStep2(type);
+  } else {
+    renderStepSimple(type);
+  }
+}
+
+function renderStep2(type) {
+  const presets = PRESETS[type];
+  document.getElementById('modalContent').innerHTML = `
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
+      <button onclick="renderStep1()" style="background:none;border:none;color:#aaa;font-size:16px;cursor:pointer;">←</button>
+      <div class="modal-title" style="margin:0;">${type}</div>
+    </div>
+    <div id="presetList" style="max-height:50vh; overflow-y:auto; margin-bottom:16px;">
+      ${presets.map((p, i) => renderPresetItem(p, i)).join('')}
+    </div>
+    <div class="modal-label">운동 시간 (분)</div>
+    <input id="durationInput" class="modal-input" type="number" placeholder="60" style="margin-bottom:16px;">
+    <button class="modal-submit" onclick="submitWorkout()">저장</button>
+  `;
+}
+
+function renderPresetItem(p, i) {
+  const isCardio = p.unit === '분';
+  if (isCardio) {
+    return `
+      <div style="display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid #f5f5f5;">
+        <input type="checkbox" id="ex-${i}" onchange="toggleExercise(${i})"
+          style="width:18px; height:18px; cursor:pointer; flex-shrink:0;">
+        <div style="flex:1;">
+          <div style="font-size:14px; font-weight:600;">${p.name}</div>
+          <div style="font-size:12px; color:#aaa;">${p.duration}분${p.note ? ' · ' + p.note : ''}</div>
+        </div>
+        <input type="number" id="dur-${i}" value="${p.duration}" min="1"
+          style="width:52px; padding:4px 6px; border:1px solid #e0e0e0; border-radius:6px; font-size:13px; text-align:center;">
+        <span style="font-size:12px; color:#aaa;">분</span>
+      </div>`;
+  }
+  const weightPart = p.weight !== null
+    ? `<input type="number" id="w-${i}" value="${p.weight}" min="0" step="0.5"
+        style="width:52px; padding:4px 6px; border:1px solid #e0e0e0; border-radius:6px; font-size:13px; text-align:center;">
+       <span style="font-size:12px; color:#aaa;">kg</span>` : '';
+  return `
+    <div style="display:flex; align-items:center; gap:8px; padding:10px 0; border-bottom:1px solid #f5f5f5; flex-wrap:wrap;">
+      <input type="checkbox" id="ex-${i}" onchange="toggleExercise(${i})"
+        style="width:18px; height:18px; cursor:pointer; flex-shrink:0;">
+      <div style="font-size:14px; font-weight:600; flex:1; min-width:80px;">${p.name}</div>
+      <div style="display:flex; align-items:center; gap:6px;">
+        ${weightPart}
+        <input type="number" id="r-${i}" value="${p.reps}" min="1"
+          style="width:44px; padding:4px 6px; border:1px solid #e0e0e0; border-radius:6px; font-size:13px; text-align:center;">
+        <span style="font-size:12px; color:#aaa;">회</span>
+        <input type="number" id="s-${i}" value="${p.sets}" min="1"
+          style="width:44px; padding:4px 6px; border:1px solid #e0e0e0; border-radius:6px; font-size:13px; text-align:center;">
+        <span style="font-size:12px; color:#aaa;">세트</span>
+      </div>
+    </div>`;
+}
+
+function toggleExercise(i) {
+  // 체크박스 상태만 추적 (submitWorkout에서 읽음)
+}
+
+function renderStepSimple(type) {
+  document.getElementById('modalContent').innerHTML = `
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
+      <button onclick="renderStep1()" style="background:none;border:none;color:#aaa;font-size:16px;cursor:pointer;">←</button>
+      <div class="modal-title" style="margin:0;">${type}</div>
+    </div>
+    <div class="modal-label">운동 시간 (분)</div>
+    <input id="durationInput" class="modal-input" type="number" placeholder="60" style="margin-bottom:16px;">
+    <button class="modal-submit" onclick="submitWorkout()">저장</button>
+  `;
+}
+
+async function submitWorkout() {
+  const duration = parseInt(document.getElementById('durationInput')?.value) || null;
+  const presets = PRESETS[currentType] || [];
+
+  // 체크된 운동들로 디테일 생성
+  let detailLines = [];
+  presets.forEach((p, i) => {
+    const cb = document.getElementById(`ex-${i}`);
+    if (!cb || !cb.checked) return;
+    if (p.unit === '분') {
+      const dur = document.getElementById(`dur-${i}`)?.value || p.duration;
+      detailLines.push(`- ${p.name} ${dur}분${p.note ? ' (' + p.note + ')' : ''}`);
+    } else {
+      const w = p.weight !== null ? (document.getElementById(`w-${i}`)?.value || p.weight) + 'kg ' : '';
+      const r = document.getElementById(`r-${i}`)?.value || p.reps;
+      const s = document.getElementById(`s-${i}`)?.value || p.sets;
+      detailLines.push(`- ${p.name} ${w}${r}회 ${s}세트`);
+    }
+  });
+  const detail = detailLines.join('
+');
+
+  const btn = document.querySelector('.modal-submit');
+  if (btn) { btn.disabled = true; btn.textContent = '저장 중...'; }
 
   try {
     const r = await fetch('/api/workout', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ date, type, duration: duration || null }),
+      body: JSON.stringify({
+        date: workoutDate,
+        type: currentType,
+        duration,
+        detail: detail || null,
+      }),
     });
     const data = await r.json();
     if (data.success) {
@@ -373,7 +528,7 @@ async function addWorkout() {
     }
   } catch {}
 
-  btn.disabled = false; btn.textContent = '추가';
+  if (btn) { btn.disabled = false; btn.textContent = '저장'; }
 }
 
 load();
