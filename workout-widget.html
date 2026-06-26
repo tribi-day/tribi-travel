@@ -504,8 +504,7 @@ async function submitWorkout() {
       detailLines.push(`- ${p.name} ${w}${r}회 ${s}세트`);
     }
   });
-  const detail = detailLines.join('
-');
+  const detail = detailLines.join('\n');
 
   const btn = document.querySelector('.modal-submit');
   if (btn) { btn.disabled = true; btn.textContent = '저장 중...'; }
