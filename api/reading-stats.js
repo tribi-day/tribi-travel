@@ -75,10 +75,8 @@ export default async function handler(req, res) {
         const cover = pg.properties['책 표지']?.files?.[0]?.external?.url
           || pg.properties['책 표지']?.files?.[0]?.file?.url
           || null;
-        const date = pg.properties['완독일']?.date?.start
-          || pg.properties['날짜']?.date?.start
-          || pg.created_time
-          || null;
+        // 완독일 없으면 집계 제외
+        const date = pg.properties['완독일']?.date?.start || null;
         return { cover, date };
       });
     };
