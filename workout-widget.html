@@ -54,6 +54,8 @@
     cursor: pointer;
     position: relative;
     transition: background 0.15s;
+    overflow: hidden;
+    min-width: 0;
   }
   .cal-day.empty { cursor: default; pointer-events: none; }
   .cal-day.today .day-num {
@@ -69,11 +71,15 @@
     margin-bottom: 3px;
   }
   .day-type {
-    font-size: 10px;
+    font-size: 9px;
     font-weight: 600;
     text-align: center;
     line-height: 1.3;
-    word-break: keep-all;
+    word-break: break-all;
+    overflow: hidden;
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   /* 툴팁 */
