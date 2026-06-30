@@ -85,7 +85,7 @@
 
     const routinesHTML = d.routines.map(routine => {
       const hasPct = routine.pct !== null && routine.pct !== undefined;
-      const pctNum = hasPct ? Math.round(routine.pct * 100) : 0;
+      const pctNum = hasPct ? Math.round(routine.pct) : 0;
       return `
         <div class="routine-row">
           <div class="routine-top">
