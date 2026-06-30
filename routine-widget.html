@@ -26,18 +26,18 @@
 
   .routine-row {
     position: relative;
-    border-radius: 10px;
+    border-radius: 0;
     overflow: hidden;
-    margin-bottom: 8px;
+    margin-bottom: 0;
     background: #f1ede9;
-    min-height: 48px;
+    min-height: 58px;
     display: flex;
     align-items: center;
   }
   .routine-fill {
     position: absolute;
     left: 0; top: 0; bottom: 0;
-    border-radius: 10px;
+    border-radius: 0;
     transition: width 0.8s ease;
   }
   .routine-content {
@@ -66,7 +66,7 @@
 </style>
 </head>
 <body>
-<div class="wrap" id="wrap">
+<div class="wrap" id="wrap" style="overflow:hidden; border-radius:12px;">
   <div class="loading">불러오는 중...</div>
 </div>
 
@@ -115,12 +115,7 @@ function getIcon(name) {
       `;
     }).join('');
 
-    wrap.innerHTML = `
-      <div class="header">
-        <div class="header-title">${d.year}. ${d.month}. routine tracker</div>
-      </div>
-      ${routinesHTML}
-    `;
+    wrap.innerHTML = routinesHTML;
 
     setTimeout(() => {
       document.querySelectorAll('.routine-fill').forEach(el => {
