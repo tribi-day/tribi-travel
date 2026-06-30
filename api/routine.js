@@ -20,7 +20,7 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        query: `${year}년 ${month}월`,
+        query: `${year}년 ${month}월 루틴`,
         filter: { property: 'object', value: 'database' },
       }),
     });
@@ -28,10 +28,10 @@ export default async function handler(req, res) {
     const results = searchData.results || [];
 
     const execDb = results.find(r =>
-      r.title?.[0]?.plain_text?.includes(`${year}년 ${month}월 실행`)
+      r.title?.[0]?.plain_text?.includes(`${year}년 ${month}월 루틴 실행`)
     );
     const planDb = results.find(r =>
-      r.title?.[0]?.plain_text?.includes(`${year}년 ${month}월 계획`)
+      r.title?.[0]?.plain_text?.includes(`${year}년 ${month}월 루틴 계획`)
     );
 
     if (!execDb || !planDb) {
