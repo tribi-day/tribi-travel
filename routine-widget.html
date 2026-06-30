@@ -12,7 +12,7 @@
     padding: 20px 16px;
     color: #1a1a1a;
   }
-  .wrap { max-width: 460px; margin: 0 auto; }
+  .wrap { max-width: 540px; margin: 0 auto; }
   .loading { color: #aaa; font-size: 13px; text-align: center; padding: 40px 0; }
 
   .header {
@@ -30,7 +30,7 @@
     overflow: hidden;
     margin-bottom: 0;
     background: #f1ede9;
-    min-height: 58px;
+    min-height: 38px;
     display: flex;
     align-items: center;
   }
@@ -66,19 +66,24 @@
 </style>
 </head>
 <body>
-<div class="wrap" id="wrap" style="overflow:hidden; border-radius:12px;">
+<div class="wrap" id="wrap" style="overflow:hidden; border-radius:0;">
   <div class="loading">불러오는 중...</div>
 </div>
 
 <script>
 const PALETTE = ['#d8cdf0', '#c9703a', '#e8e09a', '#9c9468', '#dba053', '#a8c4a2', '#e3a9a0'];
 const ICONS = {
-  '기상': '☀️', '독서': '📖', '쓰기': '🖌️', '헬스': '🏋️', '오피스': '💻', '카페': '☕',
+  '기상': '/icons/icon-wake.png',
+  '독서': '/icons/icon-read.png',
+  '쓰기': '/icons/icon-write.png',
+  '헬스': '/icons/icon-gym.png',
+  '오피스': '/icons/icon-office.png',
+  '카페': '/icons/icon-office.png',
 };
 
 function getIcon(name) {
   for (const key in ICONS) {
-    if (name.includes(key)) return ICONS[key];
+    if (name.includes(key)) return `<img src="${ICONS[key]}" style="width:16px;height:16px;object-fit:contain;">`;
   }
   return '✦';
 }
