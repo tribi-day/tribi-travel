@@ -27,11 +27,12 @@ export default async function handler(req, res) {
     const searchData = await searchRes.json();
     const results = searchData.results || [];
 
+    const norm = s => (s || '').replace(/\s+/g, '');
     const execDb = results.find(r =>
-      r.title?.[0]?.plain_text?.includes(`${year}년 ${month}월 루틴 실행`)
+      norm(r.title?.[0]?.plain_text).includes(norm(`${year}년${month}월루틴실행`))
     );
     const planDb = results.find(r =>
-      r.title?.[0]?.plain_text?.includes(`${year}년 ${month}월 루틴 계획`)
+      norm(r.title?.[0]?.plain_text).includes(norm(`${year}년${month}월루틴계획`))
     );
 
     if (!execDb || !planDb) {
