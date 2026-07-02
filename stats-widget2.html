@@ -180,7 +180,11 @@ document.addEventListener('click', hidePopup);
       <div class="row"><span>fiction</span><span>${d.fictionTotal||0} books, ${(d.fictionPage||0).toLocaleString()} pages</span></div>
       <div class="row"><span>nonfiction</span><span>${d.nonfictionTotal||0} books, ${(d.nonfictionPage||0).toLocaleString()} pages</span></div>
       <div class="row"><span>5 stars</span><span>${total5} book${total5!==1?'s':''}</span></div>
-      ${d.bestMonth ? `<div class="row"><span>best month</span><span>${d.bestMonth} · ${d.bestMonthCount}권</span></div>` : ''}
+      ${d.bestMonth ? `<div class="row"><span>best month</span><span>${(()=>{
+        const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        const m = d.bestMonth.replace('월','').trim();
+        return (months[parseInt(m)-1] || d.bestMonth) + ' · ' + d.bestMonthCount + ' books';
+      })()}</span></div>` : ''}
       <div class="bar-section">
         <div class="books-row" style="grid-template-columns:repeat(${cols},1fr);">${booksHTML}</div>
         <div class="bar-pct">${pct}%</div>
