@@ -76,24 +76,28 @@
   }
   .bar-container {
     position: relative;
-    margin-top: 24px;
+    margin-top: 40px;
+    padding-top: 30px;
   }
   .covers-overlay {
     position: absolute;
-    bottom: 20px;
+    top: 0;
     left: 0;
+    height: 60px;
+    overflow: visible;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     pointer-events: none;
   }
   .cover-sticker {
     width: 28px;
-    height: 40px;
+    height: 44px;
     object-fit: cover;
     border-radius: 2px;
     position: relative;
-    margin-right: -6px;
-    box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    margin-right: -7px;
+    flex-shrink: 0;
+    box-shadow: 1px 2px 4px rgba(0,0,0,0.25);
   }
 </style>
 </head>
@@ -175,7 +179,7 @@
       if (overlay) {
         overlay.style.transition = 'width 1s ease';
         overlay.style.width = pct + '%';
-        overlay.style.overflow = 'hidden';
+
       }
     }, 100);
 
