@@ -75,9 +75,11 @@ export default async function handler(req, res) {
         const cover = pg.properties['책 표지']?.files?.[0]?.external?.url
           || pg.properties['책 표지']?.files?.[0]?.file?.url
           || null;
-        // 완독일 없으면 집계 제외
         const date = pg.properties['완독일']?.date?.start || null;
-        return { cover, date };
+        const titleProp = pg.properties['name'] || pg.properties['제목'];
+        const title = titleProp?.title?.[0]?.plain_text || '';
+        const author = pg.properties['작가']?.rich_text?.[0]?.plain_text || '';
+        return { cover, date, title, author };
       });
     };
 
