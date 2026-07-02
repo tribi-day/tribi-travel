@@ -79,7 +79,9 @@ export default async function handler(req, res) {
         const titleProp = pg.properties['name'] || pg.properties['제목'];
         const title = titleProp?.title?.[0]?.plain_text || '';
         const author = pg.properties['작가']?.rich_text?.[0]?.plain_text || '';
-        return { cover, date, title, author };
+        const publisher = pg.properties['출판사']?.select?.name || '';
+        const rating = pg.properties['별점']?.select?.name || pg.properties['별점']?.number || null;
+        return { cover, date, title, author, publisher, rating };
       });
     };
 
@@ -87,8 +89,8 @@ export default async function handler(req, res) {
       fetchBooks(fictionDbId),
       fetchBooks(nonfictionDbId),
     ]);
-    const fictionCovers = fictionBooks.filter(b => b.cover).map(b => ({ url: b.cover, title: b.title, author: b.author, date: b.date }));
-    const nonfictionCovers = nonfictionBooks.filter(b => b.cover).map(b => ({ url: b.cover, title: b.title, author: b.author, date: b.date }));
+    const fictionCovers = fictionBooks.filter(b => b.cover).map(b => ({ url: b.cover, title: b.title, author: b.author, date: b.date, publisher: b.publisher, rating: b.rating }));
+    const nonfictionCovers = nonfictionBooks.filter(b => b.cover).map(b => ({ url: b.cover, title: b.title, author: b.author, date: b.date, publisher: b.publisher, rating: b.rating }));
 
     // 월별 집계로 베스트 달 계산
     const allBooks = [...fictionBooks, ...nonfictionBooks];
