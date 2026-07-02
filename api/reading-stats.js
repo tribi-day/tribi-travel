@@ -87,8 +87,8 @@ export default async function handler(req, res) {
       fetchBooks(fictionDbId),
       fetchBooks(nonfictionDbId),
     ]);
-    const fictionCovers = fictionBooks.map(b => b.cover).filter(Boolean);
-    const nonfictionCovers = nonfictionBooks.map(b => b.cover).filter(Boolean);
+    const fictionCovers = fictionBooks.filter(b => b.cover).map(b => ({ url: b.cover, title: b.title, author: b.author, date: b.date }));
+    const nonfictionCovers = nonfictionBooks.filter(b => b.cover).map(b => ({ url: b.cover, title: b.title, author: b.author, date: b.date }));
 
     // 월별 집계로 베스트 달 계산
     const allBooks = [...fictionBooks, ...nonfictionBooks];
