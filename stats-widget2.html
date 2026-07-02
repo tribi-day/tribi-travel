@@ -44,8 +44,8 @@
 
   .covers-strip {
     display: flex;
-    gap: 3px;
-    justify-content: flex-end;
+    gap: 2px;
+    flex-shrink: 0;
   }
   .cover-img {
     width: 26px;
@@ -102,11 +102,7 @@
     const pct = d.목표권수 ? Math.min(100, Math.round(total / d.목표권수 * 100)) : 0;
     const allCovers = [...(d.fictionCovers || []), ...(d.nonfictionCovers || [])];
 
-    const coversHTML = allCovers.length > 0
-      ? `<div class="covers-strip">${allCovers.slice(0, 10).map(url =>
-          `<img class="cover-img" src="${url}" alt="">`
-        ).join('')}</div>`
-      : `<span class="row-value">-</span>`;
+
 
     wrap.innerHTML = `
       <h1>What did I 📖 read in ${year}?</h1>
@@ -131,14 +127,16 @@
         <span class="row-label">5 stars</span>
         <span class="row-value">${total5} book${total5 !== 1 ? 's' : ''}</span>
       </div>
-      <div class="row">
-        <span class="row-label">covers</span>
-        ${coversHTML}
-      </div>
+
 
       <div class="bar-wrap">
-        <div class="bar-track">
-          <div class="bar-fill" id="barFill" style="width:0%"></div>
+        <div style="display:flex; align-items:center; gap:0; margin-bottom:6px;">
+          ${allCovers.length > 0 ? `<div class="covers-strip">${allCovers.slice(0,10).map(url =>
+            `<img class="cover-img" src="${url}" alt="">`
+          ).join('')}</div>` : ''}
+          <div class="bar-track" style="flex:1;">
+            <div class="bar-fill" id="barFill" style="width:0%"></div>
+          </div>
         </div>
         <div class="bar-pct">${pct}%</div>
       </div>
