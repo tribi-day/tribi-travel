@@ -33,15 +33,16 @@
     width: 100%;
   }
   .books-row {
-    display: flex;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(15, 1fr);
+    grid-template-rows: 1fr 1fr;
     width: 100%;
-    height: 44px;
+    height: 80px;
     overflow: hidden;
+    gap: 2px;
   }
   .book-slot {
-    flex: 1;
-    height: 32px;
+    height: 100%;
     border-radius: 2px;
     flex-shrink: 0;
     position: relative;
