@@ -10,9 +10,38 @@ export default async function handler(req, res) {
 
   // PATCH: 현재 페이지 수 업데이트
   if (req.method === 'PATCH') {
-    const { pageId, currentPage } = req.body;
+    const { pageId, currentPage, finish, rating, totalPage } = req.body;
+
+    // 완독 처리
+    if (finish) {
+      const today = new Date().toISOString().split('T')[0];
+      try {
+        const props = {
+          '완독일': { date: { start: today } },
+          '현황': { status: { name: '완독' } },
+        };
+        if (rating) props['별점'] = { select: { name: rating } };
+        if (totalPage) props['현재 페이지'] = { number: totalPage };
+        const r = await fetch(`https://api.notion.com/v1/pages/${pid || pageId}`, {
+          method: 'PATCH',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Notion-Version': '2022-06-28',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ properties: props }),
+        });
+        const data = await r.json();
+        if (r.ok) return res.status(200).json({ success: true });
+        return res.status(500).json({ error: data.message });
+      } catch (err) {
+        return res.status(500).json({ error: err.message });
+      }
+    }
+
+    const { pageId: pid, currentPage: cp } = req.body;
     try {
-      const r = await fetch(`https://api.notion.com/v1/pages/${pageId}`, {
+      const r = await fetch(`https://api.notion.com/v1/pages/${pid || pageId}`, {
         method: 'PATCH',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -21,7 +50,7 @@ export default async function handler(req, res) {
         },
         body: JSON.stringify({
           properties: {
-            '현재 페이지': { number: currentPage },
+            '현재 페이지': { number: cp || currentPage },
           },
         }),
       });
