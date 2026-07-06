@@ -107,6 +107,15 @@ export default async function handler(req, res) {
       .filter(Boolean)
       .join(', ');
 
+    // 이번 달 완독 권수
+    const nowMonth = new Date().getMonth();
+    const nowYear = new Date().getFullYear();
+    const thisMonth = allBooks.filter(b => {
+      if (!b.date) return false;
+      const d = new Date(b.date);
+      return d.getFullYear() === nowYear && d.getMonth() === nowMonth;
+    }).length;
+
     res.status(200).json({
       year,
       목표권수: num('목표 독서 권수'),
@@ -120,6 +129,7 @@ export default async function handler(req, res) {
       bestMonth: calcBestMonths || bestMonths,
       bestMonthMsg,
       bestMonthCount: calcMaxCount || maxCount,
+      thisMonth,
       fictionCovers,
       nonfictionCovers,
     });
