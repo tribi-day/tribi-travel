@@ -185,6 +185,7 @@ document.addEventListener('click', hidePopup);
         const m = d.bestMonth.replace('월','').trim();
         return (months[parseInt(m)-1] || d.bestMonth) + ' · ' + d.bestMonthCount + ' books';
       })()}</span></div>` : ''}
+      <div class="row"><span>this month</span><span>${d.thisMonth || 0} books</span></div>
       <div class="bar-section">
         <div class="books-row" style="grid-template-columns:repeat(${cols},1fr);">${booksHTML}</div>
         <div class="bar-pct">${pct}%</div>
