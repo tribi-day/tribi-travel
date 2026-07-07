@@ -8,7 +8,6 @@ export default async function handler(req, res) {
   const fictionDbId = process.env.NOTION_FICTION_DB_ID;
   const nonfictionDbId = process.env.NOTION_NONFICTION_DB_ID;
 
-  // PATCH: 현재 페이지 수 업데이트
   if (req.method === 'PATCH') {
     const { pageId, currentPage, finish, rating, totalPage } = req.body;
 
@@ -22,7 +21,7 @@ export default async function handler(req, res) {
         };
         if (rating) props['별점'] = { select: { name: rating } };
         if (totalPage) props['현재 페이지'] = { number: totalPage };
-        const r = await fetch(`https://api.notion.com/v1/pages/${pid || pageId}`, {
+        const r = await fetch(`https://api.notion.com/v1/pages/${pageId}`, {
           method: 'PATCH',
           headers: {
             Authorization: `Bearer ${token}`,
@@ -39,9 +38,9 @@ export default async function handler(req, res) {
       }
     }
 
-    const { pageId: pid, currentPage: cp } = req.body;
+    // 현재 페이지 업데이트
     try {
-      const r = await fetch(`https://api.notion.com/v1/pages/${pid || pageId}`, {
+      const r = await fetch(`https://api.notion.com/v1/pages/${pageId}`, {
         method: 'PATCH',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -50,7 +49,7 @@ export default async function handler(req, res) {
         },
         body: JSON.stringify({
           properties: {
-            '현재 페이지': { number: cp || currentPage },
+            '현재 페이지': { number: currentPage },
           },
         }),
       });
@@ -103,7 +102,9 @@ export default async function handler(req, res) {
         fetchBooks(nonfictionDbId, false),
       ]);
 
-      return res.status(200).json([...fiction, ...nonfiction]);
+      // 총 페이지 많은 순 정렬
+      const all = [...fiction, ...nonfiction].sort((a, b) => (b.totalPage || 0) - (a.totalPage || 0));
+      return res.status(200).json(all);
     } catch (err) {
       return res.status(500).json({ error: err.message });
     }
