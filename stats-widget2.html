@@ -179,7 +179,6 @@ document.addEventListener('click', hidePopup);
       <div class="row"><span>goal</span><span>${goal} books</span></div>
       <div class="row"><span>fiction</span><span>${d.fictionTotal||0} books, ${(d.fictionPage||0).toLocaleString()} pages</span></div>
       <div class="row"><span>nonfiction</span><span>${d.nonfictionTotal||0} books, ${(d.nonfictionPage||0).toLocaleString()} pages</span></div>
-      <div class="row"><span>5 stars</span><span>${total5} book${total5!==1?'s':''}</span></div>
       ${d.bestMonth ? `<div class="row"><span>best month</span><span>${(()=>{
         const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
         const m = d.bestMonth.replace('월','').trim();
