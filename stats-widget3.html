@@ -19,19 +19,19 @@
   .stats-top {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
   }
   .stat-label { font-size: 11px; color: #aaa; letter-spacing: 0.05em; margin-bottom: 4px; }
   .stat-num { font-size: 32px; font-weight: 800; line-height: 1; letter-spacing: -1px; }
   .stat-right { text-align: right; }
 
-  /* 3D 스택 */
+  /* 3D 씬 */
   .scene {
     position: relative;
     width: 100%;
-    height: 380px;
-    perspective: 900px;
-    perspective-origin: 50% 40%;
+    height: 300px;
+    perspective: 1100px;
+    perspective-origin: 50% 30%;
   }
   .book3d {
     position: absolute;
@@ -39,44 +39,38 @@
     cursor: pointer;
     transition: transform 0.25s ease;
   }
-  .book3d .face {
-    position: relative;
-    transform-style: preserve-3d;
-  }
-  .book3d img {
-    display: block;
-    border-radius: 1px;
-    box-shadow: 14px 10px 28px rgba(0,0,0,0.28);
+  .face {
+    position: absolute;
     backface-visibility: hidden;
   }
-  /* 책 두께 (오른쪽 책배) */
-  .book3d .side {
-    position: absolute;
-    top: 0;
-    right: 0;
-    height: 100%;
-    background: linear-gradient(to right, #fdfcf9 0%, #e9e5db 30%, #f7f4ee 55%, #e2ddd2 80%, #efe9df 100%);
-    transform-origin: right center;
-    border-radius: 0 1px 1px 0;
-  }
-  /* 책 아래면 */
-  .book3d .bottom {
-    position: absolute;
-    left: 0;
-    bottom: 0;
+  /* 표지 */
+  .face.front img {
     width: 100%;
-    background: linear-gradient(to bottom, #f2efe8, #ddd8cc);
-    transform-origin: center bottom;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 0 2px 2px 0;
   }
-  .book3d:hover {
-    z-index: 999 !important;
+  /* 책배 (오른쪽 페이지 단면) */
+  .face.right {
+    background:
+      repeating-linear-gradient(to right,
+        #f6f3ec 0px, #f6f3ec 1.5px,
+        #e2ddd1 1.5px, #e2ddd1 2.5px);
+  }
+  /* 윗면 (페이지) */
+  .face.top {
+    background:
+      repeating-linear-gradient(to bottom,
+        #f8f5ef 0px, #f8f5ef 1.5px,
+        #e5e0d5 1.5px, #e5e0d5 2.5px);
   }
 
   .book-tip {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    bottom: calc(100% + 10px);
+    bottom: calc(100% + 14px);
     background: #1a1a1a;
     color: #fff;
     border-radius: 8px;
@@ -89,6 +83,7 @@
     z-index: 1000;
   }
   .book3d:hover .book-tip { opacity: 1; }
+  .book3d:hover { z-index: 999 !important; }
   .tip-title { font-weight: 600; }
   .tip-sub { color: #aaa; font-size: 11px; margin-top: 2px; }
 </style>
@@ -110,7 +105,6 @@
 
     const total = (d.fictionTotal||0) + (d.nonfictionTotal||0);
 
-    // 오래된 순 → 뒤(오른쪽 위)부터, 최신이 앞(왼쪽 아래)
     const allBooks = [...(d.fictionCovers||[]), ...(d.nonfictionCovers||[])]
       .filter(b => b.url)
       .sort((a, b) => ((a.date||'9999') < (b.date||'9999') ? -1 : 1));
@@ -133,25 +127,33 @@
     const n = allBooks.length;
     const sceneW = scene.offsetWidth;
 
-    // 판형 다양화: 페이지수 기반 시드로 높이 변화
-    const heights = [148, 172, 156, 185, 140, 178, 162, 150, 190, 168];
+    // 판형: 높이/비율 다양
+    const heights = [168, 190, 175, 200, 160, 195, 180, 170, 205, 185];
+    const ratios  = [0.68, 0.72, 0.66, 0.70, 0.74, 0.67, 0.71, 0.69, 0.65, 0.73];
+
+    const baseline = 270; // 바닥 y (scene 내)
+    const spacing = n > 1 ? Math.min(70, (sceneW - 150) / (n - 1)) : 0;
+
+    // 같은 각도로 통일 (레퍼런스처럼: 오른쪽으로 비스듬 + 살짝 위에서 내려봄)
+    const ANGLE = 'rotateX(8deg) rotateY(-42deg)';
 
     allBooks.forEach((book, i) => {
-      // i=0(가장 오래됨)이 맨 뒤(오른쪽 위), 마지막이 맨 앞(왼쪽 아래)
-      const t = n > 1 ? i / (n - 1) : 1; // 0(뒤) → 1(앞)
+      // 오래된 책 = 오른쪽 뒤, 최신 = 왼쪽 앞
       const h = heights[i % heights.length];
-      const thickness = 14 + (i * 7) % 14; // 책마다 두께 다르게
+      const w = Math.round(h * ratios[i % ratios.length]);
+      const t = 12 + (i * 5) % 12; // 책 두께 12~23px
 
       const el = document.createElement('div');
       el.className = 'book3d';
+      el.style.width = w + 'px';
+      el.style.height = h + 'px';
       el.style.zIndex = i + 1;
 
-      // 대각선 배치: 오른쪽 위(뒤) → 왼쪽 아래(앞)
-      const x = (1 - t) * (sceneW - 160) ;
-      const y = 30 + t * (380 - h - 60);
+      // 바닥 정렬: 모든 책 밑이 baseline
+      const x = (n - 1 - i) * spacing + 10;
       el.style.left = x + 'px';
-      el.style.top = y + 'px';
-      el.style.transform = `rotateY(-34deg)`;
+      el.style.top = (baseline - h) + 'px';
+      el.style.transform = ANGLE;
 
       const dateStr = book.date ? new Date(book.date).toLocaleDateString('ko-KR', {year:'numeric', month:'long', day:'numeric'}) : '';
 
@@ -160,18 +162,18 @@
           <div class="tip-title">${(book.title||'').replace(/</g,'&lt;')}</div>
           <div class="tip-sub">${(book.author||'')}${dateStr ? ' · ' + dateStr : ''}</div>
         </div>
-        <div class="face">
-          <img src="${book.url}" style="height:${h}px; width:auto;" loading="lazy">
-          <div class="side" style="width:${thickness}px; transform: rotateY(90deg) translateX(${thickness/2}px) translateZ(${thickness/2}px);"></div>
-          <div class="bottom" style="height:${thickness}px; transform: rotateX(-90deg) translateY(${thickness/2}px) translateZ(${thickness/2}px);"></div>
+        <div class="face front" style="width:${w}px; height:${h}px; transform: translateZ(${t/2}px);">
+          <img src="${book.url}" loading="lazy">
         </div>
+        <div class="face right" style="width:${t}px; height:${h}px; left:50%; margin-left:${-t/2}px; transform: rotateY(90deg) translateZ(${w/2}px);"></div>
+        <div class="face top" style="width:${w}px; height:${t}px; top:50%; margin-top:${-t/2}px; transform: rotateX(90deg) translateZ(${h/2}px);"></div>
       `;
 
       el.addEventListener('mouseenter', () => {
-        el.style.transform = `rotateY(-34deg) translateZ(30px)`;
+        el.style.transform = `${ANGLE} translateZ(35px)`;
       });
       el.addEventListener('mouseleave', () => {
-        el.style.transform = `rotateY(-34deg)`;
+        el.style.transform = ANGLE;
       });
 
       scene.appendChild(el);
