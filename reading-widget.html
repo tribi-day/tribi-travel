@@ -146,21 +146,6 @@
   .page-btn:hover { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
   .page-btn:disabled { opacity: 0.4; cursor: default; }
 
-  /* 완독 버튼 */
-  .finish-btn {
-    margin-top: 12px;
-    width: 100%;
-    padding: 10px;
-    border-radius: 8px;
-    border: 1.5px solid #e0e0e0;
-    background: #fff;
-    color: #aaa;
-    font-size: 13px;
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-  .finish-btn:hover { border-color: #1a1a1a; color: #1a1a1a; }
-
   /* 별점 모달 */
   .rating-overlay {
     display: none;
@@ -365,9 +350,9 @@ function render() {
         <button class="page-btn" id="btn1">+1</button>
         <button class="page-btn" id="btn5">+5</button>
         <button class="page-btn" id="btn10">+10</button>
+        <button class="page-btn" id="finishBtn" style="color:#aaa; border-color:#e0e0e0; font-size:11px; padding:6px 8px;">완독</button>
       </div>
     </div>
-    <button class="finish-btn" id="finishBtn">완독 ✓</button>
   `;
 
   // 네비게이션
