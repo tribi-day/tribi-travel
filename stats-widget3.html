@@ -50,15 +50,25 @@
   .stack-book img {
     width: 100%;
     display: block;
-    border-radius: 3px;
+    border-radius: 3px 3px 2px 2px;
     box-shadow:
-      0 6px 16px rgba(0,0,0,0.18),
-      0 2px 5px rgba(0,0,0,0.12);
+      0 1.5px 0 0 #f5f2ec,
+      0 3px 0 0 #d8d4cc,
+      0 4.5px 0 0 #f5f2ec,
+      0 6px 0 0 #d8d4cc,
+      0 7px 0 0 #ede9e1,
+      0 12px 20px rgba(0,0,0,0.22),
+      0 4px 8px rgba(0,0,0,0.12);
   }
   .stack-book:hover {
-    transform: translateY(-6px) scale(1.02) !important;
     z-index: 999 !important;
+    filter: brightness(1.03);
   }
+  .stack-book:hover img {
+    transform: translateY(-5px);
+    transition: transform 0.2s ease;
+  }
+  .stack-book img { transition: transform 0.2s ease; }
 
   /* 툴팁 */
   .book-info {
@@ -109,17 +119,20 @@
 
     // 각 책은 하단 일부만 보이고 다음 책이 위를 덮는 구조
     // 오래된 책이 맨 위(뒤), 아래로 갈수록 최신, 마지막 책은 온전히
-    const overlap = 78; // 각 책이 보이는 세로(px)
+    const overlap = 42; // 각 책이 보이는 세로(px)
 
+    const n = allBooks.length;
     const booksHTML = allBooks.map((book, i) => {
       const rot = rotations[i % rotations.length];
       const sx = shiftsX[i % shiftsX.length];
-      const isLast = i === allBooks.length - 1;
-      const mb = isLast ? 0 : -1 * (215 - overlap); // 표지 높이 대략 215px 가정
+      const isLast = i === n - 1;
+      const mb = isLast ? 0 : -1 * (215 - overlap);
+      // 원근감: 맨 뒤 0.78 → 맨 앞 1.0
+      const scale = n > 1 ? (0.78 + (i / (n - 1)) * 0.22).toFixed(3) : 1;
       const dateStr = book.date ? new Date(book.date).toLocaleDateString('ko-KR', {year:'numeric', month:'long', day:'numeric'}) : '';
       return `
         <div class="stack-book"
-          style="transform: rotate(${rot}deg) translateX(${sx}px); z-index:${i+1}; margin-bottom:${mb}px;">
+          style="transform: rotate(${rot}deg) translateX(${sx}px) scale(${scale}); z-index:${i+1}; margin-bottom:${mb}px;">
           <div class="book-info">
             <div class="book-info-title">${(book.title||'').replace(/</g,'&lt;')}</div>
             <div class="book-info-sub">${(book.author||'')}${dateStr ? ' · ' + dateStr : ''}</div>
