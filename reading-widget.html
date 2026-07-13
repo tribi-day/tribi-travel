@@ -237,6 +237,38 @@ function hashColor(str) {
   return PIN_PALETTE[Math.abs(hash) % PIN_PALETTE.length];
 }
 
+const colorCache = {};
+async function getAverageColorViaProxy(imgUrl) {
+  if (colorCache[imgUrl]) return colorCache[imgUrl];
+  try {
+    const r = await fetch(`/api/image-proxy?url=${encodeURIComponent(imgUrl)}`);
+    const data = await r.json();
+    if (!data.dataUrl) return null;
+    const color = await new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => {
+        try {
+          const canvas = document.createElement('canvas');
+          canvas.width = 16; canvas.height = 16;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, 16, 16);
+          const px = ctx.getImageData(0, 0, 16, 16).data;
+          let r=0,g=0,b=0,count=0;
+          for (let i=0; i<px.length; i+=4) {
+            r+=px[i]; g+=px[i+1]; b+=px[i+2]; count++;
+          }
+          resolve(`rgb(${Math.round(r/count)},${Math.round(g/count)},${Math.round(b/count)})`);
+        } catch { resolve(null); }
+      };
+      img.onerror = () => resolve(null);
+      img.src = data.dataUrl;
+    });
+    colorCache[imgUrl] = color;
+    return color;
+  } catch { return null; }
+}
+
+
 
 let current = 0;
 
@@ -327,7 +359,7 @@ function render() {
 
   const pinnedId = localStorage.getItem('pinnedBookId');
   const dotsHTML = books.map((b, i) =>
-    `<div class="nav-dot ${i === current ? 'active' : ''}" data-i="${i}" style="${b.pageId === pinnedId ? `background:${hashColor(pinnedId)};` : ''}"></div>`
+    `<div class="nav-dot ${i === current ? 'active' : ''}" data-i="${i}" style="${b.pageId === pinnedId ? `background:${hashColor(pinnedId)}; transition:background 0.4s;` : ''}" data-dot-i="${i}"></div>`
   ).join('');
 
   const coverHTML = book.cover
@@ -367,6 +399,21 @@ function render() {
   // 네비게이션
   document.getElementById('prevBtn').disabled = current === 0;
   document.getElementById('finishBtn').addEventListener('click', () => openRatingModal(book));
+
+  // 고정된 점 실제 표지색으로 교체
+  if (pinnedId) {
+    const pinnedBook = books.find(b => b.pageId === pinnedId);
+    const pinnedDot = document.querySelector(`.nav-dot[data-dot-i]`);
+    if (pinnedBook && pinnedBook.cover) {
+      getAverageColorViaProxy(pinnedBook.cover).then(color => {
+        if (color) {
+          const dots = document.querySelectorAll('.nav-dot');
+          const idx = books.findIndex(b => b.pageId === pinnedId);
+          if (dots[idx]) dots[idx].style.background = color;
+        }
+      });
+    }
+  }
 
   // 점 롱프레스로 고정
   document.querySelectorAll('.nav-dot').forEach(dot => {
