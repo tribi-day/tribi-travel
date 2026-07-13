@@ -233,7 +233,7 @@ async function getAverageColorViaProxy(imgUrl) {
       })()}</span></div>` : ''}
       <div class="row"><span>this month</span><span>${d.thisMonth || 0} books</span></div>
       <div class="bar-section">
-        <div class="books-row" style="grid-template-columns:repeat(${perRow},1fr);">${booksHTML}</div>
+        <div style="width:66.7%; margin:0 auto;"><div class="books-row" style="grid-template-columns:repeat(${perRow},1fr);">${booksHTML}</div></div>
         <div class="bar-pct">${pct}%</div>
       </div>
     `;
