@@ -201,11 +201,11 @@ async function getAverageColorViaProxy(imgUrl) {
     const slotCount = Math.max(goal, total);
     // 10~20 사이에서 slotCount를 나머지 없이 나눌 수 있는 한 줄당 개수 찾기
     function findPerRow(n) {
-      for (let perRow = 20; perRow >= 10; perRow--) {
+      for (let perRow = 25; perRow >= 15; perRow--) {
         if (n % perRow === 0) return perRow;
       }
-      // 못 찾으면 20에 가장 가까운 값으로 올림 나눗셈
-      return 20;
+      // 못 찾으면 25로 fallback
+      return 25;
     }
     const perRow = findPerRow(slotCount);
     const cols = perRow;
@@ -233,7 +233,7 @@ async function getAverageColorViaProxy(imgUrl) {
       })()}</span></div>` : ''}
       <div class="row"><span>this month</span><span>${d.thisMonth || 0} books</span></div>
       <div class="bar-section">
-        <div style="width:66.7%; margin:0 auto;"><div class="books-row" style="grid-template-columns:repeat(${perRow},1fr);">${booksHTML}</div></div>
+        <div class="books-row" style="grid-template-columns:repeat(${perRow},1fr);">${booksHTML}</div>
         <div class="bar-pct">${pct}%</div>
       </div>
     `;
