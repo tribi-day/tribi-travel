@@ -28,19 +28,17 @@
   /* 책 그리드 */
   .bar-section { margin-top: 27px; width: 100%; }
   .books-row {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
     width: 100%;
     gap: 4px;
   }
   .book-slot {
-    width: calc((100% - 19 * 4px) / 20);
+    width: 100%;
     aspect-ratio: 1;
     border-radius: 50%;
     overflow: hidden;
     cursor: default;
     position: relative;
-    flex-shrink: 0;
   }
   .book-slot img {
     width: 100%;
@@ -163,7 +161,16 @@ document.addEventListener('click', hidePopup);
       .sort((a, b) => ((a.date||'9999') < (b.date||'9999') ? -1 : 1));
 
     const slotCount = Math.max(goal, total);
-    const cols = Math.ceil(slotCount / 2);
+    // 10~20 사이에서 slotCount를 나머지 없이 나눌 수 있는 한 줄당 개수 찾기
+    function findPerRow(n) {
+      for (let perRow = 20; perRow >= 10; perRow--) {
+        if (n % perRow === 0) return perRow;
+      }
+      // 못 찾으면 20에 가장 가까운 값으로 올림 나눗셈
+      return 20;
+    }
+    const perRow = findPerRow(slotCount);
+    const cols = perRow;
 
     const booksHTML = Array.from({length: slotCount}).map((_, i) => {
       const book = allCovers[i];
