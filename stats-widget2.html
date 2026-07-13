@@ -148,6 +148,37 @@ function hashColor(str) {
   for (let i=0; i<str.length; i++) hash = str.charCodeAt(i) + ((hash << 5) - hash);
   return PALETTE[Math.abs(hash) % PALETTE.length];
 }
+
+const colorCache = {};
+async function getAverageColorViaProxy(imgUrl) {
+  if (colorCache[imgUrl]) return colorCache[imgUrl];
+  try {
+    const r = await fetch(`/api/image-proxy?url=${encodeURIComponent(imgUrl)}`);
+    const data = await r.json();
+    if (!data.dataUrl) return null;
+    const color = await new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => {
+        try {
+          const canvas = document.createElement('canvas');
+          canvas.width = 16; canvas.height = 16;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, 16, 16);
+          const px = ctx.getImageData(0, 0, 16, 16).data;
+          let r=0,g=0,b=0,count=0;
+          for (let i=0; i<px.length; i+=4) {
+            r+=px[i]; g+=px[i+1]; b+=px[i+2]; count++;
+          }
+          resolve(`rgb(${Math.round(r/count)},${Math.round(g/count)},${Math.round(b/count)})`);
+        } catch { resolve(null); }
+      };
+      img.onerror = () => resolve(null);
+      img.src = data.dataUrl;
+    });
+    colorCache[imgUrl] = color;
+    return color;
+  } catch { return null; }
+}
 (async () => {
   const wrap = document.getElementById('wrap');
   const now = new Date();
@@ -183,8 +214,8 @@ function hashColor(str) {
       const book = allCovers[i];
       if (book) {
         const title = (book.title||'').replace(/"/g,'&quot;');
-        const color = hashColor(book.pageId || book.url);
-        return `<div class="book-slot real" data-i="${i}" style="background:${color};"></div>`;
+        const fallback = hashColor(book.pageId || book.url);
+        return `<div class="book-slot real" data-i="${i}" data-url="${book.url}" style="background:${fallback}; transition:background 0.4s;"></div>`;
       }
       return `<div class="book-slot ghost"></div>`;
     }).join('');
@@ -206,6 +237,13 @@ function hashColor(str) {
         <div class="bar-pct">${pct}%</div>
       </div>
     `;
+
+    // 실제 이미지 색상으로 교체 (프록시 경유)
+    document.querySelectorAll('.book-slot.real[data-url]').forEach(async (el) => {
+      const url = el.dataset.url;
+      const color = await getAverageColorViaProxy(url);
+      if (color) el.style.background = color;
+    });
 
     // 호버 이벤트
     document.querySelectorAll('.book-slot.real').forEach(el => {
