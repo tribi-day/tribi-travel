@@ -61,14 +61,19 @@
     box-shadow: 0 12px 40px rgba(0,0,0,0.22);
     padding: 20px;
     z-index: 9999;
-    width: 200px;
+    width: 280px;
     pointer-events: none;
   }
   .popup.show { display: block; }
-  .popup-cover-wrap {
+  .popup-body {
     display: flex;
-    justify-content: center;
-    margin-bottom: 12px;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .popup-info {
+    flex: 1;
+    min-width: 0;
+    padding-top: 2px;
   }
   .popup-cover {
     width: 81px;
@@ -80,12 +85,11 @@
       2px 2px 6px rgba(0,0,0,0.1),
       4px 4px 12px rgba(0,0,0,0.07);
   }
-  .popup-title { font-size: 13px; font-weight: 700; margin-bottom: 3px; line-height: 1.4; }
-  .popup-author { font-size: 11px; color: #777; margin-bottom: 2px; }
-  .popup-publisher { font-size: 11px; color: #aaa; margin-bottom: 8px; }
-  .popup-bottom { display: flex; justify-content: space-between; align-items: center; }
-  .popup-stars { font-size: 13px; color: #f4b942; }
-  .popup-date { font-size: 11px; color: #aaa; }
+  .popup-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; line-height: 1.4; text-align:left; }
+  .popup-author { font-size: 11px; color: #777; margin-bottom: 3px; text-align:left; }
+  .popup-publisher { font-size: 11px; color: #aaa; margin-bottom: 8px; text-align:left; }
+  .popup-stars { font-size: 13px; color: #f4b942; text-align:left; margin-bottom: 4px; }
+  .popup-date { font-size: 11px; color: #aaa; text-align:left; }
 
   .bar-pct { text-align: right; font-size: 12px; color: #aaa; margin-top: 6px; }
 </style>
@@ -95,13 +99,15 @@
   <div style="color:#aaa;font-size:14px;padding:40px 0;">불러오는 중...</div>
 </div>
 <div class="popup" id="popup">
-  <div class="popup-cover-wrap"><img class="popup-cover" id="popCover" src="" alt=""></div>
-  <div class="popup-title" id="popTitle"></div>
-  <div class="popup-author" id="popAuthor"></div>
-  <div class="popup-publisher" id="popPublisher"></div>
-  <div class="popup-bottom">
-    <div class="popup-stars" id="popStars"></div>
-    <div class="popup-date" id="popDate"></div>
+  <div class="popup-body">
+    <img class="popup-cover" id="popCover" src="" alt="">
+    <div class="popup-info">
+      <div class="popup-title" id="popTitle"></div>
+      <div class="popup-author" id="popAuthor"></div>
+      <div class="popup-publisher" id="popPublisher"></div>
+      <div class="popup-stars" id="popStars"></div>
+      <div class="popup-date" id="popDate"></div>
+    </div>
   </div>
 </div>
 
