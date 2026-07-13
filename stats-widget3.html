@@ -46,9 +46,10 @@
   .face.front img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     display: block;
     border-radius: 0 2px 2px 0;
+    background: #fafafa;
   }
   .face.right {
     background:
@@ -132,7 +133,7 @@
     const spacing = n > 1 ? Math.min(58, (sceneW - 150) / (n - 1)) : 0;
 
     // 아이소메트릭 각도: 같은 각도로 고정, perspective가 커서 왜곡 거의 없음
-    const ANGLE = 'rotateX(8deg) rotateY(-42deg)';
+    const ANGLE = 'rotateX(35deg) rotateY(-40deg) rotateZ(2deg)';
 
     allBooks.forEach((book, i) => {
       const h = heights[i % heights.length];
