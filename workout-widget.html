@@ -121,16 +121,28 @@
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.4);
+    background: rgba(0,0,0,0.45);
+    backdrop-filter: blur(2px);
     z-index: 200;
-    align-items: flex-end;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
   }
   .modal-overlay.open { display: flex; }
   .modal {
     background: #fff;
-    border-radius: 20px 20px 0 0;
-    padding: 24px 20px 40px;
+    border-radius: 20px;
+    padding: 24px 22px;
     width: 100%;
+    max-width: 380px;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    animation: popIn 0.2s ease;
+  }
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(0.95) translateY(8px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
   }
   .modal-title { font-size: 17px; font-weight: 700; margin-bottom: 16px; }
   .modal-label { font-size: 12px; color: #aaa; margin-bottom: 6px; }
@@ -426,6 +438,9 @@ function renderStep2(type) {
     <div id="presetList" style="max-height:50vh; overflow-y:auto; margin-bottom:16px;">
       ${presets.map((p, i) => renderPresetItem(p, i)).join('')}
     </div>
+    <div class="modal-label">디테일 (선택, 직접 추가 입력)</div>
+    <textarea id="extraDetailInput" class="modal-input" placeholder="예: 스트레칭 5분 추가" rows="2"
+      style="resize:none; margin-bottom:12px;"></textarea>
     <div class="modal-label">운동 시간 (분)</div>
     <input id="durationInput" class="modal-input" type="number" placeholder="60" style="margin-bottom:12px;">
     <div class="modal-label">수업 내용/기타 (선택)</div>
@@ -487,6 +502,9 @@ function renderStepSimple(type) {
       <button onclick="renderStep1()" style="background:none;border:none;color:#aaa;font-size:16px;cursor:pointer;">&lt;</button>
       <div class="modal-title" style="margin:0;">${type}</div>
     </div>
+    <div class="modal-label">디테일 (선택)</div>
+    <textarea id="extraDetailInput" class="modal-input" placeholder="세부 내용 입력" rows="2"
+      style="resize:none; margin-bottom:12px;"></textarea>
     <div class="modal-label">운동 시간 (분)</div>
     <input id="durationInput" class="modal-input" type="number" placeholder="60" style="margin-bottom:12px;">
     <div class="modal-label">수업 내용/기타 (선택)</div>
@@ -520,6 +538,8 @@ async function submitWorkout() {
       detailLines.push(`- ${p.name} ${w}${r}회 ${s}세트`);
     }
   });
+  const extraDetail = document.getElementById('extraDetailInput')?.value.trim();
+  if (extraDetail) detailLines.push(extraDetail);
   const detail = detailLines.join('\n');
 
   const btn = document.querySelector('.modal-submit');
