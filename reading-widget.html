@@ -317,8 +317,9 @@ function render() {
   const pageText = book.totalPage ? `${book.currentPage}p / ${book.totalPage}p` : `${book.currentPage}p`;
   const pctText = book.totalPage ? `${p}%` : '';
 
-  const dotsHTML = books.map((_, i) =>
-    `<div class="nav-dot ${i === current ? 'active' : ''}"></div>`
+  const pinnedId = localStorage.getItem('pinnedBookId');
+  const dotsHTML = books.map((b, i) =>
+    `<div class="nav-dot ${i === current ? 'active' : ''}" data-i="${i}" style="${b.pageId === pinnedId ? 'box-shadow:0 0 0 2px #1a1a1a;' : ''}"></div>`
   ).join('');
 
   const coverHTML = book.cover
@@ -358,6 +359,33 @@ function render() {
   // 네비게이션
   document.getElementById('prevBtn').disabled = current === 0;
   document.getElementById('finishBtn').addEventListener('click', () => openRatingModal(book));
+
+  // 점 롱프레스로 고정
+  document.querySelectorAll('.nav-dot').forEach(dot => {
+    let pressTimer;
+    const i = parseInt(dot.dataset.i);
+    const start = () => {
+      pressTimer = setTimeout(() => {
+        const b = books[i];
+        const currentPinned = localStorage.getItem('pinnedBookId');
+        if (currentPinned === b.pageId) {
+          localStorage.removeItem('pinnedBookId');
+          showToast('고정 해제됐어요');
+        } else {
+          localStorage.setItem('pinnedBookId', b.pageId);
+          showToast('이 책으로 고정됐어요 📌');
+        }
+        render();
+      }, 500);
+    };
+    const cancel = () => clearTimeout(pressTimer);
+    dot.addEventListener('touchstart', start, { passive: true });
+    dot.addEventListener('touchend', cancel);
+    dot.addEventListener('touchmove', cancel);
+    dot.addEventListener('mousedown', start);
+    dot.addEventListener('mouseup', cancel);
+    dot.addEventListener('mouseleave', cancel);
+  });
   document.getElementById('nextBtn').disabled = current === books.length - 1;
   document.getElementById('prevBtn').addEventListener('click', () => { current--; render(); });
   document.getElementById('nextBtn').addEventListener('click', () => { current++; render(); });
@@ -465,6 +493,12 @@ async function addPage(amount) {
     books = await r.json();
     // 총 페이지 많은 순 정렬
     books.sort((a, b) => (b.totalPage || 0) - (a.totalPage || 0));
+    // 고정된 책이 있으면 해당 인덱스로 시작
+    const pinnedId = localStorage.getItem('pinnedBookId');
+    if (pinnedId) {
+      const idx = books.findIndex(b => b.pageId === pinnedId);
+      if (idx >= 0) current = idx;
+    }
     render();
   } catch {
     document.getElementById('wrap').innerHTML = '<div class="loading">불러올 수 없어요 :(</div>';
