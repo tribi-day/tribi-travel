@@ -53,22 +53,29 @@
   .popup {
     display: none;
     position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    border-radius: 14px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.22);
     padding: 20px;
     z-index: 9999;
     width: 200px;
     pointer-events: none;
   }
   .popup.show { display: block; }
-  .popup-cover {
-    width: 100%;
-    aspect-ratio: 2/3;
-    object-fit: cover;
-    border-radius: 2px;
-    display: block;
+  .popup-cover-wrap {
+    display: flex;
+    justify-content: center;
     margin-bottom: 12px;
+  }
+  .popup-cover {
+    width: 81px;
+    height: auto;
+    object-fit: contain;
+    border-radius: 2px 6px 6px 2px;
+    display: block;
     box-shadow:
       2px 2px 6px rgba(0,0,0,0.1),
       4px 4px 12px rgba(0,0,0,0.07);
@@ -88,7 +95,7 @@
   <div style="color:#aaa;font-size:14px;padding:40px 0;">불러오는 중...</div>
 </div>
 <div class="popup" id="popup">
-  <img class="popup-cover" id="popCover" src="" alt="">
+  <div class="popup-cover-wrap"><img class="popup-cover" id="popCover" src="" alt=""></div>
   <div class="popup-title" id="popTitle"></div>
   <div class="popup-author" id="popAuthor"></div>
   <div class="popup-publisher" id="popPublisher"></div>
@@ -126,14 +133,7 @@ function showPopup(e, book) {
   popupVisible = true;
 }
 function positionPopup(e) {
-  const p = document.getElementById('popup');
-  let x = e.clientX + 16;
-  let y = e.clientY - 320;
-  if (x + 210 > window.innerWidth) x = e.clientX - 220;
-  if (y < 8) y = 8;
-  if (y + 320 > window.innerHeight) y = window.innerHeight - 324;
-  p.style.left = x + 'px';
-  p.style.top = y + 'px';
+  // CSS로 항상 화면 중앙 고정이라 별도 위치 계산 불필요
 }
 function hidePopup() {
   document.getElementById('popup').classList.remove('show');
