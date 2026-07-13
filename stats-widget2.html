@@ -68,12 +68,18 @@
   .popup-body {
     display: flex;
     gap: 14px;
-    align-items: flex-start;
+    align-items: stretch;
   }
   .popup-info {
     flex: 1;
     min-width: 0;
     padding-top: 2px;
+    display: flex;
+    flex-direction: column;
+  }
+  .popup-info-top { }
+  .popup-info-bottom {
+    margin-top: auto;
   }
   .popup-cover {
     width: 89px;
@@ -85,10 +91,10 @@
       2px 2px 6px rgba(0,0,0,0.1),
       4px 4px 12px rgba(0,0,0,0.07);
   }
-  .popup-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; line-height: 1.4; text-align:left; }
-  .popup-author { font-size: 11px; color: #777; margin-bottom: 3px; text-align:left; }
+  .popup-title { font-size: 13px; font-weight: 700; margin-bottom: 10px; line-height: 1.4; text-align:left; }
+  .popup-author { font-size: 11px; color: #777; margin-bottom: 6px; text-align:left; }
   .popup-publisher { font-size: 11px; color: #aaa; margin-bottom: 8px; text-align:left; }
-  .popup-stars { font-size: 13px; color: #f4b942; text-align:left; margin-bottom: 4px; }
+  .popup-stars { font-size: 13px; color: #f4b942; text-align:left; }
   .popup-date { font-size: 11px; color: #aaa; text-align:left; }
 
   .bar-pct { text-align: right; font-size: 12px; color: #aaa; margin-top: 6px; }
@@ -102,11 +108,15 @@
   <div class="popup-body">
     <img class="popup-cover" id="popCover" src="" alt="">
     <div class="popup-info">
-      <div class="popup-title" id="popTitle"></div>
-      <div class="popup-author" id="popAuthor"></div>
-      <div class="popup-publisher" id="popPublisher"></div>
-      <div class="popup-stars" id="popStars"></div>
-      <div class="popup-date" id="popDate"></div>
+      <div class="popup-info-top">
+        <div class="popup-title" id="popTitle"></div>
+        <div class="popup-author" id="popAuthor"></div>
+        <div class="popup-publisher" id="popPublisher"></div>
+      </div>
+      <div class="popup-info-bottom" id="popBottom">
+        <div class="popup-stars" id="popStars"></div>
+        <div class="popup-date" id="popDate"></div>
+      </div>
     </div>
   </div>
 </div>
@@ -131,8 +141,25 @@ function showPopup(e, book) {
   document.getElementById('popTitle').textContent = book.title || '';
   document.getElementById('popAuthor').textContent = book.author || '';
   document.getElementById('popPublisher').textContent = book.publisher || '';
-  document.getElementById('popStars').textContent = formatStars(book.rating);
-  document.getElementById('popDate').textContent = formatDate(book.date);
+
+  const starsEl = document.getElementById('popStars');
+  const dateEl = document.getElementById('popDate');
+  starsEl.textContent = formatStars(book.rating);
+  dateEl.textContent = formatDate(book.date);
+
+  // 날짜가 있으면 날짜를 맨 아래로, 없으면 별점이 맨 아래
+  const bottomWrap = document.getElementById('popBottom');
+  if (book.date) {
+    bottomWrap.innerHTML = '';
+    bottomWrap.appendChild(starsEl);
+    bottomWrap.appendChild(dateEl);
+  } else {
+    bottomWrap.innerHTML = '';
+    bottomWrap.appendChild(dateEl);
+    bottomWrap.appendChild(starsEl);
+  }
+  starsEl.style.marginBottom = book.date ? '2px' : '0';
+  dateEl.style.marginBottom = book.date ? '0' : '2px';
 
   p.classList.add('show');
   positionPopup(e);
