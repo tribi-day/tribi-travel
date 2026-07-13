@@ -116,24 +116,6 @@
   .stat-num { font-size: 22px; font-weight: 800; }
   .stat-label { font-size: 10px; color: #aaa; margin-top: 2px; }
 
-  /* 추가 버튼 */
-  .add-btn {
-    position: fixed;
-    bottom: 24px; right: 20px;
-    width: 52px; height: 52px;
-    border-radius: 50%;
-    background: #1a1a1a;
-    color: #fff;
-    font-size: 26px;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
   /* 모달 */
   .modal-overlay {
     display: none;
@@ -193,8 +175,6 @@
   <div class="tooltip-type" id="tooltipType"></div>
   <div class="tooltip-duration" id="tooltipDuration"></div>
 </div>
-
-<button class="add-btn" onclick="openModal()">+</button>
 
 <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
   <div class="modal" id="modalContent">
@@ -285,6 +265,20 @@ function renderCalendar() {
     if (hasWorkout) {
       dayEl.addEventListener('click', (e) => showTooltip(e, recs));
     }
+
+    // 롱프레스로 운동 추가
+    let pressTimer;
+    const startPress = () => {
+      pressTimer = setTimeout(() => openModal(dateStr), 500);
+    };
+    const cancelPress = () => clearTimeout(pressTimer);
+    dayEl.addEventListener('touchstart', startPress, { passive: true });
+    dayEl.addEventListener('touchend', cancelPress);
+    dayEl.addEventListener('touchmove', cancelPress);
+    dayEl.addEventListener('mousedown', startPress);
+    dayEl.addEventListener('mouseup', cancelPress);
+    dayEl.addEventListener('mouseleave', cancelPress);
+    dayEl.addEventListener('contextmenu', (e) => { e.preventDefault(); });
 
     grid.appendChild(dayEl);
   }
@@ -381,10 +375,10 @@ let selectedExercises = []; // { preset, reps, sets, weight, note }
 let currentType = '';
 let workoutDate = today;
 
-function openModal() {
+function openModal(dateStr) {
   currentType = '';
   selectedExercises = [];
-  workoutDate = today;
+  workoutDate = dateStr || today;
   renderStep1();
   document.getElementById('modalOverlay').classList.add('open');
 }
@@ -398,7 +392,7 @@ function renderStep1() {
   document.getElementById('modalContent').innerHTML = `
     <div class="modal-title">운동 기록 추가</div>
     <div class="modal-label">날짜</div>
-    <input id="workoutDateInput" class="modal-input" type="date" value="${today}">
+    <input id="workoutDateInput" class="modal-input" type="date" value="${workoutDate}">
     <div class="modal-label" style="margin-top:4px;">운동 종류</div>
     <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px;">
       ${WORKOUT_TYPES.map(t => `
