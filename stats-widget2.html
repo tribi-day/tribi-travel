@@ -194,7 +194,7 @@ document.addEventListener('click', hidePopup);
       })()}</span></div>` : ''}
       <div class="row"><span>this month</span><span>${d.thisMonth || 0} books</span></div>
       <div class="bar-section">
-        <div class="books-row">${booksHTML}</div>
+        <div class="books-row" style="grid-template-columns:repeat(${perRow},1fr);">${booksHTML}</div>
         <div class="bar-pct">${pct}%</div>
       </div>
     `;
