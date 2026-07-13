@@ -142,7 +142,7 @@ function hidePopup() {
 document.addEventListener('click', hidePopup);
 
 
-const PALETTE = ['#E07A5F','#3D5A80','#81B29A','#F2CC8F','#9B5DE5','#EF476F','#118AB2','#B08968','#6D9DC5','#C9A66B'];
+const PALETTE = ['#E07A5F','#3D5A80','#81B29A','#F2CC8F','#9B5DE5','#EF476F','#118AB2','#B08968'];
 function hashColor(str) {
   let hash = 0;
   for (let i=0; i<str.length; i++) hash = str.charCodeAt(i) + ((hash << 5) - hash);
@@ -183,7 +183,7 @@ function hashColor(str) {
       const book = allCovers[i];
       if (book) {
         const title = (book.title||'').replace(/"/g,'&quot;');
-        const color = hashColor(book.url || title);
+        const color = hashColor(book.pageId || book.url);
         return `<div class="book-slot real" data-i="${i}" style="background:${color};"></div>`;
       }
       return `<div class="book-slot ghost"></div>`;
