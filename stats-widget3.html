@@ -25,11 +25,11 @@
   .stat-num { font-size: 32px; font-weight: 800; line-height: 1; letter-spacing: -1px; }
   .stat-right { text-align: right; }
 
-  /* 아이소메트릭 씬: 매우 큰 perspective로 원근 왜곡을 거의 없앰(faux-isometric) */
+  /* faux-isometric: 초대형 perspective로 원근 왜곡 제거 */
   .scene {
     position: relative;
     width: 100%;
-    height: 300px;
+    height: 340px;
     perspective: 15000px;
     perspective-origin: 50% 50%;
   }
@@ -46,10 +46,8 @@
   .face.front img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
     display: block;
     border-radius: 0 2px 2px 0;
-    background: #fafafa;
   }
   .face.right {
     background:
@@ -92,6 +90,16 @@
 </div>
 
 <script>
+// 이미지 실제 비율 로드
+function loadDims(url) {
+  return new Promise((resolve) => {
+    const im = new Image();
+    im.onload = () => resolve(im.naturalWidth / im.naturalHeight);
+    im.onerror = () => resolve(0.68);
+    im.src = url;
+  });
+}
+
 (async () => {
   const wrap = document.getElementById('wrap');
   const year = new Date().getFullYear();
@@ -124,20 +132,24 @@
     const scene = document.getElementById('scene');
     const n = allBooks.length;
     const sceneW = scene.offsetWidth;
+    const sceneH = 340;
 
-    // 판형 다양화 (아이소메트릭이라 뒤로 갈수록 작아지지 않음 — 모두 원본 크기 유지)
-    const heights = [168, 190, 175, 200, 160, 195, 180, 170, 205, 185];
-    const ratios  = [0.68, 0.72, 0.66, 0.70, 0.74, 0.67, 0.71, 0.69, 0.65, 0.73];
+    // 실제 이미지 비율 모두 로드
+    const ratios = await Promise.all(allBooks.map(b => loadDims(b.url)));
 
-    const baseline = 270;
-    const spacing = n > 1 ? Math.min(58, (sceneW - 150) / (n - 1)) : 0;
+    // 기준 높이 고정, 폭은 실제 표지 비율대로 (진짜 판형 차이 반영)
+    const BASE_H = 175;
 
-    // 아이소메트릭 각도: 같은 각도로 고정, perspective가 커서 왜곡 거의 없음
-    const ANGLE = 'rotateX(35deg) rotateY(-40deg) rotateZ(2deg)';
+    // 대각선 배치: 최신 책(마지막)이 왼쪽 아래 앞, 오래된 책이 오른쪽 위 뒤
+    const spacingX = n > 1 ? Math.min(52, (sceneW - 180) / (n - 1)) : 0;
+    const spacingY = n > 1 ? Math.min(26, (sceneH - BASE_H - 80) / (n - 1)) : 0;
+
+    // 위에서 내려다보는 시점 (rotateX 음수 = 윗면 보임) + 오른쪽 책배 보임
+    const ANGLE = 'rotateX(-32deg) rotateY(-40deg)';
 
     allBooks.forEach((book, i) => {
-      const h = heights[i % heights.length];
-      const w = Math.round(h * ratios[i % ratios.length]);
+      const h = BASE_H;
+      const w = Math.round(h * ratios[i]);
       const t = 12 + (i * 5) % 12;
 
       const el = document.createElement('div');
@@ -146,11 +158,12 @@
       el.style.height = h + 'px';
       el.style.zIndex = i + 1;
 
-      // 평행 이동 배치 (원근 축소 없이 일정한 간격) → 아이소메트릭 느낌
-      const x = (n - 1 - i) * spacing + 10;
-      const y = (baseline - h) - (n - 1 - i) * 0; // 바닥선 고정 (동일 y 오프셋)
+      // 대각선: i=0(가장 오래됨) 오른쪽 위, i=n-1(최신) 왼쪽 아래
+      const back = n - 1 - i; // 뒤쪽 정도 (0=맨앞)
+      const x = 10 + back * spacingX;
+      const y = 30 + (i * spacingY);
       el.style.left = x + 'px';
-      el.style.top = (baseline - h) + 'px';
+      el.style.top = y + 'px';
       el.style.transform = ANGLE;
 
       const dateStr = book.date ? new Date(book.date).toLocaleDateString('ko-KR', {year:'numeric', month:'long', day:'numeric'}) : '';
