@@ -141,8 +141,14 @@ function loadDims(url) {
     const BASE_H = 175;
 
     // 대각선 배치: 최신 책(마지막)이 왼쪽 아래 앞, 오래된 책이 오른쪽 위 뒤
-    const spacingX = n > 1 ? Math.min(52, (sceneW - 180) / (n - 1)) : 0;
-    const spacingY = n > 1 ? Math.min(26, (sceneH - BASE_H - 80) / (n - 1)) : 0;
+    // 45도 대각선: x/y 간격 동일
+    const spacing = n > 1 ? Math.min(
+      42,
+      (sceneW - 180) / (n - 1),
+      (sceneH - BASE_H - 60) / (n - 1)
+    ) : 0;
+    const spacingX = spacing;
+    const spacingY = spacing;
 
     // 위에서 내려다보는 시점 (rotateX 음수 = 윗면 보임) + 오른쪽 책배 보임
     const ANGLE = 'rotateX(-32deg) rotateY(-40deg)';
@@ -150,7 +156,9 @@ function loadDims(url) {
     allBooks.forEach((book, i) => {
       const h = BASE_H;
       const w = Math.round(h * ratios[i]);
-      const t = 12 + (i * 5) % 12;
+      // 페이지수 기반 두께: 100p=8px ~ 600p+=28px
+      const pages = book.totalPage || 250;
+      const t = Math.max(8, Math.min(28, Math.round(8 + (pages - 100) / 500 * 20)));
 
       const el = document.createElement('div');
       el.className = 'book3d';
