@@ -29,7 +29,7 @@
   .scene {
     position: relative;
     width: 100%;
-    height: 340px;
+    height: 440px;
     perspective: 15000px;
     perspective-origin: 50% 50%;
   }
@@ -132,7 +132,7 @@ function loadDims(url) {
     const scene = document.getElementById('scene');
     const n = allBooks.length;
     const sceneW = scene.offsetWidth;
-    const sceneH = 340;
+    const sceneH = 440;
 
     // 실제 이미지 비율 모두 로드
     const ratios = await Promise.all(allBooks.map(b => loadDims(b.url)));
@@ -143,7 +143,7 @@ function loadDims(url) {
     // 대각선 배치: 최신 책(마지막)이 왼쪽 아래 앞, 오래된 책이 오른쪽 위 뒤
     // 45도 대각선: x/y 간격 동일
     const spacing = n > 1 ? Math.min(
-      42,
+      72,
       (sceneW - 180) / (n - 1),
       (sceneH - BASE_H - 60) / (n - 1)
     ) : 0;
@@ -151,7 +151,7 @@ function loadDims(url) {
     const spacingY = spacing;
 
     // 위에서 내려다보는 시점 (rotateX 음수 = 윗면 보임) + 오른쪽 책배 보임
-    const ANGLE = 'rotateX(-32deg) rotateY(-40deg)';
+    const ANGLE = 'rotateX(-55deg) rotateY(-40deg)';
 
     allBooks.forEach((book, i) => {
       const h = BASE_H;
