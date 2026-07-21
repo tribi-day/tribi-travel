@@ -371,6 +371,33 @@ const PRESETS = {
     { name: '어시스트 풀업', reps: 20, sets: 3, weight: 40 },
   ],
   '무분할': [],
+  '푸시': [
+    { name: '인클라인 푸시업', reps: 15, sets: 4, weight: null },
+    { name: '팩덱플라이', reps: 15, sets: 4, weight: 10 },
+    { name: '덤벨 숄더프레스', reps: 20, sets: 4, weight: 3 },
+    { name: '사이드레터럴레이즈', reps: 20, sets: 3, weight: 2 },
+    { name: '덤벨 익스텐션', reps: 20, sets: 3, weight: 5 },
+    { name: '케이블 푸쉬다운', reps: 15, sets: 3, weight: 7 },
+    { name: '플랭크', reps: 40, sets: 3, weight: null, repUnit: '초' },
+  ],
+  '풀': [
+    { name: '어시스트 풀업', reps: 10, sets: 3, weight: 40 },
+    { name: '랫풀다운', reps: 15, sets: 4, weight: 15 },
+    { name: '시티드로우', reps: 15, sets: 4, weight: 15 },
+    { name: '암풀다운', reps: 15, sets: 3, weight: 10 },
+    { name: '덤벨컬', reps: 15, sets: 3, weight: 2 },
+    { name: '해머컬', reps: 15, sets: 3, weight: 2 },
+    { name: '리버스 크런치', reps: 10, sets: 3, weight: null },
+  ],
+  '레그': [
+    { name: '백스쿼트', reps: 15, sets: 4, weight: null },
+    { name: '레그프레스', reps: 20, sets: 4, weight: 10 },
+    { name: '스플릿 스쿼트', reps: 12, sets: 3, weight: null },
+    { name: '레그컬', reps: 15, sets: 3, weight: 15 },
+    { name: '백 익스텐션', reps: 10, sets: 3, weight: null },
+    { name: '아웃타이', reps: 20, sets: 3, weight: 40 },
+    { name: '이너타이', reps: 20, sets: 3, weight: 15 },
+  ],
   '유산소': [
     { name: '복근 운동 영상', duration: 5, unit: '분' },
     { name: '스탭밀', duration: 20, unit: '분', fields: [{label: '속도', key: 'speed', default: '5'}] },
@@ -387,8 +414,17 @@ PRESETS['무분할'] = [
   ...PRESETS['상체'].filter(p => !PRESETS['유산소'].includes(p)),
   ...PRESETS['유산소'],
 ];
+// 3분할: 워밍업 + 유산소 붙이기
+const WARMUP = [
+  { name: '폼롤러', reps: 1, sets: 1, weight: null, repUnit: '세트' },
+  { name: '개구리 스트레칭', reps: 3, sets: 1, weight: null, repUnit: '분' },
+  { name: '힙힌지 연습', reps: 10, sets: 1, weight: null },
+];
+PRESETS['푸시'] = [...WARMUP, ...PRESETS['푸시'], ...PRESETS['유산소']];
+PRESETS['풀'] = [...WARMUP, ...PRESETS['풀'], ...PRESETS['유산소']];
+PRESETS['레그'] = [...WARMUP, ...PRESETS['레그'], ...PRESETS['유산소']];
 
-const WORKOUT_TYPES = ['하체', '상체', '무분할', '유산소', 'PT 수업', '댄스', '등산', '크로스핏', '프다', '수영', '스쿠버', '클라이밍'];
+const WORKOUT_TYPES = ['푸시', '풀', '레그', '하체', '상체', '무분할', '유산소', 'PT 수업', '댄스', '등산', '크로스핏', '프다', '수영', '스쿠버', '클라이밍'];
 
 let selectedExercises = []; // { preset, reps, sets, weight, note }
 let currentType = '';
@@ -491,7 +527,7 @@ function renderPresetItem(p, i) {
         ${weightPart}
         <input type="number" id="r-${i}" value="${p.reps}" min="1"
           style="width:44px; padding:4px 6px; border:1px solid #e0e0e0; border-radius:6px; font-size:13px; text-align:center;">
-        <span style="font-size:12px; color:#aaa;">회</span>
+        <span style="font-size:12px; color:#aaa;">${p.repUnit || '회'}</span>
         <input type="number" id="s-${i}" value="${p.sets}" min="1"
           style="width:44px; padding:4px 6px; border:1px solid #e0e0e0; border-radius:6px; font-size:13px; text-align:center;">
         <span style="font-size:12px; color:#aaa;">세트</span>
@@ -542,7 +578,9 @@ async function submitWorkout() {
       const w = p.weight !== null ? (document.getElementById(`w-${i}`)?.value || p.weight) + 'kg ' : '';
       const r = document.getElementById(`r-${i}`)?.value || p.reps;
       const s = document.getElementById(`s-${i}`)?.value || p.sets;
-      detailLines.push(`- ${p.name} ${w}${r}회 ${s}세트`);
+      const ru = p.repUnit || '회';
+      const setPart = s > 1 ? ` ${s}세트` : '';
+      detailLines.push(`- ${p.name} ${w}${r}${ru}${setPart}`);
     }
   });
   const extraDetail = document.getElementById('extraDetailInput')?.value.trim();
