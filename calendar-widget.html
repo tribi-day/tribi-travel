@@ -117,7 +117,7 @@
   }
   .bar {
     position: absolute;
-    opacity: .3;
+    opacity: .1;
     z-index: 1;
     pointer-events: auto;
     cursor: default;
@@ -415,8 +415,7 @@ async function render() {
 
   // ── 1단계: 주별로 어느 책이 몇 번째 줄에 놓일지 계산 ──
   const plan = [];
-  let maxDone = 1;
-  let maxNow = 0;
+  let maxLane = 1;
 
   for (let w = 0; w < weeks; w++) {
     const weekStart = new Date(gridStart);
@@ -428,21 +427,18 @@ async function render() {
       .filter(b => b.end >= weekStart && b.start <= weekEnd)
       .sort((a, b) => a.start - b.start);
 
-    const lanesDone = [];   // 완독 — 위에서부터
-    const lanesNow = [];    // 읽는 중 — 아래에서부터
+    const lanes = [];
     const items = inWeek.map(b => {
       const s = Math.max(0, Math.round((b.start - weekStart) / 86400000));
       const e = Math.min(6, Math.round((b.end - weekStart) / 86400000));
-      const stack = b.ongoing ? lanesNow : lanesDone;
-      let lane = stack.findIndex(last => last < s);
-      if (lane === -1) { stack.push(e); lane = stack.length - 1; }
-      else stack[lane] = e;
+      let lane = lanes.findIndex(last => last < s);
+      if (lane === -1) { lanes.push(e); lane = lanes.length - 1; }
+      else lanes[lane] = e;
       const endsHere = !b.ongoing && b.end >= weekStart && b.end <= weekEnd;
       return { b, s, e, lane, endsHere };
     });
 
-    if (lanesDone.length > maxDone) maxDone = lanesDone.length;
-    if (lanesNow.length > maxNow) maxNow = lanesNow.length;
+    if (lanes.length > maxLane) maxLane = lanes.length;
     plan.push({ weekStart, items });
   }
 
@@ -451,13 +447,11 @@ async function render() {
   const avail = window.innerHeight - gridTop - 36;
   const budget = Math.max(50, Math.floor(avail / weeks) - 5);
 
-  let capH = showCover ? CAP_H : 0;
-  // 표지는 칸 자체에 못 들어갈 때만 줄인다 (다른 요소 때문에 줄이지 않는다)
-  if (capH && 40 + capH + 12 > budget) capH = Math.max(34, budget - 52);
+  // 표지·선을 꺼도 높이는 켜져 있을 때와 같게 유지한다
+  let capH = CAP_H;
+  if (40 + capH + 12 > budget) capH = Math.max(34, budget - 52);
 
-  const lineBlock = showLine
-    ? (maxDone - 1) * LANE_H + 22 + maxNow * LANE_H
-    : 0;
+  const lineBlock = (maxLane - 1) * LANE_H + 22;
   const need = 40 + Math.max(capH, lineBlock) + 12;
   const rowH = Math.max(50, Math.min(need, budget));
 
@@ -496,8 +490,7 @@ async function render() {
       bar.style.left = (s / 7 * 100) + '%';
       bar.style.width = ((right - s) / 7 * 100) + '%';
       bar.style.height = BAR_H + 'px';
-      if (b.ongoing) bar.style.bottom = (lane * LANE_H + 6) + 'px';
-      else bar.style.top = (lane * LANE_H + 10) + 'px';
+      bar.style.top = (lane * LANE_H + 10) + 'px';
       bar.style.background = '#DADADA';
       bar.addEventListener('mouseenter', () => showPop(b));
       bar.addEventListener('mouseleave', hidePop);
