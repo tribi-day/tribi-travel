@@ -150,7 +150,7 @@
 // ?perShelf=18  한 칸에 꽂을 권수
 const qs = new URLSearchParams(location.search);
 const COLOR_MODE = qs.get('color') || 'cover';
-const PER_SHELF = parseInt(qs.get('perShelf')) || 20;
+const PER_SHELF = parseInt(qs.get('perShelf')) || 40;
 const YEAR = qs.get('year') || new Date().getFullYear();
 const OBI_RATE = qs.has('obi') ? parseInt(qs.get('obi')) : 35;
 
@@ -186,7 +186,16 @@ function textOn(rgb) {
 }
 
 // 표지에서 대표색과 두 번째 색 뽑기
-const colorCache = {};
+// 한 번 뽑은 색은 브라우저에 저장해두고 다음부터는 그대로 씁니다
+const CACHE_KEY = 'shelfColors:v1';
+let colorCache = {};
+try { colorCache = JSON.parse(localStorage.getItem(CACHE_KEY) || '{}'); } catch { colorCache = {}; }
+let cacheDirty = false;
+function saveCache() {
+  if (!cacheDirty) return;
+  try { localStorage.setItem(CACHE_KEY, JSON.stringify(colorCache)); } catch {}
+  cacheDirty = false;
+}
 function dist(a, b) {
   return Math.sqrt((a[0]-b[0])**2 + (a[1]-b[1])**2 + (a[2]-b[2])**2);
 }
@@ -237,6 +246,7 @@ async function dominantColor(url) {
       img.src = d.dataUrl;
     });
     colorCache[url] = out;
+    cacheDirty = true;
     return out;
   } catch { return null; }
 }
@@ -359,17 +369,36 @@ function hidePop() { pop.classList.remove('show'); }
       '<span>약 ' + cm + 'cm</span>';
     stage.appendChild(foot);
 
-    // 표지색 적용 (한 권씩, 렌더 막지 않게)
-    for (const p of pending) {
-      const c = await dominantColor(p.url);
-      if (!c || !c.main) continue;
+    // 표지색 적용 — 여러 권을 동시에 처리해서 대기 시간을 줄인다
+    const apply = (p, c) => {
+      if (!c || !c.main) return;
       p.s.style.background = 'rgb(' + c.main.join(',') + ')';
       p.s.style.color = textOn(c.main);
       if (p.obiEl) {
         const band = c.second || shiftShade(c.main);
         p.obiEl.style.background = 'rgb(' + band.join(',') + ')';
       }
+    };
+
+    // 이미 저장돼 있는 색은 즉시 반영
+    const todo = [];
+    for (const p of pending) {
+      if (colorCache[p.url]) apply(p, colorCache[p.url]);
+      else todo.push(p);
     }
+
+    // 나머지는 6권씩 동시에
+    const CONCURRENCY = 6;
+    let cursor = 0;
+    await Promise.all(
+      Array.from({ length: Math.min(CONCURRENCY, todo.length) }, async () => {
+        while (cursor < todo.length) {
+          const p = todo[cursor++];
+          apply(p, await dominantColor(p.url));
+        }
+      })
+    );
+    saveCache();
 
   } catch (e) {
     stage.innerHTML = '<div class="msg">불러올 수 없어요 :(</div>';
