@@ -39,7 +39,7 @@
     border-radius: 2px 6px 6px 2px;
     box-shadow: 2px 2px 6px rgba(0,0,0,.1), 4px 4px 12px rgba(0,0,0,.07);
   }
-  .rinfo { flex: 1; min-width: 0; padding-bottom: 34px; }
+  .rinfo { flex: 1; min-width: 0; max-width: 330px; padding-bottom: 34px; }
   .rtitle { font-size: 16px; font-weight: 700; line-height: 1.4; margin-bottom: 16px; }
   .rtitle em { font-style: normal; font-weight: 400; color: #8A918D; }
   .rbar { height: 5px; background: #EDEAE0; border-radius: 3px; overflow: hidden; margin-bottom: 7px; }
@@ -55,20 +55,26 @@
   .rpage { font-size: 15px; font-weight: 700; cursor: pointer; }
   .rbtns { display: flex; gap: 6px; }
   .rbtn {
-    padding: 6px 11px;
-    border-radius: 6px;
-    border: 1px solid #E2E5DF;
-    background: #fff;
-    color: #1C2B2D;
+    width: 34px; height: 34px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    border: 0;
+    background: #E0CDB1;
+    color: #4A3728;
     font: inherit;
-    font-size: 12px;
-    font-weight: 600;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: all .15s;
   }
-  .rbtn:hover { background: #1C2B2D; color: #fff; border-color: #1C2B2D; }
+  .rbtn:hover { background: #4A3728; color: #F3E9DA; }
   .rbtn:disabled { opacity: .4; cursor: default; }
-  .rbtn.ghost { color: #A8ADA9; font-size: 11px; padding: 6px 9px; }
+  .rbtn.ghost { background: #EFE3D2; color: #8A7355; font-size: 11px; }
+  .rbtn.ghost:hover { background: #4A3728; color: #F3E9DA; }
   .rnav {
     position: absolute;
     bottom: 26px;
@@ -133,10 +139,9 @@
   }
   .board {
     height: 4px;
-    background: #2A3A3B;
+    background: #4A3728;
     border-radius: 2px;
     margin: 0 4px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.13);
   }
 
   /* ── 책등 ─────────────────────────────── */
@@ -323,7 +328,7 @@ try { savedTheme = localStorage.getItem(THEME_KEY); } catch {}
 let COLOR_MODE = qs.get('color') || savedTheme || 'cover';
 
 const MONO = ['#2B2B29','#3E3E3B','#52524E','#666660','#7C7C75','#93938B','#ABABA2','#C2C2B9','#D6D6CD'];
-const PASTEL = ['#EFC3B8','#F2DCA9','#CDE0C4','#BFD8E6','#D8CCE6','#EED6C2','#C9DED3','#E8C7D2','#D4D9EC','#EAD9B7'];
+const PASTEL = ['#3D4E6B','#FFFFFF','#89ABDB','#FAEFBF','#D5E3F8','#6C87B4'];
 
 function hexToRgb(h) {
   return [parseInt(h.slice(1,3),16), parseInt(h.slice(3,5),16), parseInt(h.slice(5,7),16)];
@@ -498,7 +503,7 @@ function renderReading() {
             '<button class="rbtn" data-add="1">+1</button>' +
             '<button class="rbtn" data-add="5">+5</button>' +
             '<button class="rbtn" data-add="10">+10</button>' +
-            '<button class="rbtn ghost" id="rFinish">완독</button>' +
+            '<button class="rbtn ghost" id="rFinish">fin</button>' +
           '</div>' +
         '</div>' +
       '</div>' +
