@@ -83,8 +83,6 @@
   .spine .obi {
     position: absolute;
     left: 0; right: 0;
-    background-repeat: no-repeat;
-    box-shadow: 0 -1px 0 rgba(0,0,0,.16), 0 1px 0 rgba(0,0,0,.16);
     pointer-events: none;
   }
   .spine.nopage { opacity: .55; }
@@ -184,9 +182,16 @@ function hashPick(str) {
   return PALETTE[Math.abs(h) % PALETTE.length];
 }
 function hashJitter(str, range) {
-  let h = 0;
-  for (let i = 0; i < str.length; i++) h = str.charCodeAt(i) + ((h << 3) - h);
-  return Math.abs(h) % range;
+  // FNV-1a + 마무리 믹싱 — 한글 제목에서도 고르게 흩어지도록
+  let h = 2166136261;
+  for (let i = 0; i < str.length; i++) {
+    h ^= str.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  h ^= h >>> 15; h = Math.imul(h, 2246822507);
+  h ^= h >>> 13; h = Math.imul(h, 3266489909);
+  h ^= h >>> 16;
+  return (h >>> 0) % range;
 }
 
 // 밝기로 글자색 정하기
@@ -309,6 +314,7 @@ function hidePop() { pop.classList.remove('show'); }
 
     const shelfEls = stage.querySelectorAll('.shelf');
     const pending = [];
+    let prevObi = false;
 
     shelves.forEach((group, si) => {
       const el = shelfEls[si];
@@ -330,18 +336,21 @@ function hidePop() { pop.classList.remove('show'); }
 
         const dots = '<i></i>'.repeat(parseInt(b.rating) || 0);
 
-        // 띠지 — 약 35%의 책에 두른다 (제목 기준 고정 랜덤)
-        const hasObi = hashJitter((b.title || '') + 'obi', 100) < OBI_RATE;
+        // 띠지 — 제목 기준 고정 랜덤, 단 바로 옆 책과 연달아 붙지 않게
+        let hasObi = hashJitter((b.title || '') + 'obi', 100) < OBI_RATE;
+        if (prevObi) hasObi = false;
+        prevObi = hasObi;
+
         const obiH = hasObi ? 34 + hashJitter((b.title || '') + 'h', 17) : 0;
-        const obiBottom = hasObi ? 8 + hashJitter((b.title || '') + 'b', 14) : 0;
+        const gap = hasObi ? Math.max(0, obiH - 9) : 0;
 
         s.innerHTML =
           '<div class="stars">' + dots + '</div>' +
-          '<div class="twrap"' + (hasObi ? ' style="margin-bottom:' + (obiH + obiBottom - 6) + 'px"' : '') + '>' +
-            '<div class="t" style="width:' + (h - 34 - (hasObi ? obiH + obiBottom - 6 : 0)) + 'px">' + (b.title || '') + '</div>' +
+          '<div class="twrap"' + (hasObi ? ' style="margin-bottom:' + gap + 'px"' : '') + '>' +
+            '<div class="t" style="width:' + (h - 34 - gap) + 'px">' + (b.title || '') + '</div>' +
           '</div>' +
           (hasObi
-            ? '<div class="obi" style="height:' + obiH + 'px;bottom:' + obiBottom + 'px"></div>'
+            ? '<div class="obi" style="height:' + obiH + 'px;bottom:0"></div>'
             : '');
 
         s.addEventListener('mouseenter', () => showPop(b));
