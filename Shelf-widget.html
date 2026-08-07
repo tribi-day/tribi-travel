@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>bookshelf</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, sans-serif;
+    background: transparent;
+    color: #1C2B2D;
+    padding: 22px 20px 26px;
+    overflow-x: hidden;
+    letter-spacing: -0.01em;
+  }
+
+  .head { text-align: center; margin-bottom: 22px; }
+  .eyebrow {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #8A918D;
+    margin-bottom: 5px;
+  }
+  .title { font-size: 21px; font-weight: 700; letter-spacing: -0.04em; }
+
+  /* ── 선반 ─────────────────────────────── */
+  .shelf-unit { margin-bottom: 16px; }
+  .shelf {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 2px;
+    min-height: 150px;
+    padding-bottom: 0;
+  }
+  .board {
+    height: 4px;
+    background: #2A3A3B;
+    border-radius: 2px;
+    margin: 0 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.13);
+  }
+
+  /* ── 책등 ─────────────────────────────── */
+  .spine {
+    position: relative;
+    border-radius: 2px 2px 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 7px 2px 9px;
+    overflow: hidden;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: transform 0.22s cubic-bezier(.22,.9,.3,1), box-shadow 0.22s ease;
+    background: #C8CCC5;
+  }
+  .spine:hover {
+    transform: translateY(-11px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.18);
+  }
+  .spine::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(255,255,255,.14), rgba(0,0,0,0) 32%, rgba(0,0,0,0) 72%, rgba(0,0,0,.16));
+    pointer-events: none;
+  }
+  .spine .stars { display: flex; gap: 2px; flex-shrink: 0; }
+  .spine .stars i { width: 3px; height: 3px; border-radius: 50%; background: currentColor; opacity: .8; }
+  .spine .t {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-size: 11.5px;
+    font-weight: 500;
+    line-height: 1.05;
+    flex: 1;
+    overflow: hidden;
+    padding-top: 7px;
+    text-align: left;
+  }
+  .spine .a {
+    writing-mode: vertical-rl;
+    font-size: 8.5px;
+    opacity: .68;
+    max-height: 46px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .spine.nopage { opacity: .55; }
+
+  /* ── 팝업 ─────────────────────────────── */
+  .popup {
+    display: none;
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 14px 44px rgba(0,0,0,0.24);
+    padding: 20px;
+    width: 300px;
+    z-index: 999;
+    pointer-events: none;
+  }
+  .popup.show { display: block; }
+  .pbody { display: flex; gap: 14px; align-items: stretch; }
+  .pcover {
+    width: 84px; height: auto;
+    object-fit: contain;
+    border-radius: 2px 5px 5px 2px;
+    box-shadow: 2px 2px 6px rgba(0,0,0,.1), 4px 4px 12px rgba(0,0,0,.07);
+    flex-shrink: 0;
+  }
+  .pinfo { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+  .ptitle { font-size: 13px; font-weight: 700; line-height: 1.4; margin-bottom: 9px; }
+  .pmeta { font-size: 11px; color: #7C837F; margin-bottom: 4px; }
+  .pbottom { margin-top: auto; }
+  .pstars { font-size: 12px; color: #E0A93C; }
+  .pdate { font-size: 11px; color: #A8ADA9; }
+  .ppage { font-size: 11px; color: #A8ADA9; }
+
+  /* ── 하단 요약 ─────────────────────────── */
+  .foot {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    margin-top: 14px;
+    font-size: 11.5px;
+    color: #7C837F;
+  }
+  .foot span { white-space: nowrap; }
+
+  .msg { text-align: center; color: #A8ADA9; font-size: 13px; padding: 44px 0; }
+</style>
+</head>
+<body>
+
+<div class="head">
+  <div class="eyebrow">a year in</div>
+  <div class="title" id="ttl">읽은 책</div>
+</div>
+
+<div id="stage"><div class="msg">불러오는 중...</div></div>
+
+<div class="popup" id="popup">
+  <div class="pbody">
+    <img class="pcover" id="pCover" src="" alt="">
+    <div class="pinfo">
+      <div>
+        <div class="ptitle" id="pTitle"></div>
+        <div class="pmeta" id="pAuthor"></div>
+        <div class="pmeta" id="pPub"></div>
+      </div>
+      <div class="pbottom">
+        <div class="pstars" id="pStars"></div>
+        <div class="ppage" id="pPage"></div>
+        <div class="pdate" id="pDate"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── 설정 ────────────────────────────────────────
+// ?color=cover  표지에서 뽑은 색 (기본)
+// ?color=palette  지정 팔레트
+// ?perShelf=18  한 칸에 꽂을 권수
+const qs = new URLSearchParams(location.search);
+const COLOR_MODE = qs.get('color') || 'cover';
+const PER_SHELF = parseInt(qs.get('perShelf')) || 16;
+const YEAR = qs.get('year') || new Date().getFullYear();
+
+const PALETTE = [
+  ['#2F4F6B','#EAF1F6'], ['#8C4A32','#FBEDE6'], ['#4A6B4E','#EDF4EC'],
+  ['#D9B36A','#3A2A08'], ['#6B5385','#F2EDF7'], ['#B04A5A','#FBECEF'],
+  ['#3A6E78','#E8F4F5'], ['#8A7355','#F6F0E7'], ['#4A4A46','#F1EFE8'],
+  ['#C98A6B','#3C1D0E']
+];
+function hashPick(str) {
+  let h = 0;
+  for (let i = 0; i < str.length; i++) h = str.charCodeAt(i) + ((h << 5) - h);
+  return PALETTE[Math.abs(h) % PALETTE.length];
+}
+function hashJitter(str, range) {
+  let h = 0;
+  for (let i = 0; i < str.length; i++) h = str.charCodeAt(i) + ((h << 3) - h);
+  return Math.abs(h) % range;
+}
+
+// 밝기로 글자색 정하기
+function textOn(rgb) {
+  const [r, g, b] = rgb;
+  const L = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+  return L > 0.58 ? 'rgba(20,26,26,.92)' : 'rgba(255,255,255,.94)';
+}
+
+// 표지에서 대표색 뽑기 (평균 대신 최빈 색상 구간)
+const colorCache = {};
+async function dominantColor(url) {
+  if (colorCache[url]) return colorCache[url];
+  try {
+    const r = await fetch('/api/image-proxy?url=' + encodeURIComponent(url));
+    const d = await r.json();
+    if (!d.dataUrl) return null;
+    const out = await new Promise(resolve => {
+      const img = new Image();
+      img.onload = () => {
+        try {
+          const c = document.createElement('canvas');
+          c.width = 40; c.height = 40;
+          const ctx = c.getContext('2d');
+          ctx.drawImage(img, 0, 0, 40, 40);
+          const px = ctx.getImageData(0, 0, 40, 40).data;
+          const bins = {};
+          for (let i = 0; i < px.length; i += 4) {
+            const r0 = px[i], g0 = px[i+1], b0 = px[i+2];
+            const mx = Math.max(r0,g0,b0), mn = Math.min(r0,g0,b0);
+            // 흰 여백과 검은 테두리는 제외
+            if (mx > 238 && mn > 224) continue;
+            if (mx < 26) continue;
+            const key = (r0>>5) + ',' + (g0>>5) + ',' + (b0>>5);
+            if (!bins[key]) bins[key] = { n:0, r:0, g:0, b:0, sat:0 };
+            const bn = bins[key];
+            bn.n++; bn.r += r0; bn.g += g0; bn.b += b0;
+            bn.sat += (mx - mn);
+          }
+          let best = null;
+          for (const k in bins) {
+            const bn = bins[k];
+            // 많이 나오면서 채도도 있는 쪽을 선호
+            const score = bn.n * (1 + (bn.sat / bn.n) / 190);
+            if (!best || score > best.score) best = { ...bn, score };
+          }
+          if (!best) return resolve(null);
+          resolve([Math.round(best.r/best.n), Math.round(best.g/best.n), Math.round(best.b/best.n)]);
+        } catch { resolve(null); }
+      };
+      img.onerror = () => resolve(null);
+      img.src = d.dataUrl;
+    });
+    colorCache[url] = out;
+    return out;
+  } catch { return null; }
+}
+
+function stars(v) {
+  if (!v) return '';
+  const n = parseInt(v);
+  if (isNaN(n)) return String(v);
+  return '★'.repeat(n) + '☆'.repeat(Math.max(0, 5 - n));
+}
+function fmtDate(d) {
+  if (!d) return '';
+  const t = new Date(d);
+  return t.getFullYear() + '년 ' + (t.getMonth()+1) + '월 ' + t.getDate() + '일';
+}
+
+// 팝업
+const pop = document.getElementById('popup');
+function showPop(b) {
+  document.getElementById('pCover').src = b.url || '';
+  document.getElementById('pTitle').textContent = b.title || '';
+  document.getElementById('pAuthor').textContent = b.author || '';
+  document.getElementById('pPub').textContent = b.publisher || '';
+  document.getElementById('pStars').textContent = stars(b.rating);
+  document.getElementById('pPage').textContent = b.totalPage ? b.totalPage + '쪽' : '페이지 수 없음';
+  document.getElementById('pDate').textContent = fmtDate(b.date);
+  pop.classList.add('show');
+}
+function hidePop() { pop.classList.remove('show'); }
+
+// ── 그리기 ──────────────────────────────────────
+(async () => {
+  const stage = document.getElementById('stage');
+  document.getElementById('ttl').textContent = '읽은 책 ' + YEAR;
+
+  try {
+    const r = await fetch('/api/reading-stats?year=' + YEAR);
+    const d = await r.json();
+    if (d.error) { stage.innerHTML = '<div class="msg">' + d.error + '</div>'; return; }
+
+    const books = [...(d.fictionCovers||[]), ...(d.nonfictionCovers||[])]
+      .sort((a,b) => ((a.date||'9999') < (b.date||'9999') ? -1 : 1));
+
+    if (!books.length) { stage.innerHTML = '<div class="msg">아직 기록된 책이 없어요</div>'; return; }
+
+    // 선반 나누기
+    const shelves = [];
+    for (let i = 0; i < books.length; i += PER_SHELF) shelves.push(books.slice(i, i + PER_SHELF));
+
+    stage.innerHTML = shelves.map(() =>
+      '<div class="shelf-unit"><div class="shelf"></div><div class="board"></div></div>'
+    ).join('');
+
+    const shelfEls = stage.querySelectorAll('.shelf');
+    const pending = [];
+
+    shelves.forEach((group, si) => {
+      const el = shelfEls[si];
+      group.forEach(b => {
+        const pages = b.totalPage || 0;
+        const w = pages
+          ? Math.max(22, Math.min(58, Math.round(pages * 0.076)))
+          : 28;
+        const h = 168 + hashJitter(b.title || b.pageId, 34);
+
+        const s = document.createElement('div');
+        s.className = 'spine' + (pages ? '' : ' nopage');
+        s.style.width = w + 'px';
+        s.style.height = h + 'px';
+        s.style.lineHeight = w + 'px';
+
+        const [bg, fg] = hashPick(b.title || b.pageId);
+        s.style.background = bg;
+        s.style.color = fg;
+
+        const dots = '<i></i>'.repeat(parseInt(b.rating) || 0);
+        s.innerHTML =
+          '<div class="stars">' + dots + '</div>' +
+          '<div class="t" style="line-height:' + w + 'px">' + (b.title || '') + '</div>' +
+          '<div class="a">' + (b.author || '') + '</div>';
+
+        s.addEventListener('mouseenter', () => showPop(b));
+        s.addEventListener('mouseleave', hidePop);
+        el.appendChild(s);
+
+        if (COLOR_MODE === 'cover' && b.url) pending.push({ s, url: b.url });
+      });
+    });
+
+    // 요약
+    const totalPages = books.reduce((a, b) => a + (b.totalPage || 0), 0);
+    const cm = (totalPages * 0.1 / 10).toFixed(1);
+    const foot = document.createElement('div');
+    foot.className = 'foot';
+    foot.innerHTML =
+      '<span>' + books.length + '권</span>' +
+      '<span>' + totalPages.toLocaleString() + '쪽</span>' +
+      '<span>약 ' + cm + 'cm</span>';
+    stage.appendChild(foot);
+
+    // 표지색 적용 (한 권씩, 렌더 막지 않게)
+    for (const p of pending) {
+      const rgb = await dominantColor(p.url);
+      if (rgb) {
+        p.s.style.background = 'rgb(' + rgb.join(',') + ')';
+        p.s.style.color = textOn(rgb);
+      }
+    }
+
+  } catch (e) {
+    stage.innerHTML = '<div class="msg">불러올 수 없어요 :(</div>';
+  }
+})();
+</script>
+</body>
+</html>
