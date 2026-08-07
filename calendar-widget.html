@@ -60,6 +60,7 @@
     margin-bottom: 12px;
   }
   .dow span {
+    padding-left: 8px;
     font-size: 10px;
     font-weight: 600;
     letter-spacing: 0.14em;
@@ -75,9 +76,11 @@
   }
   .cell {
     border-top: 1px solid #1A1A1A;
-    padding-top: 9px;
+    border-left: 1px solid #F0F0F0;
+    padding: 9px 0 0 8px;
     min-height: 104px;
   }
+  .cell:first-child { border-left-color: transparent; }
   .cell.out { border-top-color: #E4E4E4; }
   .num {
     font-size: 16px;
@@ -103,7 +106,7 @@
     pointer-events: auto;
     cursor: default;
   }
-  .bar.now { opacity: .8; }
+  .bar.now { opacity: 1; }
   .cap {
     position: absolute;
     transform: translate(-50%, -50%);
