@@ -54,6 +54,25 @@
   .nav .dot:hover { background: #1A1A1A; }
 
   /* ── 요일 ─────────────────────────────── */
+  .toggles {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    align-self: center;
+  }
+  .toggles button {
+    display: flex; align-items: center; justify-content: center;
+    background: none;
+    border: 0;
+    color: #D2D2D2;
+    cursor: pointer;
+    padding: 3px;
+    transition: color .15s;
+  }
+  .toggles button:hover { color: #9A9A9A; }
+  .toggles button.on { color: #1A1A1A; }
+
   .dow {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -166,6 +185,18 @@
     <div class="dot" id="today" title="이번 달"></div>
     <button id="next" title="다음 달">&#8250;</button>
   </div>
+  <div class="toggles">
+    <button id="tLine" title="기간 선 보기">
+      <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+        <rect x="1" y="6.5" width="14" height="3" fill="currentColor"/>
+      </svg>
+    </button>
+    <button id="tCover" title="완독 표지 보기">
+      <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+        <rect x="4.2" y="2.6" width="7.7" height="10.9" fill="currentColor"/>
+      </svg>
+    </button>
+  </div>
 </div>
 
 <div class="dow">
@@ -224,6 +255,16 @@ const CAP_H = Math.round(CAP_W * 1.55);           // 칸 높이 계산용 표지
 const DEMO = parseInt(qs.get('demo')) || 0;       // 겹침 확인용 샘플 권수
 
 let viewYear, viewMonth;   // 보고 있는 달 (month: 0-11)
+
+// 보기 설정 — 선 / 표지 각각 껐다 켰다
+const VIEW_KEY = 'calView:v1';
+let showLine = true, showCover = true;
+try {
+  const v = JSON.parse(localStorage.getItem(VIEW_KEY) || 'null');
+  if (v) { showLine = !!v.line; showCover = !!v.cover; }
+} catch {}
+if (qs.has('line')) showLine = qs.get('line') !== '0';
+if (qs.has('cover')) showCover = qs.get('cover') !== '0';
 const yearCache = {};      // 연도별 책 목록
 
 // ── 표지 색 ─────────────────────────────────────
@@ -410,15 +451,14 @@ async function render() {
   const avail = window.innerHeight - gridTop - 36;
   const budget = Math.max(50, Math.floor(avail / weeks) - 5);
 
-  let capH = CAP_H;
-  const bottomBlock = maxNow * LANE_H + 6;
-  const sizeUp = h => 40 + Math.max(h, (maxDone - 1) * LANE_H + 22) + bottomBlock + 10;
-  let need = sizeUp(capH);
+  let capH = showCover ? CAP_H : 0;
+  // 표지는 칸 자체에 못 들어갈 때만 줄인다 (다른 요소 때문에 줄이지 않는다)
+  if (capH && 40 + capH + 12 > budget) capH = Math.max(34, budget - 52);
 
-  if (need > budget) {
-    capH = Math.max(34, budget - 50 - bottomBlock);
-    need = sizeUp(capH);
-  }
+  const lineBlock = showLine
+    ? (maxDone - 1) * LANE_H + 22 + maxNow * LANE_H
+    : 0;
+  const need = 40 + Math.max(capH, lineBlock) + 12;
   const rowH = Math.max(50, Math.min(need, budget));
 
   // ── 3단계: 그리기 ──
@@ -449,8 +489,9 @@ async function render() {
 
     items.forEach(({ b, s, e, lane, endsHere }) => {
       // 기간 실선 — 완독일 칸에서 끝날 때는 표지 뒤에서 끊는다
-      const right = endsHere ? (e + 0.5) : (e + 1);
-      const bar = document.createElement('div');
+      const right = (endsHere && showCover) ? (e + 0.5) : (e + 1);
+      const bar = showLine ? document.createElement('div') : null;
+      if (bar) {
       bar.className = 'bar' + (b.ongoing ? ' now' : '');
       bar.style.left = (s / 7 * 100) + '%';
       bar.style.width = ((right - s) / 7 * 100) + '%';
@@ -461,9 +502,10 @@ async function render() {
       bar.addEventListener('mouseenter', () => showPop(b));
       bar.addEventListener('mouseleave', hidePop);
       laneBox.appendChild(bar);
+      }
 
       // 완독일 표지 — 막대 위치와 무관하게 항상 같은 높이
-      if (endsHere) {
+      if (endsHere && showCover) {
         const cap = document.createElement('div');
         cap.className = 'cap' + (b.url ? '' : ' ph');
         cap.style.left = ((e + 0.5) / 7 * 100) + '%';
@@ -476,7 +518,7 @@ async function render() {
         laneBox.appendChild(cap);
       }
 
-      if (b.url) capJobs.push({ bar, url: b.url });
+      if (b.url && bar) capJobs.push({ bar, url: b.url });
     });
 
     weekEl.appendChild(laneBox);
@@ -514,6 +556,19 @@ document.getElementById('today').addEventListener('click', () => {
   render();
 });
 document.addEventListener('click', hidePop);
+
+function syncToggles() {
+  document.getElementById('tLine').classList.toggle('on', showLine);
+  document.getElementById('tCover').classList.toggle('on', showCover);
+  try { localStorage.setItem(VIEW_KEY, JSON.stringify({ line: showLine, cover: showCover })); } catch {}
+}
+document.getElementById('tLine').addEventListener('click', () => {
+  showLine = !showLine; syncToggles(); render();
+});
+document.getElementById('tCover').addEventListener('click', () => {
+  showCover = !showCover; syncToggles(); render();
+});
+syncToggles();
 
 let resizeTimer;
 window.addEventListener('resize', () => {
