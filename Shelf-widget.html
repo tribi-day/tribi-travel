@@ -171,9 +171,6 @@ const COLOR_MODE = qs.get('color') || 'cover';
 const PER_SHELF = parseInt(qs.get('perShelf')) || 16;
 const YEAR = qs.get('year') || new Date().getFullYear();
 const OBI_RATE = qs.has('obi') ? parseInt(qs.get('obi')) : 35;
-// 띠지에 담을 표지 조각의 크기 — 가로 1/8, 세로 1/5
-const CROP_X = parseInt(qs.get('cropx')) || 8;
-const CROP_Y = parseInt(qs.get('cropy')) || 5;
 
 const PALETTE = [
   ['#2F4F6B','#EAF1F6'], ['#8C4A32','#FBEDE6'], ['#4A6B4E','#EDF4EC'],
@@ -199,8 +196,11 @@ function textOn(rgb) {
   return L > 0.58 ? 'rgba(20,26,26,.92)' : 'rgba(255,255,255,.94)';
 }
 
-// 표지에서 대표색 뽑기 (최빈 색상 구간)
+// 표지에서 대표색과 두 번째 색 뽑기
 const colorCache = {};
+function dist(a, b) {
+  return Math.sqrt((a[0]-b[0])**2 + (a[1]-b[1])**2 + (a[2]-b[2])**2);
+}
 async function dominantColor(url) {
   if (colorCache[url]) return colorCache[url];
   try {
@@ -229,15 +229,19 @@ async function dominantColor(url) {
             bn.n++; bn.r += r0; bn.g += g0; bn.b += b0;
             bn.sat += (mx - mn);
           }
-          let best = null;
-          for (const k in bins) {
-            const bn = bins[k];
-            // 많이 나오면서 채도도 있는 쪽을 선호
-            const score = bn.n * (1 + (bn.sat / bn.n) / 190);
-            if (!best || score > best.score) best = { ...bn, score };
-          }
-          if (!best) return resolve(null);
-          resolve([Math.round(best.r/best.n), Math.round(best.g/best.n), Math.round(best.b/best.n)]);
+          // 많이 나오면서 채도도 있는 쪽부터 정렬
+          const ranked = Object.values(bins)
+            .map(bn => ({
+              rgb: [Math.round(bn.r/bn.n), Math.round(bn.g/bn.n), Math.round(bn.b/bn.n)],
+              score: bn.n * (1 + (bn.sat / bn.n) / 190)
+            }))
+            .sort((a, b) => b.score - a.score);
+
+          if (!ranked.length) return resolve(null);
+          const main = ranked[0].rgb;
+          // 대표색과 충분히 다른 색을 두 번째로 고른다
+          const second = (ranked.find(x => dist(x.rgb, main) > 55) || {}).rgb || null;
+          resolve({ main, second });
         } catch { resolve(null); }
       };
       img.onerror = () => resolve(null);
@@ -246,6 +250,12 @@ async function dominantColor(url) {
     colorCache[url] = out;
     return out;
   } catch { return null; }
+}
+// 두 번째 색이 없을 때 대표색에서 파생
+function shiftShade(rgb) {
+  const L = (0.299*rgb[0] + 0.587*rgb[1] + 0.114*rgb[2]) / 255;
+  const f = L > 0.5 ? 0.62 : 1.55;
+  return rgb.map(v => Math.max(0, Math.min(255, Math.round(v * f))));
 }
 
 function stars(v) {
@@ -320,12 +330,10 @@ function hidePop() { pop.classList.remove('show'); }
 
         const dots = '<i></i>'.repeat(parseInt(b.rating) || 0);
 
-        // 띠지 — 약 35%의 책에 표지 일부를 잘라 두른다 (제목 기준 고정 랜덤)
-        const hasObi = b.url && hashJitter((b.title || '') + 'obi', 100) < OBI_RATE;
-        const obiH = hasObi ? 20 + hashJitter((b.title || '') + 'h', 10) : 0;
+        // 띠지 — 약 35%의 책에 두른다 (제목 기준 고정 랜덤)
+        const hasObi = hashJitter((b.title || '') + 'obi', 100) < OBI_RATE;
+        const obiH = hasObi ? 34 + hashJitter((b.title || '') + 'h', 17) : 0;
         const obiBottom = hasObi ? 8 + hashJitter((b.title || '') + 'b', 14) : 0;
-        const obiPosY = hasObi ? hashJitter((b.title || '') + 'y', 101) : 0;
-        const obiPosX = hasObi ? hashJitter((b.title || '') + 'x', 101) : 0;
 
         s.innerHTML =
           '<div class="stars">' + dots + '</div>' +
@@ -333,17 +341,17 @@ function hidePop() { pop.classList.remove('show'); }
             '<div class="t" style="width:' + (h - 34 - (hasObi ? obiH + obiBottom - 6 : 0)) + 'px">' + (b.title || '') + '</div>' +
           '</div>' +
           (hasObi
-            ? '<div class="obi" style="height:' + obiH + 'px;bottom:' + obiBottom + 'px;' +
-              'background-image:url(' + b.url + ');' +
-              'background-size:' + (CROP_X * 100) + '% ' + (CROP_Y * 100) + '%;' +
-              'background-position:' + obiPosX + '% ' + obiPosY + '%"></div>'
+            ? '<div class="obi" style="height:' + obiH + 'px;bottom:' + obiBottom + 'px"></div>'
             : '');
 
         s.addEventListener('mouseenter', () => showPop(b));
         s.addEventListener('mouseleave', hidePop);
         el.appendChild(s);
 
-        if (COLOR_MODE === 'cover' && b.url) pending.push({ s, url: b.url });
+        const obiEl = s.querySelector('.obi');
+        if (obiEl) obiEl.style.background = fg;
+
+        if (COLOR_MODE === 'cover' && b.url) pending.push({ s, obiEl, url: b.url });
       });
     });
 
@@ -360,10 +368,13 @@ function hidePop() { pop.classList.remove('show'); }
 
     // 표지색 적용 (한 권씩, 렌더 막지 않게)
     for (const p of pending) {
-      const rgb = await dominantColor(p.url);
-      if (rgb) {
-        p.s.style.background = 'rgb(' + rgb.join(',') + ')';
-        p.s.style.color = textOn(rgb);
+      const c = await dominantColor(p.url);
+      if (!c || !c.main) continue;
+      p.s.style.background = 'rgb(' + c.main.join(',') + ')';
+      p.s.style.color = textOn(c.main);
+      if (p.obiEl) {
+        const band = c.second || shiftShade(c.main);
+        p.obiEl.style.background = 'rgb(' + band.join(',') + ')';
       }
     }
 
