@@ -93,12 +93,12 @@
   .lanes {
     position: absolute;
     left: 0; right: 0;
-    top: 44px;
+    top: 40px;
     pointer-events: none;
   }
   .bar {
     position: absolute;
-    height: 6px;
+    height: 12px;
     opacity: .5;
     z-index: 1;
     pointer-events: auto;
@@ -114,8 +114,8 @@
     pointer-events: auto;
     cursor: default;
   }
-  .cap img { display: block; width: 100%; height: auto; border-radius: inherit; }
-  .cap.ph { background: #EDEDED; aspect-ratio: 1 / 1.45; }
+  .cap img { display: block; height: 100%; width: auto; border-radius: inherit; }
+  .cap.ph { background: #EDEDED; }
 
   /* ── 팝업 ─────────────────────────────── */
   .popup {
@@ -379,19 +379,17 @@ async function render() {
 
   // ── 2단계: 스크롤이 생기지 않도록 한 주 높이와 표지 크기를 정한다 ──
   const gridTop = grid.getBoundingClientRect().top;
-  const avail = window.innerHeight - gridTop - 22;
-  const budget = Math.max(52, Math.floor(avail / weeks) - 4);
+  const avail = window.innerHeight - gridTop - 36;
+  const budget = Math.max(50, Math.floor(avail / weeks) - 5);
 
-  let capW = CAP_W;
   let capH = CAP_H;
-  let need = 44 + Math.max(capH, (maxLane - 1) * LANE_H + 20) + 14;
+  let need = 40 + Math.max(capH, (maxLane - 1) * LANE_H + 22) + 10;
 
   if (need > budget) {
-    capW = Math.max(24, Math.min(CAP_W, Math.floor((budget - 58) / 1.55)));
-    capH = Math.round(capW * 1.55);
-    need = 44 + Math.max(capH, (maxLane - 1) * LANE_H + 20) + 14;
+    capH = Math.max(34, budget - 50);
+    need = 40 + Math.max(capH, (maxLane - 1) * LANE_H + 22) + 10;
   }
-  const rowH = Math.max(52, Math.min(need, budget));
+  const rowH = Math.max(50, Math.min(need, budget));
 
   // ── 3단계: 그리기 ──
   grid.innerHTML = '';
@@ -438,7 +436,8 @@ async function render() {
         cap.className = 'cap' + (b.url ? '' : ' ph');
         cap.style.left = ((e + 0.5) / 7 * 100) + '%';
         cap.style.top = (capH / 2) + 'px';
-        cap.style.width = capW + 'px';
+        cap.style.height = capH + 'px';
+        if (!b.url) cap.style.width = Math.round(capH / 1.45) + 'px';
         if (b.url) cap.innerHTML = '<img src="' + b.url + '" alt="">';
         cap.addEventListener('mouseenter', () => showPop(b));
         cap.addEventListener('mouseleave', hidePop);
