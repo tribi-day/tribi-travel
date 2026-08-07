@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>reading calendar</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, sans-serif;
+    background: transparent;
+    color: #1A1A1A;
+    padding: 24px 22px 30px;
+    letter-spacing: -0.01em;
+  }
+
+  /* ── 헤더 ─────────────────────────────── */
+  .top {
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+    margin-bottom: 26px;
+  }
+  .month {
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -0.045em;
+  }
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 3px;
+    border-bottom: 1px solid #1A1A1A;
+  }
+  .nav button {
+    background: none; border: 0;
+    font: inherit; font-size: 15px;
+    color: #9A9A9A;
+    cursor: pointer;
+    line-height: 1;
+    padding: 2px 1px;
+    transition: color .15s;
+  }
+  .nav button:hover { color: #1A1A1A; }
+  .nav .dot {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: #C8C8C8;
+    cursor: pointer;
+  }
+  .nav .dot:hover { background: #1A1A1A; }
+
+  /* ── 요일 ─────────────────────────────── */
+  .dow {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin-bottom: 12px;
+  }
+  .dow span {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: #9A9A9A;
+    text-transform: uppercase;
+  }
+
+  /* ── 주 ───────────────────────────────── */
+  .week { position: relative; margin-bottom: 4px; }
+  .cells {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+  }
+  .cell {
+    border-top: 1px solid #1A1A1A;
+    padding-top: 9px;
+    min-height: 104px;
+  }
+  .cell.out { border-top-color: #E4E4E4; }
+  .num {
+    font-size: 23px;
+    font-weight: 400;
+    color: #1A1A1A;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .cell.out .num { color: #CFCFCF; }
+  .cell.today .num { font-weight: 700; }
+
+  /* ── 기간 막대 ─────────────────────────── */
+  .lanes {
+    position: absolute;
+    left: 0; right: 0;
+    top: 44px;
+    pointer-events: none;
+  }
+  .bar {
+    position: absolute;
+    height: 3px;
+    border-radius: 2px;
+    pointer-events: auto;
+    cursor: default;
+  }
+  .cap {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    border-radius: 2px 4px 4px 2px;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.1), 4px 4px 12px rgba(0,0,0,0.07);
+    display: block;
+    pointer-events: auto;
+    cursor: default;
+  }
+  .cap img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: inherit; }
+  .cap.ph { background: #EDEDED; }
+
+  /* ── 팝업 ─────────────────────────────── */
+  .popup {
+    display: none;
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 14px 44px rgba(0,0,0,0.24);
+    padding: 20px;
+    width: 300px;
+    z-index: 99;
+    pointer-events: none;
+  }
+  .popup.show { display: block; }
+  .pbody { display: flex; gap: 14px; align-items: stretch; }
+  .pcover {
+    width: 84px; height: auto;
+    object-fit: contain;
+    border-radius: 2px 5px 5px 2px;
+    box-shadow: 2px 2px 6px rgba(0,0,0,.1), 4px 4px 12px rgba(0,0,0,.07);
+    flex-shrink: 0;
+  }
+  .pinfo { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+  .ptitle { font-size: 13px; font-weight: 700; line-height: 1.4; margin-bottom: 9px; }
+  .pmeta { font-size: 11px; color: #8A8A8A; margin-bottom: 4px; }
+  .pbottom { margin-top: auto; }
+  .pstars { font-size: 12px; color: #1A1A1A; }
+  .pdate { font-size: 11px; color: #ABABAB; }
+
+  .msg { color: #ABABAB; font-size: 13px; padding: 40px 0; text-align: center; }
+
+  @media (max-width: 560px) {
+    body { padding: 18px 14px 24px; }
+    .month { font-size: 23px; }
+    .cell { min-height: 82px; }
+    .num { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="month" id="monthLabel">—</div>
+  <div class="nav">
+    <button id="prev" title="이전 달">&#8249;</button>
+    <div class="dot" id="today" title="이번 달"></div>
+    <button id="next" title="다음 달">&#8250;</button>
+  </div>
+</div>
+
+<div class="dow">
+  <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span>
+  <span>Fri</span><span>Sat</span><span>Sun</span>
+</div>
+
+<div id="grid"><div class="msg">불러오는 중...</div></div>
+
+<div class="popup" id="popup">
+  <div class="pbody">
+    <img class="pcover" id="pCover" src="" alt="">
+    <div class="pinfo">
+      <div>
+        <div class="ptitle" id="pTitle"></div>
+        <div class="pmeta" id="pAuthor"></div>
+        <div class="pmeta" id="pPub"></div>
+      </div>
+      <div class="pbottom">
+        <div class="pstars" id="pStars"></div>
+        <div class="pdate" id="pDate"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── 설정 ────────────────────────────────────────
+// ?span=3   읽은 기간(일). 시작일 속성이 생기기 전까지 쓰는 임시값
+const qs = new URLSearchParams(location.search);
+const SPAN = parseInt(qs.get('span')) || 3;
+
+const LANE_H = 30;      // 막대 한 줄 높이
+const CAP_H = 30;       // 표지 높이
+
+let viewYear, viewMonth;   // 보고 있는 달 (month: 0-11)
+const yearCache = {};      // 연도별 책 목록
+
+// ── 표지 색 ─────────────────────────────────────
+const CACHE_KEY = 'calColors:v1';
+let colorCache = {};
+try { colorCache = JSON.parse(localStorage.getItem(CACHE_KEY) || '{}'); } catch {}
+let cacheDirty = false;
+function saveCache() {
+  if (!cacheDirty) return;
+  try { localStorage.setItem(CACHE_KEY, JSON.stringify(colorCache)); } catch {}
+  cacheDirty = false;
+}
+
+async function keyColor(url) {
+  if (colorCache[url]) return colorCache[url];
+  try {
+    const r = await fetch('/api/image-proxy?url=' + encodeURIComponent(url));
+    const d = await r.json();
+    if (!d.dataUrl) return null;
+    const rgb = await new Promise(resolve => {
+      const img = new Image();
+      img.onload = () => {
+        try {
+          const c = document.createElement('canvas');
+          c.width = 40; c.height = 40;
+          const ctx = c.getContext('2d');
+          ctx.drawImage(img, 0, 0, 40, 40);
+          const px = ctx.getImageData(0, 0, 40, 40).data;
+          const bins = {};
+          for (let i = 0; i < px.length; i += 4) {
+            const r0 = px[i], g0 = px[i+1], b0 = px[i+2];
+            const mx = Math.max(r0,g0,b0), mn = Math.min(r0,g0,b0);
+            if (mx > 238 && mn > 224) continue;   // 흰 여백 제외
+            if (mx < 26) continue;                // 검은 테두리 제외
+            const k = (r0>>5) + ',' + (g0>>5) + ',' + (b0>>5);
+            if (!bins[k]) bins[k] = { n:0, r:0, g:0, b:0, sat:0 };
+            const b = bins[k];
+            b.n++; b.r += r0; b.g += g0; b.b += b0;
+            b.sat += (mx - mn);
+          }
+          let best = null;
+          for (const k in bins) {
+            const b = bins[k];
+            const score = b.n * (1 + (b.sat / b.n) / 190);
+            if (!best || score > best.score) best = { ...b, score };
+          }
+          if (!best) return resolve(null);
+          resolve('rgb(' + Math.round(best.r/best.n) + ',' + Math.round(best.g/best.n) + ',' + Math.round(best.b/best.n) + ')');
+        } catch { resolve(null); }
+      };
+      img.onerror = () => resolve(null);
+      img.src = d.dataUrl;
+    });
+    colorCache[url] = rgb;
+    cacheDirty = true;
+    return rgb;
+  } catch { return null; }
+}
+
+// ── 팝업 ────────────────────────────────────────
+const popup = document.getElementById('popup');
+function fmtDate(d) {
+  if (!d) return '';
+  const t = new Date(d);
+  return t.getFullYear() + '년 ' + (t.getMonth()+1) + '월 ' + t.getDate() + '일';
+}
+function stars(v) {
+  if (!v) return '';
+  const n = parseInt(v);
+  if (isNaN(n)) return String(v);
+  return '★'.repeat(n) + '☆'.repeat(Math.max(0, 5 - n));
+}
+function showPop(b) {
+  document.getElementById('pCover').src = b.url || '';
+  document.getElementById('pTitle').textContent = b.title || '';
+  document.getElementById('pAuthor').textContent = b.author || '';
+  document.getElementById('pPub').textContent = b.publisher || '';
+  document.getElementById('pStars').textContent = stars(b.rating);
+  document.getElementById('pDate').textContent = fmtDate(b.date);
+  popup.classList.add('show');
+}
+function hidePop() { popup.classList.remove('show'); }
+
+// ── 데이터 ──────────────────────────────────────
+async function booksOf(year) {
+  if (yearCache[year]) return yearCache[year];
+  const r = await fetch('/api/reading-stats?year=' + year);
+  const d = await r.json();
+  const list = [...(d.fictionCovers||[]), ...(d.nonfictionCovers||[])]
+    .filter(b => b.date)
+    .map(b => {
+      const end = new Date(b.date + 'T00:00:00');
+      const start = new Date(end);
+      start.setDate(start.getDate() - (SPAN - 1));   // 임시: 완독일 기준 SPAN일
+      return { ...b, start, end };
+    });
+  yearCache[year] = list;
+  return list;
+}
+
+// ── 그리기 ──────────────────────────────────────
+function ymd(d) { return d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate(); }
+function sameDay(a, b) { return ymd(a) === ymd(b); }
+
+async function render() {
+  const grid = document.getElementById('grid');
+  const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  document.getElementById('monthLabel').textContent =
+    monthNames[viewMonth] + "' " + viewYear;
+
+  let books = [];
+  try {
+    // 달 경계에서 이전/다음 해 책이 걸칠 수 있어 양쪽 다 불러온다
+    const years = new Set([viewYear]);
+    if (viewMonth === 0) years.add(viewYear - 1);
+    if (viewMonth === 11) years.add(viewYear + 1);
+    const lists = await Promise.all([...years].map(y => booksOf(y).catch(() => [])));
+    books = lists.flat();
+  } catch {
+    grid.innerHTML = '<div class="msg">불러올 수 없어요 :(</div>';
+    return;
+  }
+
+  // 이 달 그리드의 첫 칸(월요일 시작)
+  const first = new Date(viewYear, viewMonth, 1);
+  const offset = (first.getDay() + 6) % 7;          // 월=0
+  const gridStart = new Date(viewYear, viewMonth, 1 - offset);
+  const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+  const weeks = Math.ceil((offset + daysInMonth) / 7);
+  const today = new Date();
+
+  grid.innerHTML = '';
+  const capJobs = [];
+
+  for (let w = 0; w < weeks; w++) {
+    const weekStart = new Date(gridStart);
+    weekStart.setDate(gridStart.getDate() + w * 7);
+    const weekEnd = new Date(weekStart);
+    weekEnd.setDate(weekStart.getDate() + 6);
+
+    const weekEl = document.createElement('div');
+    weekEl.className = 'week';
+
+    // 날짜 칸
+    const cells = document.createElement('div');
+    cells.className = 'cells';
+    for (let i = 0; i < 7; i++) {
+      const d = new Date(weekStart);
+      d.setDate(weekStart.getDate() + i);
+      const out = d.getMonth() !== viewMonth;
+      const cell = document.createElement('div');
+      cell.className = 'cell' + (out ? ' out' : '') + (sameDay(d, today) ? ' today' : '');
+      cell.innerHTML = '<div class="num">' + String(d.getDate()).padStart(2, '0') + '</div>';
+      cells.appendChild(cell);
+    }
+    weekEl.appendChild(cells);
+
+    // 이 주에 걸치는 책들
+    const inWeek = books
+      .filter(b => b.end >= weekStart && b.start <= weekEnd)
+      .sort((a, b) => a.start - b.start);
+
+    const lanes = [];   // 각 레인의 마지막 종료 칸
+    const laneBox = document.createElement('div');
+    laneBox.className = 'lanes';
+
+    inWeek.forEach(b => {
+      const s = Math.max(0, Math.round((b.start - weekStart) / 86400000));
+      const e = Math.min(6, Math.round((b.end - weekStart) / 86400000));
+
+      let lane = lanes.findIndex(last => last < s);
+      if (lane === -1) { lanes.push(e); lane = lanes.length - 1; }
+      else lanes[lane] = e;
+
+      const top = lane * LANE_H;
+
+      // 기간 실선
+      const bar = document.createElement('div');
+      bar.className = 'bar';
+      bar.style.left = (s / 7 * 100) + '%';
+      bar.style.width = ((e - s + 1) / 7 * 100) + '%';
+      bar.style.top = (top + CAP_H / 2) + 'px';
+      bar.style.background = '#DADADA';
+      bar.addEventListener('mouseenter', () => showPop(b));
+      bar.addEventListener('mouseleave', hidePop);
+      laneBox.appendChild(bar);
+
+      // 완독일 표지
+      const endsHere = b.end >= weekStart && b.end <= weekEnd;
+      if (endsHere) {
+        const cap = document.createElement('div');
+        cap.className = 'cap' + (b.url ? '' : ' ph');
+        cap.style.left = ((e + 0.5) / 7 * 100) + '%';
+        cap.style.top = (top + CAP_H / 2) + 'px';
+        cap.style.height = CAP_H + 'px';
+        cap.style.width = Math.round(CAP_H * 0.68) + 'px';
+        if (b.url) cap.innerHTML = '<img src="' + b.url + '" alt="">';
+        cap.addEventListener('mouseenter', () => showPop(b));
+        cap.addEventListener('mouseleave', hidePop);
+        laneBox.appendChild(cap);
+      }
+
+      if (b.url) capJobs.push({ bar, url: b.url });
+    });
+
+    laneBox.style.height = Math.max(1, lanes.length) * LANE_H + 'px';
+    weekEl.appendChild(laneBox);
+
+    // 막대가 많으면 칸 높이를 늘린다
+    if (lanes.length * LANE_H + 50 > 104) {
+      cells.querySelectorAll('.cell').forEach(c => {
+        c.style.minHeight = (lanes.length * LANE_H + 54) + 'px';
+      });
+    }
+
+    grid.appendChild(weekEl);
+  }
+
+  // 실선 색 입히기 (6권씩 동시에)
+  let cursor = 0;
+  await Promise.all(
+    Array.from({ length: Math.min(6, capJobs.length) }, async () => {
+      while (cursor < capJobs.length) {
+        const job = capJobs[cursor++];
+        const c = await keyColor(job.url);
+        if (c) job.bar.style.background = c;
+      }
+    })
+  );
+  saveCache();
+}
+
+// ── 이동 ────────────────────────────────────────
+document.getElementById('prev').addEventListener('click', () => {
+  viewMonth--;
+  if (viewMonth < 0) { viewMonth = 11; viewYear--; }
+  render();
+});
+document.getElementById('next').addEventListener('click', () => {
+  viewMonth++;
+  if (viewMonth > 11) { viewMonth = 0; viewYear++; }
+  render();
+});
+document.getElementById('today').addEventListener('click', () => {
+  const n = new Date();
+  viewYear = n.getFullYear(); viewMonth = n.getMonth();
+  render();
+});
+document.addEventListener('click', hidePop);
+
+const now = new Date();
+viewYear = parseInt(qs.get('year')) || now.getFullYear();
+viewMonth = qs.has('month') ? parseInt(qs.get('month')) - 1 : now.getMonth();
+render();
+</script>
+</body>
+</html>
