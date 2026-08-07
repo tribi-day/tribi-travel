@@ -189,14 +189,15 @@
 // ?color=palette  지정 팔레트
 // ?perShelf=18  한 칸에 꽂을 권수
 const qs = new URLSearchParams(location.search);
-const COLOR_MODE = qs.get('color') || 'cover';
 const PER_SHELF = parseInt(qs.get('perShelf')) || 40;
 const YEAR = qs.get('year') || new Date().getFullYear();
 const OBI_RATE = qs.has('obi') ? parseInt(qs.get('obi')) : 35;
 
 // 색 테마 — cover(표지 추출) / mono(모노톤) / pastel(파스텔톤)
 const THEME_KEY = 'shelfTheme:v1';
-let COLOR_MODE = qs.get('color') || localStorage.getItem(THEME_KEY) || 'cover';
+let savedTheme = null;
+try { savedTheme = localStorage.getItem(THEME_KEY); } catch {}
+let COLOR_MODE = qs.get('color') || savedTheme || 'cover';
 
 const MONO = ['#2B2B29','#3E3E3B','#52524E','#666660','#7C7C75','#93938B','#ABABA2','#C2C2B9','#D6D6CD'];
 const PASTEL = ['#EFC3B8','#F2DCA9','#CDE0C4','#BFD8E6','#D8CCE6','#EED6C2','#C9DED3','#E8C7D2','#D4D9EC','#EAD9B7'];
