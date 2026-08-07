@@ -80,7 +80,7 @@
   }
   .cell.out { border-top-color: #E4E4E4; }
   .num {
-    font-size: 23px;
+    font-size: 16px;
     font-weight: 400;
     color: #1A1A1A;
     letter-spacing: -0.02em;
@@ -99,17 +99,10 @@
   .bar {
     position: absolute;
     height: 6px;
+    opacity: .5;
     z-index: 1;
     pointer-events: auto;
     cursor: default;
-  }
-  .bardot {
-    position: absolute;
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
-    pointer-events: none;
   }
   .cap {
     position: absolute;
@@ -121,8 +114,8 @@
     pointer-events: auto;
     cursor: default;
   }
-  .cap img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: inherit; }
-  .cap.ph { background: #EDEDED; }
+  .cap img { display: block; width: 100%; height: auto; border-radius: inherit; }
+  .cap.ph { background: #EDEDED; aspect-ratio: 1 / 1.45; }
 
   /* ── 팝업 ─────────────────────────────── */
   .popup {
@@ -160,7 +153,7 @@
     body { padding: 18px 14px 24px; }
     .month { font-size: 23px; }
     .cell { min-height: 82px; }
-    .num { font-size: 18px; }
+    .num { font-size: 13px; }
   }
 </style>
 </head>
@@ -207,7 +200,7 @@ const SPAN = parseInt(qs.get('span')) || 3;
 
 const LANE_H = parseInt(qs.get('lane')) || 15;    // 막대 한 줄 간격
 const CAP_W = parseInt(qs.get('cap')) || 60;      // 표지 가로 (고정)
-const CAP_H = Math.round(CAP_W * 1.45);           // 표지 세로
+const CAP_H = Math.round(CAP_W * 1.55);           // 칸 높이 계산용 표지 세로 어림값
 const DEMO = parseInt(qs.get('demo')) || 0;       // 겹침 확인용 샘플 권수
 
 let viewYear, viewMonth;   // 보고 있는 달 (month: 0-11)
@@ -412,17 +405,6 @@ async function render() {
       bar.addEventListener('mouseleave', hidePop);
       laneBox.appendChild(bar);
 
-      // 시작점 동그라미 — 이 주에서 실제로 시작할 때만
-      let dot = null;
-      if (b.start >= weekStart) {
-        dot = document.createElement('div');
-        dot.className = 'bardot';
-        dot.style.left = (s / 7 * 100) + '%';
-        dot.style.top = (lane * LANE_H + 13) + 'px';
-        dot.style.background = '#DADADA';
-        laneBox.appendChild(dot);
-      }
-
       // 완독일 표지 — 막대 위치와 무관하게 항상 같은 높이(중앙)
       if (endsHere) {
         const cap = document.createElement('div');
@@ -430,14 +412,13 @@ async function render() {
         cap.style.left = ((e + 0.5) / 7 * 100) + '%';
         cap.style.top = (CAP_H / 2) + 'px';
         cap.style.width = CAP_W + 'px';
-        cap.style.height = CAP_H + 'px';
         if (b.url) cap.innerHTML = '<img src="' + b.url + '" alt="">';
         cap.addEventListener('mouseenter', () => showPop(b));
         cap.addEventListener('mouseleave', hidePop);
         laneBox.appendChild(cap);
       }
 
-      if (b.url) capJobs.push({ bar, dot, url: b.url });
+      if (b.url) capJobs.push({ bar, url: b.url });
     });
 
     const laneCount = Math.max(1, lanes.length);
@@ -460,10 +441,7 @@ async function render() {
       while (cursor < capJobs.length) {
         const job = capJobs[cursor++];
         const c = await keyColor(job.url);
-        if (c) {
-          job.bar.style.background = c;
-          if (job.dot) job.dot.style.background = c;
-        }
+        if (c) job.bar.style.background = c;
       }
     })
   );
