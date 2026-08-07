@@ -83,7 +83,6 @@
   .spine .obi {
     position: absolute;
     left: 0; right: 0;
-    background-size: cover;
     background-repeat: no-repeat;
     box-shadow: 0 -1px 0 rgba(0,0,0,.16), 0 1px 0 rgba(0,0,0,.16);
     pointer-events: none;
@@ -172,6 +171,9 @@ const COLOR_MODE = qs.get('color') || 'cover';
 const PER_SHELF = parseInt(qs.get('perShelf')) || 16;
 const YEAR = qs.get('year') || new Date().getFullYear();
 const OBI_RATE = qs.has('obi') ? parseInt(qs.get('obi')) : 35;
+// 띠지에 담을 표지 조각의 크기 — 가로 1/8, 세로 1/5
+const CROP_X = parseInt(qs.get('cropx')) || 8;
+const CROP_Y = parseInt(qs.get('cropy')) || 5;
 
 const PALETTE = [
   ['#2F4F6B','#EAF1F6'], ['#8C4A32','#FBEDE6'], ['#4A6B4E','#EDF4EC'],
@@ -323,6 +325,7 @@ function hidePop() { pop.classList.remove('show'); }
         const obiH = hasObi ? 20 + hashJitter((b.title || '') + 'h', 10) : 0;
         const obiBottom = hasObi ? 8 + hashJitter((b.title || '') + 'b', 14) : 0;
         const obiPosY = hasObi ? hashJitter((b.title || '') + 'y', 101) : 0;
+        const obiPosX = hasObi ? hashJitter((b.title || '') + 'x', 101) : 0;
 
         s.innerHTML =
           '<div class="stars">' + dots + '</div>' +
@@ -331,7 +334,9 @@ function hidePop() { pop.classList.remove('show'); }
           '</div>' +
           (hasObi
             ? '<div class="obi" style="height:' + obiH + 'px;bottom:' + obiBottom + 'px;' +
-              'background-image:url(' + b.url + ');background-position:center ' + obiPosY + '%"></div>'
+              'background-image:url(' + b.url + ');' +
+              'background-size:' + (CROP_X * 100) + '% ' + (CROP_Y * 100) + '%;' +
+              'background-position:' + obiPosX + '% ' + obiPosY + '%"></div>'
             : '');
 
         s.addEventListener('mouseenter', () => showPop(b));
