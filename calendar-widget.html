@@ -98,7 +98,7 @@
   }
   .bar {
     position: absolute;
-    height: 3px;
+    height: 6px;
     border-radius: 2px;
     pointer-events: auto;
     cursor: default;
@@ -196,8 +196,9 @@
 const qs = new URLSearchParams(location.search);
 const SPAN = parseInt(qs.get('span')) || 3;
 
-const LANE_H = 30;      // 막대 한 줄 높이
-const CAP_H = 30;       // 표지 높이
+const LANE_H = parseInt(qs.get('lane')) || 15;    // 막대 한 줄 간격
+const CAP_W = parseInt(qs.get('cap')) || 122;     // 표지 가로 (읽는 중인 책 위젯과 동일)
+const CAP_H = Math.round(CAP_W * 1.45);           // 표지 세로
 
 let viewYear, viewMonth;   // 보고 있는 달 (month: 0-11)
 const yearCache = {};      // 연도별 책 목록
@@ -394,8 +395,9 @@ async function render() {
         cap.className = 'cap' + (b.url ? '' : ' ph');
         cap.style.left = ((e + 0.5) / 7 * 100) + '%';
         cap.style.top = (top + CAP_H / 2) + 'px';
+        cap.style.width = CAP_W + 'px';
         cap.style.height = CAP_H + 'px';
-        cap.style.width = Math.round(CAP_H * 0.68) + 'px';
+        cap.style.zIndex = String(10 + lane);
         if (b.url) cap.innerHTML = '<img src="' + b.url + '" alt="">';
         cap.addEventListener('mouseenter', () => showPop(b));
         cap.addEventListener('mouseleave', hidePop);
@@ -405,15 +407,15 @@ async function render() {
       if (b.url) capJobs.push({ bar, url: b.url });
     });
 
-    laneBox.style.height = Math.max(1, lanes.length) * LANE_H + 'px';
+    const laneCount = Math.max(1, lanes.length);
+    laneBox.style.height = laneCount * LANE_H + 'px';
     weekEl.appendChild(laneBox);
 
-    // 막대가 많으면 칸 높이를 늘린다
-    if (lanes.length * LANE_H + 50 > 104) {
-      cells.querySelectorAll('.cell').forEach(c => {
-        c.style.minHeight = (lanes.length * LANE_H + 54) + 'px';
-      });
-    }
+    // 표지가 칸 밖으로 넘치지 않도록 칸 높이를 맞춘다
+    const need = 44 + (laneCount - 1) * LANE_H + CAP_H / 2 + 16;
+    cells.querySelectorAll('.cell').forEach(c => {
+      c.style.minHeight = Math.max(104, Math.round(need)) + 'px';
+    });
 
     grid.appendChild(weekEl);
   }
