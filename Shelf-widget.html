@@ -71,14 +71,22 @@
   .spine .t {
     position: absolute;
     top: 50%; left: 50%;
-    transform: translate(-50%, -50%) rotate(-90deg);
+    transform: translate(-50%, -50%) rotate(90deg);
     font-size: 8px;
     font-weight: 500;
     line-height: 1.2;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    text-align: right;
+    text-align: left;
+  }
+  .spine .obi {
+    position: absolute;
+    left: 0; right: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    box-shadow: 0 -1px 0 rgba(0,0,0,.16), 0 1px 0 rgba(0,0,0,.16);
+    pointer-events: none;
   }
   .spine.nopage { opacity: .55; }
 
@@ -163,6 +171,7 @@ const qs = new URLSearchParams(location.search);
 const COLOR_MODE = qs.get('color') || 'cover';
 const PER_SHELF = parseInt(qs.get('perShelf')) || 16;
 const YEAR = qs.get('year') || new Date().getFullYear();
+const OBI_RATE = qs.has('obi') ? parseInt(qs.get('obi')) : 35;
 
 const PALETTE = [
   ['#2F4F6B','#EAF1F6'], ['#8C4A32','#FBEDE6'], ['#4A6B4E','#EDF4EC'],
@@ -308,9 +317,22 @@ function hidePop() { pop.classList.remove('show'); }
         s.style.color = fg;
 
         const dots = '<i></i>'.repeat(parseInt(b.rating) || 0);
+
+        // 띠지 — 약 35%의 책에 표지 일부를 잘라 두른다 (제목 기준 고정 랜덤)
+        const hasObi = b.url && hashJitter((b.title || '') + 'obi', 100) < OBI_RATE;
+        const obiH = hasObi ? 20 + hashJitter((b.title || '') + 'h', 10) : 0;
+        const obiBottom = hasObi ? 8 + hashJitter((b.title || '') + 'b', 14) : 0;
+        const obiPosY = hasObi ? hashJitter((b.title || '') + 'y', 101) : 0;
+
         s.innerHTML =
           '<div class="stars">' + dots + '</div>' +
-          '<div class="twrap"><div class="t" style="width:' + (h - 34) + 'px">' + (b.title || '') + '</div></div>';
+          '<div class="twrap"' + (hasObi ? ' style="margin-bottom:' + (obiH + obiBottom - 6) + 'px"' : '') + '>' +
+            '<div class="t" style="width:' + (h - 34 - (hasObi ? obiH + obiBottom - 6 : 0)) + 'px">' + (b.title || '') + '</div>' +
+          '</div>' +
+          (hasObi
+            ? '<div class="obi" style="height:' + obiH + 'px;bottom:' + obiBottom + 'px;' +
+              'background-image:url(' + b.url + ');background-position:center ' + obiPosY + '%"></div>'
+            : '');
 
         s.addEventListener('mouseenter', () => showPop(b));
         s.addEventListener('mouseleave', hidePop);
