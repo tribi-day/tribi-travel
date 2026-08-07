@@ -98,7 +98,6 @@
   }
   .bar {
     position: absolute;
-    height: 12px;
     opacity: .5;
     z-index: 1;
     pointer-events: auto;
@@ -196,9 +195,29 @@
 // ── 설정 ────────────────────────────────────────
 // ?span=3   읽은 기간(일). 시작일 속성이 생기기 전까지 쓰는 임시값
 const qs = new URLSearchParams(location.search);
-const SPAN = parseInt(qs.get('span')) || 3;
+const SPAN_RAW = qs.get('span') || '3';
+const SPAN = parseInt(SPAN_RAW) || 3;
+const SPAN_RANDOM = SPAN_RAW === 'random' || (qs.has('demo') && !qs.has('span'));
 
-const LANE_H = parseInt(qs.get('lane')) || 8;    // 막대 한 줄 간격
+// 제목 기준 고정 랜덤 — 새로고침해도 같은 결과
+function seed(str, range) {
+  let h = 2166136261;
+  for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); }
+  h ^= h >>> 15; h = Math.imul(h, 2246822507); h ^= h >>> 13;
+  return (h >>> 0) % range;
+}
+// 짧은 책이 많고 가끔 긴 책이 나오도록
+function spanOf(b) {
+  if (!SPAN_RANDOM) return SPAN;
+  const r = seed((b.title || b.pageId || '') + 'span', 100);
+  if (r < 30) return 1 + seed(b.title || '', 2);        // 1~2일
+  if (r < 70) return 3 + seed((b.title || '') + 'a', 4); // 3~6일
+  if (r < 92) return 7 + seed((b.title || '') + 'b', 6); // 7~12일
+  return 14 + seed((b.title || '') + 'c', 10);           // 14~23일
+}
+
+const BAR_H = parseInt(qs.get('bar')) || 8;      // 막대 굵기
+const LANE_H = parseInt(qs.get('lane')) || (BAR_H + 4);  // 줄 간격 (겹치지 않게)
 const CAP_W = parseInt(qs.get('cap')) || 60;      // 표지 가로 (고정)
 const CAP_H = Math.round(CAP_W * 1.55);           // 칸 높이 계산용 표지 세로 어림값
 const DEMO = parseInt(qs.get('demo')) || 0;       // 겹침 확인용 샘플 권수
@@ -297,7 +316,7 @@ async function booksOf(year) {
     .map(b => {
       const end = new Date(b.date + 'T00:00:00');
       const start = new Date(end);
-      start.setDate(start.getDate() - (SPAN - 1));   // 임시: 완독일 기준 SPAN일
+      start.setDate(start.getDate() - (spanOf(b) - 1));   // 임시: 시작일 속성이 생기기 전까지
       return { ...b, start, end };
     });
   yearCache[year] = list;
@@ -331,7 +350,7 @@ async function render() {
         const day = 1 + Math.floor(((i * 7 + (i % 5) * 3) % days));
         const end = new Date(viewYear, viewMonth, day);
         const start = new Date(end);
-        start.setDate(start.getDate() - (SPAN - 1));
+        start.setDate(start.getDate() - (spanOf({ title: (b.title || '') + i }) - 1));
         return { ...b, start, end, date: end.toISOString().slice(0, 10) };
       });
     }
@@ -424,6 +443,7 @@ async function render() {
       bar.className = 'bar';
       bar.style.left = (s / 7 * 100) + '%';
       bar.style.width = ((right - s) / 7 * 100) + '%';
+      bar.style.height = BAR_H + 'px';
       bar.style.top = (lane * LANE_H + 10) + 'px';
       bar.style.background = '#DADADA';
       bar.addEventListener('mouseenter', () => showPop(b));
