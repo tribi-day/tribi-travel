@@ -17,17 +17,6 @@
     letter-spacing: -0.01em;
   }
 
-  .head { text-align: center; margin-bottom: 22px; }
-  .eyebrow {
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: #8A918D;
-    margin-bottom: 5px;
-  }
-  .title { font-size: 21px; font-weight: 700; letter-spacing: -0.04em; }
-
   /* ── 선반 ─────────────────────────────── */
   .shelf-unit { margin-bottom: 16px; }
   .shelf {
@@ -134,11 +123,6 @@
 </head>
 <body>
 
-<div class="head">
-  <div class="eyebrow">a year in</div>
-  <div class="title" id="ttl">읽은 책</div>
-</div>
-
 <div id="stage"><div class="msg">불러오는 중...</div></div>
 
 <div class="popup" id="popup">
@@ -166,7 +150,7 @@
 // ?perShelf=18  한 칸에 꽂을 권수
 const qs = new URLSearchParams(location.search);
 const COLOR_MODE = qs.get('color') || 'cover';
-const PER_SHELF = parseInt(qs.get('perShelf')) || 16;
+const PER_SHELF = parseInt(qs.get('perShelf')) || 20;
 const YEAR = qs.get('year') || new Date().getFullYear();
 const OBI_RATE = qs.has('obi') ? parseInt(qs.get('obi')) : 35;
 
@@ -292,7 +276,6 @@ function hidePop() { pop.classList.remove('show'); }
 // ── 그리기 ──────────────────────────────────────
 (async () => {
   const stage = document.getElementById('stage');
-  document.getElementById('ttl').textContent = '읽은 책 ' + YEAR;
 
   try {
     const r = await fetch('/api/reading-stats?year=' + YEAR);
@@ -370,6 +353,7 @@ function hidePop() { pop.classList.remove('show'); }
     const foot = document.createElement('div');
     foot.className = 'foot';
     foot.innerHTML =
+      '<span style="font-weight:700;color:#1C2B2D">' + YEAR + '</span>' +
       '<span>' + books.length + '권</span>' +
       '<span>' + totalPages.toLocaleString() + '쪽</span>' +
       '<span>약 ' + cm + 'cm</span>';
