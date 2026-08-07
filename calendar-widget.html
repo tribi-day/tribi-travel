@@ -99,13 +99,14 @@
   .bar {
     position: absolute;
     height: 6px;
-    border-radius: 2px;
+    z-index: 1;
     pointer-events: auto;
     cursor: default;
   }
   .cap {
     position: absolute;
     transform: translate(-50%, -50%);
+    z-index: 5;
     border-radius: 2px 4px 4px 2px;
     box-shadow: 2px 2px 6px rgba(0,0,0,0.1), 4px 4px 12px rgba(0,0,0,0.07);
     display: block;
@@ -197,8 +198,8 @@ const qs = new URLSearchParams(location.search);
 const SPAN = parseInt(qs.get('span')) || 3;
 
 const LANE_H = parseInt(qs.get('lane')) || 15;    // 막대 한 줄 간격
-const CAP_W = parseInt(qs.get('cap')) || 122;     // 표지 가로 (읽는 중인 책 위젯과 동일)
-const CAP_H = Math.round(CAP_W * 1.45);           // 표지 세로
+const CAP_FIT = parseFloat(qs.get('cap')) || 0.68; // 표지 폭 / 날짜 칸 폭
+const CAP_RATIO = 1.45;                            // 표지 세로 비율
 
 let viewYear, viewMonth;   // 보고 있는 달 (month: 0-11)
 const yearCache = {};      // 연도별 책 목록
@@ -335,6 +336,11 @@ async function render() {
   grid.innerHTML = '';
   const capJobs = [];
 
+  // 날짜 칸 폭에 맞춰 표지 크기를 정한다
+  const cellW = (grid.clientWidth || 700) / 7;
+  const CAP_W = Math.round(cellW * CAP_FIT);
+  const CAP_H = Math.round(CAP_W * CAP_RATIO);
+
   for (let w = 0; w < weeks; w++) {
     const weekStart = new Date(gridStart);
     weekStart.setDate(gridStart.getDate() + w * 7);
@@ -375,29 +381,28 @@ async function render() {
       if (lane === -1) { lanes.push(e); lane = lanes.length - 1; }
       else lanes[lane] = e;
 
-      const top = lane * LANE_H;
+      const endsHere = b.end >= weekStart && b.end <= weekEnd;
 
-      // 기간 실선
+      // 기간 실선 — 완독일 칸에서 끝날 때는 표지 뒤에서 끊는다
+      const right = endsHere ? (e + 0.5) : (e + 1);
       const bar = document.createElement('div');
       bar.className = 'bar';
       bar.style.left = (s / 7 * 100) + '%';
-      bar.style.width = ((e - s + 1) / 7 * 100) + '%';
-      bar.style.top = (top + CAP_H / 2) + 'px';
+      bar.style.width = ((right - s) / 7 * 100) + '%';
+      bar.style.top = (lane * LANE_H + 10) + 'px';
       bar.style.background = '#DADADA';
       bar.addEventListener('mouseenter', () => showPop(b));
       bar.addEventListener('mouseleave', hidePop);
       laneBox.appendChild(bar);
 
-      // 완독일 표지
-      const endsHere = b.end >= weekStart && b.end <= weekEnd;
+      // 완독일 표지 — 막대 위치와 무관하게 항상 같은 높이(중앙)
       if (endsHere) {
         const cap = document.createElement('div');
         cap.className = 'cap' + (b.url ? '' : ' ph');
         cap.style.left = ((e + 0.5) / 7 * 100) + '%';
-        cap.style.top = (top + CAP_H / 2) + 'px';
+        cap.style.top = (CAP_H / 2) + 'px';
         cap.style.width = CAP_W + 'px';
         cap.style.height = CAP_H + 'px';
-        cap.style.zIndex = String(10 + lane);
         if (b.url) cap.innerHTML = '<img src="' + b.url + '" alt="">';
         cap.addEventListener('mouseenter', () => showPop(b));
         cap.addEventListener('mouseleave', hidePop);
@@ -412,7 +417,7 @@ async function render() {
     weekEl.appendChild(laneBox);
 
     // 표지가 칸 밖으로 넘치지 않도록 칸 높이를 맞춘다
-    const need = 44 + (laneCount - 1) * LANE_H + CAP_H / 2 + 16;
+    const need = 44 + Math.max(CAP_H, (laneCount - 1) * LANE_H + 20) + 14;
     cells.querySelectorAll('.cell').forEach(c => {
       c.style.minHeight = Math.max(104, Math.round(need)) + 'px';
     });
@@ -451,6 +456,12 @@ document.getElementById('today').addEventListener('click', () => {
   render();
 });
 document.addEventListener('click', hidePop);
+
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(render, 180);
+});
 
 const now = new Date();
 viewYear = parseInt(qs.get('year')) || now.getFullYear();
