@@ -98,11 +98,12 @@
   }
   .bar {
     position: absolute;
-    opacity: .5;
+    opacity: .3;
     z-index: 1;
     pointer-events: auto;
     cursor: default;
   }
+  .bar.now { opacity: .8; }
   .cap {
     position: absolute;
     transform: translate(-50%, -50%);
@@ -311,14 +312,18 @@ async function booksOf(year) {
   if (yearCache[year]) return yearCache[year];
   const r = await fetch('/api/reading-stats?year=' + year);
   const d = await r.json();
+  const now = new Date();
+  const todayMid = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   const list = [...(d.fictionCovers||[]), ...(d.nonfictionCovers||[])]
-    .filter(b => b.date)
     .map(b => {
-      const end = new Date(b.date + 'T00:00:00');
+      const ongoing = !b.date;                    // 완독일이 없으면 읽는 중
+      const end = ongoing ? new Date(todayMid) : new Date(b.date + 'T00:00:00');
+      if (isNaN(end)) return null;
       const start = new Date(end);
       start.setDate(start.getDate() - (spanOf(b) - 1));   // 임시: 시작일 속성이 생기기 전까지
-      return { ...b, start, end };
-    });
+      return { ...b, start, end, ongoing };
+    })
+    .filter(Boolean);
   yearCache[year] = list;
   return list;
 }
@@ -351,7 +356,7 @@ async function render() {
         const end = new Date(viewYear, viewMonth, day);
         const start = new Date(end);
         start.setDate(start.getDate() - (spanOf({ title: (b.title || '') + i }) - 1));
-        return { ...b, start, end, date: end.toISOString().slice(0, 10) };
+        return { ...b, start, end, ongoing: false, date: end.toISOString().slice(0, 10) };
       });
     }
   } catch {
@@ -388,7 +393,8 @@ async function render() {
       let lane = lanes.findIndex(last => last < s);
       if (lane === -1) { lanes.push(e); lane = lanes.length - 1; }
       else lanes[lane] = e;
-      return { b, s, e, lane, endsHere: b.end >= weekStart && b.end <= weekEnd };
+      const endsHere = !b.ongoing && b.end >= weekStart && b.end <= weekEnd;
+      return { b, s, e, lane, endsHere };
     });
 
     const laneCount = Math.max(1, lanes.length);
@@ -440,7 +446,7 @@ async function render() {
       // 기간 실선 — 완독일 칸에서 끝날 때는 표지 뒤에서 끊는다
       const right = endsHere ? (e + 0.5) : (e + 1);
       const bar = document.createElement('div');
-      bar.className = 'bar';
+      bar.className = 'bar' + (b.ongoing ? ' now' : '');
       bar.style.left = (s / 7 * 100) + '%';
       bar.style.width = ((right - s) / 7 * 100) + '%';
       bar.style.height = BAR_H + 'px';
