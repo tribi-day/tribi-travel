@@ -198,7 +198,7 @@
 const qs = new URLSearchParams(location.search);
 const SPAN = parseInt(qs.get('span')) || 3;
 
-const LANE_H = parseInt(qs.get('lane')) || 15;    // 막대 한 줄 간격
+const LANE_H = parseInt(qs.get('lane')) || 8;    // 막대 한 줄 간격
 const CAP_W = parseInt(qs.get('cap')) || 60;      // 표지 가로 (고정)
 const CAP_H = Math.round(CAP_W * 1.55);           // 칸 높이 계산용 표지 세로 어림값
 const DEMO = parseInt(qs.get('demo')) || 0;       // 겹침 확인용 샘플 권수
@@ -348,8 +348,9 @@ async function render() {
   const weeks = Math.ceil((offset + daysInMonth) / 7);
   const today = new Date();
 
-  grid.innerHTML = '';
-  const capJobs = [];
+  // ── 1단계: 주별로 어느 책이 몇 번째 줄에 놓일지 계산 ──
+  const plan = [];
+  let maxLane = 1;
 
   for (let w = 0; w < weeks; w++) {
     const weekStart = new Date(gridStart);
@@ -357,10 +358,49 @@ async function render() {
     const weekEnd = new Date(weekStart);
     weekEnd.setDate(weekStart.getDate() + 6);
 
+    const inWeek = books
+      .filter(b => b.end >= weekStart && b.start <= weekEnd)
+      .sort((a, b) => a.start - b.start);
+
+    const lanes = [];
+    const items = inWeek.map(b => {
+      const s = Math.max(0, Math.round((b.start - weekStart) / 86400000));
+      const e = Math.min(6, Math.round((b.end - weekStart) / 86400000));
+      let lane = lanes.findIndex(last => last < s);
+      if (lane === -1) { lanes.push(e); lane = lanes.length - 1; }
+      else lanes[lane] = e;
+      return { b, s, e, lane, endsHere: b.end >= weekStart && b.end <= weekEnd };
+    });
+
+    const laneCount = Math.max(1, lanes.length);
+    if (laneCount > maxLane) maxLane = laneCount;
+    plan.push({ weekStart, items, laneCount });
+  }
+
+  // ── 2단계: 스크롤이 생기지 않도록 한 주 높이와 표지 크기를 정한다 ──
+  const gridTop = grid.getBoundingClientRect().top;
+  const avail = window.innerHeight - gridTop - 22;
+  const budget = Math.max(52, Math.floor(avail / weeks) - 4);
+
+  let capW = CAP_W;
+  let capH = CAP_H;
+  let need = 44 + Math.max(capH, (maxLane - 1) * LANE_H + 20) + 14;
+
+  if (need > budget) {
+    capW = Math.max(24, Math.min(CAP_W, Math.floor((budget - 58) / 1.55)));
+    capH = Math.round(capW * 1.55);
+    need = 44 + Math.max(capH, (maxLane - 1) * LANE_H + 20) + 14;
+  }
+  const rowH = Math.max(52, Math.min(need, budget));
+
+  // ── 3단계: 그리기 ──
+  grid.innerHTML = '';
+  const capJobs = [];
+
+  plan.forEach(({ weekStart, items, laneCount }) => {
     const weekEl = document.createElement('div');
     weekEl.className = 'week';
 
-    // 날짜 칸
     const cells = document.createElement('div');
     cells.className = 'cells';
     for (let i = 0; i < 7; i++) {
@@ -369,30 +409,17 @@ async function render() {
       const out = d.getMonth() !== viewMonth;
       const cell = document.createElement('div');
       cell.className = 'cell' + (out ? ' out' : '') + (sameDay(d, today) ? ' today' : '');
+      cell.style.minHeight = rowH + 'px';
       cell.innerHTML = '<div class="num">' + String(d.getDate()).padStart(2, '0') + '</div>';
       cells.appendChild(cell);
     }
     weekEl.appendChild(cells);
 
-    // 이 주에 걸치는 책들
-    const inWeek = books
-      .filter(b => b.end >= weekStart && b.start <= weekEnd)
-      .sort((a, b) => a.start - b.start);
-
-    const lanes = [];   // 각 레인의 마지막 종료 칸
     const laneBox = document.createElement('div');
     laneBox.className = 'lanes';
+    laneBox.style.height = laneCount * LANE_H + 'px';
 
-    inWeek.forEach(b => {
-      const s = Math.max(0, Math.round((b.start - weekStart) / 86400000));
-      const e = Math.min(6, Math.round((b.end - weekStart) / 86400000));
-
-      let lane = lanes.findIndex(last => last < s);
-      if (lane === -1) { lanes.push(e); lane = lanes.length - 1; }
-      else lanes[lane] = e;
-
-      const endsHere = b.end >= weekStart && b.end <= weekEnd;
-
+    items.forEach(({ b, s, e, lane, endsHere }) => {
       // 기간 실선 — 완독일 칸에서 끝날 때는 표지 뒤에서 끊는다
       const right = endsHere ? (e + 0.5) : (e + 1);
       const bar = document.createElement('div');
@@ -405,13 +432,13 @@ async function render() {
       bar.addEventListener('mouseleave', hidePop);
       laneBox.appendChild(bar);
 
-      // 완독일 표지 — 막대 위치와 무관하게 항상 같은 높이(중앙)
+      // 완독일 표지 — 막대 위치와 무관하게 항상 같은 높이
       if (endsHere) {
         const cap = document.createElement('div');
         cap.className = 'cap' + (b.url ? '' : ' ph');
         cap.style.left = ((e + 0.5) / 7 * 100) + '%';
-        cap.style.top = (CAP_H / 2) + 'px';
-        cap.style.width = CAP_W + 'px';
+        cap.style.top = (capH / 2) + 'px';
+        cap.style.width = capW + 'px';
         if (b.url) cap.innerHTML = '<img src="' + b.url + '" alt="">';
         cap.addEventListener('mouseenter', () => showPop(b));
         cap.addEventListener('mouseleave', hidePop);
@@ -421,18 +448,9 @@ async function render() {
       if (b.url) capJobs.push({ bar, url: b.url });
     });
 
-    const laneCount = Math.max(1, lanes.length);
-    laneBox.style.height = laneCount * LANE_H + 'px';
     weekEl.appendChild(laneBox);
-
-    // 표지가 칸 밖으로 넘치지 않도록 칸 높이를 맞춘다
-    const need = 44 + Math.max(CAP_H, (laneCount - 1) * LANE_H + 20) + 14;
-    cells.querySelectorAll('.cell').forEach(c => {
-      c.style.minHeight = Math.max(104, Math.round(need)) + 'px';
-    });
-
     grid.appendChild(weekEl);
-  }
+  });
 
   // 실선 색 입히기 (6권씩 동시에)
   let cursor = 0;
